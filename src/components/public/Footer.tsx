@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="border-t-4 border-red-600 bg-black text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {/* Brand Col */}
           <div className="md:col-span-2 space-y-4">
             <Link href="/" className="inline-block">
@@ -28,13 +28,19 @@ export default function Footer() {
               Menanggapi dunia yang berisik tanpa harus kehilangan akal sehat.
             </p>
 
-            <div className="pt-2">
+            <div className="pt-2 flex flex-wrap gap-2">
               <Link
                 href="/login"
-                className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider px-5 py-2.5 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors shadow-sm"
+                className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider px-4 py-2.5 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors shadow-sm"
               >
-                <span>Kirim Tulisan ke Redaksi</span>
+                <span>Kirim Tulisan</span>
                 <ArrowUpRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/rekrutmen"
+                className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider px-4 py-2.5 rounded-lg bg-zinc-800 text-white hover:bg-zinc-700 transition-colors"
+              >
+                <span>Rekrutmen</span>
               </Link>
             </div>
           </div>
@@ -44,12 +50,12 @@ export default function Footer() {
             <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-4 pb-1 border-b border-zinc-800">
               8 Rubrik BELOKIRI
             </h4>
-            <ul className="grid grid-cols-2 gap-2.5 text-xs font-bold">
+            <ul className="space-y-2 text-xs font-bold">
               {MOCK_RUBRIKS.map((rubrik) => (
                 <li key={rubrik.slug}>
                   <Link
                     href={`/kategori/${rubrik.slug}`}
-                    className="text-zinc-300 hover:text-red-500 transition-colors"
+                    className="text-zinc-300 hover:text-red-500 transition-colors block py-0.5"
                   >
                     {rubrik.name}
                   </Link>
@@ -58,15 +64,30 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Information & Legal Col */}
+          {/* Kanal & Gerakan */}
           <div>
             <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-4 pb-1 border-b border-zinc-800">
-              Informasi & Etika
+              Kanal & Gerakan
             </h4>
-            <ul className="space-y-3 text-xs text-zinc-300 font-medium">
+            <ul className="space-y-2.5 text-xs text-zinc-300 font-medium">
               <li>
-                <Link href="/tentang-kami" className="hover:text-red-500 transition-colors">
-                  Tentang Kami
+                <Link href="/manifesto" className="hover:text-red-500 transition-colors font-bold text-white">
+                  Manifesto
+                </Link>
+              </li>
+              <li>
+                <Link href="/rekrutmen" className="hover:text-red-500 transition-colors">
+                  Rekrutmen Anggota
+                </Link>
+              </li>
+              <li>
+                <Link href="/literatur-liberte" className="hover:text-red-500 transition-colors">
+                  Literatur Liberte
+                </Link>
+              </li>
+              <li>
+                <Link href="/konstitusi" className="hover:text-red-500 transition-colors">
+                  Konstitusi Redaksi
                 </Link>
               </li>
               <li>
@@ -74,9 +95,18 @@ export default function Footer() {
                   Redaksi & Kontak
                 </Link>
               </li>
+            </ul>
+          </div>
+
+          {/* Sindikasi & Arsip */}
+          <div>
+            <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-4 pb-1 border-b border-zinc-800">
+              Sindikasi & Arsip
+            </h4>
+            <ul className="space-y-2.5 text-xs text-zinc-300 font-medium">
               <li>
                 <Link href="/berita" className="hover:text-red-500 transition-colors">
-                  Indeks Berita
+                  Indeks Semua Tulisan
                 </Link>
               </li>
               <li>
@@ -106,16 +136,6 @@ export default function Footer() {
                   <span>Peta Situs (Sitemap)</span>
                 </Link>
               </li>
-              <li>
-                <span className="text-zinc-600 cursor-default">
-                  Pedoman Media Siber
-                </span>
-              </li>
-              <li>
-                <span className="text-zinc-600 cursor-default">
-                  Kebijakan Privasi
-                </span>
-              </li>
             </ul>
           </div>
         </div>
@@ -123,7 +143,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-zinc-800 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 gap-4 font-medium">
           <p>© {new Date().getFullYear()} BELOKIRI. Seluruh hak cipta dilindungi undang-undang.</p>
-          <p className="text-zinc-400">Next.js • Supabase • Vercel Architecture</p>
+          <p className="text-zinc-400">Liar Seperlunya, Jenaka Secukupnya</p>
         </div>
       </div>
     </footer>

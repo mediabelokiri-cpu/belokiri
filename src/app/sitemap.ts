@@ -20,10 +20,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/tentang-kami`,
+      url: `${baseUrl}/manifesto`,
       lastModified: new Date(),
       changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/rekrutmen`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/literatur-liberte`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
       priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/konstitusi`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
     },
     {
       url: `${baseUrl}/kontak`,
