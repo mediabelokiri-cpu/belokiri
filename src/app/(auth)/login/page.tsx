@@ -1,25 +1,38 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Sparkles, AlertCircle } from "lucide-react";
+import { loginAsDemoContributor, loginWithGoogleAction } from "@/actions/auth.actions";
 
 export const metadata: Metadata = {
   title: "Masuk Kontributor | NALAR",
   description: "Masuk menggunakan akun Google untuk menulis artikel dan mengirim naskah ke Redaksi NALAR.",
 };
 
-export default function LoginPage() {
+interface LoginPageProps {
+  searchParams: Promise<{
+    callbackUrl?: string;
+    error?: string;
+  }>;
+}
+
+export default async function LoginPage({ searchParams }: LoginPageProps) {
+  const params = await searchParams;
+  const isSuspended = params.error === "suspended";
+
   return (
-    <div className="min-h-screen bg-[#f4f4f5] flex flex-col justify-between p-4 sm:p-6">
+    <div className="min-h-screen bg-[#f4f4f5] flex flex-col justify-between p-4 sm:p-6 font-sans">
       {/* Top Bar */}
       <div className="max-w-6xl mx-auto w-full flex items-center justify-between">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-xs font-black uppercase text-zinc-700 hover:text-black transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-black uppercase text-zinc-700 hover:text-red-600 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 text-red-600" />
           <span>Kembali ke NALAR</span>
         </Link>
-        <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">Portal Kontributor</span>
+        <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">
+          Portal Kontributor
+        </span>
       </div>
 
       {/* Main Login Card */}
@@ -46,6 +59,13 @@ export default function LoginPage() {
           </p>
         </div>
 
+        {isSuspended && (
+          <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-left flex items-start gap-2 text-xs text-red-700">
+            <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+            <p>Akun Anda sedang ditangguhkan. Hubungi tim redaksi NALAR untuk informasi lebih lanjut.</p>
+          </div>
+        )}
+
         {/* Benefits bullets */}
         <div className="bg-zinc-50 rounded-2xl p-4 text-left space-y-2.5 text-xs text-zinc-700 border border-zinc-200">
           <div className="flex items-center gap-2 font-medium">
@@ -62,34 +82,59 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* Google Sign-in CTA */}
-        <div className="pt-2">
-          <button
-            type="button"
-            className="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-xl border-2 border-zinc-300 hover:border-black bg-white hover:bg-zinc-50 text-black text-xs font-black uppercase tracking-wider transition-all shadow-xs cursor-pointer group"
+        {/* Login CTAs */}
+        <div className="pt-2 space-y-3">
+          {/* Google Sign-in */}
+          <form
+            action={async () => {
+              "use server";
+              await loginWithGoogleAction(params.callbackUrl || "/dashboard");
+            }}
           >
-            <svg className="w-4 h-4" viewBox="0 0 24 24">
-              <path
-                fill="#4285F4"
-                d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.14z"
-              />
-              <path
-                fill="#34A853"
-                d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"
-              />
-              <path
-                fill="#FBBC05"
-                d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.17 0 9.97 0 12s.45 3.83 1.25 5.42l4.03-3.15z"
-              />
-              <path
-                fill="#EA4335"
-                d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
-              />
-            </svg>
-            <span>Lanjutkan dengan Google</span>
-          </button>
-          <p className="text-[10px] text-zinc-400 mt-3 font-medium">
-            Otentikasi aman via Google OAuth • Otomatis terdaftar sebagai Kontributor
+            <button
+              type="submit"
+              className="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-xl border-2 border-zinc-300 hover:border-black bg-white hover:bg-zinc-50 text-black text-xs font-black uppercase tracking-wider transition-all shadow-xs cursor-pointer group"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24">
+                <path
+                  fill="#4285F4"
+                  d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.14z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.17 0 9.97 0 12s.45 3.83 1.25 5.42l4.03-3.15z"
+                />
+                <path
+                  fill="#EA4335"
+                  d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
+                />
+              </svg>
+              <span>Lanjutkan dengan Google</span>
+            </button>
+          </form>
+
+          {/* Instant Demo Access (Perfect for testing before live credentials) */}
+          <form
+            action={async () => {
+              "use server";
+              await loginAsDemoContributor(params.callbackUrl || "/dashboard");
+            }}
+          >
+            <button
+              type="submit"
+              className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-all shadow-sm cursor-pointer"
+            >
+              <Sparkles className="w-4 h-4 text-red-200" />
+              <span>Masuk Instan (Demo Kontributor)</span>
+            </button>
+          </form>
+
+          <p className="text-[10px] text-zinc-400 pt-1 font-medium">
+            Otentikasi aman via Google OAuth • Langsung terhubung ke Meja Redaksi
           </p>
         </div>
       </div>
