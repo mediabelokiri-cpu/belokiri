@@ -5,9 +5,16 @@ import {
   MockArticle,
 } from "./mock-articles";
 
-export async function getHeroArticle(): Promise<MockArticle | null> {
+export async function getHeroArticles(limit: number = 3): Promise<MockArticle[]> {
   const featured = MOCK_ARTICLES.find((a) => a.isFeatured);
-  return featured || MOCK_ARTICLES[0] || null;
+  const others = MOCK_ARTICLES.filter((a) => a.id !== featured?.id);
+  const result = featured ? [featured, ...others] : [...MOCK_ARTICLES];
+  return result.slice(0, limit);
+}
+
+export async function getHeroArticle(): Promise<MockArticle | null> {
+  const articles = await getHeroArticles(1);
+  return articles[0] || null;
 }
 
 export async function getLatestArticles(
