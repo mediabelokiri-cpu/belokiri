@@ -9,37 +9,48 @@ import {
 import HeroArticle from "@/components/public/HeroArticle";
 import ArticleCard from "@/components/public/ArticleCard";
 import EditorsPick from "@/components/public/EditorsPick";
-import PopularSidebar from "@/components/public/PopularSidebar";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, BookOpen, Layers, Flame } from "lucide-react";
 
 export default async function HomePage() {
-  const [heroArticles, { articles: latestArticles }, editorsPicks, popularArticles, rubriks] =
-    await Promise.all([
-      getHeroArticles(3),
-      getLatestArticles(6, 1),
-      getEditorsPick(4),
-      getPopularArticles(5),
-      getAllRubriks(),
-    ]);
+  const [
+    heroArticles,
+    { articles: latestArticles },
+    editorsPicks,
+    popularArticles,
+    rubriks,
+  ] = await Promise.all([
+    getHeroArticles(3),
+    getLatestArticles(8, 1),
+    getEditorsPick(4),
+    getPopularArticles(5),
+    getAllRubriks(),
+  ]);
+
+  // Use the remaining articles for secondary focus in Hero
+  const secondaryArticles = latestArticles.slice(3, 5);
 
   return (
     <div className="w-full pb-16 space-y-12 sm:space-y-16">
       {/* ======================================================== */}
-      {/* 1. HERO HEADLINE SECTION (FULL LEBAR KIRI & KANAN)      */}
+      {/* 1. HERO 3-KOLOM (SLIDER + FOKUS + TERPOPULER)            */}
       {/* ======================================================== */}
       {heroArticles.length > 0 && (
         <section className="w-full bg-black py-6 sm:py-8 border-b-2 border-zinc-900 shadow-md">
           <div className="w-full px-4 sm:px-6 lg:px-8 max-w-[1600px] mx-auto">
-            <HeroArticle articles={heroArticles} />
+            <HeroArticle
+              headlineArticles={heroArticles}
+              secondaryArticles={secondaryArticles}
+              popularArticles={popularArticles}
+            />
           </div>
         </section>
       )}
 
       {/* ======================================================== */}
-      {/* MAIN CONTAINER: TERKINI, POPULER, REDAKSI, RUBRIK        */}
+      {/* MAIN CONTAINER: TERKINI, REDAKSI, 8 RUBRIK, KONTRIBUTOR  */}
       {/* ======================================================== */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12 sm:space-y-16">
-        {/* 2. Main Content: Latest Articles (65%) + Popular Sidebar (35%) */}
+        {/* 2. Main Content: Latest Articles (65%) + Editorial Highlight (35%) */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
           {/* Latest Articles Feed */}
           <div className="lg:col-span-8 space-y-6">
@@ -58,16 +69,14 @@ export default async function HomePage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {latestArticles.map((article) => (
+              {latestArticles.slice(0, 6).map((article) => (
                 <ArticleCard key={article.id} article={article} />
               ))}
             </div>
           </div>
 
-          {/* Popular Sidebar & Editorial Mission */}
+          {/* Editorial Sidebar: Mission & Rubrik Focus */}
           <div className="lg:col-span-4 space-y-6">
-            <PopularSidebar articles={popularArticles} />
-
             {/* Editorial Mission Card (White card, red accent line) */}
             <div className="rounded-2xl bg-white border border-zinc-200 p-6 shadow-xs relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-red-600" />
@@ -91,6 +100,32 @@ export default async function HomePage() {
                   <span>Kenali Karakter NALAR</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
+              </div>
+            </div>
+
+            {/* Rubrik Spotlight Box */}
+            <div className="rounded-2xl bg-white border border-zinc-200 p-6 shadow-xs">
+              <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-3 pb-2 border-b border-zinc-100">
+                Pilihan Rubrik Khusus
+              </h4>
+              <div className="space-y-3">
+                {rubriks.slice(0, 4).map((r) => (
+                  <Link
+                    key={r.slug}
+                    href={`/kategori/${r.slug}`}
+                    className="block p-3 rounded-xl bg-zinc-50 hover:bg-zinc-100 border border-zinc-200/70 transition-all group"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-black uppercase text-black group-hover:text-red-600 transition-colors">
+                        {r.name}
+                      </span>
+                      <ArrowRight className="w-3.5 h-3.5 text-zinc-400 group-hover:translate-x-1 group-hover:text-red-600 transition-all" />
+                    </div>
+                    <p className="text-[11px] text-zinc-500 mt-1 italic line-clamp-1 font-medium">
+                      “{r.question}”
+                    </p>
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
