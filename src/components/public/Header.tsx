@@ -81,16 +81,16 @@ export default function Header() {
           </div>
         </div>
 
-        {/* 2. Rubrik Navigation Bar (Red Background, White Typography) */}
-        <div className="border-t border-red-500/70 bg-red-600">
+        {/* 2. Rubrik Navigation Bar (White Background, Compact Spacing, Added Tentang Kami) */}
+        <div className="bg-white border-b border-zinc-200 shadow-xs">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <nav className="flex items-center justify-between overflow-x-auto scrollbar-none py-1.5 text-xs font-black uppercase tracking-wider text-white">
+            <nav className="flex items-center justify-center gap-1 sm:gap-1.5 md:gap-2 overflow-x-auto scrollbar-none py-1 text-xs font-black uppercase tracking-wider">
               <Link
                 href="/berita"
-                className={`py-2 px-3 border-b-2 transition-all shrink-0 rounded-t-sm ${
+                className={`py-2 px-2 sm:px-3 border-b-2 transition-all shrink-0 rounded-t-sm ${
                   pathname === "/berita"
-                    ? "border-white text-white bg-white/15"
-                    : "border-transparent text-white/90 hover:text-white hover:bg-white/10"
+                    ? "border-red-600 text-red-600 bg-red-50/60 font-black"
+                    : "border-transparent text-zinc-800 hover:text-red-600 hover:bg-zinc-50"
                 }`}
               >
                 ⚡ TERKINI
@@ -101,16 +101,26 @@ export default function Header() {
                   <Link
                     key={rubrik.slug}
                     href={`/kategori/${rubrik.slug}`}
-                    className={`py-2 px-3 border-b-2 transition-all shrink-0 rounded-t-sm ${
+                    className={`py-2 px-2 sm:px-3 border-b-2 transition-all shrink-0 rounded-t-sm ${
                       isActive
-                        ? "border-white text-white bg-white/15"
-                        : "border-transparent text-white/90 hover:text-white hover:bg-white/10"
+                        ? "border-red-600 text-red-600 bg-red-50/60 font-black"
+                        : "border-transparent text-zinc-800 hover:text-red-600 hover:bg-zinc-50"
                     }`}
                   >
                     {rubrik.name}
                   </Link>
                 );
               })}
+              <Link
+                href="/tentang-kami"
+                className={`py-2 px-2 sm:px-3 border-b-2 transition-all shrink-0 rounded-t-sm ${
+                  pathname === "/tentang-kami"
+                    ? "border-red-600 text-red-600 bg-red-50/60 font-black"
+                    : "border-transparent text-zinc-800 hover:text-red-600 hover:bg-zinc-50"
+                }`}
+              >
+                TENTANG KAMI
+              </Link>
             </nav>
           </div>
         </div>
