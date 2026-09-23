@@ -3,54 +3,18 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Menu, X, PenSquare, UserCircle, Flame } from "lucide-react";
+import { Search, Menu, X, PenSquare, UserCircle } from "lucide-react";
 import { MOCK_RUBRIKS } from "@/lib/data/mock-articles";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  const today = new Intl.DateTimeFormat("id-ID", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(new Date());
-
   return (
     <>
-      <header className="sticky top-0 z-40 shadow-md">
-        {/* 1. Top Info Bar (Deep Dark Red / High Contrast) */}
-        <div className="border-b border-red-700/80 bg-red-800 text-white">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 h-8 flex items-center justify-between text-xs">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-sm bg-white text-red-700 font-black text-[10px] uppercase tracking-wider shadow-xs">
-                <Flame className="w-3 h-3 fill-current text-red-600" />
-                <span>Aktual</span>
-              </span>
-              <span className="text-white/90 font-medium hidden sm:inline-block text-[11px]">
-                {today}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-4 text-xs font-bold text-white/90">
-              <Link href="/tentang-kami" className="hover:text-white transition-colors">
-                Tentang Kami
-              </Link>
-              <span className="text-red-600">|</span>
-              <Link href="/kontak" className="hover:text-white transition-colors">
-                Kontak Redaksi
-              </Link>
-              <span className="text-red-600 hidden md:inline-block">|</span>
-              <span className="hidden md:inline-block text-white/80 font-normal italic">
-                “Melihat lebih dari sekadar kabar”
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* 2. Main Masthead Bar (Bold Red Box: bg-red-600) */}
-        <div className="bg-red-600 text-white">
+      <header className="sticky top-0 z-40 shadow-md bg-red-600 text-white">
+        {/* 1. Main Masthead Bar (Logo, Search, Kirim Tulisan) */}
+        <div>
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-5 flex items-center justify-between">
             {/* Left: Mobile hamburger & Search Button */}
             <div className="flex items-center gap-3">
@@ -81,7 +45,7 @@ export default function Header() {
               </Link>
             </div>
 
-            {/* Center: Brand Masthead (Crisp White on Red) */}
+            {/* Center: Brand Masthead */}
             <div className="flex flex-col items-center">
               <Link href="/" className="group flex flex-col items-center">
                 <div className="flex items-center gap-1.5">
@@ -117,16 +81,16 @@ export default function Header() {
           </div>
         </div>
 
-        {/* 3. Rubrik Navigation Bar (Clean contrast under Red masthead) */}
-        <div className="border-t border-b border-zinc-200 bg-white">
+        {/* 2. Rubrik Navigation Bar (Red Background, White Typography) */}
+        <div className="border-t border-red-500/70 bg-red-600">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <nav className="flex items-center justify-between overflow-x-auto scrollbar-none py-2 text-xs font-black uppercase tracking-wider text-black">
+            <nav className="flex items-center justify-between overflow-x-auto scrollbar-none py-1.5 text-xs font-black uppercase tracking-wider text-white">
               <Link
                 href="/berita"
-                className={`py-2 px-3 border-b-2 transition-colors shrink-0 ${
+                className={`py-2 px-3 border-b-2 transition-all shrink-0 rounded-t-sm ${
                   pathname === "/berita"
-                    ? "border-red-600 text-red-600 bg-red-50/60"
-                    : "border-transparent hover:border-red-600 hover:text-red-600"
+                    ? "border-white text-white bg-white/15"
+                    : "border-transparent text-white/90 hover:text-white hover:bg-white/10"
                 }`}
               >
                 ⚡ TERKINI
@@ -137,10 +101,10 @@ export default function Header() {
                   <Link
                     key={rubrik.slug}
                     href={`/kategori/${rubrik.slug}`}
-                    className={`py-2 px-3 border-b-2 transition-colors shrink-0 ${
+                    className={`py-2 px-3 border-b-2 transition-all shrink-0 rounded-t-sm ${
                       isActive
-                        ? "border-red-600 text-red-600 bg-red-50/60"
-                        : "border-transparent hover:border-red-600 hover:text-red-600"
+                        ? "border-white text-white bg-white/15"
+                        : "border-transparent text-white/90 hover:text-white hover:bg-white/10"
                     }`}
                   >
                     {rubrik.name}
