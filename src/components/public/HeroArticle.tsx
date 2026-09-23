@@ -213,50 +213,53 @@ export default function HeroArticle({
         </div>
 
         {/* ======================================================== */}
-        {/* KOLOM 3: TERPOPULER DI NALAR (3 COLS)                    */}
+        {/* KOLOM 3: TERPOPULER DI NALAR (WHITE CARD - 3 ARTIKEL)    */}
         {/* ======================================================== */}
-        <div className="lg:col-span-3 rounded-2xl bg-zinc-950 border border-white/15 p-5 flex flex-col justify-between shadow-2xl lg:h-[520px]">
+        <div className="lg:col-span-3 rounded-2xl bg-white border border-zinc-200 p-6 flex flex-col justify-between shadow-2xl lg:h-[520px]">
           <div>
-            <div className="flex items-center gap-2 pb-3 mb-3 border-b-2 border-red-600">
-              <TrendingUp className="w-4 h-4 text-red-600" />
-              <h3 className="text-xs font-black uppercase tracking-wider text-white">
+            <div className="flex items-center gap-2 pb-3 mb-4 border-b-2 border-red-600">
+              <Flame className="w-4 h-4 text-red-600 fill-current" />
+              <h3 className="text-xs font-black uppercase tracking-wider text-black">
                 TERPOPULER DI NALAR
               </h3>
             </div>
 
-            <div className="space-y-3.5">
-              {popularArticles.slice(0, 5).map((article, idx) => (
-                <div key={article.id} className="flex gap-3 items-start group">
-                  <span className="text-2xl font-black text-red-600/40 group-hover:text-red-600 transition-colors w-6 shrink-0 leading-none">
+            <div className="divide-y divide-zinc-100">
+              {popularArticles.slice(0, 3).map((article, idx) => (
+                <div key={article.id} className="py-4 first:pt-1 last:pb-1 flex gap-3.5 items-start group">
+                  <span className="text-3xl font-black text-red-600 transition-colors w-7 shrink-0 leading-none">
                     0{idx + 1}
                   </span>
                   <div className="min-w-0 flex-1">
                     <Link
                       href={`/kategori/${article.rubrik.slug}`}
-                      className="text-[9px] font-black uppercase tracking-wider text-red-500 hover:underline"
+                      className="text-[10px] font-black uppercase tracking-wider text-red-600 hover:underline"
                     >
                       {article.rubrik.name}
                     </Link>
                     <Link href={`/artikel/${article.slug}`}>
-                      <h4 className="text-xs font-bold text-zinc-200 leading-snug line-clamp-2 mt-0.5 group-hover:text-red-400 transition-colors">
+                      <h4 className="text-sm font-black text-black leading-snug line-clamp-2 mt-1 group-hover:text-red-600 transition-colors tracking-tight">
                         {article.title}
                       </h4>
                     </Link>
-                    <span className="text-[10px] text-zinc-500 block mt-1 font-medium">
-                      {article.views.toLocaleString("id-ID")} pembaca
-                    </span>
+                    <div className="flex items-center gap-1.5 text-[11px] text-zinc-500 mt-1.5 font-medium">
+                      <span className="truncate max-w-[120px] font-bold text-zinc-700">{article.author.name}</span>
+                      <span>•</span>
+                      <span>{article.views.toLocaleString("id-ID")} pembaca</span>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="pt-3 mt-3 border-t border-zinc-800 text-center">
+          <div className="pt-4 border-t border-zinc-100 text-center">
             <Link
               href="/berita"
-              className="text-[11px] font-black text-zinc-400 hover:text-red-500 transition-colors uppercase tracking-wider"
+              className="text-xs font-black text-zinc-800 hover:text-red-600 transition-colors uppercase tracking-wider inline-flex items-center gap-1"
             >
-              Lihat Indeks Terkini →
+              <span>Lihat Indeks Terkini</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>
