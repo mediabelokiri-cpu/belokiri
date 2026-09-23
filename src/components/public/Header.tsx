@@ -12,7 +12,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 shadow-md bg-red-600 text-white">
+      <header className="sticky top-0 z-40 shadow-xs bg-white border-b border-zinc-200">
         {/* 1. Main Masthead Bar (Logo, Search, Kirim Tulisan) */}
         <div>
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-5 flex items-center justify-between">
@@ -20,7 +20,7 @@ export default function Header() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setMobileMenuOpen(true)}
-                className="p-2 -ml-2 rounded-lg text-white hover:bg-red-700 md:hidden cursor-pointer transition-colors"
+                className="p-2 -ml-2 rounded-lg text-zinc-800 hover:bg-zinc-100 md:hidden cursor-pointer transition-colors"
                 aria-label="Buka Menu"
               >
                 <Menu className="w-6 h-6" />
@@ -28,17 +28,17 @@ export default function Header() {
 
               <Link
                 href="/cari"
-                className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-lg bg-red-700/70 hover:bg-red-700 border border-red-500/60 text-white transition-colors"
+                className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-lg bg-zinc-100 hover:bg-zinc-200/80 border border-zinc-200 text-zinc-700 transition-colors"
               >
-                <Search className="w-4 h-4 text-white/80" />
-                <span className="text-xs font-semibold text-white/90">
+                <Search className="w-4 h-4 text-zinc-500" />
+                <span className="text-xs font-semibold text-zinc-600">
                   Cari berita & analisis...
                 </span>
               </Link>
 
               <Link
                 href="/cari"
-                className="p-2 rounded-lg text-white hover:bg-red-700 sm:hidden transition-colors"
+                className="p-2 rounded-lg text-zinc-800 hover:bg-zinc-100 sm:hidden transition-colors"
                 aria-label="Cari"
               >
                 <Search className="w-5 h-5" />
@@ -49,12 +49,12 @@ export default function Header() {
             <div className="flex flex-col items-center">
               <Link href="/" className="group flex flex-col items-center">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-3xl sm:text-5xl font-black tracking-tighter text-white uppercase drop-shadow-xs">
+                  <span className="text-3xl sm:text-5xl font-black tracking-tighter text-red-600 uppercase drop-shadow-xs">
                     NALAR
                   </span>
-                  <span className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-white mt-2 sm:mt-3" />
+                  <span className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-red-600 mt-2 sm:mt-3" />
                 </div>
-                <span className="text-[10px] sm:text-[11px] tracking-[0.28em] uppercase font-bold text-white/95 -mt-1 group-hover:text-white transition-colors">
+                <span className="text-[10px] sm:text-[11px] tracking-[0.28em] uppercase font-bold text-zinc-600 -mt-1 group-hover:text-red-600 transition-colors">
                   Melihat Lebih dari Sekadar Kabar
                 </span>
               </Link>
@@ -64,33 +64,33 @@ export default function Header() {
             <div className="flex items-center gap-3">
               <Link
                 href="/login"
-                className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white hover:bg-zinc-100 text-red-600 text-xs font-black uppercase tracking-wider shadow-md transition-all transform active:scale-95"
+                className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider shadow-sm transition-all transform active:scale-95"
               >
-                <PenSquare className="w-4 h-4 text-red-600" />
+                <PenSquare className="w-4 h-4 text-white" />
                 <span>Kirim Tulisan</span>
               </Link>
 
               <Link
                 href="/login"
-                className="p-2 rounded-lg text-white hover:bg-red-700 sm:hidden transition-colors"
+                className="p-2 rounded-lg text-zinc-800 hover:text-red-600 hover:bg-zinc-100 sm:hidden transition-colors"
                 aria-label="Masuk Akun"
               >
-                <UserCircle className="w-6 h-6 text-white" />
+                <UserCircle className="w-6 h-6 text-zinc-700" />
               </Link>
             </div>
           </div>
         </div>
 
-        {/* 2. Rubrik Navigation Bar (White Background, Compact Spacing, Added Tentang Kami) */}
-        <div className="bg-white border-b border-zinc-200 shadow-xs">
+        {/* 2. Rubrik Navigation Bar (White Background, Red Menu Text) */}
+        <div className="bg-white border-t border-zinc-200">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <nav className="flex items-center justify-center gap-1 sm:gap-1.5 md:gap-2 overflow-x-auto scrollbar-none py-1 text-xs font-black uppercase tracking-wider">
               <Link
                 href="/berita"
                 className={`py-2 px-2 sm:px-3 border-b-2 transition-all shrink-0 rounded-t-sm ${
                   pathname === "/berita"
-                    ? "border-red-600 text-red-600 bg-red-50/60 font-black"
-                    : "border-transparent text-zinc-800 hover:text-red-600 hover:bg-zinc-50"
+                    ? "border-red-600 text-red-700 bg-red-50/80 font-black"
+                    : "border-transparent text-red-600 hover:text-red-700 hover:bg-red-50/50"
                 }`}
               >
                 ⚡ TERKINI
@@ -103,8 +103,8 @@ export default function Header() {
                     href={`/kategori/${rubrik.slug}`}
                     className={`py-2 px-2 sm:px-3 border-b-2 transition-all shrink-0 rounded-t-sm ${
                       isActive
-                        ? "border-red-600 text-red-600 bg-red-50/60 font-black"
-                        : "border-transparent text-zinc-800 hover:text-red-600 hover:bg-zinc-50"
+                        ? "border-red-600 text-red-700 bg-red-50/80 font-black"
+                        : "border-transparent text-red-600 hover:text-red-700 hover:bg-red-50/50"
                     }`}
                   >
                     {rubrik.name}
@@ -115,8 +115,8 @@ export default function Header() {
                 href="/tentang-kami"
                 className={`py-2 px-2 sm:px-3 border-b-2 transition-all shrink-0 rounded-t-sm ${
                   pathname === "/tentang-kami"
-                    ? "border-red-600 text-red-600 bg-red-50/60 font-black"
-                    : "border-transparent text-zinc-800 hover:text-red-600 hover:bg-zinc-50"
+                    ? "border-red-600 text-red-700 bg-red-50/80 font-black"
+                    : "border-transparent text-red-600 hover:text-red-700 hover:bg-red-50/50"
                 }`}
               >
                 TENTANG KAMI

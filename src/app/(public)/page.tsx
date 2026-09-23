@@ -35,7 +35,7 @@ export default async function HomePage() {
       {/* 1. HERO 3-KOLOM (SLIDER + FOKUS + TERPOPULER)            */}
       {/* ======================================================== */}
       {heroArticles.length > 0 && (
-        <section className="w-full bg-black py-6 sm:py-8 border-b-2 border-zinc-900 shadow-md">
+        <section className="w-full bg-white py-6 sm:py-8 border-b border-zinc-200 shadow-xs">
           <div className="w-full px-4 sm:px-6 lg:px-8 max-w-[1600px] mx-auto">
             <HeroArticle
               headlineArticles={heroArticles}

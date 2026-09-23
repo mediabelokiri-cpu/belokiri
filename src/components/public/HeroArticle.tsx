@@ -53,7 +53,7 @@ export default function HeroArticle({
         {/* ======================================================== */}
         {/* KOLOM 1: SLIDER HEADLINE UTAMA (6 COLS / LEBIH BESAR)    */}
         {/* ======================================================== */}
-        <div className="lg:col-span-6 relative group rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-black min-h-[420px] sm:min-h-[480px] lg:h-[520px] flex flex-col justify-between">
+        <div className="lg:col-span-6 relative group rounded-2xl overflow-hidden shadow-lg border border-zinc-200 bg-black min-h-[420px] sm:min-h-[480px] lg:h-[520px] flex flex-col justify-between">
           {activeArticle && (
             <>
               {/* Background Image with smooth transition */}
@@ -172,7 +172,7 @@ export default function HeroArticle({
           {secondaryArticles.slice(0, 2).map((article, index) => (
             <article
               key={article.id}
-              className="group relative rounded-2xl overflow-hidden shadow-xl border border-white/15 hover:border-red-600/80 bg-black h-[220px] sm:h-[240px] lg:h-[248px] flex flex-col justify-between transition-all"
+              className="group relative rounded-2xl overflow-hidden shadow-md border border-zinc-200 hover:border-red-600/80 bg-black h-[220px] sm:h-[240px] lg:h-[248px] flex flex-col justify-between transition-all"
             >
               <Image
                 src={article.featuredImage}
@@ -213,9 +213,9 @@ export default function HeroArticle({
         </div>
 
         {/* ======================================================== */}
-        {/* KOLOM 3: TERPOPULER DI NALAR (WHITE CARD - 3 ARTIKEL)    */}
+        {/* KOLOM 3: TERPOPULER DI NALAR (3 ARTIKEL)                 */}
         {/* ======================================================== */}
-        <div className="lg:col-span-3 rounded-2xl bg-white border border-zinc-200 p-6 flex flex-col justify-between shadow-2xl lg:h-[520px]">
+        <div className="lg:col-span-3 rounded-2xl bg-zinc-50/80 border border-zinc-200 p-6 flex flex-col justify-between shadow-xs lg:h-[520px]">
           <div>
             <div className="flex items-center gap-2 pb-3 mb-4 border-b-2 border-red-600">
               <Flame className="w-4 h-4 text-red-600 fill-current" />
