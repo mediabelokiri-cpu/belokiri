@@ -1,5 +1,6 @@
 import { contributorArticlesStore, ContributorArticleItem } from "./contributor";
 import { MOCK_RUBRIKS } from "./mock-articles";
+import { slugify } from "@/lib/utils/slugify";
 
 export interface AdminArticleItem extends ContributorArticleItem {
   authorName: string;
@@ -504,3 +505,149 @@ export async function getActivityLogs(): Promise<ActivityLogItem[]> {
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
 }
+
+/**
+ * Create or Update an article directly by Admin/Editorial staff
+ */
+export async function saveArticleByAdmin(
+  adminId: string,
+  adminName: string,
+  data: {
+    title: string;
+    categoryId: string;
+    content: string;
+    excerpt?: string | null;
+    featuredImage?: string | null;
+    featuredImageCaption?: string | null;
+    photoSource?: string | null;
+    source?: string | null;
+    tags?: string[];
+    isEditorPick?: boolean;
+    seoTitle?: string | null;
+    metaDescription?: string | null;
+    status: "DRAFT" | "REVIEW" | "PUBLISHED";
+  },
+  articleId?: string
+): Promise<AdminArticleItem> {
+  const rubrik = MOCK_RUBRIKS.find(
+    (r) => r.slug === data.categoryId || `rubrik-${r.slug}` === data.categoryId
+  ) || MOCK_RUBRIKS[0];
+
+  const now = new Date().toISOString();
+
+  if (articleId) {
+    const existingIndex = contributorArticlesStore.findIndex((a) => a.id === articleId);
+    if (existingIndex === -1) {
+      throw new Error("Artikel tidak ditemukan");
+    }
+
+    const existing = contributorArticlesStore[existingIndex];
+    const isNowPublished = data.status === "PUBLISHED";
+    const publishedAt = isNowPublished
+      ? existing.publishedAt || now
+      : data.status === "DRAFT"
+      ? null
+      : existing.publishedAt;
+
+    const updated: ContributorArticleItem = {
+      ...existing,
+      title: data.title || existing.title,
+      slug: data.title ? `${slugify(data.title)}-${existing.id.slice(-4)}` : existing.slug,
+      content: data.content || existing.content,
+      excerpt: data.excerpt !== undefined ? data.excerpt : existing.excerpt,
+      featuredImage: data.featuredImage !== undefined ? data.featuredImage : existing.featuredImage,
+      featuredImageCaption:
+        data.featuredImageCaption !== undefined
+          ? data.featuredImageCaption
+          : existing.featuredImageCaption,
+      photoSource: data.photoSource !== undefined ? data.photoSource : existing.photoSource,
+      source: data.source !== undefined ? data.source : existing.source,
+      categoryId: `rubrik-${rubrik.slug}`,
+      categoryName: rubrik.name,
+      categorySlug: rubrik.slug,
+      status: data.status,
+      publishedAt,
+      tags: data.tags || existing.tags,
+      updatedAt: now,
+    };
+
+    (updated as any).isEditorPick =
+      data.isEditorPick !== undefined
+        ? data.isEditorPick
+        : (existing as any).isEditorPick || false;
+    (updated as any).seoTitle =
+      data.seoTitle || (existing as any).seoTitle || null;
+    (updated as any).metaDescription =
+      data.metaDescription || (existing as any).metaDescription || null;
+
+    contributorArticlesStore[existingIndex] = updated;
+
+    activityLogsStore.unshift({
+      id: `act-${Date.now()}`,
+      action: isNowPublished ? "PUBLISH_ARTICLE" : "UPDATE_ARTICLE",
+      userName: adminName,
+      userRole: "ADMIN",
+      targetType: "ARTICLE",
+      targetTitle: updated.title,
+      targetId: updated.id,
+      note: isNowPublished
+        ? `Diterbitkan langsung oleh Redaksi di Rubrik ${rubrik.name}`
+        : `Naskah diperbarui oleh Redaksi (Status: ${data.status})`,
+      createdAt: now,
+    });
+
+    return enrichArticle(updated);
+  }
+
+  // Create new article
+  const newId = `art-admin-${Date.now()}`;
+  const newSlug = `${slugify(data.title || "naskah-redaksi")}-${newId.slice(-4)}`;
+  const isPublished = data.status === "PUBLISHED";
+
+  const newArticle: ContributorArticleItem = {
+    id: newId,
+    authorId: adminId,
+    title: data.title || "Naskah Redaksi NALAR",
+    slug: newSlug,
+    content: data.content || "",
+    excerpt: data.excerpt || null,
+    featuredImage: data.featuredImage || null,
+    featuredImageCaption: data.featuredImageCaption || null,
+    photoSource: data.photoSource || null,
+    source: data.source || null,
+    categoryId: `rubrik-${rubrik.slug}`,
+    categoryName: rubrik.name,
+    categorySlug: rubrik.slug,
+    status: data.status,
+    adminNote: null,
+    tags: data.tags || ["Liputan Khusus"],
+    views: 0,
+    publishedAt: isPublished ? now : null,
+    createdAt: now,
+    updatedAt: now,
+  };
+
+  (newArticle as any).isEditorPick =
+    data.isEditorPick !== undefined ? data.isEditorPick : isPublished;
+  (newArticle as any).seoTitle = data.seoTitle || null;
+  (newArticle as any).metaDescription = data.metaDescription || null;
+
+  contributorArticlesStore.unshift(newArticle);
+
+  activityLogsStore.unshift({
+    id: `act-${Date.now()}`,
+    action: isPublished ? "PUBLISH_ARTICLE" : "CREATE_ARTICLE",
+    userName: adminName,
+    userRole: "ADMIN",
+    targetType: "ARTICLE",
+    targetTitle: newArticle.title,
+    targetId: newArticle.id,
+    note: isPublished
+      ? `Artikel baru diterbitkan langsung oleh Redaksi di Rubrik ${rubrik.name}`
+      : `Draf naskah baru dibuat oleh Redaksi (Status: ${data.status})`,
+    createdAt: now,
+  });
+
+  return enrichArticle(newArticle);
+}
+

@@ -18,6 +18,7 @@ import {
   User,
   History,
   Sparkles,
+  Plus,
 } from "lucide-react";
 
 export default async function AdminDashboardPage() {
@@ -38,18 +39,27 @@ export default async function AdminDashboardPage() {
             Meja Redaksi NALAR
           </h1>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1 max-w-xl font-normal">
-            Selamat bekerja, {admin.name}. Kurasi naskah masuk dengan tajam, berikan
-            catatan revisi yang mendidik, dan pastikan setiap tulisan melihat lebih dari sekadar kabar.
+            Selamat bekerja, {admin.name}. Tulis liputan mendalam, kurasi naskah masuk dengan tajam, dan pastikan setiap tulisan melihat lebih dari sekadar kabar.
           </p>
         </div>
 
-        <Link
-          href="/admin/review"
-          className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-all shadow-sm shrink-0"
-        >
-          <Inbox className="w-4 h-4" />
-          <span>Buka Antrean Review ({stats.reviewQueueCount})</span>
-        </Link>
+        <div className="flex items-center gap-2.5 shrink-0">
+          <Link
+            href="/admin/articles/buat"
+            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-all shadow-sm"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Tulis Artikel</span>
+          </Link>
+
+          <Link
+            href="/admin/review"
+            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-zinc-900 hover:bg-black text-white text-xs font-black uppercase tracking-wider transition-all shadow-sm"
+          >
+            <Inbox className="w-4 h-4" />
+            <span>Antrean ({stats.reviewQueueCount})</span>
+          </Link>
+        </div>
       </div>
 
       {/* 2. KPI Editorial Cards */}

@@ -24,6 +24,7 @@ import {
   AlertCircle,
   CheckCircle2,
   FileText,
+  Edit,
 } from "lucide-react";
 
 interface AdminArticleTableProps {
@@ -392,6 +393,15 @@ export default function AdminArticleTable({ initialArticles }: AdminArticleTable
                             <span className="hidden sm:inline">
                               {article.status === "REVIEW" ? "Kurasi" : "Uji"}
                             </span>
+                          </Link>
+
+                          {/* Edit Article */}
+                          <Link
+                            href={`/admin/articles/${article.id}/edit`}
+                            className="p-2 rounded-lg text-zinc-500 hover:text-black hover:bg-zinc-100 transition-colors"
+                            title="Sunting Naskah"
+                          >
+                            <Edit className="w-3.5 h-3.5" />
                           </Link>
 
                           {/* Toggle Editor's Pick (if published) */}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { UserSessionData } from "@/types";
-import { ExternalLink, LogOut, ShieldCheck } from "lucide-react";
+import { ExternalLink, LogOut, ShieldCheck, Plus } from "lucide-react";
 import { logoutAction } from "@/actions/auth.actions";
 
 interface AdminHeaderProps {
@@ -33,15 +33,24 @@ export default function AdminHeader({ user }: AdminHeaderProps) {
           </div>
 
           {/* Right: Actions & User Info */}
-          <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Write Article Button */}
+            <Link
+              href="/admin/articles/buat"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-all shadow-xs"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>Tulis Artikel</span>
+            </Link>
+
             {/* Visit Public Site */}
             <Link
               href="/"
               target="_blank"
-              className="inline-flex items-center gap-1 text-xs font-bold text-zinc-600 hover:text-black transition-colors px-2 py-1.5 rounded-lg hover:bg-zinc-50"
+              className="hidden sm:inline-flex items-center gap-1 text-xs font-bold text-zinc-600 hover:text-black transition-colors px-2 py-1.5 rounded-lg hover:bg-zinc-50"
               title="Buka Website Publik"
             >
-              <span>Website Publik</span>
+              <span>Website</span>
               <ExternalLink className="w-3.5 h-3.5 text-zinc-400" />
             </Link>
 

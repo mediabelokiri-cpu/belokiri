@@ -9,6 +9,7 @@ import {
   FolderTree,
   Users,
   History,
+  PenTool,
 } from "lucide-react";
 
 interface AdminNavProps {
@@ -26,6 +27,12 @@ export default function AdminNav({ reviewCount = 0 }: AdminNavProps) {
       active: pathname === "/admin",
     },
     {
+      name: "Tulis Artikel",
+      href: "/admin/articles/buat",
+      icon: PenTool,
+      active: pathname === "/admin/articles/buat",
+    },
+    {
       name: "Antrean Review",
       href: "/admin/review",
       icon: Inbox,
@@ -36,7 +43,12 @@ export default function AdminNav({ reviewCount = 0 }: AdminNavProps) {
       name: "Semua Artikel",
       href: "/admin/articles",
       icon: FileText,
-      active: pathname === "/admin/articles" || (pathname.startsWith("/admin/articles") && !pathname.includes("/review")),
+      active:
+        pathname === "/admin/articles" ||
+        (pathname.startsWith("/admin/articles") &&
+          !pathname.includes("/review") &&
+          !pathname.includes("/buat") &&
+          !pathname.includes("/edit")),
     },
     {
       name: "8 Rubrik",

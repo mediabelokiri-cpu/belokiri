@@ -9,6 +9,7 @@ import {
   toggleEditorPickByAdmin,
   deleteArticleByAdmin,
   toggleUserStatusByAdmin,
+  saveArticleByAdmin,
 } from "@/lib/data/admin";
 import { ApiResponse } from "@/types";
 
@@ -214,3 +215,79 @@ export async function toggleUserStatusAction(
     };
   }
 }
+
+/**
+ * Save or Publish article directly by Redaksi
+ */
+export async function saveArticleByAdminAction(
+  data: {
+    title: string;
+    categoryId: string;
+    content: string;
+    excerpt?: string | null;
+    featuredImage?: string | null;
+    featuredImageCaption?: string | null;
+    photoSource?: string | null;
+    source?: string | null;
+    tags?: string[];
+    isEditorPick?: boolean;
+    seoTitle?: string | null;
+    metaDescription?: string | null;
+    status: "DRAFT" | "REVIEW" | "PUBLISHED";
+  },
+  articleId?: string
+): Promise<ApiResponse<{ id: string; slug: string; status: string }>> {
+  try {
+    const admin = await requireAdmin();
+
+    if (!data.title || data.title.trim().length < 5) {
+      return {
+        success: false,
+        message: "Judul artikel minimal 5 karakter.",
+      };
+    }
+
+    if (!data.content || data.content.trim().length < 20) {
+      return {
+        success: false,
+        message: "Isi naskah minimal 20 karakter.",
+      };
+    }
+
+    const saved = await saveArticleByAdmin(
+      admin.id,
+      admin.name,
+      data,
+      articleId
+    );
+
+    revalidatePath("/admin");
+    revalidatePath("/admin/articles");
+    revalidatePath("/admin/review");
+    revalidatePath("/admin/activity");
+    revalidatePath("/dashboard");
+    revalidatePath("/dashboard/artikel");
+    revalidatePath("/");
+    revalidatePath("/berita");
+    revalidatePath(`/artikel/${saved.slug}`);
+
+    const message =
+      saved.status === "PUBLISHED"
+        ? "Artikel resmi diterbitkan langsung ke publik!"
+        : saved.status === "REVIEW"
+        ? "Naskah berhasil dimasukkan ke Antrean Kurasi Redaksi."
+        : "Draf naskah berhasil disimpan.";
+
+    return {
+      success: true,
+      data: { id: saved.id, slug: saved.slug, status: saved.status },
+      message,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.message || "Gagal menyimpan artikel redaksi.",
+    };
+  }
+}
+

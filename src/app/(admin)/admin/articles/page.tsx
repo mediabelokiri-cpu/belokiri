@@ -48,11 +48,19 @@ export default async function AdminArticlesPage({
 
         <div className="flex items-center gap-2.5">
           <Link
-            href="/admin/review"
+            href="/admin/articles/buat"
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-all shadow-xs"
           >
+            <Plus className="w-4 h-4" />
+            <span>Tulis Naskah Baru</span>
+          </Link>
+
+          <Link
+            href="/admin/review"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-black text-white text-xs font-black uppercase tracking-wider transition-all shadow-xs"
+          >
             <Inbox className="w-4 h-4" />
-            <span>Periksa Antrean Kurasi</span>
+            <span>Antrean Kurasi</span>
           </Link>
         </div>
       </div>
