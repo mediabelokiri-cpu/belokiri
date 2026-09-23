@@ -8,6 +8,7 @@ import { MOCK_RUBRIKS } from "@/lib/data/mock-articles";
 import { ContributorArticleItem } from "@/lib/data/contributor";
 import ArticleStatusBadge from "@/components/dashboard/ArticleStatusBadge";
 import { saveDraftAction, submitToReviewAction } from "@/actions/contributor.actions";
+import ImageUploadDropzone from "@/components/common/ImageUploadDropzone";
 import {
   Save,
   Send,
@@ -412,21 +413,14 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
               <span>Gambar Cover & Hak Cipta</span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-[11px] font-bold text-zinc-600 mb-1">
-                  URL Gambar Cover
-                </label>
-                <input
-                  type="url"
-                  disabled={isLocked}
-                  placeholder="https://images.unsplash.com/..."
-                  value={featuredImage}
-                  onChange={(e) => setFeaturedImage(e.target.value)}
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-zinc-200 focus:outline-none focus:border-red-600 bg-white"
-                />
-              </div>
+            <ImageUploadDropzone
+              value={featuredImage}
+              onChange={setFeaturedImage}
+              label="Foto Utama Naskah (Cover)"
+              helperText="Tarik gambar atau pilih dari perangkat (Maks. 5 MB). Rasio ideal 16:9."
+            />
 
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-zinc-200">
               <div>
                 <label className="block text-[11px] font-bold text-zinc-600 mb-1">
                   Sumber / Kredit Foto
@@ -440,34 +434,21 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
                   className="w-full px-3.5 py-2 text-xs rounded-xl border border-zinc-200 focus:outline-none focus:border-red-600 bg-white"
                 />
               </div>
-            </div>
 
-            <div>
-              <label className="block text-[11px] font-bold text-zinc-600 mb-1">
-                Keterangan / Caption Gambar
-              </label>
-              <input
-                type="text"
-                disabled={isLocked}
-                placeholder="Jelaskan objek atau peristiwa dalam gambar cover..."
-                value={featuredImageCaption}
-                onChange={(e) => setFeaturedImageCaption(e.target.value)}
-                className="w-full px-3.5 py-2 text-xs rounded-xl border border-zinc-200 focus:outline-none focus:border-red-600 bg-white"
-              />
-            </div>
-
-            {/* Image Preview Box */}
-            {featuredImage && (
-              <div className="relative aspect-video max-w-md mx-auto rounded-xl overflow-hidden border border-zinc-300 mt-2">
-                <Image
-                  src={featuredImage}
-                  alt={featuredImageCaption || "Cover Pratinjau"}
-                  fill
-                  className="object-cover"
-                  unoptimized
+              <div>
+                <label className="block text-[11px] font-bold text-zinc-600 mb-1">
+                  Keterangan / Caption Gambar
+                </label>
+                <input
+                  type="text"
+                  disabled={isLocked}
+                  placeholder="Jelaskan objek atau peristiwa dalam gambar cover..."
+                  value={featuredImageCaption}
+                  onChange={(e) => setFeaturedImageCaption(e.target.value)}
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-zinc-200 focus:outline-none focus:border-red-600 bg-white"
                 />
               </div>
-            )}
+            </div>
           </div>
 
           {/* Rich Content Toolbar & Area */}

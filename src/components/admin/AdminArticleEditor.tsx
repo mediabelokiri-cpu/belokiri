@@ -8,6 +8,7 @@ import { MOCK_RUBRIKS } from "@/lib/data/mock-articles";
 import { AdminArticleItem } from "@/lib/data/admin";
 import ArticleStatusBadge from "@/components/dashboard/ArticleStatusBadge";
 import { saveArticleByAdminAction } from "@/actions/admin.actions";
+import ImageUploadDropzone from "@/components/common/ImageUploadDropzone";
 import {
   Save,
   Send,
@@ -634,27 +635,14 @@ export default function AdminArticleEditor({
 
           {/* Featured Image Card */}
           <div className="bg-white rounded-3xl border border-zinc-200 p-6 shadow-xs space-y-4">
-            <div className="flex items-center justify-between">
-              <label className="text-xs font-black uppercase tracking-wider text-black">
-                Foto Utama & Lisensi
-              </label>
-              <ImageIcon className="w-4 h-4 text-zinc-400" />
-            </div>
+            <ImageUploadDropzone
+              value={featuredImage}
+              onChange={setFeaturedImage}
+              label="Foto Utama Naskah (Cover)"
+              helperText="Tarik gambar atau pilih dari perangkat (Maks. 5 MB). Rasio ideal 16:9."
+            />
 
-            <div className="space-y-3">
-              <div>
-                <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">
-                  URL Gambar (Cover)
-                </span>
-                <input
-                  type="text"
-                  value={featuredImage}
-                  onChange={(e) => setFeaturedImage(e.target.value)}
-                  placeholder="https://images.unsplash.com/..."
-                  className="w-full text-xs text-zinc-800 px-3 py-2 bg-zinc-50 border border-zinc-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-red-600 focus:bg-white mt-1"
-                />
-              </div>
-
+            <div className="space-y-3 pt-2 border-t border-zinc-100">
               <div>
                 <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">
                   Takarir (Caption) Foto

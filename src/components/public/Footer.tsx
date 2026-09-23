@@ -81,6 +81,33 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link
+                  href="/rss.xml"
+                  target="_blank"
+                  className="hover:text-red-500 transition-colors inline-flex items-center gap-1"
+                >
+                  <span>RSS Feed 2.0</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/feed.json"
+                  target="_blank"
+                  className="hover:text-red-500 transition-colors inline-flex items-center gap-1"
+                >
+                  <span>JSON Feed</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/sitemap.xml"
+                  target="_blank"
+                  className="hover:text-red-500 transition-colors inline-flex items-center gap-1"
+                >
+                  <span>Peta Situs (Sitemap)</span>
+                </Link>
+              </li>
+              <li>
                 <span className="text-zinc-600 cursor-default">
                   Pedoman Media Siber
                 </span>

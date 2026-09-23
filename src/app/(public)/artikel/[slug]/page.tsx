@@ -17,6 +17,7 @@ import {
   Flame,
   ArrowRight,
 } from "lucide-react";
+import { NewsArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 interface ArticleDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -32,15 +33,27 @@ export async function generateMetadata({
     return { title: "Artikel Tidak Ditemukan" };
   }
 
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://nalar.id";
+  const canonicalUrl = `${baseUrl}/artikel/${article.slug}`;
+
   return {
     title: `${article.title} | NALAR`,
     description: article.excerpt,
+    keywords: [...article.tags, article.rubrik.name, "NALAR", "Berita", "Analisis"],
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       title: article.title,
       description: article.excerpt,
+      url: canonicalUrl,
+      siteName: "NALAR",
       type: "article",
       publishedTime: article.publishedAt,
+      modifiedTime: article.updatedAt || article.publishedAt,
       authors: [article.author.name],
+      section: article.rubrik.name,
+      tags: article.tags,
       images: [
         {
           url: article.featuredImage,
@@ -49,6 +62,14 @@ export async function generateMetadata({
           alt: article.title,
         },
       ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: [article.featuredImage],
+      creator: "@nalar_id",
+      site: "@nalar_id",
     },
   };
 }
@@ -69,9 +90,32 @@ export default async function ArticleDetailPage({
   ]);
 
   const readingTime = estimateReadingTime(article.content);
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://nalar.id";
+  const canonicalUrl = `${baseUrl}/artikel/${article.slug}`;
 
   return (
     <article className="min-h-screen pb-16 sm:pb-24">
+      {/* Schema.org JSON-LD Structured Data */}
+      <NewsArticleJsonLd
+        url={canonicalUrl}
+        headline={article.title}
+        excerpt={article.excerpt}
+        imageUrl={article.featuredImage}
+        datePublished={article.publishedAt}
+        dateModified={article.updatedAt || article.publishedAt}
+        authorName={article.author.name}
+        authorUrl={`${baseUrl}/penulis/${article.author.slug}`}
+        sectionName={article.rubrik.name}
+        tags={article.tags}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Beranda", url: `${baseUrl}` },
+          { name: article.rubrik.name, url: `${baseUrl}/kategori/${article.rubrik.slug}` },
+          { name: article.title, url: canonicalUrl },
+        ]}
+      />
+
       {/* 1. Breadcrumbs */}
       <div className="border-b border-zinc-200 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center gap-2 text-xs text-zinc-500 font-semibold">
