@@ -19,6 +19,7 @@ interface LoginPageProps {
 export default async function LoginPage({ searchParams }: LoginPageProps) {
   const params = await searchParams;
   const isSuspended = params.error === "suspended";
+  const isRateLimited = params.error === "ratelimit";
 
   return (
     <div className="min-h-screen bg-[#fbfbfb] flex flex-col justify-between p-4 sm:p-6 font-sans">
@@ -66,6 +67,13 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-left flex items-start gap-2 text-xs text-red-700">
             <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
             <p>Akun Anda sedang ditangguhkan. Hubungi tim redaksi BELOKIRI untuk informasi lebih lanjut.</p>
+          </div>
+        )}
+
+        {isRateLimited && (
+          <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-left flex items-start gap-2 text-xs text-amber-800">
+            <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+            <p>Terlalu banyak percobaan masuk secara beruntun. Mohon tunggu 1 menit demi keamanan sistem.</p>
           </div>
         )}
 

@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { UserSessionData } from "@/types";
 import { redirect } from "next/navigation";
+import { signToken, verifyToken } from "@/lib/security/token";
 
 const SESSION_COOKIE_NAME = "belokiri_session";
 
@@ -30,6 +31,7 @@ export const DEMO_ADMIN: UserSessionData = {
 
 /**
  * Retrieve current user session from HTTP-only cookie.
+ * Cryptographically verifies HMAC-SHA256 signature to prevent tampering.
  */
 export async function getSession(): Promise<UserSessionData | null> {
   try {
@@ -40,27 +42,39 @@ export async function getSession(): Promise<UserSessionData | null> {
       return null;
     }
 
-    const decoded = Buffer.from(sessionCookie.value, "base64").toString("utf-8");
-    const user: UserSessionData = JSON.parse(decoded);
-
-    if (!user || !user.id || !user.role) {
-      return null;
+    // 1. Verify HMAC-SHA256 signed token
+    const verified = await verifyToken<UserSessionData>(sessionCookie.value);
+    if (verified && verified.id && verified.role) {
+      return verified;
     }
 
-    return user;
+    // 2. Fallback only in local development for unsigned legacy cookies
+    if (process.env.NODE_ENV !== "production") {
+      try {
+        const decoded = Buffer.from(sessionCookie.value, "base64").toString("utf-8");
+        const user: UserSessionData = JSON.parse(decoded);
+        if (user && user.id && user.role) {
+          return user;
+        }
+      } catch {
+        // Not a legacy JSON cookie
+      }
+    }
+
+    return null;
   } catch {
     return null;
   }
 }
 
 /**
- * Persist user session to HTTP-only cookie.
+ * Persist user session to HTTP-only cookie with cryptographic HMAC signature.
  */
 export async function setSession(user: UserSessionData): Promise<void> {
   const cookieStore = await cookies();
-  const serialized = Buffer.from(JSON.stringify(user)).toString("base64");
+  const signedToken = await signToken<UserSessionData>(user);
 
-  cookieStore.set(SESSION_COOKIE_NAME, serialized, {
+  cookieStore.set(SESSION_COOKIE_NAME, signedToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
@@ -109,4 +123,3 @@ export async function requireAdmin(): Promise<UserSessionData> {
 
   return session;
 }
-

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
+import { rateLimitUpload, getClientIp } from "@/lib/security/rate-limit";
 import path from "path";
 import fs from "fs";
 
@@ -9,7 +10,20 @@ const MAX_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
 
 export async function POST(request: NextRequest) {
   try {
-    // 1. Authenticate user or admin
+    // 1. Rate Limiting Check
+    const clientIp = getClientIp(request.headers);
+    const rateCheck = rateLimitUpload(clientIp);
+    if (!rateCheck.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: `Batas pengunggahan tercapai. Silakan coba kembali dalam ${rateCheck.resetSeconds} detik.`,
+        },
+        { status: 429 }
+      );
+    }
+
+    // 2. Authenticate user or admin
     const session = await getSession();
     if (!session) {
       return NextResponse.json(
@@ -18,7 +32,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 2. Parse FormData
+    // 3. Parse FormData
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
 
@@ -29,7 +43,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 3. Validate MIME type
+    // 4. Validate MIME type
     if (!ALLOWED_TYPES.includes(file.type)) {
       return NextResponse.json(
         {
@@ -40,7 +54,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 4. Validate file size
+    // 5. Validate file size
     if (file.size > MAX_SIZE_BYTES) {
       return NextResponse.json(
         {
@@ -54,20 +68,18 @@ export async function POST(request: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // 5. Cloudinary Upload if configured
+    // 6. Cloudinary Upload if configured
     const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
     const apiKey = process.env.CLOUDINARY_API_KEY;
     const apiSecret = process.env.CLOUDINARY_API_SECRET;
 
     if (cloudName && apiKey && apiSecret && !cloudName.includes("your-cloud")) {
-      // Cloudinary upload via REST API with signature or preset
       try {
         const uploadFormData = new FormData();
         const blob = new Blob([buffer], { type: file.type });
         uploadFormData.append("file", blob, file.name);
         uploadFormData.append("folder", "belokiri/articles");
 
-        // Use unsigned upload if preset available or basic signature
         const uploadPreset = process.env.CLOUDINARY_UPLOAD_PRESET || "belokiri_preset";
         uploadFormData.append("upload_preset", uploadPreset);
 
@@ -94,7 +106,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 6. Local Storage Fallback (Guaranteed to work anywhere)
+    // 7. Local Storage Fallback
     const uploadsDir = path.join(process.cwd(), "public", "uploads");
     if (!fs.existsSync(uploadsDir)) {
       fs.mkdirSync(uploadsDir, { recursive: true });

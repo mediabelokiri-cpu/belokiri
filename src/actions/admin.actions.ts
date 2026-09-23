@@ -12,6 +12,7 @@ import {
   saveArticleByAdmin,
 } from "@/lib/data/admin";
 import { ApiResponse } from "@/types";
+import { sanitizeHtml } from "@/lib/security/sanitize";
 
 /**
  * Publish article (Editorial approval)
@@ -29,10 +30,19 @@ export async function publishArticleAction(
   try {
     const admin = await requireAdmin();
 
+    const sanitizedSeo = seoData
+      ? {
+          ...seoData,
+          seoTitle: seoData.seoTitle?.trim(),
+          metaDescription: seoData.metaDescription?.trim(),
+          title: seoData.title?.trim(),
+        }
+      : undefined;
+
     const published = await publishArticleByAdmin(
       articleId,
       admin.name,
-      seoData
+      sanitizedSeo
     );
 
     revalidatePath("/admin");
@@ -68,10 +78,19 @@ export async function requestRevisionAction(
   try {
     const admin = await requireAdmin();
 
+    if (!adminNote || adminNote.trim().length === 0) {
+      return {
+        success: false,
+        message: "Catatan revisi wajib diisi untuk panduan penulis.",
+      };
+    }
+
+    const cleanNote = sanitizeHtml(adminNote.trim());
+
     const revised = await requestRevisionByAdmin(
       articleId,
       admin.name,
-      adminNote
+      cleanNote
     );
 
     revalidatePath("/admin");
@@ -254,10 +273,22 @@ export async function saveArticleByAdminAction(
       };
     }
 
+    // Sanitize content and text inputs
+    const sanitizedData = {
+      ...data,
+      title: data.title.trim(),
+      content: sanitizeHtml(data.content),
+      excerpt: data.excerpt ? data.excerpt.trim() : null,
+      seoTitle: data.seoTitle ? data.seoTitle.trim() : null,
+      metaDescription: data.metaDescription ? data.metaDescription.trim() : null,
+      photoSource: data.photoSource ? data.photoSource.trim() : null,
+      source: data.source ? data.source.trim() : null,
+    };
+
     const saved = await saveArticleByAdmin(
       admin.id,
       admin.name,
-      data,
+      sanitizedData,
       articleId
     );
 
@@ -290,4 +321,3 @@ export async function saveArticleByAdminAction(
     };
   }
 }
-

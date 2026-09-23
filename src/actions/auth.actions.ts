@@ -1,12 +1,22 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { setSession, clearSession, DEMO_CONTRIBUTOR, DEMO_ADMIN } from "@/lib/auth/session";
+import { rateLimitAuth, getClientIp } from "@/lib/security/rate-limit";
 
 /**
  * Log in as Demo Contributor for development and testing.
  */
 export async function loginAsDemoContributor(redirectTo: string = "/dashboard") {
+  const headerList = await headers();
+  const ip = getClientIp(headerList);
+  const rateCheck = rateLimitAuth(ip);
+
+  if (!rateCheck.success) {
+    redirect(`/login?error=ratelimit`);
+  }
+
   await setSession(DEMO_CONTRIBUTOR);
   redirect(redirectTo);
 }
@@ -15,6 +25,14 @@ export async function loginAsDemoContributor(redirectTo: string = "/dashboard") 
  * Log in as Demo Admin for development and editorial testing.
  */
 export async function loginAsDemoAdmin(redirectTo: string = "/admin") {
+  const headerList = await headers();
+  const ip = getClientIp(headerList);
+  const rateCheck = rateLimitAuth(ip);
+
+  if (!rateCheck.success) {
+    redirect(`/login?error=ratelimit`);
+  }
+
   await setSession(DEMO_ADMIN);
   redirect(redirectTo);
 }
@@ -23,6 +41,14 @@ export async function loginAsDemoAdmin(redirectTo: string = "/admin") {
  * Handle Google OAuth or fallback to demo contributor login.
  */
 export async function loginWithGoogleAction(redirectTo: string = "/dashboard") {
+  const headerList = await headers();
+  const ip = getClientIp(headerList);
+  const rateCheck = rateLimitAuth(ip);
+
+  if (!rateCheck.success) {
+    redirect(`/login?error=ratelimit`);
+  }
+
   const googleClientId = process.env.GOOGLE_CLIENT_ID;
 
   if (!googleClientId || googleClientId.includes("your-google")) {

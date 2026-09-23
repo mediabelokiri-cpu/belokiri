@@ -16,9 +16,11 @@ import {
 } from "@/lib/validations/article.schema";
 import { ProfileSchema, ProfileInput } from "@/lib/validations/profile.schema";
 import { ApiResponse } from "@/types";
+import { sanitizeHtml } from "@/lib/security/sanitize";
+import { rateLimitSubmission } from "@/lib/security/rate-limit";
 
 /**
- * Save article as DRAFT
+ * Save article as DRAFT with rate limiting and HTML sanitization
  */
 export async function saveDraftAction(
   data: CreateArticleInput | UpdateArticleInput,
@@ -27,10 +29,30 @@ export async function saveDraftAction(
   try {
     const session = await requireUser();
 
-    // Partial validation for drafts so contributors can save incremental work
+    // 1. Rate limiting check per user
+    const rateCheck = rateLimitSubmission(session.id);
+    if (!rateCheck.success) {
+      return {
+        success: false,
+        message: `Terlalu banyak permintaan penyimpanan. Harap tunggu ${rateCheck.resetSeconds} detik sebelum mencoba lagi.`,
+      };
+    }
+
+    // 2. Partial validation for drafts
     const parsed = articleId
       ? UpdateArticleSchema.parse(data)
       : CreateArticleSchema.parse(data);
+
+    // 3. Content sanitization to prevent stored XSS
+    if (parsed.content) {
+      parsed.content = sanitizeHtml(parsed.content);
+    }
+    if (parsed.title) {
+      parsed.title = parsed.title.trim();
+    }
+    if (parsed.excerpt) {
+      parsed.excerpt = parsed.excerpt.trim();
+    }
 
     const saved = await saveArticleDraft(session.id, parsed, articleId);
 
@@ -43,7 +65,7 @@ export async function saveDraftAction(
     return {
       success: true,
       data: { id: saved.id, slug: saved.slug },
-      message: "Draf naskah berhasil disimpan.",
+      message: "Draf naskah berhasil disimpan secara aman.",
     };
   } catch (error: any) {
     return {
@@ -54,13 +76,22 @@ export async function saveDraftAction(
 }
 
 /**
- * Submit article to editorial review queue
+ * Submit article to editorial review queue with rate limiting
  */
 export async function submitToReviewAction(
   articleId: string
 ): Promise<ApiResponse<{ id: string }>> {
   try {
     const session = await requireUser();
+
+    // 1. Rate limiting check per user
+    const rateCheck = rateLimitSubmission(session.id);
+    if (!rateCheck.success) {
+      return {
+        success: false,
+        message: `Terlalu banyak permintaan. Harap tunggu ${rateCheck.resetSeconds} detik sebelum mencoba lagi.`,
+      };
+    }
 
     const submitted = await submitArticleToReview(articleId, session.id);
 
@@ -109,7 +140,7 @@ export async function deleteDraftAction(
 }
 
 /**
- * Update contributor profile
+ * Update contributor profile with input sanitization
  */
 export async function updateProfileAction(
   data: ProfileInput
@@ -117,6 +148,11 @@ export async function updateProfileAction(
   try {
     const session = await requireUser();
     const parsed = ProfileSchema.parse(data);
+
+    // Sanitize bio and name
+    parsed.name = parsed.name.trim();
+    if (parsed.penName) parsed.penName = parsed.penName.trim();
+    if (parsed.bio) parsed.bio = sanitizeHtml(parsed.bio).trim();
 
     await updateContributorProfile(session.id, parsed);
 
