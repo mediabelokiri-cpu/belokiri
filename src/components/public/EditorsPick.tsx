@@ -15,16 +15,18 @@ export default function EditorsPick({ articles }: EditorsPickProps) {
   const sidePicks = articles.slice(1, 4);
 
   return (
-    <section className="rounded-2xl bg-stone-900 text-stone-100 p-6 sm:p-8 lg:p-10 shadow-lg">
-      <div className="flex items-center justify-between pb-6 mb-6 border-b border-stone-800">
-        <div className="flex items-center gap-2">
-          <Award className="w-5 h-5 text-amber-400" />
-          <h2 className="text-xl sm:text-2xl font-black font-serif tracking-tight text-white">
-            Pilihan Redaksi
+    <section className="rounded-2xl bg-black text-white p-6 sm:p-8 lg:p-10 shadow-xl border border-zinc-800">
+      <div className="flex items-center justify-between pb-5 mb-6 border-b border-zinc-800">
+        <div className="flex items-center gap-2.5">
+          <div className="p-1.5 rounded-sm bg-red-600 text-white">
+            <Award className="w-5 h-5" />
+          </div>
+          <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white">
+            PILIHAN REDAKSI
           </h2>
         </div>
-        <span className="text-xs text-stone-400 font-medium hidden sm:inline-block">
-          Kurasi artikel mendalam dan berbobot minggu ini
+        <span className="text-xs text-zinc-400 font-medium hidden sm:inline-block">
+          Kurasi artikel analisis & investigasi berbobot minggu ini
         </span>
       </div>
 
@@ -32,55 +34,57 @@ export default function EditorsPick({ articles }: EditorsPickProps) {
         {/* Main Pick (Large) */}
         <div className="lg:col-span-7 group flex flex-col justify-between">
           <div>
-            <div className="relative aspect-16/9 w-full rounded-xl overflow-hidden bg-stone-800 mb-4">
+            <div className="relative aspect-16/9 w-full rounded-xl overflow-hidden bg-zinc-900 mb-5">
               <Image
                 src={mainPick.featuredImage}
                 alt={mainPick.title}
                 fill
                 sizes="(max-width: 1024px) 100vw, 60vw"
-                className="object-cover group-hover:scale-102 transition-transform duration-500"
+                className="object-cover group-hover:scale-103 transition-transform duration-500"
               />
               <div className="absolute top-3 left-3">
-                <span className="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-amber-500 text-stone-950">
+                <span className="px-3 py-1 rounded-sm text-[10px] font-black uppercase tracking-wider bg-red-600 text-white shadow-md">
                   {mainPick.rubrik.name}
                 </span>
               </div>
             </div>
 
             <Link href={`/artikel/${mainPick.slug}`}>
-              <h3 className="text-xl sm:text-2xl font-black font-serif leading-snug group-hover:text-amber-400 transition-colors">
+              <h3 className="text-xl sm:text-3xl font-black leading-snug group-hover:text-red-500 transition-colors tracking-tight">
                 {mainPick.title}
               </h3>
             </Link>
 
-            <p className="mt-3 text-xs sm:text-sm text-stone-300 leading-relaxed line-clamp-3">
+            <p className="mt-3 text-xs sm:text-sm text-zinc-300 leading-relaxed line-clamp-3 font-normal">
               {mainPick.excerpt}
             </p>
           </div>
 
-          <div className="flex items-center justify-between pt-4 mt-4 border-t border-stone-800 text-xs text-stone-400">
-            <span>Oleh: <strong className="text-stone-200">{mainPick.author.name}</strong></span>
-            <span>{formatDate(mainPick.publishedAt)}</span>
+          <div className="flex items-center justify-between pt-5 mt-5 border-t border-zinc-800 text-xs text-zinc-400">
+            <span>
+              Oleh: <strong className="text-white font-bold">{mainPick.author.name}</strong>
+            </span>
+            <span className="font-medium">{formatDate(mainPick.publishedAt)}</span>
           </div>
         </div>
 
         {/* Side Picks List */}
-        <div className="lg:col-span-5 flex flex-col justify-between divide-y divide-stone-800">
+        <div className="lg:col-span-5 flex flex-col justify-between divide-y divide-zinc-800">
           {sidePicks.map((pick) => (
             <div key={pick.id} className="py-4 first:pt-0 last:pb-0 group">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
+              <span className="text-[10px] font-black uppercase tracking-wider text-red-500">
                 {pick.rubrik.name}
               </span>
               <Link href={`/artikel/${pick.slug}`}>
-                <h4 className="text-sm font-bold font-serif leading-snug mt-1 group-hover:text-amber-400 transition-colors">
+                <h4 className="text-sm sm:text-base font-black leading-snug mt-1 group-hover:text-red-400 transition-colors">
                   {pick.title}
                 </h4>
               </Link>
-              <p className="text-xs text-stone-400 line-clamp-2 mt-1.5 leading-relaxed">
+              <p className="text-xs text-zinc-400 line-clamp-2 mt-1.5 leading-relaxed font-normal">
                 {pick.excerpt}
               </p>
-              <div className="flex items-center gap-2 mt-2 text-[11px] text-stone-500">
-                <span>{pick.author.name}</span>
+              <div className="flex items-center gap-2 mt-2 text-[11px] text-zinc-500 font-medium">
+                <span className="text-zinc-300 font-bold">{pick.author.name}</span>
                 <span>•</span>
                 <span>{formatDate(pick.publishedAt)}</span>
               </div>

@@ -12,12 +12,10 @@ import ArticleCard from "@/components/public/ArticleCard";
 import PopularSidebar from "@/components/public/PopularSidebar";
 import {
   Clock,
-  User,
   Share2,
-  Bookmark,
-  ArrowLeft,
   ChevronRight,
-  Sparkles,
+  Flame,
+  ArrowRight,
 } from "lucide-react";
 
 interface ArticleDetailPageProps {
@@ -74,21 +72,21 @@ export default async function ArticleDetailPage({
 
   return (
     <article className="min-h-screen pb-16 sm:pb-24">
-      {/* 1. Breadcrumbs & Rubrik Header */}
-      <div className="border-b border-stone-200 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-2 text-xs text-stone-500 font-medium">
-          <Link href="/" className="hover:text-stone-900 transition-colors">
+      {/* 1. Breadcrumbs */}
+      <div className="border-b border-zinc-200 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center gap-2 text-xs text-zinc-500 font-semibold">
+          <Link href="/" className="hover:text-black transition-colors">
             Beranda
           </Link>
-          <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+          <ChevronRight className="w-3.5 h-3.5 text-zinc-400" />
           <Link
             href={`/kategori/${article.rubrik.slug}`}
-            className="font-bold text-amber-800 uppercase tracking-wider hover:underline"
+            className="font-black text-red-600 uppercase tracking-wider hover:underline"
           >
             {article.rubrik.name}
           </Link>
-          <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
-          <span className="truncate max-w-[200px] sm:max-w-xs text-stone-700">
+          <ChevronRight className="w-3.5 h-3.5 text-zinc-400" />
+          <span className="truncate max-w-[200px] sm:max-w-xs text-zinc-800">
             {article.title}
           </span>
         </div>
@@ -96,35 +94,35 @@ export default async function ArticleDetailPage({
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          {/* Main Article Body Column (8 cols on desktop) */}
-          <div className="lg:col-span-8">
+          {/* Main Article Body (8 cols on desktop) */}
+          <div className="lg:col-span-8 bg-white border border-zinc-200 rounded-3xl p-6 sm:p-10 shadow-xs">
             {/* Header / Title Section */}
             <header className="space-y-4 mb-8">
               <div className="flex items-center gap-3">
-                <span className="px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-stone-900 text-white">
-                  Rubrik {article.rubrik.name}
+                <span className="px-3 py-1 rounded-sm text-xs font-black uppercase tracking-wider bg-red-600 text-white shadow-xs">
+                  {article.rubrik.name}
                 </span>
-                <span className="text-xs text-stone-500 font-medium flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5" />
+                <span className="text-xs text-zinc-500 font-bold flex items-center gap-1">
+                  <Clock className="w-3.5 h-3.5 text-red-600" />
                   Waktu baca ± {readingTime} menit
                 </span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black font-serif text-stone-950 leading-[1.18] tracking-tight">
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-black leading-[1.18] tracking-tight">
                 {article.title}
               </h1>
 
-              <p className="text-base sm:text-lg text-stone-600 leading-relaxed font-sans font-normal border-l-4 border-amber-500 pl-4 py-1">
+              <p className="text-base sm:text-lg text-zinc-700 leading-relaxed font-normal border-l-4 border-red-600 pl-4 py-1 bg-zinc-50 rounded-r-lg">
                 {article.excerpt}
               </p>
 
               {/* Author & Meta Row */}
-              <div className="pt-6 border-t border-stone-200 flex flex-wrap items-center justify-between gap-4">
+              <div className="pt-6 border-t border-zinc-200 flex flex-wrap items-center justify-between gap-4">
                 <Link
                   href={`/penulis/${article.author.slug}`}
-                  className="flex items-center gap-3 group"
+                  className="flex items-center gap-3 group/author"
                 >
-                  <div className="relative w-11 h-11 rounded-full overflow-hidden bg-stone-200 ring-2 ring-stone-100">
+                  <div className="relative w-11 h-11 rounded-full overflow-hidden bg-zinc-200 ring-2 ring-zinc-200">
                     <Image
                       src={article.author.avatarUrl}
                       alt={article.author.name}
@@ -133,28 +131,28 @@ export default async function ArticleDetailPage({
                     />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-stone-900 group-hover:text-amber-800 transition-colors">
+                    <p className="text-sm font-black text-black group-hover/author:text-red-600 transition-colors">
                       {article.author.name}
                     </p>
-                    <p className="text-xs text-stone-500">
+                    <p className="text-xs text-zinc-500 font-medium">
                       {article.author.role} • {formatDate(article.publishedAt)}
                     </p>
                   </div>
                 </Link>
 
-                {/* Social Share / Utility */}
+                {/* Social Share */}
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-stone-400 font-medium">Bagikan:</span>
+                  <span className="text-xs text-zinc-500 font-black uppercase tracking-wider">Bagikan:</span>
                   <a
                     href={`https://wa.me/?text=${encodeURIComponent(
                       `${article.title} - ${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/artikel/${article.slug}`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-full border border-stone-200 text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-300 transition-colors text-xs font-semibold"
+                    className="px-3 py-1.5 rounded-lg border border-zinc-300 text-black hover:bg-emerald-600 hover:text-white hover:border-emerald-600 transition-colors text-xs font-black"
                     title="Bagikan ke WhatsApp"
                   >
-                    WA
+                    WhatsApp
                   </a>
                   <a
                     href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
@@ -164,10 +162,10 @@ export default async function ArticleDetailPage({
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-full border border-stone-200 text-stone-600 hover:bg-stone-100 hover:text-stone-900 transition-colors text-xs font-semibold"
-                    title="Bagikan ke X / Twitter"
+                    className="px-3 py-1.5 rounded-lg border border-zinc-300 text-black hover:bg-black hover:text-white hover:border-black transition-colors text-xs font-black"
+                    title="Bagikan ke X"
                   >
-                    𝕏
+                    𝕏 Twitter
                   </a>
                 </div>
               </div>
@@ -175,7 +173,7 @@ export default async function ArticleDetailPage({
 
             {/* Featured Image + Caption + Credit */}
             <div className="mb-10">
-              <div className="relative aspect-16/10 sm:aspect-21/10 w-full rounded-2xl overflow-hidden bg-stone-100 shadow-sm">
+              <div className="relative aspect-16/10 sm:aspect-21/10 w-full rounded-2xl overflow-hidden bg-zinc-100 shadow-xs">
                 <Image
                   src={article.featuredImage}
                   alt={article.title}
@@ -185,52 +183,52 @@ export default async function ArticleDetailPage({
                   className="object-cover"
                 />
               </div>
-              <div className="mt-2.5 px-2 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-stone-500 gap-1">
-                <p className="italic">{article.featuredImageCaption}</p>
-                <p className="text-[11px] text-stone-400 shrink-0">
+              <div className="mt-2.5 px-1 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-zinc-500 gap-1 font-medium">
+                <p className="italic text-zinc-600">{article.featuredImageCaption}</p>
+                <p className="text-[11px] text-zinc-400 shrink-0">
                   Foto: {article.photoSource}
                 </p>
               </div>
             </div>
 
-            {/* Article Content: Optimized Reading Experience */}
+            {/* Article Content: Crisp Lato Typography */}
             <div
-              className="prose prose-stone prose-lg max-w-none 
-                leading-relaxed text-stone-800
-                [&_p]:mb-6 [&_p]:leading-[1.8] [&_p]:text-[17px] sm:[&_p]:text-[18px]
-                [&_h3]:font-serif [&_h3]:font-bold [&_h3]:text-2xl [&_h3]:mt-10 [&_h3]:mb-4 [&_h3]:text-stone-900
-                [&_blockquote]:border-l-4 [&_blockquote]:border-amber-600 [&_blockquote]:pl-6 [&_blockquote]:italic [&_blockquote]:text-stone-700 [&_blockquote]:my-8
-                [&_.lead]:text-xl [&_.lead]:font-serif [&_.lead]:text-stone-900 [&_.lead]:leading-relaxed"
+              className="prose prose-zinc prose-lg max-w-none 
+                leading-relaxed text-zinc-900
+                [&_p]:mb-6 [&_p]:leading-[1.85] [&_p]:text-[17px] sm:[&_p]:text-[18px] [&_p]:font-normal
+                [&_h3]:font-black [&_h3]:text-2xl [&_h3]:mt-10 [&_h3]:mb-4 [&_h3]:text-black [&_h3]:tracking-tight
+                [&_blockquote]:border-l-4 [&_blockquote]:border-red-600 [&_blockquote]:bg-zinc-50 [&_blockquote]:p-5 [&_blockquote]:rounded-r-xl [&_blockquote]:font-bold [&_blockquote]:text-black [&_blockquote]:my-8
+                [&_.lead]:text-xl [&_.lead]:font-bold [&_.lead]:text-black [&_.lead]:leading-relaxed"
               dangerouslySetInnerHTML={{ __html: article.content }}
             />
 
-            {/* Source & Reporting Attribution */}
+            {/* Source Attribution */}
             {article.source && (
-              <div className="mt-10 p-4 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-600">
-                <strong className="text-stone-900">Sumber & Liputan:</strong>{" "}
+              <div className="mt-10 p-4 rounded-xl bg-zinc-100 border border-zinc-200 text-xs text-zinc-700 font-medium">
+                <strong className="text-black font-bold">Sumber & Liputan:</strong>{" "}
                 {article.source}
               </div>
             )}
 
             {/* Tags Cloud */}
-            <div className="mt-8 pt-6 border-t border-stone-200 flex flex-wrap items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-stone-400 mr-2">
+            <div className="mt-8 pt-6 border-t border-zinc-200 flex flex-wrap items-center gap-2">
+              <span className="text-xs font-black uppercase tracking-wider text-black mr-2">
                 Topik Terkait:
               </span>
               {article.tags.map((tag) => (
                 <Link
                   key={tag}
                   href={`/cari?q=${encodeURIComponent(tag)}`}
-                  className="px-3 py-1 rounded-full text-xs font-medium bg-stone-100 text-stone-700 hover:bg-stone-200 transition-colors"
+                  className="px-3 py-1 rounded-md text-xs font-bold bg-zinc-100 text-zinc-800 hover:bg-red-600 hover:text-white transition-colors"
                 >
                   #{tag}
                 </Link>
               ))}
             </div>
 
-            {/* Author Profile Box */}
-            <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-white border border-stone-200 shadow-xs flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <div className="relative w-16 h-16 rounded-full overflow-hidden bg-stone-200 shrink-0">
+            {/* Author Profile Card */}
+            <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-zinc-50 border border-zinc-200 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+              <div className="relative w-16 h-16 rounded-full overflow-hidden bg-zinc-200 shrink-0 ring-2 ring-red-600">
                 <Image
                   src={article.author.avatarUrl}
                   alt={article.author.name}
@@ -241,30 +239,31 @@ export default async function ArticleDetailPage({
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700">
-                      Tentang Penulis
+                    <span className="text-[10px] font-black uppercase tracking-wider text-red-600">
+                      Penulis NALAR
                     </span>
-                    <h4 className="text-base font-bold font-serif text-stone-900">
+                    <h4 className="text-base font-black text-black">
                       {article.author.name}
                     </h4>
                   </div>
                   <Link
                     href={`/penulis/${article.author.slug}`}
-                    className="text-xs font-bold text-stone-900 hover:text-amber-800 transition-colors"
+                    className="text-xs font-black text-red-600 hover:text-black transition-colors uppercase tracking-wider"
                   >
                     Semua Tulisan →
                   </Link>
                 </div>
-                <p className="mt-2 text-xs sm:text-sm text-stone-600 leading-relaxed">
+                <p className="mt-2 text-xs sm:text-sm text-zinc-600 leading-relaxed font-normal">
                   {article.author.bio}
                 </p>
               </div>
             </div>
 
-            {/* Related Articles in Same Rubrik */}
+            {/* Related Articles in Rubrik */}
             {relatedArticles.length > 0 && (
-              <section className="mt-14 pt-8 border-t border-stone-200">
-                <h3 className="text-xl font-bold font-serif text-stone-900 mb-6">
+              <section className="mt-14 pt-8 border-t border-zinc-200">
+                <h3 className="text-xl font-black text-black uppercase tracking-tight mb-6 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-red-600" />
                   Tulisan Terkait di Rubrik {article.rubrik.name}
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -276,31 +275,32 @@ export default async function ArticleDetailPage({
             )}
           </div>
 
-          {/* Right Sidebar Column (4 cols on desktop) */}
+          {/* Right Sidebar Column (4 cols) */}
           <aside className="lg:col-span-4 space-y-8">
             <PopularSidebar articles={popularArticles} />
 
-            {/* Rubrik Mission Box */}
-            <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-xs">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-stone-400 block mb-1">
+            {/* Rubrik Spotlight Box */}
+            <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-xs relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-red-600" />
+              <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400 block mb-1">
                 Fokus Rubrik
               </span>
-              <h4 className="text-lg font-black font-serif text-stone-900">
+              <h4 className="text-xl font-black text-black uppercase">
                 {article.rubrik.name}
               </h4>
-              <p className="text-xs font-semibold text-amber-800 mt-1 italic">
+              <p className="text-xs font-bold text-red-700 mt-1 italic">
                 “{article.rubrik.question}”
               </p>
-              <p className="text-xs text-stone-500 mt-3 leading-relaxed">
+              <p className="text-xs text-zinc-600 mt-3 leading-relaxed font-normal">
                 {article.rubrik.description}
               </p>
-              <div className="mt-4 pt-4 border-t border-stone-100">
+              <div className="mt-5 pt-4 border-t border-zinc-100">
                 <Link
                   href={`/kategori/${article.rubrik.slug}`}
-                  className="text-xs font-bold text-stone-900 hover:text-amber-800 flex items-center justify-between"
+                  className="text-xs font-black text-black hover:text-red-600 flex items-center justify-between uppercase tracking-wider"
                 >
-                  <span>Lihat Indeks Rubrik {article.rubrik.name}</span>
-                  <span>→</span>
+                  <span>Indeks Rubrik {article.rubrik.name}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>

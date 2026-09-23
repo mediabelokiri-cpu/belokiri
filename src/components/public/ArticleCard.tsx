@@ -17,8 +17,8 @@ export default function ArticleCard({
 }: ArticleCardProps) {
   if (variant === "horizontal") {
     return (
-      <article className="group flex gap-4 items-start py-4 border-b border-stone-100 last:border-0">
-        <div className="relative w-28 sm:w-36 aspect-4/3 shrink-0 rounded-lg overflow-hidden bg-stone-100">
+      <article className="group flex gap-4 items-start py-4 border-b border-zinc-200 last:border-0">
+        <div className="relative w-28 sm:w-36 aspect-4/3 shrink-0 rounded-xl overflow-hidden bg-zinc-200">
           <Image
             src={article.featuredImage}
             alt={article.title}
@@ -31,18 +31,18 @@ export default function ArticleCard({
           <div>
             <Link
               href={`/kategori/${article.rubrik.slug}`}
-              className="text-[10px] font-bold uppercase tracking-wider text-amber-800 hover:underline"
+              className="text-[10px] font-black uppercase tracking-wider text-red-600 hover:underline"
             >
               {article.rubrik.name}
             </Link>
             <Link href={`/artikel/${article.slug}`}>
-              <h3 className="text-sm font-bold font-serif text-stone-900 leading-snug line-clamp-2 mt-1 group-hover:text-amber-800 transition-colors">
+              <h3 className="text-sm font-bold text-black leading-snug line-clamp-2 mt-1 group-hover:text-red-600 transition-colors">
                 {article.title}
               </h3>
             </Link>
           </div>
-          <div className="flex items-center gap-2 mt-2 text-[11px] text-stone-400">
-            <span>{article.author.name}</span>
+          <div className="flex items-center gap-2 mt-2 text-[11px] text-zinc-400 font-medium">
+            <span className="font-semibold text-zinc-700">{article.author.name}</span>
             <span>•</span>
             <span>{formatDate(article.publishedAt)}</span>
           </div>
@@ -53,19 +53,19 @@ export default function ArticleCard({
 
   if (variant === "compact") {
     return (
-      <article className="group py-3 border-b border-stone-100 last:border-0">
+      <article className="group py-3 border-b border-zinc-200 last:border-0">
         <Link
           href={`/kategori/${article.rubrik.slug}`}
-          className="text-[10px] font-bold uppercase tracking-wider text-amber-700"
+          className="text-[10px] font-black uppercase tracking-wider text-red-600"
         >
           {article.rubrik.name}
         </Link>
         <Link href={`/artikel/${article.slug}`}>
-          <h4 className="text-xs sm:text-sm font-bold font-serif text-stone-900 leading-snug line-clamp-2 mt-1 group-hover:text-amber-800 transition-colors">
+          <h4 className="text-xs sm:text-sm font-bold text-black leading-snug line-clamp-2 mt-1 group-hover:text-red-600 transition-colors">
             {article.title}
           </h4>
         </Link>
-        <span className="text-[10px] text-stone-400 mt-1 block">
+        <span className="text-[10px] text-zinc-400 mt-1 block">
           {formatDate(article.publishedAt)}
         </span>
       </article>
@@ -74,51 +74,51 @@ export default function ArticleCard({
 
   // Default: Grid Card
   return (
-    <article className="group flex flex-col justify-between rounded-xl bg-white border border-stone-200 overflow-hidden shadow-xs hover:border-stone-300 hover:shadow-md transition-all">
+    <article className="group flex flex-col justify-between rounded-2xl bg-white border border-zinc-200 overflow-hidden shadow-xs hover:border-zinc-400 hover:shadow-md transition-all">
       <div>
         {/* Card Image */}
-        <div className="relative aspect-16/10 w-full overflow-hidden bg-stone-100">
+        <div className="relative aspect-16/10 w-full overflow-hidden bg-zinc-200">
           <Image
             src={article.featuredImage}
             alt={article.title}
             fill
             priority={priority}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover group-hover:scale-103 transition-transform duration-400"
+            className="object-cover group-hover:scale-104 transition-transform duration-400"
           />
           <div className="absolute top-3 left-3">
             <Link
               href={`/kategori/${article.rubrik.slug}`}
-              className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/90 backdrop-blur-xs text-stone-900 border border-stone-200/50 hover:bg-stone-900 hover:text-white transition-colors"
+              className="px-2.5 py-1 rounded-sm text-[10px] font-black uppercase tracking-wider bg-red-600 text-white shadow-xs hover:bg-black transition-colors"
             >
               {article.rubrik.name}
             </Link>
           </div>
         </div>
 
-        {/* Content */}
+        {/* Card Body */}
         <div className="p-5">
           <Link href={`/artikel/${article.slug}`}>
-            <h2 className="text-lg font-bold font-serif text-stone-950 leading-snug line-clamp-2 group-hover:text-amber-800 transition-colors">
+            <h2 className="text-base sm:text-lg font-black text-black leading-snug line-clamp-2 group-hover:text-red-600 transition-colors tracking-tight">
               {article.title}
             </h2>
           </Link>
-          <p className="mt-2 text-xs sm:text-sm text-stone-600 leading-relaxed line-clamp-2">
+          <p className="mt-2 text-xs sm:text-sm text-zinc-600 leading-relaxed line-clamp-2 font-normal">
             {article.excerpt}
           </p>
         </div>
       </div>
 
-      {/* Footer Info */}
-      <div className="px-5 pb-5 pt-3 border-t border-stone-100 flex items-center justify-between text-[11px] text-stone-500">
+      {/* Footer Meta */}
+      <div className="px-5 pb-5 pt-3 border-t border-zinc-100 flex items-center justify-between text-[11px] text-zinc-500">
         <Link
           href={`/penulis/${article.author.slug}`}
-          className="font-medium text-stone-700 hover:text-stone-950 transition-colors"
+          className="font-bold text-zinc-800 hover:text-red-600 transition-colors"
         >
           {article.author.name}
         </Link>
-        <div className="flex items-center gap-1">
-          <Clock className="w-3 h-3" />
+        <div className="flex items-center gap-1 font-medium">
+          <Clock className="w-3 h-3 text-zinc-400" />
           <span>{formatDate(article.publishedAt)}</span>
         </div>
       </div>

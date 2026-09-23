@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Sparkles, PenTool, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Masuk Kontributor | NALAR",
@@ -9,52 +9,55 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-[#fafaf9] flex flex-col justify-between p-4 sm:p-6">
+    <div className="min-h-screen bg-[#f4f4f5] flex flex-col justify-between p-4 sm:p-6">
       {/* Top Bar */}
       <div className="max-w-6xl mx-auto w-full flex items-center justify-between">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-600 hover:text-stone-950 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-black uppercase text-zinc-700 hover:text-black transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 text-red-600" />
           <span>Kembali ke NALAR</span>
         </Link>
-        <span className="text-xs text-stone-400 font-medium">Portal Kontributor</span>
+        <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">Portal Kontributor</span>
       </div>
 
       {/* Main Login Card */}
-      <div className="max-w-md w-full mx-auto my-12 bg-white border border-stone-200 rounded-3xl p-8 sm:p-10 shadow-xs text-center space-y-6">
+      <div className="max-w-md w-full mx-auto my-12 bg-white border border-zinc-200 rounded-3xl p-8 sm:p-10 shadow-xs text-center space-y-6">
         <div>
-          <span className="text-3xl font-black font-serif text-stone-950 tracking-tight">
-            NALAR
-          </span>
-          <p className="text-[11px] font-bold uppercase tracking-widest text-amber-700 mt-1">
+          <div className="flex items-center justify-center gap-1.5">
+            <span className="text-4xl font-black text-black tracking-tight uppercase">
+              NALAR
+            </span>
+            <span className="w-3 h-3 rounded-full bg-red-600" />
+          </div>
+          <p className="text-[10px] font-black uppercase tracking-widest text-red-600 mt-1">
             Melihat lebih dari sekadar kabar
           </p>
         </div>
 
-        <div className="space-y-2">
-          <h1 className="text-xl font-bold font-serif text-stone-900">
+        <div className="space-y-1">
+          <h1 className="text-xl font-black text-black uppercase tracking-tight">
             Masuk ke Meja Kontributor
           </h1>
-          <p className="text-xs text-stone-500 leading-relaxed">
+          <p className="text-xs text-zinc-500 leading-relaxed font-normal">
             Tulis draft, kirimkan liputan atau opinimu, dan pantau proses kurasi
             redaksi secara langsung.
           </p>
         </div>
 
         {/* Benefits bullets */}
-        <div className="bg-stone-50 rounded-2xl p-4 text-left space-y-2 text-xs text-stone-600 border border-stone-100">
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+        <div className="bg-zinc-50 rounded-2xl p-4 text-left space-y-2.5 text-xs text-zinc-700 border border-zinc-200">
+          <div className="flex items-center gap-2 font-medium">
+            <CheckCircle2 className="w-4 h-4 text-red-600 shrink-0" />
             <span>Simpan draft artikel kapan saja</span>
           </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+          <div className="flex items-center gap-2 font-medium">
+            <CheckCircle2 className="w-4 h-4 text-red-600 shrink-0" />
             <span>Terima catatan kurasi & revisi transparan</span>
           </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+          <div className="flex items-center gap-2 font-medium">
+            <CheckCircle2 className="w-4 h-4 text-red-600 shrink-0" />
             <span>Karya dibaca ribuan audiens muda di seluruh Indonesia</span>
           </div>
         </div>
@@ -63,7 +66,7 @@ export default function LoginPage() {
         <div className="pt-2">
           <button
             type="button"
-            className="w-full flex items-center justify-center gap-3 px-5 py-3 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-stone-800 text-xs font-bold transition-all shadow-xs cursor-pointer group"
+            className="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-xl border-2 border-zinc-300 hover:border-black bg-white hover:bg-zinc-50 text-black text-xs font-black uppercase tracking-wider transition-all shadow-xs cursor-pointer group"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24">
               <path
@@ -83,16 +86,16 @@ export default function LoginPage() {
                 d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
               />
             </svg>
-            <span className="group-hover:text-stone-950">Lanjutkan dengan Google</span>
+            <span>Lanjutkan dengan Google</span>
           </button>
-          <p className="text-[10px] text-stone-400 mt-3">
-            Otentikasi aman via Google OAuth (Auth.js) • Otomatis didaftarkan sebagai Kontributor
+          <p className="text-[10px] text-zinc-400 mt-3 font-medium">
+            Otentikasi aman via Google OAuth • Otomatis terdaftar sebagai Kontributor
           </p>
         </div>
       </div>
 
       {/* Bottom Footer */}
-      <div className="max-w-6xl mx-auto w-full text-center text-[11px] text-stone-400">
+      <div className="max-w-6xl mx-auto w-full text-center text-xs text-zinc-400 font-medium">
         © {new Date().getFullYear()} NALAR Media Nusantara. Seluruh hak cipta dilindungi.
       </div>
     </div>

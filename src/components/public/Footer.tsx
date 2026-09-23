@@ -4,20 +4,21 @@ import { ArrowUpRight } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-stone-200 bg-stone-900 text-stone-200 mt-20">
+    <footer className="border-t-4 border-red-600 bg-black text-white mt-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Brand Col */}
           <div className="md:col-span-2 space-y-4">
-            <Link href="/" className="inline-block">
-              <span className="text-3xl font-black font-serif text-white tracking-tight">
+            <Link href="/" className="inline-flex items-center gap-1.5">
+              <span className="text-3xl sm:text-4xl font-black text-white tracking-tight uppercase">
                 NALAR
               </span>
+              <span className="w-2.5 h-2.5 rounded-full bg-red-600" />
             </Link>
-            <p className="text-amber-400 text-sm font-medium italic">
-              “Melihat lebih dari sekadar kabar.”
+            <p className="text-red-500 text-sm font-bold uppercase tracking-wider">
+              “Melihat lebih dari sekadar kabar”
             </p>
-            <p className="text-xs text-stone-400 leading-relaxed max-w-md">
+            <p className="text-xs text-zinc-400 leading-relaxed max-w-md font-normal">
               NALAR adalah media independen yang menyajikan jurnalisme berkedalaman,
               analisis berimbang, dan perspektif kritis. Kami mengajak pembaca
               untuk tidak hanya mengetahui apa yang terjadi, melainkan memahami
@@ -27,25 +28,25 @@ export default function Footer() {
             <div className="pt-2">
               <Link
                 href="/login"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-lg bg-amber-500 text-stone-950 hover:bg-amber-400 transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider px-5 py-2.5 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors shadow-sm"
               >
                 <span>Kirim Tulisan ke Redaksi</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
+                <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
 
           {/* Rubriks Col */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-stone-400 mb-4">
-              Rubrik NALAR
+            <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-4 pb-1 border-b border-zinc-800">
+              8 Rubrik NALAR
             </h4>
-            <ul className="grid grid-cols-2 gap-2 text-xs">
+            <ul className="grid grid-cols-2 gap-2.5 text-xs font-bold">
               {MOCK_RUBRIKS.map((rubrik) => (
                 <li key={rubrik.slug}>
                   <Link
                     href={`/kategori/${rubrik.slug}`}
-                    className="text-stone-300 hover:text-white transition-colors"
+                    className="text-zinc-300 hover:text-red-500 transition-colors"
                   >
                     {rubrik.name}
                   </Link>
@@ -56,32 +57,32 @@ export default function Footer() {
 
           {/* Information & Legal Col */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-stone-400 mb-4">
+            <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-4 pb-1 border-b border-zinc-800">
               Informasi & Etika
             </h4>
-            <ul className="space-y-2.5 text-xs text-stone-300">
+            <ul className="space-y-3 text-xs text-zinc-300 font-medium">
               <li>
-                <Link href="/tentang-kami" className="hover:text-white transition-colors">
+                <Link href="/tentang-kami" className="hover:text-red-500 transition-colors">
                   Tentang Kami
                 </Link>
               </li>
               <li>
-                <Link href="/kontak" className="hover:text-white transition-colors">
+                <Link href="/kontak" className="hover:text-red-500 transition-colors">
                   Redaksi & Kontak
                 </Link>
               </li>
               <li>
-                <Link href="/berita" className="hover:text-white transition-colors">
+                <Link href="/berita" className="hover:text-red-500 transition-colors">
                   Indeks Berita
                 </Link>
               </li>
               <li>
-                <span className="text-stone-500 cursor-default">
+                <span className="text-zinc-600 cursor-default">
                   Pedoman Media Siber
                 </span>
               </li>
               <li>
-                <span className="text-stone-500 cursor-default">
+                <span className="text-zinc-600 cursor-default">
                   Kebijakan Privasi
                 </span>
               </li>
@@ -90,9 +91,9 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-stone-800 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-stone-500 gap-4">
+        <div className="border-t border-zinc-800 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 gap-4 font-medium">
           <p>© {new Date().getFullYear()} NALAR Media Nusantara. Hak cipta dilindungi undang-undang.</p>
-          <p>Dibangun dengan arsitektur modular Next.js • Supabase • Vercel</p>
+          <p className="text-zinc-400">Next.js • Supabase • Vercel Architecture</p>
         </div>
       </div>
     </footer>
