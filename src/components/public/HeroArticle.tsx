@@ -213,37 +213,37 @@ export default function HeroArticle({
         </div>
 
         {/* ======================================================== */}
-        {/* KOLOM 3: TERPOPULER DI NALAR (3 ARTIKEL)                 */}
+        {/* KOLOM 3: TERPOPULER DI NALAR (RED CARD - 3 ARTIKEL)      */}
         {/* ======================================================== */}
-        <div className="lg:col-span-3 rounded-2xl bg-zinc-50/80 border border-zinc-200 p-6 flex flex-col justify-between shadow-xs lg:h-[520px]">
+        <div className="lg:col-span-3 rounded-2xl bg-red-600 text-white border border-red-700 p-6 flex flex-col justify-between shadow-xl lg:h-[520px]">
           <div>
-            <div className="flex items-center gap-2 pb-3 mb-4 border-b-2 border-red-600">
-              <Flame className="w-4 h-4 text-red-600 fill-current" />
-              <h3 className="text-xs font-black uppercase tracking-wider text-black">
+            <div className="flex items-center gap-2 pb-3 mb-4 border-b border-white/20">
+              <Flame className="w-4 h-4 text-white fill-current" />
+              <h3 className="text-xs font-black uppercase tracking-wider text-white">
                 TERPOPULER DI NALAR
               </h3>
             </div>
 
-            <div className="divide-y divide-zinc-100">
+            <div className="divide-y divide-white/15">
               {popularArticles.slice(0, 3).map((article, idx) => (
                 <div key={article.id} className="py-4 first:pt-1 last:pb-1 flex gap-3.5 items-start group">
-                  <span className="text-3xl font-black text-red-600 transition-colors w-7 shrink-0 leading-none">
+                  <span className="text-3xl font-black text-white transition-colors w-7 shrink-0 leading-none">
                     0{idx + 1}
                   </span>
                   <div className="min-w-0 flex-1">
                     <Link
                       href={`/kategori/${article.rubrik.slug}`}
-                      className="text-[10px] font-black uppercase tracking-wider text-red-600 hover:underline"
+                      className="text-[10px] font-black uppercase tracking-wider text-red-100 bg-red-700/80 px-2 py-0.5 rounded inline-block hover:bg-red-800 transition-colors"
                     >
                       {article.rubrik.name}
                     </Link>
                     <Link href={`/artikel/${article.slug}`}>
-                      <h4 className="text-sm font-black text-black leading-snug line-clamp-2 mt-1 group-hover:text-red-600 transition-colors tracking-tight">
+                      <h4 className="text-sm font-black text-white leading-snug line-clamp-2 mt-1.5 group-hover:text-red-100 transition-colors tracking-tight">
                         {article.title}
                       </h4>
                     </Link>
-                    <div className="flex items-center gap-1.5 text-[11px] text-zinc-500 mt-1.5 font-medium">
-                      <span className="truncate max-w-[120px] font-bold text-zinc-700">{article.author.name}</span>
+                    <div className="flex items-center gap-1.5 text-[11px] text-red-100/80 mt-1.5 font-medium">
+                      <span className="truncate max-w-[120px] font-bold text-white">{article.author.name}</span>
                       <span>•</span>
                       <span>{article.views.toLocaleString("id-ID")} pembaca</span>
                     </div>
@@ -253,10 +253,10 @@ export default function HeroArticle({
             </div>
           </div>
 
-          <div className="pt-4 border-t border-zinc-100 text-center">
+          <div className="pt-4 border-t border-white/20 text-center">
             <Link
               href="/berita"
-              className="text-xs font-black text-zinc-800 hover:text-red-600 transition-colors uppercase tracking-wider inline-flex items-center gap-1"
+              className="w-full py-2.5 rounded-xl bg-white hover:bg-zinc-100 text-red-600 text-xs font-black uppercase tracking-wider transition-all shadow-md inline-flex items-center justify-center gap-1.5 active:scale-95"
             >
               <span>Lihat Indeks Terkini</span>
               <ArrowRight className="w-3.5 h-3.5" />
