@@ -26,7 +26,7 @@ export default function ContributorHeader({ user }: ContributorHeaderProps) {
             </Link>
             <div className="hidden sm:flex items-center gap-2 pl-4 border-l border-zinc-200">
               <span className="text-[11px] font-black uppercase tracking-widest text-white bg-black px-2.5 py-0.5 rounded">
-                Meja Kontributor
+                Meja Warga Belokan
               </span>
             </div>
           </div>
@@ -76,7 +76,7 @@ export default function ContributorHeader({ user }: ContributorHeaderProps) {
                   {user.penName || user.name}
                 </p>
                 <p className="text-[10px] text-zinc-500 font-medium">
-                  Kontributor
+                  Warga Belokan
                 </p>
               </div>
 

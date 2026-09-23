@@ -145,7 +145,7 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
     if (title.trim().length < 5) {
       setStatusMessage({
         type: "error",
-        text: "Judul artikel minimal 5 karakter sebelum dapat diajukan ke redaksi.",
+        text: "Judul artikel minimal 5 karakter sebelum dapat diajukan ke Agen Belokan.",
       });
       return;
     }
@@ -153,7 +153,7 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
     if (content.trim().length < 20) {
       setStatusMessage({
         type: "error",
-        text: "Isi artikel minimal 20 karakter sebelum dapat diajukan ke redaksi.",
+        text: "Isi artikel minimal 20 karakter sebelum dapat diajukan ke Agen Belokan.",
       });
       return;
     }
@@ -188,7 +188,7 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
       if (submitRes.success) {
         setStatusMessage({
           type: "success",
-          text: "Naskah berhasil diajukan ke meja redaksi untuk kurasi!",
+          text: "Naskah berhasil diajukan ke meja Agen Belokan untuk kurasi!",
         });
         setTimeout(() => {
           router.push("/dashboard/artikel?status=REVIEW");
@@ -276,7 +276,7 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
                 className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-all shadow-sm cursor-pointer disabled:opacity-50 active:scale-95"
               >
                 <Send className="w-3.5 h-3.5" />
-                <span>{status === "REVISION" ? "Ajukan Perbaikan" : "Kirim ke Redaksi"}</span>
+                <span>{status === "REVISION" ? "Ajukan Perbaikan" : "Kirim ke Agen Belokan"}</span>
               </button>
             </>
           )}
@@ -284,7 +284,7 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
           {isLocked && (
             <span className="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-300 px-3 py-2 rounded-xl flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 animate-spin" />
-              <span>Terkunci saat proses kurasi redaksi</span>
+              <span>Terkunci saat proses kurasi Agen Belokan</span>
             </span>
           )}
         </div>
@@ -322,14 +322,14 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
         <div className="bg-red-50 border-2 border-red-300 rounded-3xl p-6 sm:p-7 space-y-3">
           <div className="flex items-center gap-2.5 text-red-700 font-black text-sm uppercase tracking-wider">
             <AlertTriangle className="w-5 h-5 text-red-600 shrink-0" />
-            <span>Catatan Kurasi Meja Redaksi BELOKIRI</span>
+            <span>Catatan Kurasi Meja Agen Belokan BELOKIRI</span>
           </div>
           <p className="text-xs sm:text-sm text-red-900 leading-relaxed font-medium bg-white/70 p-4 rounded-xl border border-red-200">
             “{initialData.adminNote}”
           </p>
           <p className="text-[11px] text-red-700 font-normal">
             Mohon perbaiki bagian tulisan yang disebutkan di atas. Setelah selesai, klik tombol{" "}
-            <strong>“Ajukan Perbaikan”</strong> agar naskah masuk kembali ke antrean kurasi editor.
+            <strong>“Ajukan Perbaikan”</strong> agar naskah masuk kembali ke antrean kurasi Agen Belokan.
           </p>
         </div>
       )}

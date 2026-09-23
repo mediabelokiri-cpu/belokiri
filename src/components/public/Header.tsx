@@ -179,18 +179,18 @@ export default function Header() {
               {/* Static Links */}
               <div className="pt-4 border-t border-zinc-200 space-y-2 text-xs font-bold text-zinc-700">
                 <Link
-                  href="/tentang-kami"
+                  href="/manifesto"
                   onClick={() => setMobileMenuOpen(false)}
                   className="block py-2 hover:text-red-600"
                 >
-                  Tentang BELOKIRI
+                  Manifesto BELOKIRI
                 </Link>
                 <Link
                   href="/kontak"
                   onClick={() => setMobileMenuOpen(false)}
                   className="block py-2 hover:text-red-600"
                 >
-                  Redaksi & Kontak
+                  Agen Belokan & Kontak
                 </Link>
               </div>
             </div>

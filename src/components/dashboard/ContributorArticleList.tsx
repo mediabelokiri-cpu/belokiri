@@ -193,7 +193,7 @@ export default function ContributorArticleList({
                       className="inline-flex items-center gap-1.5 text-xs font-bold text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 border border-red-200 px-3 py-1 rounded-md transition-colors cursor-pointer"
                     >
                       <AlertTriangle className="w-3.5 h-3.5" />
-                      <span>Lihat Catatan Redaksi</span>
+                      <span>Lihat Catatan Agen Belokan</span>
                     </button>
                   </div>
                 )}
@@ -269,7 +269,7 @@ export default function ContributorArticleList({
             <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
               <div className="flex items-center gap-2 text-red-600 font-black text-sm uppercase tracking-wider">
                 <AlertTriangle className="w-5 h-5" />
-                <span>Catatan Kurasi Meja Redaksi</span>
+                <span>Catatan Kurasi Meja Agen Belokan</span>
               </div>
               <button
                 type="button"
@@ -285,7 +285,7 @@ export default function ContributorArticleList({
             </div>
 
             <div className="text-[11px] text-zinc-500 font-normal">
-              Silakan sesuaikan isi naskah Anda berdasarkan masukan redaksi di atas, lalu ajukan kembali (*resubmit*) naskah Anda.
+              Silakan sesuaikan isi naskah Anda berdasarkan masukan Agen Belokan di atas, lalu ajukan kembali (*resubmit*) naskah Anda.
             </div>
 
             <div className="pt-2 flex justify-end">

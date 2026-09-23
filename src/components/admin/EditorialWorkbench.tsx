@@ -304,7 +304,7 @@ export default function EditorialWorkbench({ article }: EditorialWorkbenchProps)
                 {article.authorName}
               </p>
               <p className="text-[11px] text-zinc-500 line-clamp-2 mt-0.5">
-                {article.authorBio || "Kontributor resmi BELOKIRI."}
+                {article.authorBio || "Warga Belokan resmi BELOKIRI."}
               </p>
             </div>
           </div>
@@ -316,7 +316,7 @@ export default function EditorialWorkbench({ article }: EditorialWorkbenchProps)
             <div className="flex items-center gap-2 pb-3 border-b border-zinc-100">
               <FileCheck2 className="w-5 h-5 text-red-600" />
               <h3 className="text-sm font-black text-black uppercase tracking-tight">
-                Panel Kontrol & Optimasi Redaksi
+                Panel Kontrol & Optimasi Agen Belokan
               </h3>
             </div>
 
@@ -398,7 +398,7 @@ export default function EditorialWorkbench({ article }: EditorialWorkbenchProps)
                   />
                   <div>
                     <span className="block text-xs font-black uppercase tracking-tight text-black">
-                      Tandai Pilihan Redaksi
+                      Tandai Pilihan Agen Belokan
                     </span>
                     <span className="text-[10px] text-zinc-500 font-normal">
                       Tampil di blok khusus Beranda BELOKIRI
@@ -447,7 +447,7 @@ export default function EditorialWorkbench({ article }: EditorialWorkbenchProps)
             <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
               <div className="flex items-center gap-2 text-red-600 font-black text-sm uppercase tracking-wider">
                 <AlertTriangle className="w-5 h-5" />
-                <span>Catatan Kurasi Meja Redaksi</span>
+                <span>Catatan Kurasi Meja Agen Belokan</span>
               </div>
               <button
                 type="button"
@@ -460,7 +460,7 @@ export default function EditorialWorkbench({ article }: EditorialWorkbenchProps)
 
             <div className="space-y-2">
               <p className="text-xs text-zinc-600">
-                Tuliskan instruksi perbaikan yang jelas dan konstruktif untuk kontributor (minimal 10 karakter):
+                Tuliskan instruksi perbaikan yang jelas dan konstruktif untuk Warga Belokan (minimal 10 karakter):
               </p>
               <textarea
                 rows={5}

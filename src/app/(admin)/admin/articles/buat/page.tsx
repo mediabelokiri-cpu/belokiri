@@ -2,8 +2,8 @@ import { requireAdmin } from "@/lib/auth/session";
 import AdminArticleEditor from "@/components/admin/AdminArticleEditor";
 
 export const metadata = {
-  title: "Tulis Artikel Redaksi | Meja Redaksi BELOKIRI",
-  description: "Susun esai tajam, analisis mendalam, atau opini resmi Dewan Redaksi BELOKIRI.",
+  title: "Tulis Artikel Agen Belokan | Meja Agen Belokan BELOKIRI",
+  description: "Susun esai tajam, analisis mendalam, atau opini resmi Dewan Agen Belokan BELOKIRI.",
 };
 
 export default async function AdminCreateArticlePage() {

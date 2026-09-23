@@ -2,8 +2,8 @@ import { requireUser } from "@/lib/auth/session";
 import ArticleEditor from "@/components/editor/ArticleEditor";
 
 export const metadata = {
-  title: "Tulis Naskah Baru | Meja Kontributor BELOKIRI",
-  description: "Tulis esai, opini, atau analisis mendalam untuk diajukan ke Redaksi BELOKIRI.",
+  title: "Tulis Naskah Baru | Meja Warga Belokan BELOKIRI",
+  description: "Tulis esai, opini, atau analisis mendalam untuk diajukan ke Agen Belokan BELOKIRI.",
 };
 
 export default async function CreateArticlePage() {
@@ -19,7 +19,7 @@ export default async function CreateArticlePage() {
           Tulis Naskah Baru
         </h1>
         <p className="text-xs sm:text-sm text-zinc-500 font-normal">
-          Susun artikel dengan perspektif kritis dan bernas. Anda dapat menyimpan draf kapan saja sebelum mengirimkannya ke redaksi.
+          Susun artikel dengan perspektif kritis dan bernas. Anda dapat menyimpan draf kapan saja sebelum mengirimkannya ke Agen Belokan.
         </p>
       </div>
 

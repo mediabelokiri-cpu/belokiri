@@ -19,10 +19,10 @@ export const DEMO_CONTRIBUTOR: UserSessionData = {
 
 export const DEMO_ADMIN: UserSessionData = {
   id: "admin-demo-1",
-  email: "redaksi@belokiri.id",
-  name: "Redaksi BELOKIRI",
+  email: "agen@belokiri.id",
+  name: "Agen Belokan BELOKIRI",
   penName: null,
-  slug: "redaksi-belokiri",
+  slug: "agen-belokan-belokiri",
   avatarUrl:
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300",
   role: "ADMIN",

@@ -211,7 +211,7 @@ export default function KonstitusiPage() {
             </li>
             <li className="flex items-start gap-2.5">
               <span className="font-bold text-red-600 shrink-0">3.</span>
-              <span>Tidak ada kultus individu dalam redaksi.</span>
+              <span>Tidak ada kultus individu dalam meja Agen Belokan.</span>
             </li>
             <li className="flex items-start gap-2.5">
               <span className="font-bold text-red-600 shrink-0">4.</span>

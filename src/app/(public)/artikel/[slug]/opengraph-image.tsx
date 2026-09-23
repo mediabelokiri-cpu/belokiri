@@ -20,7 +20,7 @@ export default async function Image({
 
   const title = article ? article.title : "BELOKIRI Media";
   const rubrik = article ? article.rubrik.name : "BERISIK";
-  const author = article ? article.author.name : "Redaksi BELOKIRI";
+  const author = article ? article.author.name : "Agen Belokan BELOKIRI";
 
   return new ImageResponse(
     (

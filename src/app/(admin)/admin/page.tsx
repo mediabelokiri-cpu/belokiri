@@ -33,10 +33,10 @@ export default async function AdminDashboardPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 sm:p-8 rounded-2xl border border-zinc-200 shadow-xs">
         <div>
           <span className="text-[10px] font-black uppercase tracking-widest text-red-600 bg-red-50 border border-red-200 px-2.5 py-0.5 rounded-full inline-block mb-2">
-            Peran: Dewan Redaksi / Admin
+            Peran: Dewan Agen Belokan / Admin
           </span>
           <h1 className="text-2xl sm:text-3xl font-black text-black uppercase tracking-tight">
-            Meja Redaksi BELOKIRI
+            Meja Agen Belokan BELOKIRI
           </h1>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1 max-w-xl font-normal">
             Selamat bekerja, {admin.name}. Tulis esai tajam, kurasi naskah masuk dengan presisi, dan pastikan setiap tulisan liar seperlunya, jenaka secukupnya.
@@ -136,7 +136,7 @@ export default async function AdminDashboardPage() {
             <span className="text-xs text-zinc-400 font-medium">naskah</span>
           </div>
           <p className="text-[11px] text-zinc-500 mt-2">
-            Di meja kontributor
+            Di meja Warga Belokan
           </p>
         </Link>
 
@@ -196,7 +196,7 @@ export default async function AdminDashboardPage() {
                 Antrean Naskah Masuk Menunggu Tindakan
               </h2>
               <p className="text-xs text-zinc-500 mt-0.5 font-normal">
-                Naskah yang diajukan kontributor dan siap diperiksa serta diputuskan
+                Naskah yang diajukan Warga Belokan dan siap diperiksa serta diputuskan
               </p>
             </div>
           </div>
@@ -217,7 +217,7 @@ export default async function AdminDashboardPage() {
               Semua Naskah Masuk Sudah Ditinjau!
             </h3>
             <p className="text-xs text-zinc-400 max-w-sm mx-auto">
-              Tidak ada naskah yang mengantre saat ini. Kontributor sedang mengerjakan draf dan revisi mereka.
+              Tidak ada naskah yang mengantre saat ini. Warga Belokan sedang mengerjakan draf dan revisi mereka.
             </p>
           </div>
         ) : (

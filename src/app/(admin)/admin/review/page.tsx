@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "Antrean Kurasi Naskah | Meja Redaksi BELOKIRI",
+  title: "Antrean Kurasi Naskah | Meja Agen Belokan BELOKIRI",
 };
 
 export default async function AdminReviewQueuePage() {
@@ -35,7 +35,7 @@ export default async function AdminReviewQueuePage() {
             </span>
           </div>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1 font-normal">
-            Telaah naskah masuk dari kontributor, uji kepatuhan fakta dan kode etik, serta putuskan persetujuan tayang.
+            Telaah naskah masuk dari Warga Belokan, uji kepatuhan fakta dan kode etik, serta putuskan persetujuan tayang.
           </p>
         </div>
       </div>
@@ -48,7 +48,7 @@ export default async function AdminReviewQueuePage() {
             Antrean Kurasi Sedang Kosong
           </h2>
           <p className="text-xs text-zinc-400 max-w-sm mx-auto">
-            Seluruh naskah yang dikirimkan oleh kontributor telah diperiksa dan diputuskan oleh tim redaksi.
+            Seluruh naskah yang dikirimkan oleh Warga Belokan telah diperiksa dan diputuskan oleh tim Agen Belokan.
           </p>
           <div className="pt-2">
             <Link

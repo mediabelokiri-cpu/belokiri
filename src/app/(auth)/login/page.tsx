@@ -5,8 +5,8 @@ import { ArrowLeft, CheckCircle2, Sparkles, AlertCircle, ShieldCheck } from "luc
 import { loginAsDemoContributor, loginAsDemoAdmin, loginWithGoogleAction } from "@/actions/auth.actions";
 
 export const metadata: Metadata = {
-  title: "Masuk Kontributor | BELOKIRI",
-  description: "Masuk menggunakan akun Google untuk menulis artikel dan mengirim naskah ke Redaksi BELOKIRI.",
+  title: "Masuk Warga Belokan | BELOKIRI",
+  description: "Masuk menggunakan akun Google untuk menulis artikel dan mengirim naskah ke Agen Belokan BELOKIRI.",
 };
 
 interface LoginPageProps {
@@ -33,7 +33,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           <span>Kembali ke BELOKIRI</span>
         </Link>
         <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">
-          Portal Kontributor
+          Portal Warga Belokan
         </span>
       </div>
 
@@ -55,18 +55,18 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
 
         <div className="space-y-1">
           <h1 className="text-xl font-black text-black uppercase tracking-tight">
-            Masuk ke Meja Kontributor
+            Masuk ke Meja Warga Belokan
           </h1>
           <p className="text-xs text-zinc-500 leading-relaxed font-normal">
             Tulis draft, kirimkan liputan atau opinimu, dan pantau proses kurasi
-            redaksi secara langsung.
+            Agen Belokan secara langsung.
           </p>
         </div>
 
         {isSuspended && (
           <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-left flex items-start gap-2 text-xs text-red-700">
             <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
-            <p>Akun Anda sedang ditangguhkan. Hubungi tim redaksi BELOKIRI untuk informasi lebih lanjut.</p>
+            <p>Akun Anda sedang ditangguhkan. Hubungi tim Agen Belokan BELOKIRI untuk informasi lebih lanjut.</p>
           </div>
         )}
 
@@ -128,7 +128,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
             </button>
           </form>
 
-          {/* Instant Demo Access (Perfect for testing before live credentials) */}
+          {/* Instant Demo Access */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
             <form
               action={async () => {
@@ -141,7 +141,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
                 className="w-full flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-[11px] font-black uppercase tracking-wider transition-all shadow-xs cursor-pointer"
               >
                 <Sparkles className="w-3.5 h-3.5 text-red-200" />
-                <span>Demo Kontributor</span>
+                <span>Demo Warga Belokan</span>
               </button>
             </form>
 
@@ -156,13 +156,13 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
                 className="w-full flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-zinc-900 hover:bg-black text-white text-[11px] font-black uppercase tracking-wider transition-all shadow-xs cursor-pointer"
               >
                 <ShieldCheck className="w-3.5 h-3.5 text-red-400" />
-                <span>Demo Redaksi</span>
+                <span>Demo Agen Belokan</span>
               </button>
             </form>
           </div>
 
           <p className="text-[10px] text-zinc-400 pt-1 font-medium">
-            Otentikasi aman via Google OAuth • Meja Kontributor & Redaksi Terintegrasi
+            Otentikasi aman via Google OAuth • Meja Warga Belokan & Agen Belokan Terintegrasi
           </p>
         </div>
       </div>

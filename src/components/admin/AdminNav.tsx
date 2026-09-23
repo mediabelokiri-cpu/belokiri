@@ -57,7 +57,7 @@ export default function AdminNav({ reviewCount = 0 }: AdminNavProps) {
       active: pathname === "/admin/categories",
     },
     {
-      name: "Kontributor",
+      name: "Warga Belokan",
       href: "/admin/users",
       icon: Users,
       active: pathname === "/admin/users",

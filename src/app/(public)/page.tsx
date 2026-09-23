@@ -47,7 +47,7 @@ export default async function HomePage() {
       )}
 
       {/* ======================================================== */}
-      {/* MAIN CONTAINER: TERKINI, REDAKSI, 8 RUBRIK               */}
+      {/* MAIN CONTAINER: TERKINI, AGEN BELOKAN, 8 RUBRIK          */}
       {/* ======================================================== */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-12 sm:space-y-16">
         {/* 2. Main Content: Latest Articles (65%) + Editorial Highlight (35%) */}
@@ -186,12 +186,12 @@ export default async function HomePage() {
       </div>
 
       {/* ======================================================== */}
-      {/* 5. RUANG KONTRIBUTOR (FULL-WIDTH SECTION DI ATAS FOOTER) */}
+      {/* 5. RUANG WARGA BELOKAN (FULL-WIDTH SECTION DI ATAS FOOTER) */}
       {/* ======================================================== */}
       <section className="w-full bg-red-600 text-white py-16 sm:py-20 border-t-2 border-red-700 shadow-inner">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <span className="inline-block text-[11px] font-black uppercase tracking-widest text-red-100 bg-red-700/70 border border-red-500/50 px-3.5 py-1 rounded-full mb-4">
-            RUANG KONTRIBUTOR
+            RUANG WARGA BELOKAN
           </span>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight uppercase mb-4 leading-tight">
             Punya Gagasan atau Cerita yang Perlu Didengar?

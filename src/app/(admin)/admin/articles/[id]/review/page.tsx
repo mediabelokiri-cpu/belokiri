@@ -4,7 +4,7 @@ import { getArticleForReview } from "@/lib/data/admin";
 import EditorialWorkbench from "@/components/admin/EditorialWorkbench";
 
 export const metadata = {
-  title: "Meja Uji Kurasi Redaksi | BELOKIRI",
+  title: "Meja Uji Kurasi Agen Belokan | BELOKIRI",
 };
 
 interface ArticleReviewPageProps {

@@ -106,7 +106,7 @@ export default function ManifestoPage() {
           Punya Kegelisahan yang Sama?
         </h3>
         <p className="text-xs sm:text-sm text-zinc-400 max-w-lg mx-auto font-normal leading-relaxed">
-          Kirimkan tulisan, esai tajam, atau liputan warkopmu ke redaksi BELOKIRI.
+          Kirimkan tulisan, esai tajam, atau liputan warkopmu ke Agen Belokan BELOKIRI.
           Atau bergabunglah bersama kami melalui program Rekrutmen Anggota.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">

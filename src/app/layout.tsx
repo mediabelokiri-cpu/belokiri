@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     "Serial Anabel",
     "Esai Populer",
   ],
-  authors: [{ name: "Redaksi BELOKIRI" }],
+  authors: [{ name: "Agen Belokan BELOKIRI" }],
   creator: "BELOKIRI",
   icons: {
     icon: "/images/logo-belokiri-icon.png",

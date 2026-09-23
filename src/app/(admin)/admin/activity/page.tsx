@@ -83,7 +83,7 @@ export default async function AdminActivityPage() {
             </span>
           </div>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1 font-normal">
-            Catatan kronologis seluruh interaksi naskah, moderasi akun pengguna, dan persetujuan kurasi tim dewan redaksi.
+            Catatan kronologis seluruh interaksi naskah, moderasi akun pengguna, dan persetujuan kurasi tim dewan Agen Belokan.
           </p>
         </div>
       </div>
@@ -104,7 +104,7 @@ export default async function AdminActivityPage() {
           logs.map((log) => {
             const badge = getActionBadge(log.action);
             const Icon = badge.icon;
-            const isRedaksi = log.userRole === "ADMIN";
+            const isAgenBelokan = log.userRole === "ADMIN";
 
             return (
               <div
@@ -127,7 +127,7 @@ export default async function AdminActivityPage() {
                       </span>
 
                       <div className="flex items-center gap-1 text-xs">
-                        {isRedaksi ? (
+                        {isAgenBelokan ? (
                           <span className="inline-flex items-center gap-1 font-black text-black">
                             <Shield className="w-3 h-3 text-red-600" />
                             <span>{log.userName}</span>

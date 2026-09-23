@@ -57,8 +57,8 @@ export default function AdminUserTable({ initialUsers }: AdminUserTableProps) {
   const handleToggleStatus = (userId: string, currentStatus: "ACTIVE" | "SUSPENDED", name: string) => {
     const isSuspending = currentStatus === "ACTIVE";
     const promptMsg = isSuspending
-      ? `Tangguhkan akun "${name}"? Kontributor ini tidak akan dapat login atau mengirimkan naskah.`
-      : `Aktifkan kembali akun "${name}"? Kontributor akan dapat mengakses Meja Kontributor.`;
+      ? `Tangguhkan akun "${name}"? Warga Belokan ini tidak akan dapat login atau mengirimkan naskah.`
+      : `Aktifkan kembali akun "${name}"? Warga Belokan akan dapat mengakses Meja Warga Belokan.`;
 
     if (!confirm(promptMsg)) return;
 
@@ -113,7 +113,7 @@ export default function AdminUserTable({ initialUsers }: AdminUserTableProps) {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Cari nama kontributor, nama pena, atau email..."
+            placeholder="Cari nama Warga Belokan, nama pena, atau email..."
             className="w-full pl-10 pr-4 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-medium text-black focus:outline-hidden focus:ring-2 focus:ring-red-600 focus:bg-white transition-all"
           />
         </div>
@@ -125,8 +125,8 @@ export default function AdminUserTable({ initialUsers }: AdminUserTableProps) {
             className="px-3 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-bold text-zinc-700 focus:outline-hidden focus:ring-2 focus:ring-red-600 focus:bg-white transition-all cursor-pointer"
           >
             <option value="ALL">Semua Peran</option>
-            <option value="USER">Kontributor (USER)</option>
-            <option value="ADMIN">Redaksi (ADMIN)</option>
+            <option value="USER">Warga Belokan (USER)</option>
+            <option value="ADMIN">Agen Belokan (ADMIN)</option>
           </select>
 
           <select
@@ -221,11 +221,11 @@ export default function AdminUserTable({ initialUsers }: AdminUserTableProps) {
                         {isAdmin ? (
                           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-red-100 text-red-800 border border-red-200">
                             <ShieldCheck className="w-3 h-3 text-red-600" />
-                            <span>Redaksi (Admin)</span>
+                            <span>Agen Belokan (Admin)</span>
                           </span>
                         ) : (
                           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-zinc-100 text-zinc-700 border border-zinc-200">
-                            <span>Kontributor</span>
+                            <span>Warga Belokan</span>
                           </span>
                         )}
                       </td>

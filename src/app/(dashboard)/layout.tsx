@@ -3,8 +3,8 @@ import ContributorHeader from "@/components/dashboard/ContributorHeader";
 import ContributorNav from "@/components/dashboard/ContributorNav";
 
 export const metadata = {
-  title: "Meja Kontributor | BELOKIRI",
-  description: "Kelola naskah, draft liputan, dan pantau kurasi editorial BELOKIRI.",
+  title: "Meja Warga Belokan | BELOKIRI",
+  description: "Kelola naskah, draft liputan, dan pantau kurasi Agen Belokan BELOKIRI.",
 };
 
 export default async function ContributorLayout({
@@ -24,7 +24,7 @@ export default async function ContributorLayout({
         </div>
       </main>
       <footer className="border-t border-zinc-200 bg-white py-6 text-center text-xs text-zinc-400 font-medium">
-        BELOKIRI Meja Kontributor • Menjaga Independensi & Kualitas Naskah Publik
+        BELOKIRI Meja Warga Belokan • Menjaga Independensi & Kualitas Naskah Publik
       </footer>
     </div>
   );

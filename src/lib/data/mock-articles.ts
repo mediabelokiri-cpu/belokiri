@@ -40,7 +40,7 @@ export const MOCK_AUTHORS = [
     slug: "arya-wicaksono",
     avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
     bio: "Jurnalis investigasi dan peminat isu kebijakan publik, lingkungan hidup, dan tata kelola perkotaan.",
-    role: "Redaktur Senior",
+    role: "Agen Belokan Senior",
   },
   {
     name: "Dian Paramita",
@@ -48,7 +48,7 @@ export const MOCK_AUTHORS = [
     slug: "dian-paramita",
     avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80",
     bio: "Peneliti data sosial dan pengamat dinamika pendidikan tinggi serta masa depan anak muda.",
-    role: "Penulis Redaksi",
+    role: "Agen Belokan",
   },
   {
     name: "Reza Mahendra",
@@ -56,7 +56,7 @@ export const MOCK_AUTHORS = [
     slug: "reza-mahendra",
     avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
     bio: "Pecinta sejarah lokal, sastra Nusantara, dan tradisi seni rakyat di berbagai pelosok Indonesia.",
-    role: "Kontributor Khusus",
+    role: "Warga Belokan",
   },
   {
     name: "Nadia Safitri",
@@ -64,7 +64,7 @@ export const MOCK_AUTHORS = [
     slug: "nadia-safitri",
     avatarUrl: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80",
     bio: "Menulis seputar sains populer, kecerdasan buatan, teknologi terbuka, dan gerakan mahasiswa.",
-    role: "Editor Rubrik Esok",
+    role: "Agen Belokan",
   },
 ];
 
@@ -164,7 +164,7 @@ export const MOCK_ARTICLES: MockArticle[] = [
     featuredImage: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80",
     featuredImageCaption: "Ratusan penumpang bersiap menaiki kereta komuter di stasiun transit saat jam sibuk pagi.",
     photoSource: "Unsplash / Transportasi Dokumenter",
-    source: "Liputan Lapangan Tim Redaksi BELOKIRI",
+    source: "Liputan Lapangan Tim Agen Belokan BELOKIRI",
     rubrik: MOCK_RUBRIKS[0], // BERISIK
     author: MOCK_AUTHORS[0],
     tags: ["Transportasi", "Kebijakan Publik", "Perkotaan", "Infrastruktur"],
@@ -217,7 +217,7 @@ export const MOCK_ARTICLES: MockArticle[] = [
     featuredImage: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1200&q=80",
     featuredImageCaption: "Seseorang menikmati momen hening di ruang baca yang tenang.",
     photoSource: "Unsplash / Gaya Hidup",
-    source: "Refleksi Redaksi BELOKIRI",
+    source: "Refleksi Agen Belokan BELOKIRI",
     rubrik: MOCK_RUBRIKS[2], // ORDAL
     author: MOCK_AUTHORS[0],
     tags: ["Perspektif", "Kesehatan Mental", "Filsafat Hidup", "Kritik Budaya"],

@@ -87,12 +87,12 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/konstitusi" className="hover:text-red-500 transition-colors">
-                  Konstitusi Redaksi
+                  Konstitusi Belokiri
                 </Link>
               </li>
               <li>
                 <Link href="/kontak" className="hover:text-red-500 transition-colors">
-                  Redaksi & Kontak
+                  Agen Belokan & Kontak
                 </Link>
               </li>
             </ul>

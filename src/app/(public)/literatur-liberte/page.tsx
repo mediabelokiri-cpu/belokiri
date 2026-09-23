@@ -108,12 +108,12 @@ const SYLLABUS_MODULES = [
   },
   {
     number: "06",
-    tagline: "Dari Draf ke Dampak: Ruang Redaksi & Produksi Konten",
+    tagline: "Dari Draf ke Dampak: Ruang Agen Belokan & Produksi Konten",
     title: "Produksi Konten Media & Editing",
     icon: FileCheck2,
     stage: "PRODUKSI",
     stageColor: "bg-zinc-800 text-white",
-    arah: "Mempersiapkan penulis untuk siap bekerja dalam ritme redaksi profesional.",
+    arah: "Mempersiapkan penulis untuk siap bekerja dalam ritme kerja Agen Belokan profesional.",
     bahasan: [
       "Workflow media digital: ide awal → penulisan → kurasi & revisi → publikasi",
       "Teknik editing naskah: memotong yang bertele-tele, merapikan kalimat, mempertajam punchline",
@@ -150,11 +150,11 @@ const SYLLABUS_MODULES = [
     arah: "Inti penempaan Belokiri: bukan berhenti pada teori, melainkan pembuktian karya.",
     bahasan: [
       "Menulis 1 karya utuh (esai reflektif, opini warkop, atau reportase ringan)",
-      "Alur penuh: pitching ide ke dewan redaksi → drafting naskah → proses editing → terbit resmi",
-      "Presentasi / pitching sudut pandang tulisan di hadapan forum redaksi",
+      "Alur penuh: pitching ide ke dewan Agen Belokan → drafting naskah → proses editing → terbit resmi",
+      "Presentasi / pitching sudut pandang tulisan di hadapan forum Agen Belokan",
     ],
     latihan: "Eksekusi satu naskah lengkap siap tayang di Belokiri.id",
-    output: ["Keberanian posisi ideologis", "Kekuatan struktur & kedalaman tulisan", "Konsistensi mengikuti proses redaksi"],
+    output: ["Keberanian posisi ideologis", "Kekuatan struktur & kedalaman tulisan", "Konsistensi mengikuti proses kerja Agen Belokan"],
   },
 ];
 
@@ -211,7 +211,7 @@ export default function LiteraturLibertePage() {
             </span>
             <p className="text-base font-black text-white uppercase">PRODUKSI</p>
             <p className="text-xs text-zinc-300 font-normal">
-              Dapur redaksi, etika publik, hingga naskah terbit.
+              Dapur Agen Belokan, etika publik, hingga naskah terbit.
             </p>
           </div>
         </div>
@@ -339,7 +339,7 @@ export default function LiteraturLibertePage() {
           “Dari Peserta ke Penulis”
         </h2>
         <p className="text-sm text-zinc-600 font-normal leading-relaxed">
-          Pengumuman kelulusan naskah, evaluasi menyeluruh, dan transisi resmi menjadi bagian dari kolektif redaksi dan kontributor tetap Belokiri.id. Karya yang lolos kurasi akan resmi diterbitkan ke hadapan publik pembaca luas.
+          Pengumuman kelulusan naskah, evaluasi menyeluruh, dan transisi resmi menjadi bagian dari kolektif Agen Belokan dan Warga Belokan tetap Belokiri.id. Karya yang lolos kurasi akan resmi diterbitkan ke hadapan publik pembaca luas.
         </p>
       </section>
 
@@ -363,7 +363,7 @@ export default function LiteraturLibertePage() {
             href="/login"
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-zinc-800 text-white text-xs font-black uppercase tracking-wider hover:bg-zinc-700 transition-colors"
           >
-            <span>Kirim Naskah ke Redaksi</span>
+            <span>Kirim Naskah ke Agen Belokan</span>
           </Link>
         </div>
       </section>

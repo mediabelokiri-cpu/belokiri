@@ -4,7 +4,7 @@ import { getArticleForReview } from "@/lib/data/admin";
 import AdminArticleEditor from "@/components/admin/AdminArticleEditor";
 
 export const metadata = {
-  title: "Sunting Artikel Redaksi | Meja Redaksi BELOKIRI",
+  title: "Sunting Artikel Agen Belokan | Meja Agen Belokan BELOKIRI",
 };
 
 interface AdminEditArticlePageProps {

@@ -31,7 +31,7 @@ export default async function ContributorDashboardPage() {
             Selamat Datang, {user.penName || user.name}!
           </h1>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1 max-w-xl font-normal">
-            Pantau kurasi redaksi, kelola draf naskah, dan terus hadirkan
+            Pantau kurasi Agen Belokan, kelola draf naskah, dan terus hadirkan
             tulisan yang liar seperlunya, jenaka secukupnya.
           </p>
         </div>
@@ -91,7 +91,7 @@ export default async function ContributorDashboardPage() {
             <span className="text-xs text-zinc-400 font-medium">naskah</span>
           </div>
           <p className="text-[11px] text-zinc-500 mt-2">
-            Menunggu kurasi meja redaksi
+            Menunggu kurasi meja Agen Belokan
           </p>
         </Link>
 
@@ -155,7 +155,7 @@ export default async function ContributorDashboardPage() {
                 Anda Memiliki {stats.revisionCount} Naskah yang Membutuhkan Revisi
               </h3>
               <p className="text-xs text-red-700 mt-0.5">
-                Redaksi telah memberikan catatan masukan. Buka naskah terkait untuk melihat detail dan memperbaikinya.
+                Agen Belokan telah memberikan catatan masukan. Buka naskah terkait untuk melihat detail dan memperbaikinya.
               </p>
             </div>
           </div>
@@ -197,7 +197,7 @@ export default async function ContributorDashboardPage() {
             </h3>
             <p className="text-xs text-zinc-400 max-w-sm mx-auto">
               Mulailah menulis gagasan atau liputan investigasimu sekarang dan
-              ajukan ke meja redaksi BELOKIRI.
+              ajukan ke meja Agen Belokan BELOKIRI.
             </p>
             <Link
               href="/dashboard/artikel/buat"

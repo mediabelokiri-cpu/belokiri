@@ -12,7 +12,7 @@ interface EditArticlePageProps {
 export async function generateMetadata({ params }: EditArticlePageProps) {
   const { id } = await params;
   return {
-    title: `Sunting Naskah (${id}) | Meja Kontributor BELOKIRI`,
+    title: `Sunting Naskah (${id}) | Meja Warga Belokan BELOKIRI`,
   };
 }
 
@@ -36,7 +36,7 @@ export default async function EditArticlePage({ params }: EditArticlePageProps) 
           Sunting Naskah
         </h1>
         <p className="text-xs sm:text-sm text-zinc-500 font-normal">
-          Perbarui konten naskah, lengkapi atribut, dan simpan atau ajukan kembali ke redaksi.
+          Perbarui konten naskah, lengkapi atribut, dan simpan atau ajukan kembali ke Agen Belokan.
         </p>
       </div>
 

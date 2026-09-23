@@ -103,15 +103,15 @@ let adminUsersStore: AdminUserItem[] = [
   },
   {
     id: "admin-demo-1",
-    name: "Redaksi BELOKIRI",
+    name: "Agen Belokan BELOKIRI",
     penName: null,
-    email: "redaksi@belokiri.id",
-    slug: "redaksi-belokiri",
+    email: "agen@belokiri.id",
+    slug: "agen-belokan-belokiri",
     role: "ADMIN",
     status: "ACTIVE",
     avatarUrl:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80",
-    bio: "Dewan Redaksi dan Tim Kurasi BELOKIRI.",
+    bio: "Dewan Agen Belokan dan Tim Kurasi BELOKIRI.",
     articleCount: 0,
     createdAt: new Date(Date.now() - 90 * 86400000).toISOString(),
   },
@@ -122,7 +122,7 @@ let activityLogsStore: ActivityLogItem[] = [
   {
     id: "act-1",
     action: "REQUEST_REVISION",
-    userName: "Redaksi BELOKIRI",
+    userName: "Agen Belokan BELOKIRI",
     userRole: "ADMIN",
     targetType: "ARTICLE",
     targetTitle: "Menakar Efektivitas Beasiswa Pendidikan Tinggi di Daerah 3T: Harapan dan Hambatan",
@@ -144,7 +144,7 @@ let activityLogsStore: ActivityLogItem[] = [
   {
     id: "act-3",
     action: "PUBLISH_ARTICLE",
-    userName: "Redaksi BELOKIRI",
+    userName: "Agen Belokan BELOKIRI",
     userRole: "ADMIN",
     targetType: "ARTICLE",
     targetTitle: "Melacak Jejak Tenun Ikat Tradisional yang Terancam Sunyi di Lembata",
@@ -155,7 +155,7 @@ let activityLogsStore: ActivityLogItem[] = [
   {
     id: "act-4",
     action: "PUBLISH_ARTICLE",
-    userName: "Redaksi BELOKIRI",
+    userName: "Agen Belokan BELOKIRI",
     userRole: "ADMIN",
     targetType: "ARTICLE",
     targetTitle: "Suara dari Bilik Suara: Refleksi Partisipasi Pemilih Muda dalam Demokrasi Lokal",
@@ -319,7 +319,7 @@ export async function publishArticleByAdmin(
     targetTitle: updated.title,
     targetId: updated.id,
     note: `Diterbitkan di Rubrik ${updated.categoryName}${
-      (updated as any).isEditorPick ? " • Ditandai Pilihan Redaksi" : ""
+      (updated as any).isEditorPick ? " • Ditandai Pilihan Agen Belokan" : ""
     }`,
     createdAt: now,
   });
@@ -403,7 +403,7 @@ export async function unpublishArticleByAdmin(
     targetType: "ARTICLE",
     targetTitle: updated.title,
     targetId: updated.id,
-    note: "Status ditarik kembali menjadi Draf oleh Redaksi",
+    note: "Status ditarik kembali menjadi Draf oleh Agen Belokan",
     createdAt: now,
   });
 
@@ -445,7 +445,7 @@ export async function deleteArticleByAdmin(
     targetType: "ARTICLE",
     targetTitle: deleted.title,
     targetId: deleted.id,
-    note: "Artikel dihapus permanen oleh Redaksi",
+    note: "Artikel dihapus permanen oleh Agen Belokan",
     createdAt: new Date().toISOString(),
   });
 
@@ -591,8 +591,8 @@ export async function saveArticleByAdmin(
       targetTitle: updated.title,
       targetId: updated.id,
       note: isNowPublished
-        ? `Diterbitkan langsung oleh Redaksi di Rubrik ${rubrik.name}`
-        : `Naskah diperbarui oleh Redaksi (Status: ${data.status})`,
+        ? `Diterbitkan langsung oleh Agen Belokan di Rubrik ${rubrik.name}`
+        : `Naskah diperbarui oleh Agen Belokan (Status: ${data.status})`,
       createdAt: now,
     });
 
@@ -601,13 +601,13 @@ export async function saveArticleByAdmin(
 
   // Create new article
   const newId = `art-admin-${Date.now()}`;
-  const newSlug = `${slugify(data.title || "naskah-redaksi")}-${newId.slice(-4)}`;
+  const newSlug = `${slugify(data.title || "naskah-agen-belokan")}-${newId.slice(-4)}`;
   const isPublished = data.status === "PUBLISHED";
 
   const newArticle: ContributorArticleItem = {
     id: newId,
     authorId: adminId,
-    title: data.title || "Naskah Redaksi BELOKIRI",
+    title: data.title || "Naskah Agen Belokan BELOKIRI",
     slug: newSlug,
     content: data.content || "",
     excerpt: data.excerpt || null,
@@ -643,8 +643,8 @@ export async function saveArticleByAdmin(
     targetTitle: newArticle.title,
     targetId: newArticle.id,
     note: isPublished
-      ? `Artikel baru diterbitkan langsung oleh Redaksi di Rubrik ${rubrik.name}`
-      : `Draf naskah baru dibuat oleh Redaksi (Status: ${data.status})`,
+      ? `Artikel baru diterbitkan langsung oleh Agen Belokan di Rubrik ${rubrik.name}`
+      : `Draf naskah baru dibuat oleh Agen Belokan (Status: ${data.status})`,
     createdAt: now,
   });
 

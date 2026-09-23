@@ -28,7 +28,7 @@ export default async function BeritaPage() {
             BERITA & TULISAN TERKINI
           </h1>
           <p className="text-sm text-zinc-600 mt-1 font-normal">
-            Menampilkan seluruh tulisan terverifikasi redaksi secara kronologis.
+            Menampilkan seluruh tulisan terverifikasi Agen Belokan secara kronologis.
           </p>
         </div>
 

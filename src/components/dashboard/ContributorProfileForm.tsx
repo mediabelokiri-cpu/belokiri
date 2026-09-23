@@ -207,7 +207,7 @@ export default function ContributorProfileForm({
               <p className="text-[11px] text-zinc-400 font-medium">({name})</p>
             )}
             <span className="inline-block mt-1 text-[10px] font-black uppercase tracking-widest text-red-600 bg-red-50 border border-red-200 px-2.5 py-0.5 rounded-full">
-              Kontributor BELOKIRI
+              Warga Belokan BELOKIRI
             </span>
           </div>
 

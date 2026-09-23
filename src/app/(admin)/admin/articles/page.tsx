@@ -5,7 +5,7 @@ import AdminArticleTable from "@/components/admin/AdminArticleTable";
 import { FileText, Inbox, Plus } from "lucide-react";
 
 export const metadata = {
-  title: "Manajemen Seluruh Artikel | Redaksi BELOKIRI",
+  title: "Manajemen Seluruh Artikel | Agen Belokan BELOKIRI",
 };
 
 interface AdminArticlesPageProps {
@@ -42,7 +42,7 @@ export default async function AdminArticlesPage({
             </span>
           </div>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1 font-normal">
-            Kelola arsip konten, kurasi Pilihan Redaksi, tarik naskah tayang, atau hapus konten yang melanggar.
+            Kelola arsip konten, kurasi Pilihan Agen Belokan, tarik naskah tayang, atau hapus konten yang melanggar.
           </p>
         </div>
 

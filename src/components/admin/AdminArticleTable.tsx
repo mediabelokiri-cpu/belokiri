@@ -76,9 +76,9 @@ export default function AdminArticleTable({ initialArticles }: AdminArticleTable
             a.id === articleId ? { ...a, isEditorPick: res.data!.isEditorPick } : a
           )
         );
-        setFeedback({ type: "success", text: res.message || "Status Pilihan Redaksi diperbarui" });
+        setFeedback({ type: "success", text: res.message || "Status Pilihan Agen Belokan diperbarui" });
       } else {
-        setFeedback({ type: "error", text: res.message || "Gagal memperbarui status Pilihan Redaksi" });
+        setFeedback({ type: "error", text: res.message || "Gagal memperbarui status Pilihan Agen Belokan" });
       }
     });
   };
@@ -261,7 +261,7 @@ export default function AdminArticleTable({ initialArticles }: AdminArticleTable
                   <th className="py-3.5 px-4">Penulis</th>
                   <th className="py-3.5 px-4">Status</th>
                   <th className="py-3.5 px-4 text-center">Statistik</th>
-                  <th className="py-3.5 px-5 text-right">Aksi Redaksi</th>
+                  <th className="py-3.5 px-5 text-right">Aksi Agen Belokan</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-100 text-xs">
@@ -296,7 +296,7 @@ export default function AdminArticleTable({ initialArticles }: AdminArticleTable
                               {article.isEditorPick && (
                                 <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 text-[10px] font-black uppercase tracking-wider">
                                   <Star className="w-2.5 h-2.5 fill-amber-500 text-amber-500" />
-                                  <span>Pilihan Redaksi</span>
+                                  <span>Pilihan Agen Belokan</span>
                                 </span>
                               )}
                               <span className="text-[10px] text-zinc-400 font-medium">
@@ -386,7 +386,7 @@ export default function AdminArticleTable({ initialArticles }: AdminArticleTable
                             title={
                               article.status === "REVIEW"
                                 ? "Telaah Naskah"
-                                : "Buka Meja Redaksi"
+                                : "Buka Meja Agen Belokan"
                             }
                           >
                             <FileCheck2 className="w-3.5 h-3.5" />
@@ -416,8 +416,8 @@ export default function AdminArticleTable({ initialArticles }: AdminArticleTable
                               }`}
                               title={
                                 article.isEditorPick
-                                  ? "Cabut Pilihan Redaksi"
-                                  : "Jadikan Pilihan Redaksi"
+                                  ? "Cabut Pilihan Agen Belokan"
+                                  : "Jadikan Pilihan Agen Belokan"
                               }
                             >
                               <Star

@@ -3,8 +3,8 @@ import { getContributorProfile } from "@/lib/data/contributor";
 import ContributorProfileForm from "@/components/dashboard/ContributorProfileForm";
 
 export const metadata = {
-  title: "Profil Penulis | Meja Kontributor BELOKIRI",
-  description: "Kelola profil penulis, nama pena, dan biodata kontributor BELOKIRI.",
+  title: "Profil Penulis | Meja Warga Belokan BELOKIRI",
+  description: "Kelola profil penulis, nama pena, dan biodata Warga Belokan BELOKIRI.",
 };
 
 export default async function ContributorProfilePage() {

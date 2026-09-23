@@ -22,7 +22,7 @@ export default function EditorsPick({ articles }: EditorsPickProps) {
             <Award className="w-5 h-5" />
           </div>
           <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white">
-            PILIHAN REDAKSI
+            PILIHAN AGEN BELOKAN
           </h2>
         </div>
         <span className="text-xs text-zinc-400 font-medium hidden sm:inline-block">

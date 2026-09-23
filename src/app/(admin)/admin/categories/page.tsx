@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "8 Rubrik & Pedoman Redaksi | BELOKIRI",
+  title: "8 Rubrik & Pedoman Agen Belokan | BELOKIRI",
 };
 
 export default async function AdminCategoriesPage() {
@@ -144,7 +144,7 @@ export default async function AdminCategoriesPage() {
               Panduan Kurasi 8 Rubrik BELOKIRI
             </h2>
             <p className="text-xs text-zinc-500 font-normal">
-              Standar baku dewan redaksi saat menempatkan atau menyetujui naskah kiriman kontributor.
+              Standar baku dewan Agen Belokan saat menempatkan atau menyetujui naskah kiriman Warga Belokan.
             </p>
           </div>
         </div>

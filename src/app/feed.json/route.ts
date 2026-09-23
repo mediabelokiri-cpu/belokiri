@@ -23,7 +23,7 @@ export async function GET() {
     language: "id-ID",
     authors: [
       {
-        name: "Dewan Redaksi BELOKIRI",
+        name: "Dewan Agen Belokan BELOKIRI",
         url: baseUrl,
       },
     ],

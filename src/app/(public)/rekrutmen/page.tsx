@@ -117,13 +117,13 @@ export default function RekrutmenPage() {
               <span>Atau Langsung Tulis di Portal</span>
             </div>
             <p className="text-xs text-zinc-300 font-normal">
-              Kamu juga bisa langsung mendaftar sebagai kontributor dan mengirim naskah langsung ke antrean redaksi kami.
+              Kamu juga bisa langsung mendaftar sebagai Warga Belokan dan mengirim naskah langsung ke antrean Agen Belokan kami.
             </p>
             <Link
               href="/login"
               className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-red-500 hover:text-red-400 pt-1"
             >
-              <span>Masuk ke Meja Kontributor</span>
+              <span>Masuk ke Meja Warga Belokan</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>

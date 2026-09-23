@@ -163,13 +163,13 @@ export async function toggleEditorPickAction(
       success: true,
       data: { isEditorPick },
       message: isEditorPick
-        ? "Artikel ditandai sebagai Pilihan Redaksi."
-        : "Label Pilihan Redaksi dilepas.",
+        ? "Artikel ditandai sebagai Pilihan Agen Belokan."
+        : "Label Pilihan Agen Belokan dilepas.",
     };
   } catch (error: any) {
     return {
       success: false,
-      message: error?.message || "Gagal mengubah status Pilihan Redaksi.",
+      message: error?.message || "Gagal mengubah status Pilihan Agen Belokan.",
     };
   }
 }
@@ -224,8 +224,8 @@ export async function toggleUserStatusAction(
       data: { status: newStatus },
       message:
         newStatus === "SUSPENDED"
-          ? "Akun kontributor berhasil ditangguhkan."
-          : "Akun kontributor berhasil diaktifkan kembali.",
+          ? "Akun Warga Belokan berhasil ditangguhkan."
+          : "Akun Warga Belokan berhasil diaktifkan kembali.",
     };
   } catch (error: any) {
     return {
@@ -236,7 +236,7 @@ export async function toggleUserStatusAction(
 }
 
 /**
- * Save or Publish article directly by Redaksi
+ * Save or Publish article directly by Agen Belokan
  */
 export async function saveArticleByAdminAction(
   data: {
@@ -306,7 +306,7 @@ export async function saveArticleByAdminAction(
       saved.status === "PUBLISHED"
         ? "Artikel resmi diterbitkan langsung ke publik!"
         : saved.status === "REVIEW"
-        ? "Naskah berhasil dimasukkan ke Antrean Kurasi Redaksi."
+        ? "Naskah berhasil dimasukkan ke Antrean Kurasi Agen Belokan."
         : "Draf naskah berhasil disimpan.";
 
     return {
@@ -317,7 +317,7 @@ export async function saveArticleByAdminAction(
   } catch (error: any) {
     return {
       success: false,
-      message: error?.message || "Gagal menyimpan artikel redaksi.",
+      message: error?.message || "Gagal menyimpan artikel Agen Belokan.",
     };
   }
 }

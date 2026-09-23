@@ -27,7 +27,7 @@ export default function AdminHeader({ user }: AdminHeaderProps) {
             <div className="hidden sm:flex items-center gap-2 pl-4 border-l border-zinc-200">
               <span className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-widest text-white bg-black px-2.5 py-0.5 rounded">
                 <ShieldCheck className="w-3.5 h-3.5 text-red-500" />
-                <span>Meja Redaksi</span>
+                <span>Meja Agen Belokan</span>
               </span>
             </div>
           </div>
@@ -77,7 +77,7 @@ export default function AdminHeader({ user }: AdminHeaderProps) {
                   {user.name}
                 </p>
                 <p className="text-[10px] text-red-600 font-bold uppercase tracking-wider">
-                  Dewan Editor
+                  Agen Belokan
                 </p>
               </div>
 
@@ -86,7 +86,7 @@ export default function AdminHeader({ user }: AdminHeaderProps) {
                 <button
                   type="submit"
                   className="p-2 rounded-lg text-zinc-400 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
-                  title="Keluar dari Panel Redaksi"
+                  title="Keluar dari Panel Agen Belokan"
                 >
                   <LogOut className="w-4 h-4" />
                 </button>

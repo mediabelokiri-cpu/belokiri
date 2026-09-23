@@ -166,7 +166,7 @@ export default function HeroArticle({
         </div>
 
         {/* ======================================================== */}
-        {/* KOLOM 2: 2 ARTIKEL FOKUS REDAKSI (3 COLS)                */}
+        {/* KOLOM 2: 2 ARTIKEL FOKUS AGEN BELOKAN (3 COLS)           */}
         {/* ======================================================== */}
         <div className="lg:col-span-3 flex flex-col gap-4 sm:gap-5 justify-between lg:h-[520px]">
           {secondaryArticles.slice(0, 2).map((article, index) => (
