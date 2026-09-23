@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Search, Menu, X, PenSquare, UserCircle } from "lucide-react";
 import { MOCK_RUBRIKS } from "@/lib/data/mock-articles";
@@ -48,13 +49,17 @@ export default function Header() {
             {/* Center: Brand Masthead */}
             <div className="flex flex-col items-center">
               <Link href="/" className="group flex flex-col items-center">
-                <div className="flex items-center gap-1.5">
-                  <span className="text-3xl sm:text-5xl font-black tracking-tighter text-red-600 uppercase drop-shadow-xs">
-                    NALAR
-                  </span>
-                  <span className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-red-600 mt-2 sm:mt-3" />
+                <div className="relative">
+                  <Image
+                    src="/images/logo-nalar-red.png"
+                    alt="NALAR"
+                    width={220}
+                    height={46}
+                    priority
+                    className="h-8 sm:h-10 md:h-11 w-auto object-contain transition-transform group-hover:scale-102"
+                  />
                 </div>
-                <span className="text-[10px] sm:text-[11px] tracking-[0.28em] uppercase font-bold text-zinc-600 -mt-1 group-hover:text-red-600 transition-colors">
+                <span className="text-[9px] sm:text-[10px] md:text-[11px] tracking-[0.26em] uppercase font-bold text-zinc-600 mt-1.5 group-hover:text-red-600 transition-colors">
                   Melihat Lebih dari Sekadar Kabar
                 </span>
               </Link>
@@ -137,11 +142,14 @@ export default function Header() {
           <div className="relative w-4/5 max-w-sm bg-white h-full shadow-2xl flex flex-col justify-between p-6 z-10 animate-in slide-in-from-left duration-200">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-zinc-200">
-                <div className="flex items-center gap-1.5">
-                  <span className="text-2xl font-black text-red-600 tracking-tight">
-                    NALAR
-                  </span>
-                  <span className="w-2 h-2 rounded-full bg-black" />
+                <div className="flex items-center">
+                  <Image
+                    src="/images/logo-nalar-red.png"
+                    alt="NALAR"
+                    width={120}
+                    height={25}
+                    className="h-7 w-auto object-contain"
+                  />
                 </div>
                 <button
                   onClick={() => setMobileMenuOpen(false)}

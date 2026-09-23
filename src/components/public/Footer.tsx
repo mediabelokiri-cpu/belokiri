@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { MOCK_RUBRIKS } from "@/lib/data/mock-articles";
 import { ArrowUpRight } from "lucide-react";
 
@@ -9,11 +10,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Brand Col */}
           <div className="md:col-span-2 space-y-4">
-            <Link href="/" className="inline-flex items-center gap-1.5">
-              <span className="text-3xl sm:text-4xl font-black text-white tracking-tight uppercase">
-                NALAR
-              </span>
-              <span className="w-2.5 h-2.5 rounded-full bg-red-600" />
+            <Link href="/" className="inline-block">
+              <Image
+                src="/images/logo-nalar-white.png"
+                alt="NALAR"
+                width={170}
+                height={36}
+                className="h-9 w-auto object-contain"
+              />
             </Link>
             <p className="text-red-500 text-sm font-bold uppercase tracking-wider">
               “Melihat lebih dari sekadar kabar”

@@ -15,11 +15,14 @@ export default function ContributorHeader({ user }: ContributorHeaderProps) {
         <div className="flex items-center justify-between h-16">
           {/* Left: Brand + Portal Badge */}
           <div className="flex items-center gap-4">
-            <Link href="/dashboard" className="flex items-center gap-1.5 group">
-              <span className="text-2xl font-black text-black tracking-tight uppercase group-hover:text-red-600 transition-colors">
-                NALAR
-              </span>
-              <span className="w-2.5 h-2.5 rounded-full bg-red-600" />
+            <Link href="/dashboard" className="flex items-center group">
+              <Image
+                src="/images/logo-nalar-red.png"
+                alt="NALAR"
+                width={120}
+                height={25}
+                className="h-7 w-auto object-contain transition-transform group-hover:scale-102"
+              />
             </Link>
             <div className="hidden sm:flex items-center gap-2 pl-4 border-l border-zinc-200">
               <span className="text-[11px] font-black uppercase tracking-widest text-white bg-black px-2.5 py-0.5 rounded">

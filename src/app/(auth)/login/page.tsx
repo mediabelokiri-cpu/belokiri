@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, CheckCircle2, Sparkles, AlertCircle } from "lucide-react";
 import { loginAsDemoContributor, loginWithGoogleAction } from "@/actions/auth.actions";
 
@@ -37,14 +38,16 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
 
       {/* Main Login Card */}
       <div className="max-w-md w-full mx-auto my-12 bg-white border border-zinc-200 rounded-3xl p-8 sm:p-10 shadow-xs text-center space-y-6">
-        <div>
-          <div className="flex items-center justify-center gap-1.5">
-            <span className="text-4xl font-black text-black tracking-tight uppercase">
-              NALAR
-            </span>
-            <span className="w-3 h-3 rounded-full bg-red-600" />
-          </div>
-          <p className="text-[10px] font-black uppercase tracking-widest text-red-600 mt-1">
+        <div className="flex flex-col items-center">
+          <Image
+            src="/images/logo-nalar-red.png"
+            alt="NALAR"
+            width={180}
+            height={38}
+            className="h-10 w-auto object-contain"
+            priority
+          />
+          <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500 mt-2">
             Melihat lebih dari sekadar kabar
           </p>
         </div>
