@@ -30,7 +30,7 @@ export default async function HomePage() {
   const secondaryArticles = latestArticles.slice(3, 5);
 
   return (
-    <div className="w-full pb-16 space-y-12 sm:space-y-16">
+    <div className="w-full">
       {/* ======================================================== */}
       {/* 1. HERO 3-KOLOM (SLIDER + FOKUS + TERPOPULER)            */}
       {/* ======================================================== */}
@@ -47,9 +47,9 @@ export default async function HomePage() {
       )}
 
       {/* ======================================================== */}
-      {/* MAIN CONTAINER: TERKINI, REDAKSI, 8 RUBRIK, KONTRIBUTOR  */}
+      {/* MAIN CONTAINER: TERKINI, REDAKSI, 8 RUBRIK               */}
       {/* ======================================================== */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12 sm:space-y-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-12 sm:space-y-16">
         {/* 2. Main Content: Latest Articles (65%) + Editorial Highlight (35%) */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
           {/* Latest Articles Feed */}
@@ -183,29 +183,33 @@ export default async function HomePage() {
             ))}
           </div>
         </section>
+      </div>
 
-        {/* 5. Contributor Callout */}
-        <section className="rounded-2xl border border-zinc-200 bg-white p-8 sm:p-12 text-center max-w-3xl mx-auto shadow-xs">
-          <span className="text-xs font-black uppercase tracking-widest text-red-600">
+      {/* ======================================================== */}
+      {/* 5. RUANG KONTRIBUTOR (FULL-WIDTH SECTION DI ATAS FOOTER) */}
+      {/* ======================================================== */}
+      <section className="w-full bg-red-600 text-white py-16 sm:py-20 border-t-2 border-red-700 shadow-inner">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+          <span className="inline-block text-[11px] font-black uppercase tracking-widest text-red-100 bg-red-700/70 border border-red-500/50 px-3.5 py-1 rounded-full mb-4">
             RUANG KONTRIBUTOR
           </span>
-          <h3 className="text-2xl sm:text-3xl font-black text-black tracking-tight mt-1 mb-3 uppercase">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight uppercase mb-4 leading-tight">
             Punya Gagasan atau Cerita yang Perlu Didengar?
-          </h3>
-          <p className="text-sm text-zinc-600 leading-relaxed max-w-xl mx-auto mb-6 font-normal">
+          </h2>
+          <p className="text-sm sm:text-base text-red-100/90 leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
             NALAR membuka ruang seluas-luasnya bagi mahasiswa, pelajar, peneliti,
             dan masyarakat umum untuk menyumbangkan tulisan, opini kritis, atau
             kisah inspiratif dari daerah Anda.
           </p>
           <Link
             href="/login"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider shadow-sm transition-all transform active:scale-95"
+            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-black hover:bg-zinc-900 text-white text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform active:scale-95 border border-zinc-800 hover:border-zinc-700"
           >
             <span>Masuk & Mulai Menulis</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 text-red-500" />
           </Link>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   );
 }
