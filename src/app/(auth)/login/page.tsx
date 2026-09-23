@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, CheckCircle2, Sparkles, AlertCircle } from "lucide-react";
-import { loginAsDemoContributor, loginWithGoogleAction } from "@/actions/auth.actions";
+import { ArrowLeft, CheckCircle2, Sparkles, AlertCircle, ShieldCheck } from "lucide-react";
+import { loginAsDemoContributor, loginAsDemoAdmin, loginWithGoogleAction } from "@/actions/auth.actions";
 
 export const metadata: Metadata = {
   title: "Masuk Kontributor | NALAR",
@@ -121,23 +121,40 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           </form>
 
           {/* Instant Demo Access (Perfect for testing before live credentials) */}
-          <form
-            action={async () => {
-              "use server";
-              await loginAsDemoContributor(params.callbackUrl || "/dashboard");
-            }}
-          >
-            <button
-              type="submit"
-              className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-all shadow-sm cursor-pointer"
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+            <form
+              action={async () => {
+                "use server";
+                await loginAsDemoContributor(params.callbackUrl || "/dashboard");
+              }}
             >
-              <Sparkles className="w-4 h-4 text-red-200" />
-              <span>Masuk Instan (Demo Kontributor)</span>
-            </button>
-          </form>
+              <button
+                type="submit"
+                className="w-full flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-[11px] font-black uppercase tracking-wider transition-all shadow-xs cursor-pointer"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-red-200" />
+                <span>Demo Kontributor</span>
+              </button>
+            </form>
+
+            <form
+              action={async () => {
+                "use server";
+                await loginAsDemoAdmin(params.callbackUrl || "/admin");
+              }}
+            >
+              <button
+                type="submit"
+                className="w-full flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-zinc-900 hover:bg-black text-white text-[11px] font-black uppercase tracking-wider transition-all shadow-xs cursor-pointer"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-red-400" />
+                <span>Demo Redaksi</span>
+              </button>
+            </form>
+          </div>
 
           <p className="text-[10px] text-zinc-400 pt-1 font-medium">
-            Otentikasi aman via Google OAuth • Langsung terhubung ke Meja Redaksi
+            Otentikasi aman via Google OAuth • Meja Kontributor & Redaksi Terintegrasi
           </p>
         </div>
       </div>

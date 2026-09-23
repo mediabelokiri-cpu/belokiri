@@ -95,3 +95,18 @@ export async function requireUser(): Promise<UserSessionData> {
 
   return session;
 }
+
+/**
+ * Guard for server components: requires logged in user with role ADMIN.
+ * Redirects to /dashboard if role is USER, or /login if unauthenticated.
+ */
+export async function requireAdmin(): Promise<UserSessionData> {
+  const session = await requireUser();
+
+  if (session.role !== "ADMIN") {
+    redirect("/dashboard");
+  }
+
+  return session;
+}
+

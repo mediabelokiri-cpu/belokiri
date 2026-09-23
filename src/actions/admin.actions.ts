@@ -1,0 +1,216 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { requireAdmin } from "@/lib/auth/session";
+import {
+  publishArticleByAdmin,
+  requestRevisionByAdmin,
+  unpublishArticleByAdmin,
+  toggleEditorPickByAdmin,
+  deleteArticleByAdmin,
+  toggleUserStatusByAdmin,
+} from "@/lib/data/admin";
+import { ApiResponse } from "@/types";
+
+/**
+ * Publish article (Editorial approval)
+ */
+export async function publishArticleAction(
+  articleId: string,
+  seoData?: {
+    seoTitle?: string;
+    metaDescription?: string;
+    isEditorPick?: boolean;
+    title?: string;
+    categoryId?: string;
+  }
+): Promise<ApiResponse<{ id: string }>> {
+  try {
+    const admin = await requireAdmin();
+
+    const published = await publishArticleByAdmin(
+      articleId,
+      admin.name,
+      seoData
+    );
+
+    revalidatePath("/admin");
+    revalidatePath("/admin/review");
+    revalidatePath("/admin/articles");
+    revalidatePath(`/admin/articles/${articleId}/review`);
+    revalidatePath("/dashboard");
+    revalidatePath("/dashboard/artikel");
+    revalidatePath("/");
+    revalidatePath("/berita");
+    revalidatePath(`/artikel/${published.slug}`);
+
+    return {
+      success: true,
+      data: { id: published.id },
+      message: "Naskah berhasil disetujui dan resmi diterbitkan di NALAR!",
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.message || "Gagal menerbitkan artikel.",
+    };
+  }
+}
+
+/**
+ * Request revision from contributor with required admin note
+ */
+export async function requestRevisionAction(
+  articleId: string,
+  adminNote: string
+): Promise<ApiResponse<{ id: string }>> {
+  try {
+    const admin = await requireAdmin();
+
+    const revised = await requestRevisionByAdmin(
+      articleId,
+      admin.name,
+      adminNote
+    );
+
+    revalidatePath("/admin");
+    revalidatePath("/admin/review");
+    revalidatePath("/admin/articles");
+    revalidatePath(`/admin/articles/${articleId}/review`);
+    revalidatePath("/dashboard");
+    revalidatePath("/dashboard/artikel");
+
+    return {
+      success: true,
+      data: { id: revised.id },
+      message: "Catatan kurasi berhasil dikirim. Naskah berstatus Perlu Revisi.",
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.message || "Gagal mengirim catatan revisi.",
+    };
+  }
+}
+
+/**
+ * Unpublish article back to DRAFT
+ */
+export async function unpublishArticleAction(
+  articleId: string
+): Promise<ApiResponse<{ id: string }>> {
+  try {
+    const admin = await requireAdmin();
+
+    const article = await unpublishArticleByAdmin(articleId, admin.name);
+
+    revalidatePath("/admin");
+    revalidatePath("/admin/articles");
+    revalidatePath("/dashboard");
+    revalidatePath("/dashboard/artikel");
+    revalidatePath("/");
+    revalidatePath("/berita");
+
+    return {
+      success: true,
+      data: { id: article.id },
+      message: "Artikel berhasil ditarik dari tayang dan berstatus Draf.",
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.message || "Gagal menarik artikel.",
+    };
+  }
+}
+
+/**
+ * Toggle Editor's Pick
+ */
+export async function toggleEditorPickAction(
+  articleId: string
+): Promise<ApiResponse<{ isEditorPick: boolean }>> {
+  try {
+    await requireAdmin();
+
+    const isEditorPick = await toggleEditorPickByAdmin(articleId);
+
+    revalidatePath("/admin");
+    revalidatePath("/admin/articles");
+    revalidatePath("/");
+
+    return {
+      success: true,
+      data: { isEditorPick },
+      message: isEditorPick
+        ? "Artikel ditandai sebagai Pilihan Redaksi."
+        : "Label Pilihan Redaksi dilepas.",
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.message || "Gagal mengubah status Pilihan Redaksi.",
+    };
+  }
+}
+
+/**
+ * Delete article by admin
+ */
+export async function deleteArticleByAdminAction(
+  articleId: string
+): Promise<ApiResponse<null>> {
+  try {
+    const admin = await requireAdmin();
+
+    await deleteArticleByAdmin(articleId, admin.name);
+
+    revalidatePath("/admin");
+    revalidatePath("/admin/review");
+    revalidatePath("/admin/articles");
+    revalidatePath("/dashboard");
+    revalidatePath("/dashboard/artikel");
+    revalidatePath("/");
+
+    return {
+      success: true,
+      data: null,
+      message: "Artikel berhasil dihapus permanen.",
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.message || "Gagal menghapus artikel.",
+    };
+  }
+}
+
+/**
+ * Toggle user account status (ACTIVE <-> SUSPENDED)
+ */
+export async function toggleUserStatusAction(
+  userId: string
+): Promise<ApiResponse<{ status: "ACTIVE" | "SUSPENDED" }>> {
+  try {
+    const admin = await requireAdmin();
+
+    const newStatus = await toggleUserStatusByAdmin(userId, admin.name);
+
+    revalidatePath("/admin/users");
+    revalidatePath("/admin");
+
+    return {
+      success: true,
+      data: { status: newStatus },
+      message:
+        newStatus === "SUSPENDED"
+          ? "Akun kontributor berhasil ditangguhkan."
+          : "Akun kontributor berhasil diaktifkan kembali.",
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.message || "Gagal mengubah status pengguna.",
+    };
+  }
+}
