@@ -85,19 +85,19 @@ export default async function HomePage() {
                 <span>Prinsip Editorial</span>
               </div>
               <h4 className="font-black text-black text-lg mb-2 tracking-tight">
-                Melihat Lebih dari Sekadar Kabar
+                Liar Seperlunya, Jenaka Secukupnya
               </h4>
               <p className="text-xs text-zinc-600 leading-relaxed font-normal">
-                NALAR tidak hanya menyajikan apa yang sedang terjadi, melainkan
-                mengupas konteks sosial, menimbang data, dan menemukan cerita
-                manusia di balik setiap peristiwa.
+                BELOKIRI menyajikan esai populer, percakapan liar meja warkop,
+                arsip sejarah rakyat, dan kritik budaya dengan cara yang tajam dan bernas.
+                Sebab dunia memang sudah terlalu berisik untuk ditanggapi dengan bisik-bisik.
               </p>
               <div className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between text-xs font-black">
                 <Link
                   href="/tentang-kami"
                   className="text-red-600 hover:text-black flex items-center gap-1 transition-colors uppercase tracking-wider"
                 >
-                  <span>Kenali Karakter NALAR</span>
+                  <span>Kenali Karakter BELOKIRI</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -144,7 +144,7 @@ export default async function HomePage() {
                 JELAJAHI SUDUT PANDANG
               </span>
               <h2 className="text-2xl sm:text-3xl font-black text-black tracking-tight mt-1 uppercase">
-                8 RUBRIK KARAKTER NALAR
+                8 RUBRIK KARAKTER BELOKIRI
               </h2>
             </div>
             <p className="text-xs text-zinc-500 max-w-sm font-medium">
@@ -197,9 +197,9 @@ export default async function HomePage() {
             Punya Gagasan atau Cerita yang Perlu Didengar?
           </h2>
           <p className="text-sm sm:text-base text-red-100/90 leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
-            NALAR membuka ruang seluas-luasnya bagi mahasiswa, pelajar, peneliti,
-            dan masyarakat umum untuk menyumbangkan tulisan, opini kritis, atau
-            kisah inspiratif dari daerah Anda.
+            BELOKIRI membuka ruang seluas-luasnya bagi mahasiswa, pelajar, peneliti,
+            dan masyarakat umum untuk menyumbangkan tulisan, esai kritis, atau
+            pandangan nyeleneh yang jujur.
           </p>
           <Link
             href="/login"

@@ -4,9 +4,9 @@ import { ArrowRight, Flame } from "lucide-react";
 import { MOCK_RUBRIKS } from "@/lib/data/mock-articles";
 
 export const metadata: Metadata = {
-  title: "Tentang NALAR — Melihat Lebih dari Sekadar Kabar",
+  title: "Tentang BELOKIRI — Liar Seperlunya, Jenaka Secukupnya",
   description:
-    "Mengenal visi, filosofi jurnalistik, dan karakter editorial NALAR sebagai media berita, analisis, dan cerita manusia.",
+    "Mengenal visi, filosofi, dan karakter editorial BELOKIRI sebagai media esai populer, analisis tongkrongan, dan arsip kebudayaan.",
 };
 
 export default function TentangKamiPage() {
@@ -19,30 +19,30 @@ export default function TentangKamiPage() {
         </span>
         <div className="flex items-center justify-center gap-1.5">
           <h1 className="text-4xl sm:text-6xl font-black text-black tracking-tight uppercase">
-            NALAR
+            BELOKIRI
           </h1>
           <span className="w-3.5 h-3.5 rounded-full bg-red-600 mt-2 sm:mt-3" />
         </div>
         <p className="text-xl sm:text-2xl font-black text-zinc-700 uppercase tracking-wide">
-          “Melihat lebih dari sekadar kabar”
+          “Liar Seperlunya, Jenaka Secukupnya”
         </p>
       </div>
 
       {/* Filosofi Produk */}
       <section className="bg-white border border-zinc-200 rounded-3xl p-8 sm:p-12 shadow-xs space-y-6 text-zinc-800 leading-relaxed text-base sm:text-lg">
         <p className="text-xl sm:text-2xl font-black text-black border-l-4 border-red-600 pl-4 py-1 leading-snug">
-          Berita memberi tahu apa yang terjadi. NALAR membantu melihat lebih jauh.
+          Dunia sudah terlalu berisik untuk ditanggapi dengan bisik-bisik.
         </p>
         <p className="font-normal text-zinc-600">
-          NALAR adalah platform media online yang tidak hanya menyampaikan rentetan
-          peristiwa, melainkan membantu pembaca memahami konteks, melihat perspektif
-          yang berbeda, dan menemukan cerita manusia serta masyarakat di balik setiap kabar.
+          BELOKIRI adalah ruang untuk esai populer, percakapan liar meja warkop,
+          arsip sejarah pinggiran, dan pembacaan kritis terhadap realitas sosial-politik.
+          Kami tidak punya kewajiban untuk selalu tenang, netral kaku, atau terdengar akademis
+          yang membuat orang mengantuk.
         </p>
         <p className="font-normal text-zinc-600">
-          Kami meyakini bahwa jurnalisme tidak seharusnya hanya mengejar kecepatan
-          tanpa kedalaman. Di tengah banjir informasi dan percepatan digital,
-          NALAR hadir sebagai ruang jeda yang mengutamakan <strong className="text-black font-black">fakta, data,
-          konteks, observasi lapangan, dan pengalaman manusia</strong>.
+          Di sini gagasan boleh tajam, pendapat boleh nyeleneh, dan keresahan boleh disuarakan
+          tanpa harus mengenakan jas intelektual. Kami percaya pada <strong className="text-black font-black">keberanian
+          bersuara, ketajaman analisis, kejujuran pengalaman, dan humor yang sehat</strong>.
         </p>
       </section>
 
@@ -50,7 +50,7 @@ export default function TentangKamiPage() {
       <section className="p-8 sm:p-10 rounded-3xl bg-white border border-zinc-200 shadow-xs space-y-6">
         <div className="border-b-2 border-black pb-3">
           <h2 className="text-2xl font-black text-black uppercase tracking-tight">
-            Tiga Karakter Editorial NALAR
+            Tiga Karakter Editorial BELOKIRI
           </h2>
         </div>
 
@@ -99,7 +99,7 @@ export default function TentangKamiPage() {
       {/* 8 Rubrik */}
       <section className="space-y-6">
         <h2 className="text-2xl font-black text-black uppercase tracking-tight">
-          Struktur 8 Rubrik NALAR
+          Struktur 8 Rubrik BELOKIRI
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {MOCK_RUBRIKS.map((r) => (

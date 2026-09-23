@@ -322,7 +322,7 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
         <div className="bg-red-50 border-2 border-red-300 rounded-3xl p-6 sm:p-7 space-y-3">
           <div className="flex items-center gap-2.5 text-red-700 font-black text-sm uppercase tracking-wider">
             <AlertTriangle className="w-5 h-5 text-red-600 shrink-0" />
-            <span>Catatan Kurasi Meja Redaksi NALAR</span>
+            <span>Catatan Kurasi Meja Redaksi BELOKIRI</span>
           </div>
           <p className="text-xs sm:text-sm text-red-900 leading-relaxed font-medium bg-white/70 p-4 rounded-xl border border-red-200">
             “{initialData.adminNote}”
@@ -340,7 +340,7 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
           {/* Rubrik Selector */}
           <div>
             <label className="block text-xs font-black uppercase tracking-wider text-zinc-700 mb-2">
-              Pilih Rubrik NALAR <span className="text-red-600">*</span>
+              Pilih Rubrik BELOKIRI <span className="text-red-600">*</span>
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
               {MOCK_RUBRIKS.map((rubrik) => {

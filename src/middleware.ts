@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const sessionCookie = request.cookies.get("nalar_session");
+  const sessionCookie = request.cookies.get("belokiri_session");
 
   // Route protection for /dashboard/*
   if (pathname.startsWith("/dashboard")) {

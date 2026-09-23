@@ -48,7 +48,7 @@ export async function publishArticleAction(
     return {
       success: true,
       data: { id: published.id },
-      message: "Naskah berhasil disetujui dan resmi diterbitkan di NALAR!",
+      message: "Naskah berhasil disetujui dan resmi diterbitkan di BELOKIRI!",
     };
   } catch (error: any) {
     return {

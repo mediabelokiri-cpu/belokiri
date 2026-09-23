@@ -2,11 +2,11 @@ import { cookies } from "next/headers";
 import { UserSessionData } from "@/types";
 import { redirect } from "next/navigation";
 
-const SESSION_COOKIE_NAME = "nalar_session";
+const SESSION_COOKIE_NAME = "belokiri_session";
 
 export const DEMO_CONTRIBUTOR: UserSessionData = {
   id: "user-demo-1",
-  email: "budi.santoso@nalar.id",
+  email: "budi.santoso@belokiri.id",
   name: "Budi Santoso",
   penName: "Budi Santoso",
   slug: "budi-santoso",
@@ -18,10 +18,10 @@ export const DEMO_CONTRIBUTOR: UserSessionData = {
 
 export const DEMO_ADMIN: UserSessionData = {
   id: "admin-demo-1",
-  email: "redaksi@nalar.id",
-  name: "Redaksi NALAR",
+  email: "redaksi@belokiri.id",
+  name: "Redaksi BELOKIRI",
   penName: null,
-  slug: "redaksi-nalar",
+  slug: "redaksi-belokiri",
   avatarUrl:
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300",
   role: "ADMIN",

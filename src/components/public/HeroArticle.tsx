@@ -213,14 +213,14 @@ export default function HeroArticle({
         </div>
 
         {/* ======================================================== */}
-        {/* KOLOM 3: TERPOPULER DI NALAR (RED CARD - 3 ARTIKEL)      */}
+        {/* KOLOM 3: TERPOPULER DI BELOKIRI (RED CARD - 3 ARTIKEL)   */}
         {/* ======================================================== */}
         <div className="lg:col-span-3 rounded-2xl bg-red-600 text-white border border-red-700 p-6 flex flex-col justify-between shadow-xl lg:h-[520px]">
           <div>
             <div className="flex items-center gap-2 pb-3 mb-4 border-b border-white/20">
               <Flame className="w-4 h-4 text-white fill-current" />
               <h3 className="text-xs font-black uppercase tracking-wider text-white">
-                TERPOPULER DI NALAR
+                TERPOPULER DI BELOKIRI
               </h3>
             </div>
 

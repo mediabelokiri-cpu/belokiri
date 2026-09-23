@@ -36,10 +36,10 @@ export default async function AdminDashboardPage() {
             Peran: Dewan Redaksi / Admin
           </span>
           <h1 className="text-2xl sm:text-3xl font-black text-black uppercase tracking-tight">
-            Meja Redaksi NALAR
+            Meja Redaksi BELOKIRI
           </h1>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1 max-w-xl font-normal">
-            Selamat bekerja, {admin.name}. Tulis liputan mendalam, kurasi naskah masuk dengan tajam, dan pastikan setiap tulisan melihat lebih dari sekadar kabar.
+            Selamat bekerja, {admin.name}. Tulis esai tajam, kurasi naskah masuk dengan presisi, dan pastikan setiap tulisan liar seperlunya, jenaka secukupnya.
           </p>
         </div>
 

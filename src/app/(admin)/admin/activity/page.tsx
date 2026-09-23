@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "Log Audit Aktivitas Editorial | NALAR",
+  title: "Log Audit Aktivitas Editorial | BELOKIRI",
 };
 
 function getActionBadge(action: ActivityLogItem["action"]) {

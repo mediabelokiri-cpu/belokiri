@@ -422,7 +422,7 @@ export default function AdminArticleEditor({
                   type="text"
                   value={source}
                   onChange={(e) => setSource(e.target.value)}
-                  placeholder="Contoh: Tim Investigasi NALAR, Laporan BPS 2025, Wawancara Khusus"
+                  placeholder="Contoh: Tim Investigasi BELOKIRI, Laporan Riset 2025, Wawancara Khusus"
                   className="w-full text-xs text-zinc-800 px-3.5 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-red-600 focus:bg-white transition-all"
                 />
               </div>
@@ -581,7 +581,7 @@ export default function AdminArticleEditor({
           <div className="bg-white rounded-3xl border border-zinc-200 p-6 shadow-xs space-y-4">
             <div className="flex items-center justify-between">
               <label className="text-xs font-black uppercase tracking-wider text-black">
-                Pilih Rubrik NALAR
+                Pilih Rubrik BELOKIRI
               </label>
               <span className="text-[10px] font-bold text-zinc-400">8 Rubrik</span>
             </div>
@@ -664,7 +664,7 @@ export default function AdminArticleEditor({
                   type="text"
                   value={photoSource}
                   onChange={(e) => setPhotoSource(e.target.value)}
-                  placeholder="Contoh: Dokumentasi Redaksi NALAR / Unsplash"
+                  placeholder="Contoh: Dokumentasi Redaksi BELOKIRI / Unsplash"
                   className="w-full text-xs text-zinc-800 px-3 py-2 bg-zinc-50 border border-zinc-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-red-600 focus:bg-white mt-1"
                 />
               </div>

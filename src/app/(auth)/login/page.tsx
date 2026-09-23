@@ -5,8 +5,8 @@ import { ArrowLeft, CheckCircle2, Sparkles, AlertCircle, ShieldCheck } from "luc
 import { loginAsDemoContributor, loginAsDemoAdmin, loginWithGoogleAction } from "@/actions/auth.actions";
 
 export const metadata: Metadata = {
-  title: "Masuk Kontributor | NALAR",
-  description: "Masuk menggunakan akun Google untuk menulis artikel dan mengirim naskah ke Redaksi NALAR.",
+  title: "Masuk Kontributor | BELOKIRI",
+  description: "Masuk menggunakan akun Google untuk menulis artikel dan mengirim naskah ke Redaksi BELOKIRI.",
 };
 
 interface LoginPageProps {
@@ -21,7 +21,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   const isSuspended = params.error === "suspended";
 
   return (
-    <div className="min-h-screen bg-[#f4f4f5] flex flex-col justify-between p-4 sm:p-6 font-sans">
+    <div className="min-h-screen bg-[#fbfbfb] flex flex-col justify-between p-4 sm:p-6 font-sans">
       {/* Top Bar */}
       <div className="max-w-6xl mx-auto w-full flex items-center justify-between">
         <Link
@@ -29,7 +29,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           className="inline-flex items-center gap-1.5 text-xs font-black uppercase text-zinc-700 hover:text-red-600 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 text-red-600" />
-          <span>Kembali ke NALAR</span>
+          <span>Kembali ke BELOKIRI</span>
         </Link>
         <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">
           Portal Kontributor
@@ -40,15 +40,15 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
       <div className="max-w-md w-full mx-auto my-12 bg-white border border-zinc-200 rounded-3xl p-8 sm:p-10 shadow-xs text-center space-y-6">
         <div className="flex flex-col items-center">
           <Image
-            src="/images/logo-nalar-red.png"
-            alt="NALAR"
-            width={180}
-            height={38}
+            src="/images/logo-belokiri-red.png"
+            alt="BELOKIRI"
+            width={210}
+            height={40}
             className="h-10 w-auto object-contain"
             priority
           />
           <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500 mt-2">
-            Melihat lebih dari sekadar kabar
+            Liar seperlunya, jenaka secukupnya
           </p>
         </div>
 
@@ -65,7 +65,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
         {isSuspended && (
           <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-left flex items-start gap-2 text-xs text-red-700">
             <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
-            <p>Akun Anda sedang ditangguhkan. Hubungi tim redaksi NALAR untuk informasi lebih lanjut.</p>
+            <p>Akun Anda sedang ditangguhkan. Hubungi tim redaksi BELOKIRI untuk informasi lebih lanjut.</p>
           </div>
         )}
 
@@ -161,7 +161,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
 
       {/* Bottom Footer */}
       <div className="max-w-6xl mx-auto w-full text-center text-xs text-zinc-400 font-medium">
-        © {new Date().getFullYear()} NALAR Media Nusantara. Seluruh hak cipta dilindungi.
+        © {new Date().getFullYear()} BELOKIRI. Seluruh hak cipta dilindungi.
       </div>
     </div>
   );

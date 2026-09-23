@@ -3,8 +3,8 @@ import Link from "next/link";
 import { Mail, MapPin, Send, ArrowRight, ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Kontak & Redaksi | NALAR",
-  description: "Hubungi dewan redaksi NALAR, kirim siaran pers, atau panduan naskah tulisan.",
+  title: "Kontak & Redaksi | BELOKIRI",
+  description: "Hubungi dewan redaksi BELOKIRI, kirim siaran pers, atau panduan naskah tulisan.",
 };
 
 export default function KontakPage() {
@@ -15,7 +15,7 @@ export default function KontakPage() {
           Hubungi Kami
         </span>
         <h1 className="text-3xl sm:text-5xl font-black text-black tracking-tight uppercase">
-          REDAKSI & KERJA SAMA NALAR
+          REDAKSI & KERJA SAMA BELOKIRI
         </h1>
         <p className="text-sm text-zinc-600 max-w-md mx-auto font-normal">
           Punya tips liputan, pengaduan berita, siaran pers, atau ingin berkolaborasi?
@@ -36,7 +36,7 @@ export default function KontakPage() {
                 <MapPin className="w-4 h-4" />
               </div>
               <div>
-                <strong className="text-black font-bold block mb-0.5">Kantor Redaksi NALAR:</strong>
+                <strong className="text-black font-bold block mb-0.5">Kantor Redaksi BELOKIRI:</strong>
                 <p className="font-normal">Gedung Media Nusantara Lt. 4, Jl. Kebon Sirih No. 45, Jakarta Pusat 10340</p>
               </div>
             </div>
@@ -47,7 +47,7 @@ export default function KontakPage() {
               </div>
               <div>
                 <strong className="text-black font-bold block mb-0.5">Surel Redaksi & Liputan:</strong>
-                <p className="font-normal">redaksi@nalar.id</p>
+                <p className="font-normal">redaksi@belokiri.id</p>
               </div>
             </div>
 
@@ -57,7 +57,7 @@ export default function KontakPage() {
               </div>
               <div>
                 <strong className="text-black font-bold block mb-0.5">Siaran Pers & Kemitraan:</strong>
-                <p className="font-normal">kerjasama@nalar.id</p>
+                <p className="font-normal">kerjasama@belokiri.id</p>
               </div>
             </div>
           </div>
@@ -65,7 +65,7 @@ export default function KontakPage() {
           <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-zinc-600 flex items-start gap-3">
             <ShieldCheck className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
             <p className="font-normal">
-              Seluruh jurnalis NALAR dibekali kartu pers resmi dan dilarang
+              Seluruh jurnalis BELOKIRI dibekali identitas resmi dan dilarang
               menerima imbalan dalam bentuk apa pun terkait pemberitaan.
             </p>
           </div>
@@ -82,12 +82,12 @@ export default function KontakPage() {
             </h3>
             <p className="text-xs text-zinc-300 leading-relaxed font-normal">
               Anda tidak perlu mengirimkan naskah dalam lampiran email manual.
-              Platform NALAR menyediakan dashboard terintegrasi:
+              Platform BELOKIRI menyediakan dashboard terintegrasi:
             </p>
             <ul className="text-xs text-zinc-300 space-y-2 list-disc pl-4 font-normal">
               <li>Login dengan akun Google.</li>
-              <li>Tulis langsung naskah di editor NALAR.</li>
-              <li>Pilih rubrik yang sesuai (Kabar, Bedah, Sisi, Nadi, Cerita, Jejak, Esok, Suara).</li>
+              <li>Tulis langsung naskah di editor BELOKIRI.</li>
+              <li>Pilih rubrik yang sesuai (Berisik, Meja Warkop, Ordal, Arsip Pinggiran, Sedikit Akademis, Sisa Bahasa, Setara, Serial Anabel).</li>
               <li>Kirim ke redaksi dan pantau catatan revisi secara transparan.</li>
             </ul>
           </div>

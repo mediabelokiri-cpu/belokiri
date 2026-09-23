@@ -70,60 +70,73 @@ export const MOCK_AUTHORS = [
 
 export const MOCK_RUBRIKS = [
   {
-    name: "KABAR",
-    slug: "kabar",
-    question: "Apa yang sedang terjadi?",
-    badgeColor: "bg-blue-100 text-blue-800 border-blue-200",
-    description: "Berita aktual dan peristiwa terkini seputar nasional, daerah, politik, ekonomi, hukum, dan isu publik.",
+    name: "BERISIK",
+    slug: "berisik",
+    question: "Dunia memang sudah terlalu berisik untuk ditanggapi dengan bisik-bisik.",
+    badgeColor: "bg-red-100 text-red-800 border-red-200",
+    description:
+      "Ruang untuk esai populer yang membicarakan politik, ekonomi, sosial, budaya, isu aktual, dan segala kegaduhan yang sedang beredar. Berisik tidak punya kewajiban untuk selalu tenang, netral, atau terdengar akademis. Di sini, gagasan boleh tajam, pendapat boleh nyeleneh, dan keresahan boleh disuarakan tanpa harus mengenakan jas intelektual. Sebab dunia memang sudah terlalu berisik untuk ditanggapi dengan bisik-bisik.",
   },
   {
-    name: "BEDAH",
-    slug: "bedah",
-    question: "Apa yang sebenarnya ada di balik kabar tersebut?",
-    badgeColor: "bg-purple-100 text-purple-800 border-purple-200",
-    description: "Analisis mendalam, data, konteks, dan penjelasan di balik peristiwa penting.",
-  },
-  {
-    name: "SISI",
-    slug: "sisi",
-    question: "Bagaimana jika kita melihatnya dari sisi yang berbeda?",
+    name: "MEJA WARKOP",
+    slug: "meja-warkop",
+    question: "Semua orang punya teori setelah dua gelas kopi.",
     badgeColor: "bg-amber-100 text-amber-800 border-amber-200",
-    description: "Perspektif berbeda dan sudut pandang alternatif dari isu yang sedang ramai diperbincangkan.",
+    description:
+      "Semua orang punya teori setelah dua gelas kopi. Meja Warkop adalah ruang untuk analisis, percakapan liar, pembacaan fenomena, dan segala macam kesimpulan yang lahir dari tongkrongan. Tidak selalu benar, tidak selalu serius, tetapi selalu berusaha melihat sesuatu dari sudut yang jarang dilirik. Karena kadang, pembicaraan paling ngawur justru membuka pertanyaan yang paling masuk akal.",
   },
   {
-    name: "NADI",
-    slug: "nadi",
-    question: "Bagaimana sebuah isu dirasakan oleh masyarakat?",
-    badgeColor: "bg-rose-100 text-rose-800 border-rose-200",
-    description: "Kehidupan masyarakat, fenomena sosial, dan keresahan publik dalam realitas sehari-hari.",
+    name: "ORDAL",
+    slug: "ordal",
+    question: "Sedikit gosip, sedikit curiga, sisanya kita bongkar.",
+    badgeColor: "bg-purple-100 text-purple-800 border-purple-200",
+    description:
+      "Politik punya banyak pintu, dan sebagian di antaranya cuma bisa dibuka dari dalam. Ordal membicarakan gosip politik, pemerintahan, kekuasaan, elite, birokrasi, dan segala cerita yang beredar di balik meja-meja resmi. Bukan sekadar mencari siapa dekat dengan siapa, tetapi membaca bagaimana kekuasaan bekerja melalui hubungan, kepentingan, dan bisik-bisik yang jarang masuk konferensi pers. Sedikit gosip, sedikit curiga, sisanya kita bongkar.",
   },
   {
-    name: "CERITA",
-    slug: "cerita",
-    question: "Siapa manusia di balik sebuah peristiwa?",
-    badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-200",
-    description: "Human interest, sosok inspiratif, komunitas, dan kisah perjalanan hidup.",
-  },
-  {
-    name: "JEJAK",
-    slug: "jejak",
-    question: "Dari mana kita berasal dan apa yang membentuk kita?",
+    name: "ARSIP PINGGIRAN",
+    slug: "arsip-pinggiran",
+    question:
+      "Sebuah bangsa tidak hanya dibentuk oleh mereka yang berdiri di podium, tetapi juga oleh mereka yang berdiri di jalan.",
     badgeColor: "bg-stone-100 text-stone-800 border-stone-300",
-    description: "Budaya, seni, tradisi lokal, sejarah peradaban, dan warisan identitas Nusantara.",
+    description:
+      "Sejarah tidak selalu tinggal di buku pelajaran. Arsip Pinggiran menyimpan cerita tentang sejarah, gerakan rakyat, kehidupan urban dan pedesaan, komunitas, serta mereka yang sering hanya menjadi catatan kaki dalam cerita besar. Di sini, pinggiran bukan sekadar tempat, melainkan sudut pandang. Sebab sebuah bangsa tidak hanya dibentuk oleh mereka yang berdiri di podium, tetapi juga oleh mereka yang berdiri di jalan.",
   },
   {
-    name: "ESOK",
-    slug: "esok",
-    question: "Ke mana generasi berikutnya bergerak?",
-    badgeColor: "bg-cyan-100 text-cyan-800 border-cyan-200",
-    description: "Pendidikan, mahasiswa, pelajar, inovasi teknologi, kreativitas, dan masa depan anak muda.",
+    name: "SEDIKIT AKADEMIS",
+    slug: "sedikit-akademis",
+    question:
+      "Berpikir tidak berhenti sebagai hobi orang yang punya rak buku terlalu banyak.",
+    badgeColor: "bg-blue-100 text-blue-800 border-blue-200",
+    description:
+      "Teori, filsafat, buku, dan gagasan-gagasan serius—tetapi tidak harus dibungkus bahasa yang membuat orang ingin tidur. Sedikit Akademis mencoba membawa pemikiran besar keluar dari ruang seminar dan menaruhnya di meja yang lebih dekat dengan kehidupan sehari-hari. Kami tidak berjanji selalu pintar, hanya berusaha agar berpikir tidak berhenti sebagai hobi orang yang punya rak buku terlalu banyak.",
   },
   {
-    name: "SUARA",
-    slug: "suara",
-    question: "Apa gagasan dan pemikiran terbukamu?",
+    name: "SISA BAHASA",
+    slug: "sisa-bahasa",
+    question:
+      "Setelah semua teori selesai bicara, kadang yang tersisa hanyalah bahasa.",
+    badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-200",
+    description:
+      "Ada hal-hal yang terlalu rumit untuk dijelaskan lewat berita dan terlalu manusiawi untuk diselesaikan dengan teori. Sisa Bahasa adalah ruang untuk puisi, cerpen, prosa, fragmen, dan segala bentuk sastra yang lahir dari sisa-sisa pengalaman manusia. Tentang cinta, kehilangan, kemarahan, kesepian, kota, tubuh, dan kekacauan kecil yang sering tidak punya nama. Sebab setelah semua teori selesai bicara, kadang yang tersisa hanyalah bahasa.",
+  },
+  {
+    name: "SETARA",
+    slug: "setara",
+    question:
+      "Perempuan bukan catatan kaki, dan kesetaraan bukan hadiah dari mereka yang berkuasa.",
+    badgeColor: "bg-rose-100 text-rose-800 border-rose-200",
+    description:
+      "Perempuan bukan catatan kaki, dan kesetaraan bukan hadiah dari mereka yang berkuasa. Setara adalah ruang untuk membicarakan perempuan, feminisme, tubuh, gender, patriarki, dan berbagai bentuk perjuangan melawan ketimpangan. Dari gerakan kolektif sampai pengalaman sehari-hari, dari politik tubuh sampai perkara yang dianggap “sepele”. Karena dunia yang adil bukan dunia tempat semua orang dibuat sama, melainkan tempat tidak ada yang dipaksa merasa lebih rendah.",
+  },
+  {
+    name: "SERIAL ANABEL",
+    slug: "serial-anabel",
+    question:
+      "Melihat dunia dari meja warkop, jalanan, kampus, sampai sudut-sudut kehidupan yang luput dari perhatian.",
     badgeColor: "bg-orange-100 text-orange-800 border-orange-200",
-    description: "Kolom opini, esai kritis, gagasan terbuka, dan ruang pertukaran ide kontributor.",
+    description:
+      "Anwar dan Bella adalah dua orang yang kebetulan sering berada di tempat yang sama ketika dunia sedang berulah. Serial Anabel adalah kumpulan cerpen dan prosa yang terbit setiap minggu, mengangkat isu, kejadian, dan keresahan aktual melalui percakapan, pertemuan, dan kekacauan kecil dua tokohnya. Setiap cerita berdiri sendiri dan tidak bersambung, tetapi Anwar dan Bella tetap menjadi dua orang yang membawa pembaca melihat dunia dari meja warkop, jalanan, kampus, sampai sudut-sudut kehidupan yang sering luput dari perhatian.",
   },
 ];
 
@@ -151,15 +164,15 @@ export const MOCK_ARTICLES: MockArticle[] = [
     featuredImage: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80",
     featuredImageCaption: "Ratusan penumpang bersiap menaiki kereta komuter di stasiun transit saat jam sibuk pagi.",
     photoSource: "Unsplash / Transportasi Dokumenter",
-    source: "Liputan Lapangan Tim Redaksi NALAR",
-    rubrik: MOCK_RUBRIKS[0], // KABAR
+    source: "Liputan Lapangan Tim Redaksi BELOKIRI",
+    rubrik: MOCK_RUBRIKS[0], // BERISIK
     author: MOCK_AUTHORS[0],
     tags: ["Transportasi", "Kebijakan Publik", "Perkotaan", "Infrastruktur"],
     views: 4820,
     isEditorPick: true,
     isFeatured: true,
     publishedAt: "2026-03-20T08:30:00Z",
-    seoTitle: "Mengurai Benang Kusut Krisis Transportasi Publik | NALAR",
+    seoTitle: "Mengurai Benang Kusut Krisis Transportasi Publik | BELOKIRI",
     metaDescription: "Analisis tajam seputar integrasi antarmoda perkotaan dan beban riil masyarakat komuter.",
   },
   {
@@ -172,7 +185,7 @@ export const MOCK_ARTICLES: MockArticle[] = [
       
       <h3>Anatomi Anggaran PTN-BH</h3>
       <p>Pergeseran status perguruan tinggi menjadi badan hukum menuntut kampus mencari sumber pendanaan mandiri. Sayangnya, diversifikasi pendapatan kampus kerap berujung pada penyesuaian Uang Kuliah Tunggal (UKT) golongan atas yang merembet ke segmen menengah.</p>
-      <p>Berdasarkan data yang dihimpun NALAR, porsi bantuan operasional dari anggaran negara mengalami pergeseran rasio dibanding dekade sebelumnya, sementara biaya operasional riset dan fasilitas teknologi melonjak tajam.</p>
+      <p>Berdasarkan data yang dihimpun tim BELOKIRI, porsi bantuan operasional dari anggaran negara mengalami pergeseran rasio dibanding dekade sebelumnya, sementara biaya operasional riset dan fasilitas teknologi melonjak tajam.</p>
 
       <h3>Kecemasan yang Membayangi Bangku Kuliah</h3>
       <p>Bagi mahasiswa dari keluarga kelas pekerja, kuliah kini dibayangi oleh dilema pinjaman pendidikan dan keharusan bekerja paruh waktu ekstra keras, yang pada akhirnya mengorbankan kualitas penyerapan ilmu dan kesehatan mental.</p>
@@ -180,8 +193,8 @@ export const MOCK_ARTICLES: MockArticle[] = [
     featuredImage: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80",
     featuredImageCaption: "Mahasiswa berdiskusi di perpustakaan kampus di tengah sorotan kenaikan biaya operasional akademik.",
     photoSource: "Unsplash / Kampus Edukasi",
-    source: "Data Litbang NALAR & Riset Kemitraan Akademik",
-    rubrik: MOCK_RUBRIKS[1], // BEDAH
+    source: "Data Litbang BELOKIRI & Riset Kemitraan Akademik",
+    rubrik: MOCK_RUBRIKS[1], // MEJA WARKOP
     author: MOCK_AUTHORS[1],
     tags: ["Pendidikan", "Ekonomi Kampus", "Generasi Z", "Mahasiswa"],
     views: 6150,
@@ -204,8 +217,8 @@ export const MOCK_ARTICLES: MockArticle[] = [
     featuredImage: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1200&q=80",
     featuredImageCaption: "Seseorang menikmati momen hening di ruang baca yang tenang.",
     photoSource: "Unsplash / Gaya Hidup",
-    source: "Refleksi Redaksi NALAR",
-    rubrik: MOCK_RUBRIKS[2], // SISI
+    source: "Refleksi Redaksi BELOKIRI",
+    rubrik: MOCK_RUBRIKS[2], // ORDAL
     author: MOCK_AUTHORS[0],
     tags: ["Perspektif", "Kesehatan Mental", "Filsafat Hidup", "Kritik Budaya"],
     views: 3200,
@@ -229,7 +242,7 @@ export const MOCK_ARTICLES: MockArticle[] = [
     featuredImageCaption: "Aktivitas transaksi di pasar tradisional dengan jejeran komoditas bahan pokok.",
     photoSource: "Unsplash / Pasar Tradisional",
     source: "Wawancara Langsung di Kawasan Cipinang",
-    rubrik: MOCK_RUBRIKS[3], // NADI
+    rubrik: MOCK_RUBRIKS[3], // ARSIP PINGGIRAN
     author: MOCK_AUTHORS[1],
     tags: ["Masyarakat", "Ekonomi Kerakyatan", "Keseharian", "Pangan"],
     views: 4120,
@@ -252,8 +265,8 @@ export const MOCK_ARTICLES: MockArticle[] = [
     featuredImage: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=1200&q=80",
     featuredImageCaption: "Anak-anak pesisir berkumpul membaca buku di dermaga kayu.",
     photoSource: "Unsplash / Human Interest",
-    source: "Liputan Cerita NALAR di Pesisir Utara Jawa",
-    rubrik: MOCK_RUBRIKS[4], // CERITA
+    source: "Liputan Cerita BELOKIRI di Pesisir Utara Jawa",
+    rubrik: MOCK_RUBRIKS[4], // SEDIKIT AKADEMIS
     author: MOCK_AUTHORS[2],
     tags: ["Human Interest", "Literasi", "Pendidikan Anak", "Kisah Nyata"],
     views: 5740,
@@ -276,7 +289,7 @@ export const MOCK_ARTICLES: MockArticle[] = [
     featuredImageCaption: "Koleksi manuskrip dan lembaran arsip sejarah Nusantara.",
     photoSource: "Unsplash / Warisan Budaya",
     source: "Dokumentasi Komunitas Manuskrip Lestari",
-    rubrik: MOCK_RUBRIKS[5], // JEJAK
+    rubrik: MOCK_RUBRIKS[5], // SISA BAHASA
     author: MOCK_AUTHORS[2],
     tags: ["Budaya", "Sejarah", "Manuskrip", "Kearifan Lokal"],
     views: 2950,
@@ -299,7 +312,7 @@ export const MOCK_ARTICLES: MockArticle[] = [
     featuredImageCaption: "Tim mahasiswa teknologi sedang melakukan uji coba kode kecerdasan buatan.",
     photoSource: "Unsplash / Inovasi Muda",
     source: "Wawancara Tim Riset Mahasiswa",
-    rubrik: MOCK_RUBRIKS[6], // ESOK
+    rubrik: MOCK_RUBRIKS[6], // SETARA
     author: MOCK_AUTHORS[3],
     tags: ["Teknologi", "Mahasiswa", "Kecerdasan Buatan", "Inovasi Pertanian"],
     views: 7420,
@@ -322,8 +335,8 @@ export const MOCK_ARTICLES: MockArticle[] = [
     featuredImage: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80",
     featuredImageCaption: "Gambaran reflektif mengenai relasi antara pemikiran manusia dan arus teknologi digital.",
     photoSource: "Unsplash / Esai Visual",
-    source: "Kolom Opini NALAR",
-    rubrik: MOCK_RUBRIKS[7], // SUARA
+    source: "Kolom Esai BELOKIRI",
+    rubrik: MOCK_RUBRIKS[7], // SERIAL ANABEL
     author: MOCK_AUTHORS[3],
     tags: ["Opini", "Kecerdasan Buatan", "Literasi Digital", "Nalar Kritis"],
     views: 3880,

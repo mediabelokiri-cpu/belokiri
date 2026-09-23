@@ -3,7 +3,7 @@ import { getArticleBySlug } from "@/lib/data/articles";
 
 export const runtime = "nodejs";
 
-export const alt = "NALAR - Melihat Lebih dari Sekadar Kabar";
+export const alt = "BELOKIRI - Liar Seperlunya, Jenaka Secukupnya";
 export const size = {
   width: 1200,
   height: 630,
@@ -18,9 +18,9 @@ export default async function Image({
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
 
-  const title = article ? article.title : "NALAR Media";
-  const rubrik = article ? article.rubrik.name : "BERITA";
-  const author = article ? article.author.name : "Redaksi NALAR";
+  const title = article ? article.title : "BELOKIRI Media";
+  const rubrik = article ? article.rubrik.name : "BERISIK";
+  const author = article ? article.author.name : "Redaksi BELOKIRI";
 
   return new ImageResponse(
     (
@@ -62,13 +62,13 @@ export default async function Image({
                 color: "#ffffff",
               }}
             >
-              NALAR
+              BELOKIRI
             </span>
             <span
               style={{
                 fontSize: "48px",
                 fontWeight: 900,
-                color: "#dc2626",
+                color: "#cc0001",
                 marginLeft: "2px",
               }}
             >
@@ -81,7 +81,7 @@ export default async function Image({
             style={{
               display: "flex",
               alignItems: "center",
-              backgroundColor: "#dc2626",
+              backgroundColor: "#cc0001",
               color: "#ffffff",
               fontSize: "14px",
               fontWeight: 900,
@@ -139,7 +139,7 @@ export default async function Image({
               letterSpacing: "3px",
             }}
           >
-            Melihat Lebih dari Sekadar Kabar
+            Liar Seperlunya, Jenaka Secukupnya
           </div>
 
           <div

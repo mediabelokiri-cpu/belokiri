@@ -12,7 +12,7 @@ export default function PopularSidebar({ articles }: PopularSidebarProps) {
       <div className="flex items-center gap-2 pb-4 mb-4 border-b-2 border-red-600">
         <Flame className="w-5 h-5 text-red-600 fill-current" />
         <h3 className="text-sm font-black uppercase tracking-wider text-black">
-          TERPOPULER DI NALAR
+          TERPOPULER DI BELOKIRI
         </h3>
       </div>
 

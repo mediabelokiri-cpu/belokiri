@@ -51,16 +51,16 @@ export default function Header() {
               <Link href="/" className="group flex flex-col items-center">
                 <div className="relative">
                   <Image
-                    src="/images/logo-nalar-red.png"
-                    alt="NALAR"
-                    width={220}
+                    src="/images/logo-belokiri-red.png"
+                    alt="BELOKIRI"
+                    width={240}
                     height={46}
                     priority
                     className="h-8 sm:h-10 md:h-11 w-auto object-contain transition-transform group-hover:scale-102"
                   />
                 </div>
-                <span className="text-[9px] sm:text-[10px] md:text-[11px] tracking-[0.26em] uppercase font-bold text-zinc-600 mt-1.5 group-hover:text-red-600 transition-colors">
-                  Melihat Lebih dari Sekadar Kabar
+                <span className="text-[9px] sm:text-[10px] md:text-[11px] tracking-[0.22em] uppercase font-black text-zinc-600 mt-1.5 group-hover:text-red-600 transition-colors">
+                  Liar Seperlunya, Jenaka Secukupnya
                 </span>
               </Link>
             </div>
@@ -144,10 +144,10 @@ export default function Header() {
               <div className="flex items-center justify-between pb-4 border-b border-zinc-200">
                 <div className="flex items-center">
                   <Image
-                    src="/images/logo-nalar-red.png"
-                    alt="NALAR"
-                    width={120}
-                    height={25}
+                    src="/images/logo-belokiri-red.png"
+                    alt="BELOKIRI"
+                    width={140}
+                    height={27}
                     className="h-7 w-auto object-contain"
                   />
                 </div>
@@ -193,7 +193,7 @@ export default function Header() {
                   onClick={() => setMobileMenuOpen(false)}
                   className="block py-2 hover:text-red-600"
                 >
-                  Tentang NALAR
+                  Tentang BELOKIRI
                 </Link>
                 <Link
                   href="/kontak"

@@ -65,10 +65,10 @@ export async function POST(request: NextRequest) {
         const uploadFormData = new FormData();
         const blob = new Blob([buffer], { type: file.type });
         uploadFormData.append("file", blob, file.name);
-        uploadFormData.append("folder", "nalar/articles");
+        uploadFormData.append("folder", "belokiri/articles");
 
         // Use unsigned upload if preset available or basic signature
-        const uploadPreset = process.env.CLOUDINARY_UPLOAD_PRESET || "nalar_preset";
+        const uploadPreset = process.env.CLOUDINARY_UPLOAD_PRESET || "belokiri_preset";
         uploadFormData.append("upload_preset", uploadPreset);
 
         const cloudRes = await fetch(

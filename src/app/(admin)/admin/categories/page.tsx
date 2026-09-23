@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "8 Rubrik & Pedoman Redaksi | NALAR",
+  title: "8 Rubrik & Pedoman Redaksi | BELOKIRI",
 };
 
 export default async function AdminCategoriesPage() {
@@ -40,14 +40,14 @@ export default async function AdminCategoriesPage() {
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-2xl sm:text-3xl font-black text-black uppercase tracking-tight">
-              8 Rubrik Resmi NALAR
+              8 Rubrik Resmi BELOKIRI
             </h1>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-black bg-red-600 text-white">
               8 Rubrik
             </span>
           </div>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1 font-normal">
-            Struktur taksonomi editorial NALAR. Setiap rubrik dipandu oleh satu pertanyaan filosofis untuk menyajikan kedalaman nalar.
+            Struktur taksonomi editorial BELOKIRI. Setiap rubrik dipandu oleh satu karakter dan pertanyaan filosofis yang khas.
           </p>
         </div>
 
@@ -141,7 +141,7 @@ export default async function AdminCategoriesPage() {
           </div>
           <div>
             <h2 className="text-lg font-black text-black uppercase tracking-tight">
-              Panduan Kurasi Rubrik NALAR (Masterplan V4 & V5)
+              Panduan Kurasi 8 Rubrik BELOKIRI
             </h2>
             <p className="text-xs text-zinc-500 font-normal">
               Standar baku dewan redaksi saat menempatkan atau menyetujui naskah kiriman kontributor.

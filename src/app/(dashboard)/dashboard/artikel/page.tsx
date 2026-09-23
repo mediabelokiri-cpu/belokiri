@@ -26,7 +26,7 @@ export default async function ContributorArticlesPage({
             Artikel & Naskah Saya
           </h1>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1 font-normal">
-            Kelola seluruh tulisan Anda dari tahap draf hingga tayang di NALAR.
+            Kelola seluruh tulisan Anda dari tahap draf hingga tayang di BELOKIRI.
           </p>
         </div>
 

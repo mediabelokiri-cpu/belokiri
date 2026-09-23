@@ -5,7 +5,7 @@ import AdminArticleTable from "@/components/admin/AdminArticleTable";
 import { FileText, Inbox, Plus } from "lucide-react";
 
 export const metadata = {
-  title: "Manajemen Seluruh Artikel | Redaksi NALAR",
+  title: "Manajemen Seluruh Artikel | Redaksi BELOKIRI",
 };
 
 interface AdminArticlesPageProps {

@@ -17,10 +17,10 @@ export default function ContributorHeader({ user }: ContributorHeaderProps) {
           <div className="flex items-center gap-4">
             <Link href="/dashboard" className="flex items-center group">
               <Image
-                src="/images/logo-nalar-red.png"
-                alt="NALAR"
-                width={120}
-                height={25}
+                src="/images/logo-belokiri-red.png"
+                alt="BELOKIRI"
+                width={140}
+                height={27}
                 className="h-7 w-auto object-contain transition-transform group-hover:scale-102"
               />
             </Link>

@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "Antrean Kurasi Naskah | Meja Redaksi NALAR",
+  title: "Antrean Kurasi Naskah | Meja Redaksi BELOKIRI",
 };
 
 export default async function AdminReviewQueuePage() {

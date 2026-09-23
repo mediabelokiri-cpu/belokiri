@@ -11,31 +11,38 @@ const lato = Lato({
 
 export const metadata: Metadata = {
   title: {
-    default: "NALAR — Melihat Lebih dari Sekadar Kabar",
-    template: "%s | NALAR",
+    default: "BELOKIRI — Liar Seperlunya, Jenaka Secukupnya",
+    template: "%s | BELOKIRI",
   },
   description:
-    "Media berita, perspektif alternatif, analisis mendalam, dan cerita manusia dengan sudut pandang yang berbeda.",
+    "Media esai populer, opini tajam, analisis warkop, dan arsip kebudayaan. Liar Seperlunya, Jenaka Secukupnya.",
   keywords: [
-    "NALAR",
-    "Berita",
-    "Analisis",
-    "Perspektif",
-    "Media Online",
-    "Kabar",
-    "Jurnalistik",
+    "BELOKIRI",
+    "Berisik",
+    "Meja Warkop",
+    "Ordal",
+    "Arsip Pinggiran",
+    "Sedikit Akademis",
+    "Sisa Bahasa",
+    "Setara",
+    "Serial Anabel",
+    "Esai Populer",
   ],
-  authors: [{ name: "Redaksi NALAR" }],
-  creator: "NALAR",
+  authors: [{ name: "Redaksi BELOKIRI" }],
+  creator: "BELOKIRI",
+  icons: {
+    icon: "/images/logo-belokiri-icon.png",
+    apple: "/images/logo-belokiri-icon.png",
+  },
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
   openGraph: {
     type: "website",
     locale: "id_ID",
     url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
-    siteName: "NALAR",
-    title: "NALAR — Melihat Lebih dari Sekadar Kabar",
+    siteName: "BELOKIRI",
+    title: "BELOKIRI — Liar Seperlunya, Jenaka Secukupnya",
     description:
-      "Media berita, perspektif alternatif, analisis mendalam, dan cerita manusia dengan sudut pandang yang berbeda.",
+      "Liar Seperlunya, Jenaka Secukupnya. Media esai populer, analisis santai, dan percakapan kritis yang disajikan dengan tajam dan jenaka.",
   },
   robots: {
     index: true,
@@ -50,7 +57,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className={`${lato.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans bg-[#f4f4f5] text-[#09090b]">
+      <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
         {children}
       </body>
     </html>

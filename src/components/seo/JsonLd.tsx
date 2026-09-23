@@ -46,13 +46,13 @@ export function NewsArticleJsonLd({
     ],
     publisher: {
       "@type": "NewsMediaOrganization",
-      name: "NALAR",
-      url: "https://nalar.id",
+      name: "BELOKIRI",
+      url: "https://belokiri.id",
       logo: {
         "@type": "ImageObject",
-        url: "https://nalar.id/images/logo-nalar-red.png",
-        width: 425,
-        height: 89,
+        url: "https://belokiri.id/images/logo-belokiri-red.png",
+        width: 512,
+        height: 97,
       },
     },
     articleSection: sectionName,
@@ -101,17 +101,17 @@ export function OrganizationJsonLd() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "NewsMediaOrganization",
-    name: "NALAR",
-    alternateName: "NALAR Media Nusantara",
-    url: "https://nalar.id",
-    logo: "https://nalar.id/images/logo-nalar-red.png",
-    slogan: "Melihat Lebih dari Sekadar Kabar",
+    name: "BELOKIRI",
+    alternateName: "BELOKIRI Media",
+    url: "https://belokiri.id",
+    logo: "https://belokiri.id/images/logo-belokiri-red.png",
+    slogan: "Liar Seperlunya, Jenaka Secukupnya",
     description:
-      "Media berita independen, analisis kritis, data jurnalisme, dan ruang kurasi pemikiran untuk generasi muda Indonesia.",
+      "Media esai populer, analisis santai, arsip sejarah rakyat, dan percakapan kritis yang disajikan dengan tajam dan jenaka.",
     sameAs: [
-      "https://twitter.com/nalar_id",
-      "https://instagram.com/nalar_id",
-      "https://youtube.com/@nalar_id",
+      "https://twitter.com/belokiri_id",
+      "https://instagram.com/belokiri_id",
+      "https://youtube.com/@belokiri_id",
     ],
   };
 

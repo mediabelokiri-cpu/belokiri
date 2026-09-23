@@ -304,7 +304,7 @@ export default function EditorialWorkbench({ article }: EditorialWorkbenchProps)
                 {article.authorName}
               </p>
               <p className="text-[11px] text-zinc-500 line-clamp-2 mt-0.5">
-                {article.authorBio || "Kontributor resmi NALAR."}
+                {article.authorBio || "Kontributor resmi BELOKIRI."}
               </p>
             </div>
           </div>
@@ -401,7 +401,7 @@ export default function EditorialWorkbench({ article }: EditorialWorkbenchProps)
                       Tandai Pilihan Redaksi
                     </span>
                     <span className="text-[10px] text-zinc-500 font-normal">
-                      Tampil di blok khusus Beranda NALAR
+                      Tampil di blok khusus Beranda BELOKIRI
                     </span>
                   </div>
                 </div>

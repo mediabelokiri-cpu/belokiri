@@ -4,7 +4,7 @@ import AdminUserTable from "@/components/admin/AdminUserTable";
 import { Users } from "lucide-react";
 
 export const metadata = {
-  title: "Direktori Kontributor & Redaksi | Meja Redaksi NALAR",
+  title: "Direktori Kontributor & Redaksi | Meja Redaksi BELOKIRI",
 };
 
 export default async function AdminUsersPage() {

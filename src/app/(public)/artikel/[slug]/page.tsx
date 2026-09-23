@@ -33,13 +33,13 @@ export async function generateMetadata({
     return { title: "Artikel Tidak Ditemukan" };
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://nalar.id";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://belokiri.id";
   const canonicalUrl = `${baseUrl}/artikel/${article.slug}`;
 
   return {
-    title: `${article.title} | NALAR`,
+    title: `${article.title} | BELOKIRI`,
     description: article.excerpt,
-    keywords: [...article.tags, article.rubrik.name, "NALAR", "Berita", "Analisis"],
+    keywords: [...article.tags, article.rubrik.name, "BELOKIRI", "Esai", "Analisis"],
     alternates: {
       canonical: canonicalUrl,
     },
@@ -47,7 +47,7 @@ export async function generateMetadata({
       title: article.title,
       description: article.excerpt,
       url: canonicalUrl,
-      siteName: "NALAR",
+      siteName: "BELOKIRI",
       type: "article",
       publishedTime: article.publishedAt,
       modifiedTime: article.updatedAt || article.publishedAt,
@@ -68,8 +68,8 @@ export async function generateMetadata({
       title: article.title,
       description: article.excerpt,
       images: [article.featuredImage],
-      creator: "@nalar_id",
-      site: "@nalar_id",
+      creator: "@belokiri_id",
+      site: "@belokiri_id",
     },
   };
 }
@@ -90,7 +90,7 @@ export default async function ArticleDetailPage({
   ]);
 
   const readingTime = estimateReadingTime(article.content);
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://nalar.id";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://belokiri.id";
   const canonicalUrl = `${baseUrl}/artikel/${article.slug}`;
 
   return (
@@ -284,7 +284,7 @@ export default async function ArticleDetailPage({
                 <div className="flex items-center justify-between">
                   <div>
                     <span className="text-[10px] font-black uppercase tracking-wider text-red-600">
-                      Penulis NALAR
+                      Penulis BELOKIRI
                     </span>
                     <h4 className="text-base font-black text-black">
                       {article.author.name}

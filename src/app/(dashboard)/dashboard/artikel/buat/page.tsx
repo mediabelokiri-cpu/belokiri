@@ -2,8 +2,8 @@ import { requireUser } from "@/lib/auth/session";
 import ArticleEditor from "@/components/editor/ArticleEditor";
 
 export const metadata = {
-  title: "Tulis Naskah Baru | Meja Kontributor NALAR",
-  description: "Tulis liputan, opini, atau analisis mendalam untuk diajukan ke Redaksi NALAR.",
+  title: "Tulis Naskah Baru | Meja Kontributor BELOKIRI",
+  description: "Tulis esai, opini, atau analisis mendalam untuk diajukan ke Redaksi BELOKIRI.",
 };
 
 export default async function CreateArticlePage() {

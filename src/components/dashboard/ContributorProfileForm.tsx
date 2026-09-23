@@ -207,7 +207,7 @@ export default function ContributorProfileForm({
               <p className="text-[11px] text-zinc-400 font-medium">({name})</p>
             )}
             <span className="inline-block mt-1 text-[10px] font-black uppercase tracking-widest text-red-600 bg-red-50 border border-red-200 px-2.5 py-0.5 rounded-full">
-              Kontributor NALAR
+              Kontributor BELOKIRI
             </span>
           </div>
 
@@ -217,7 +217,7 @@ export default function ContributorProfileForm({
 
           <div className="pt-4 border-t border-zinc-100 flex items-center justify-around text-xs">
             <div>
-              <span className="block text-base font-black text-black">NALAR</span>
+              <span className="block text-base font-black text-black">BELOKIRI</span>
               <span className="text-[10px] text-zinc-400 font-bold uppercase">
                 Portal
               </span>

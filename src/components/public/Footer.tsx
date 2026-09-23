@@ -12,21 +12,20 @@ export default function Footer() {
           <div className="md:col-span-2 space-y-4">
             <Link href="/" className="inline-block">
               <Image
-                src="/images/logo-nalar-white.png"
-                alt="NALAR"
-                width={170}
+                src="/images/logo-belokiri-white.png"
+                alt="BELOKIRI"
+                width={190}
                 height={36}
                 className="h-9 w-auto object-contain"
               />
             </Link>
             <p className="text-red-500 text-sm font-bold uppercase tracking-wider">
-              “Melihat lebih dari sekadar kabar”
+              “Liar seperlunya, jenaka secukupnya”
             </p>
             <p className="text-xs text-zinc-400 leading-relaxed max-w-md font-normal">
-              NALAR adalah media independen yang menyajikan jurnalisme berkedalaman,
-              analisis berimbang, dan perspektif kritis. Kami mengajak pembaca
-              untuk tidak hanya mengetahui apa yang terjadi, melainkan memahami
-              konteks di baliknya.
+              BELOKIRI adalah media esai populer, analisis santai, arsip sejarah rakyat,
+              dan percakapan kritis yang disajikan dengan tajam dan jenaka.
+              Menanggapi dunia yang berisik tanpa harus kehilangan akal sehat.
             </p>
 
             <div className="pt-2">
@@ -43,7 +42,7 @@ export default function Footer() {
           {/* Rubriks Col */}
           <div>
             <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-4 pb-1 border-b border-zinc-800">
-              8 Rubrik NALAR
+              8 Rubrik BELOKIRI
             </h4>
             <ul className="grid grid-cols-2 gap-2.5 text-xs font-bold">
               {MOCK_RUBRIKS.map((rubrik) => (
@@ -123,7 +122,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-zinc-800 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 gap-4 font-medium">
-          <p>© {new Date().getFullYear()} NALAR Media Nusantara. Hak cipta dilindungi undang-undang.</p>
+          <p>© {new Date().getFullYear()} BELOKIRI. Seluruh hak cipta dilindungi undang-undang.</p>
           <p className="text-zinc-400">Next.js • Supabase • Vercel Architecture</p>
         </div>
       </div>

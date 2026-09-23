@@ -20,7 +20,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `Rubrik ${rubrik.name} — ${rubrik.question} | NALAR`,
+    title: `Rubrik ${rubrik.name} — ${rubrik.question} | BELOKIRI`,
     description: rubrik.description,
   };
 }
@@ -51,7 +51,7 @@ export default async function RubrikPage({ params }: RubrikPageProps) {
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-zinc-100 text-zinc-800 text-xs font-black uppercase tracking-wider mb-4 border border-zinc-200">
             <Layers className="w-3.5 h-3.5 text-red-600" />
-            <span>Rubrik Resmi NALAR</span>
+            <span>Rubrik Resmi BELOKIRI</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl font-black text-black tracking-tight uppercase">

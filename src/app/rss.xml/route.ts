@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getAllArticlesForAdmin } from "@/lib/data/admin";
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://nalar.id";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://belokiri.id";
 
   let articles: any[] = [];
   try {
@@ -44,9 +44,9 @@ export async function GET() {
   const rssXml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>NALAR - Melihat Lebih dari Sekadar Kabar</title>
+    <title>BELOKIRI - Liar Seperlunya, Jenaka Secukupnya</title>
     <link>${baseUrl}</link>
-    <description>Media berita independen, analisis kritis, data jurnalisme, dan ruang kurasi pemikiran untuk generasi muda Indonesia.</description>
+    <description>Media esai populer, analisis santai, arsip sejarah rakyat, dan percakapan kritis yang disajikan dengan tajam dan jenaka.</description>
     <language>id-ID</language>
     <lastBuildDate>${latestBuildDate}</lastBuildDate>
     <atom:link href="${baseUrl}/rss.xml" rel="self" type="application/rss+xml"/>

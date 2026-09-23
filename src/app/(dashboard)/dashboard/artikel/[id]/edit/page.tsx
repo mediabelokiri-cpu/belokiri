@@ -12,7 +12,7 @@ interface EditArticlePageProps {
 export async function generateMetadata({ params }: EditArticlePageProps) {
   const { id } = await params;
   return {
-    title: `Sunting Naskah (${id}) | Meja Kontributor NALAR`,
+    title: `Sunting Naskah (${id}) | Meja Kontributor BELOKIRI`,
   };
 }
 

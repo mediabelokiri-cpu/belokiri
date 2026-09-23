@@ -5,8 +5,8 @@ import ArticleCard from "@/components/public/ArticleCard";
 import { Newspaper } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Arsip Berita & Tulisan Terkini | NALAR",
-  description: "Indeks seluruh kabar, analisis, dan perspektif terbaru yang diterbitkan oleh NALAR.",
+  title: "Arsip Berita & Tulisan Terkini | BELOKIRI",
+  description: "Indeks seluruh kabar, analisis, dan perspektif terbaru yang diterbitkan oleh BELOKIRI.",
 };
 
 export default async function BeritaPage() {

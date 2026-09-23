@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getAllArticlesForAdmin } from "@/lib/data/admin";
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://nalar.id";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://belokiri.id";
 
   let articles: any[] = [];
   try {
@@ -13,17 +13,17 @@ export async function GET() {
 
   const feedData = {
     version: "https://jsonfeed.org/version/1.1",
-    title: "NALAR - Melihat Lebih dari Sekadar Kabar",
+    title: "BELOKIRI - Liar Seperlunya, Jenaka Secukupnya",
     home_page_url: baseUrl,
     feed_url: `${baseUrl}/feed.json`,
     description:
-      "Media berita independen, analisis kritis, data jurnalisme, dan ruang kurasi pemikiran untuk generasi muda Indonesia.",
-    icon: `${baseUrl}/images/logo-nalar-red.png`,
+      "Media esai populer, analisis santai, arsip sejarah rakyat, dan percakapan kritis yang disajikan dengan tajam dan jenaka.",
+    icon: `${baseUrl}/images/logo-belokiri-red.png`,
     favicon: `${baseUrl}/favicon.ico`,
     language: "id-ID",
     authors: [
       {
-        name: "Dewan Redaksi NALAR",
+        name: "Dewan Redaksi BELOKIRI",
         url: baseUrl,
       },
     ],

@@ -31,8 +31,8 @@ export default async function ContributorDashboardPage() {
             Selamat Datang, {user.penName || user.name}!
           </h1>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1 max-w-xl font-normal">
-            Pantau kurasi redaksi, kelola draf liputan, dan terus hadirkan
-            tulisan yang melihat lebih dari sekadar kabar.
+            Pantau kurasi redaksi, kelola draf naskah, dan terus hadirkan
+            tulisan yang liar seperlunya, jenaka secukupnya.
           </p>
         </div>
 
@@ -197,7 +197,7 @@ export default async function ContributorDashboardPage() {
             </h3>
             <p className="text-xs text-zinc-400 max-w-sm mx-auto">
               Mulailah menulis gagasan atau liputan investigasimu sekarang dan
-              ajukan ke meja redaksi NALAR.
+              ajukan ke meja redaksi BELOKIRI.
             </p>
             <Link
               href="/dashboard/artikel/buat"
