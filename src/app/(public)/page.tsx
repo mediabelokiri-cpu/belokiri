@@ -28,7 +28,7 @@ export default async function HomePage() {
       {/* 1. HERO HEADLINE SECTION (FULL LEBAR KIRI & KANAN)      */}
       {/* ======================================================== */}
       {heroArticles.length > 0 && (
-        <section className="w-full border-b border-zinc-200 bg-white/70 py-6 sm:py-8">
+        <section className="w-full bg-black py-6 sm:py-8 border-b-2 border-zinc-900 shadow-md">
           <div className="w-full px-4 sm:px-6 lg:px-8 max-w-[1600px] mx-auto">
             <HeroArticle articles={heroArticles} />
           </div>

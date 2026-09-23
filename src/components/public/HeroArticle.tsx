@@ -20,7 +20,7 @@ export default function HeroArticle({ articles }: HeroArticleProps) {
         {/* ======================================================== */}
         {/* 1. MAIN HEADLINE ARTICLE (OVERLAY FULL IMAGE - 7 COLS)   */}
         {/* ======================================================== */}
-        <article className="lg:col-span-7 group relative rounded-2xl overflow-hidden shadow-md border border-zinc-800 bg-black min-h-[400px] sm:min-h-[460px] lg:h-[500px] flex flex-col justify-between">
+        <article className="lg:col-span-7 group relative rounded-2xl overflow-hidden shadow-2xl border border-white/15 hover:border-red-600/80 bg-black min-h-[400px] sm:min-h-[460px] lg:h-[500px] flex flex-col justify-between transition-all">
           {/* Background Image */}
           <Image
             src={mainArticle.featuredImage}
@@ -95,7 +95,7 @@ export default function HeroArticle({ articles }: HeroArticleProps) {
           {sideArticles.map((article, index) => (
             <article
               key={article.id}
-              className="group relative rounded-2xl overflow-hidden shadow-md border border-zinc-800 bg-black h-[220px] sm:h-[240px] lg:h-[238px] flex flex-col justify-between"
+              className="group relative rounded-2xl overflow-hidden shadow-2xl border border-white/15 hover:border-red-600/80 bg-black h-[220px] sm:h-[240px] lg:h-[238px] flex flex-col justify-between transition-all"
             >
               {/* Background Image */}
               <Image
