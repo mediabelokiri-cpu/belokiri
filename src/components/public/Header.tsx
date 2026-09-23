@@ -116,16 +116,6 @@ export default function Header() {
                   </Link>
                 );
               })}
-              <Link
-                href="/tentang-kami"
-                className={`py-2 px-2 sm:px-3 border-b-2 transition-all shrink-0 rounded-t-sm ${
-                  pathname === "/tentang-kami"
-                    ? "border-red-600 text-red-700 bg-red-50/80 font-black"
-                    : "border-transparent text-red-600 hover:text-red-700 hover:bg-red-50/50"
-                }`}
-              >
-                TENTANG KAMI
-              </Link>
             </nav>
           </div>
         </div>
