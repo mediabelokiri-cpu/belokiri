@@ -12,6 +12,8 @@ import {
   PenTool,
   Sliders,
   Mail,
+  ShieldCheck,
+  ChevronRight,
 } from "lucide-react";
 
 interface AdminNavProps {
@@ -85,36 +87,74 @@ export default function AdminNav({ reviewCount = 0 }: AdminNavProps) {
   ];
 
   return (
-    <nav className="bg-zinc-50 border-b border-zinc-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex space-x-1 sm:space-x-3 overflow-x-auto py-2">
-          {links.map((link) => {
-            const Icon = link.icon;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap ${
-                  link.active
-                    ? "bg-white text-black shadow-xs border border-zinc-200 border-b-2 border-b-red-600"
-                    : "text-zinc-600 hover:text-black hover:bg-zinc-100"
-                }`}
-              >
+    <nav className="bg-white border border-zinc-200 rounded-3xl p-4 sm:p-5 shadow-xs space-y-4 sticky top-20">
+      {/* Sidebar Header Badge */}
+      <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
+          <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">
+            Navigasi Meja Agen
+          </span>
+        </div>
+        <span className="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-zinc-100 text-zinc-600">
+          CMS BELOKIRI
+        </span>
+      </div>
+
+      {/* Menu Tabs with Red Background Box Styling */}
+      <div className="flex flex-col space-y-1.5">
+        {links.map((link) => {
+          const Icon = link.icon;
+          const isActive = link.active;
+
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer group ${
+                isActive
+                  ? "bg-red-600 text-white shadow-md ring-1 ring-red-700"
+                  : "bg-red-50/70 text-zinc-800 hover:bg-red-600 hover:text-white border border-red-100/80 hover:border-red-600 shadow-2xs"
+              }`}
+            >
+              <div className="flex items-center gap-2.5 min-w-0">
                 <Icon
-                  className={`w-4 h-4 ${
-                    link.active ? "text-red-600" : "text-zinc-400"
+                  className={`w-4 h-4 shrink-0 transition-colors ${
+                    isActive
+                      ? "text-white"
+                      : "text-red-600 group-hover:text-white"
                   }`}
                 />
-                <span>{link.name}</span>
-                {link.badge !== undefined && (
-                  <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] font-black bg-red-600 text-white animate-pulse">
-                    {link.badge}
-                  </span>
-                )}
-              </Link>
-            );
-          })}
-        </div>
+                <span className="truncate">{link.name}</span>
+              </div>
+
+              {link.badge !== undefined ? (
+                <span
+                  className={`ml-2 px-2 py-0.5 rounded-full text-[10px] font-black shrink-0 transition-colors ${
+                    isActive
+                      ? "bg-black text-white"
+                      : "bg-red-600 text-white group-hover:bg-white group-hover:text-red-600"
+                  }`}
+                >
+                  {link.badge}
+                </span>
+              ) : (
+                <ChevronRight
+                  className={`w-3.5 h-3.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity ${
+                    isActive ? "opacity-100 text-red-200" : "text-white"
+                  }`}
+                />
+              )}
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* Sidebar Footer info */}
+      <div className="pt-3 border-t border-zinc-100 text-center">
+        <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">
+          Agen Belokan V2.0 • Online
+        </p>
       </div>
     </nav>
   );
