@@ -51,7 +51,7 @@ function mapDbToArticle(a: any): MockArticle {
   };
 }
 
-export async function getHeroArticles(limit: number = 3): Promise<MockArticle[]> {
+export const getHeroArticles = cache(async function getHeroArticles(limit: number = 3): Promise<MockArticle[]> {
   try {
     const dbArticles = await prisma.article.findMany({
       where: { status: "PUBLISHED" },
@@ -73,14 +73,14 @@ export async function getHeroArticles(limit: number = 3): Promise<MockArticle[]>
   const others = MOCK_ARTICLES.filter((a) => a.id !== featured?.id);
   const result = featured ? [featured, ...others] : [...MOCK_ARTICLES];
   return result.slice(0, limit);
-}
+});
 
-export async function getHeroArticle(): Promise<MockArticle | null> {
+export const getHeroArticle = cache(async function getHeroArticle(): Promise<MockArticle | null> {
   const articles = await getHeroArticles(1);
   return articles[0] || null;
-}
+});
 
-export async function getLatestArticles(
+export const getLatestArticles = cache(async function getLatestArticles(
   limit: number = 6,
   page: number = 1
 ): Promise<{ articles: MockArticle[]; total: number; totalPages: number }> {
@@ -119,9 +119,9 @@ export async function getLatestArticles(
   const totalPages = Math.ceil(total / limit);
 
   return { articles, total, totalPages };
-}
+});
 
-export async function getEditorsPick(limit: number = 4): Promise<MockArticle[]> {
+export const getEditorsPick = cache(async function getEditorsPick(limit: number = 4): Promise<MockArticle[]> {
   try {
     const dbArticles = await prisma.article.findMany({
       where: { status: "PUBLISHED", isEditorPick: true },
@@ -136,9 +136,9 @@ export async function getEditorsPick(limit: number = 4): Promise<MockArticle[]> 
   }
 
   return MOCK_ARTICLES.filter((a) => a.isEditorPick).slice(0, limit);
-}
+});
 
-export async function getPopularArticles(limit: number = 5): Promise<MockArticle[]> {
+export const getPopularArticles = cache(async function getPopularArticles(limit: number = 5): Promise<MockArticle[]> {
   try {
     const dbArticles = await prisma.article.findMany({
       where: { status: "PUBLISHED" },
@@ -155,7 +155,7 @@ export async function getPopularArticles(limit: number = 5): Promise<MockArticle
   return [...MOCK_ARTICLES]
     .sort((a, b) => b.views - a.views)
     .slice(0, limit);
-}
+});
 
 export const getArticleBySlug = cache(async function getArticleBySlug(
   slug: string
@@ -182,7 +182,7 @@ export const getArticleBySlug = cache(async function getArticleBySlug(
   return article || null;
 });
 
-export async function getArticlesByRubrik(
+export const getArticlesByRubrik = cache(async function getArticlesByRubrik(
   rubrikSlug: string,
   limit: number = 10,
   page: number = 1
@@ -241,7 +241,7 @@ export async function getArticlesByRubrik(
   const articles = filtered.slice(start, start + limit);
 
   return { rubrik, articles, total: filtered.length };
-}
+});
 
 export async function searchArticles(
   query: string
@@ -286,7 +286,7 @@ export async function searchArticles(
   return { articles: results, count: results.length };
 }
 
-export async function getAuthorBySlug(slug: string) {
+export const getAuthorBySlug = cache(async function getAuthorBySlug(slug: string) {
   try {
     // 1. Try querying registered user from Prisma PostgreSQL
     const dbUser = await prisma.user.findFirst({
@@ -375,9 +375,9 @@ export async function getAuthorBySlug(slug: string) {
 
   const articles = MOCK_ARTICLES.filter((a) => a.author.slug === slug);
   return { author, articles, totalArticles: articles.length };
-}
+});
 
-export async function getRelatedArticles(
+export const getRelatedArticles = cache(async function getRelatedArticles(
   currentSlug: string,
   rubrikSlug: string,
   limit: number = 3
@@ -431,9 +431,9 @@ export async function getRelatedArticles(
   );
 
   return [...sameRubrik, ...otherArticles].slice(0, limit);
-}
+});
 
-export async function getRecentArticles(
+export const getRecentArticles = cache(async function getRecentArticles(
   currentSlug?: string,
   limit: number = 4
 ): Promise<MockArticle[]> {
@@ -459,9 +459,9 @@ export async function getRecentArticles(
         new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     )
     .slice(0, limit);
-}
+});
 
-export async function getAllRubriks() {
+export const getAllRubriks = cache(async function getAllRubriks() {
   try {
     const dbCats = await prisma.category.findMany({
       orderBy: { createdAt: "asc" },
@@ -480,5 +480,5 @@ export async function getAllRubriks() {
     console.error("Error getAllRubriks db:", err);
   }
   return MOCK_RUBRIKS;
-}
+});
 

@@ -55,6 +55,8 @@ export async function publishArticleAction(
     revalidatePath("/");
     revalidatePath("/berita");
     revalidatePath(`/artikel/${published.slug}`);
+    revalidatePath("/kategori/[slug]", "page");
+    revalidatePath("/penulis/[slug]", "page");
 
     return {
       success: true,
@@ -302,6 +304,8 @@ export async function saveArticleByAdminAction(
     revalidatePath("/");
     revalidatePath("/berita");
     revalidatePath(`/artikel/${saved.slug}`);
+    revalidatePath("/kategori/[slug]", "page");
+    revalidatePath("/penulis/[slug]", "page");
 
     const message =
       saved.status === "PUBLISHED"

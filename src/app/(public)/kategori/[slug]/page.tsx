@@ -1,5 +1,4 @@
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 60;
 
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -7,6 +6,19 @@ import Link from "next/link";
 import { getArticlesByRubrik } from "@/lib/data/articles";
 import ArticleCard from "@/components/public/ArticleCard";
 import { ChevronRight, Layers, ArrowLeft } from "lucide-react";
+
+export function generateStaticParams() {
+  return [
+    { slug: "berisik" },
+    { slug: "meja-warkop" },
+    { slug: "ordal" },
+    { slug: "arsip-pinggiran" },
+    { slug: "sedikit-akademis" },
+    { slug: "sisa-bahasa" },
+    { slug: "setara" },
+    { slug: "serial-anabel" },
+  ];
+}
 
 interface RubrikPageProps {
   params: Promise<{ slug: string }>;
