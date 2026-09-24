@@ -5,7 +5,7 @@ import path from "path";
 import fs from "fs";
 
 // Allowed MIME types
-const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif"];
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif", "image/gif"];
 const MAX_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
 
 export async function POST(request: NextRequest) {
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          message: "Format berkas tidak didukung. Harap gunakan format JPG, PNG, WebP, atau AVIF.",
+          message: "Format berkas tidak didukung. Harap gunakan format JPG, PNG, WebP, GIF, atau AVIF.",
         },
         { status: 400 }
       );
@@ -68,7 +68,45 @@ export async function POST(request: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // 6. Cloudinary Upload if configured
+    // 6. Supabase Storage Upload (Primary Production CDN Storage)
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+    if (supabaseUrl && supabaseKey && !supabaseUrl.includes("your-project")) {
+      try {
+        const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
+        const uniqueFileName = `${Date.now()}-${cleanName}`;
+        const uploadEndpoint = `${supabaseUrl}/storage/v1/object/media/${uniqueFileName}`;
+
+        const uploadRes = await fetch(uploadEndpoint, {
+          method: "POST",
+          headers: {
+            apikey: supabaseKey,
+            Authorization: `Bearer ${supabaseKey}`,
+            "Content-Type": file.type,
+          },
+          body: buffer,
+        });
+
+        if (uploadRes.ok) {
+          const publicUrl = `${supabaseUrl}/storage/v1/object/public/media/${uniqueFileName}`;
+          return NextResponse.json({
+            success: true,
+            url: publicUrl,
+            name: file.name,
+            size: file.size,
+            provider: "supabase",
+          });
+        } else {
+          const errData = await uploadRes.json().catch(() => ({}));
+          console.warn("Supabase storage upload error response:", errData);
+        }
+      } catch (supabaseErr) {
+        console.warn("Supabase storage upload failed:", supabaseErr);
+      }
+    }
+
+    // 7. Cloudinary Upload if configured
     const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
     const apiKey = process.env.CLOUDINARY_API_KEY;
     const apiSecret = process.env.CLOUDINARY_API_SECRET;
@@ -106,26 +144,37 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 7. Local Storage Fallback
-    const uploadsDir = path.join(process.cwd(), "public", "uploads");
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true });
+    // 8. Local Storage Fallback (only on local development environments)
+    try {
+      const uploadsDir = path.join(process.cwd(), "public", "uploads");
+      if (!fs.existsSync(uploadsDir)) {
+        fs.mkdirSync(uploadsDir, { recursive: true });
+      }
+
+      const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
+      const uniqueFileName = `${Date.now()}-${cleanName}`;
+      const filePath = path.join(uploadsDir, uniqueFileName);
+
+      await fs.promises.writeFile(filePath, buffer);
+      const publicUrl = `/uploads/${uniqueFileName}`;
+
+      return NextResponse.json({
+        success: true,
+        url: publicUrl,
+        name: file.name,
+        size: file.size,
+        provider: "local",
+      });
+    } catch (fsErr: any) {
+      console.error("Local filesystem write failed (read-only environment):", fsErr);
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Gagal menyimpan berkas ke serverless storage. Pastikan Supabase Storage terkonfigurasi.",
+        },
+        { status: 500 }
+      );
     }
-
-    const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-    const uniqueFileName = `${Date.now()}-${cleanName}`;
-    const filePath = path.join(uploadsDir, uniqueFileName);
-
-    await fs.promises.writeFile(filePath, buffer);
-    const publicUrl = `/uploads/${uniqueFileName}`;
-
-    return NextResponse.json({
-      success: true,
-      url: publicUrl,
-      name: file.name,
-      size: file.size,
-      provider: "local",
-    });
   } catch (error: any) {
     console.error("Upload error:", error);
     return NextResponse.json(
@@ -134,3 +183,4 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
