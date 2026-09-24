@@ -457,9 +457,9 @@ export const MOCK_ARTICLES: MockArticle[] = [
       <h3>Seni Mendengar yang Hilang di Senayan</h3>
       <p>Pelajaran terbesar dari meja warkop bukan seberapa banyak teori yang dilontarkan, tetapi kerelaan orang-orang untuk saling mendengarkan setelah saling ledek. Sesuatu yang tampaknya sudah punah dari ruang-ruang pendingin berpelapis marmer kekuasaan.</p>
     `,
-    featuredImage: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80",
-    featuredImageCaption: "Secangkir kopi panas dan percakapan lepas di warkop pinggir jalan.",
-    photoSource: "Unsplash / Tongkrongan Urban",
+    featuredImage: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1200&q=80",
+    featuredImageCaption: "Secangkir kopi tubruk hitam pekat di atas meja kayu warkop pinggir jalan.",
+    photoSource: "Unsplash / Ruang Warga",
     source: "Observasi Lepas Warga Belokan",
     rubrik: MOCK_RUBRIKS[1], // MEJA WARKOP
     author: MOCK_AUTHORS[1],
@@ -505,9 +505,9 @@ export const MOCK_ARTICLES: MockArticle[] = [
       <p>Ada mantra sakti yang kerap meluncur di sela seruputan kopi: 'Tenang, itu bisa diatur.' Bukan melulu soal suap-menyuap vulgar, melainkan jalinan modal sosial, pertemanan lama, dan rasa ewuh-pakewuh yang mengisi kekosongan tata kelola publik.</p>
       <p>Ketika birokrasi gagal memanusiakan warga, warga mencari jalurnya sendiri di antara kepulan asap rokok dan cangkir kopi tubruk.</p>
     `,
-    featuredImage: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1200&q=80",
-    featuredImageCaption: "Secangkir kopi tubruk hitam panas di atas meja kayu warkop.",
-    photoSource: "Unsplash / Ruang Temu",
+    featuredImage: "https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=1200&q=80",
+    featuredImageCaption: "Meja kayu dan aroma kopi di tongkrongan warga.",
+    photoSource: "Unsplash / Meja Warga",
     source: "Esai Percakapan Rubrik Meja Warkop",
     rubrik: MOCK_RUBRIKS[1], // MEJA WARKOP
     author: MOCK_AUTHORS[2],
@@ -528,9 +528,9 @@ export const MOCK_ARTICLES: MockArticle[] = [
       <h3>Komodifikasi Ruang Nongkrong</h3>
       <p>Kopi bukan lagi sekadar komoditas pangan; ia telah diubah menjadi penanda status dan tiket masuk komunitas tertentu. Namun di balik pretensi rasa dan aroma buah beri dari biji kopi specialty, warkop tradisional tetap tak tergoyahkan sebagai benteng terakhir obrolan warga yang tanpa filter.</p>
     `,
-    featuredImage: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80",
-    featuredImageCaption: "Penyajian kopi hangat di kedai kota.",
-    photoSource: "Unsplash / Kultur Kafe",
+    featuredImage: "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=1200&q=80",
+    featuredImageCaption: "Secangkir kopi pekat dan surat kabar pagi.",
+    photoSource: "Unsplash / Kultur Warga",
     source: "Analisis Sosial Meja Warkop BELOKIRI",
     rubrik: MOCK_RUBRIKS[1], // MEJA WARKOP
     author: MOCK_AUTHORS[3],

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MockArticle } from "@/lib/data/mock-articles";
 import { formatDate } from "@/lib/utils";
-import { Coffee, ArrowRight, Clock } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 interface MejaWarkopSectionProps {
   articles: MockArticle[];
@@ -16,168 +16,153 @@ export default function MejaWarkopSection({ articles }: MejaWarkopSectionProps) 
 
   return (
     <section className="space-y-6">
-      {/* Header Section */}
-      <div className="flex items-center justify-between pb-3 border-b-2 border-zinc-900">
-        <div className="flex items-center gap-3">
-          <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-700">
-            <Coffee className="w-5 h-5" />
-          </div>
-          <div>
-            <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-zinc-950 flex items-center gap-2">
-              MEJA WARKOP
-            </h2>
-            <p className="text-xs text-zinc-500 italic font-medium hidden sm:block">
-              “Semua orang punya teori setelah dua gelas kopi.”
-            </p>
-          </div>
+      {/* Header Section: Strictly BELOKIRI Aesthetic (Hitam, Putih, Merah) */}
+      <div className="flex items-center justify-between pb-3 border-b-2 border-black">
+        <div className="flex items-center gap-2.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" />
+          <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-black">
+            MEJA WARKOP
+          </h2>
+          <span className="hidden sm:inline-block text-zinc-300">|</span>
+          <p className="text-xs text-zinc-500 italic font-medium hidden sm:block">
+            &ldquo;Semua orang punya teori setelah dua gelas kopi.&rdquo;
+          </p>
         </div>
 
         <Link
           href="/kategori/meja-warkop"
-          className="text-xs font-black uppercase text-zinc-600 hover:text-amber-800 flex items-center gap-1.5 transition-colors group"
+          className="text-xs font-black uppercase text-zinc-600 hover:text-red-600 flex items-center gap-1 transition-colors group"
         >
-          <span>Semua Obrolan Warkop</span>
-          <ArrowRight className="w-4 h-4 text-amber-600 group-hover:translate-x-1 transition-transform" />
+          <span>Semua Obrolan</span>
+          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>
 
-      {/* Grid Meja Warkop: 1 Banner Split Horizontal + 3 Kolom Kartu di Bawahnya */}
-      <div className="space-y-6">
-        {/* 1. Obrolan Utama (Featured Horizontal Card) */}
+      {/* Grid Meja Warkop: Asymmetric News Zine (1 Kolom Besar Kiri + 3 Baris Horizontal Kanan) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+        {/* Sisi Kiri: 1 Artikel Utama Vertikal */}
         {leadArticle && (
-          <article className="group rounded-2xl bg-white border border-zinc-200 overflow-hidden shadow-xs hover:border-amber-400 hover:shadow-md transition-all">
-            <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
-              {/* Image Side */}
-              <div className="lg:col-span-7 relative aspect-16/10 lg:aspect-auto lg:min-h-[360px] overflow-hidden bg-zinc-100">
-                <Image
-                  src={leadArticle.featuredImage}
-                  alt={leadArticle.title}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 60vw"
-                  className="object-cover group-hover:scale-104 transition-transform duration-500"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-black/85 backdrop-blur-md text-amber-400 border border-amber-400/30 shadow-md">
-                    <Coffee className="w-3 h-3 text-amber-400" />
-                    <span>Obrolan Utama</span>
-                  </span>
+          <div className="lg:col-span-6 flex flex-col">
+            <article className="group flex flex-col justify-between rounded-2xl bg-white border border-zinc-200 overflow-hidden shadow-xs hover:border-black hover:shadow-md transition-all h-full">
+              <div>
+                {/* Featured Image */}
+                <div className="relative aspect-16/10 w-full overflow-hidden bg-zinc-900">
+                  <Image
+                    src={leadArticle.featuredImage}
+                    alt={leadArticle.title}
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover group-hover:scale-104 transition-transform duration-500"
+                  />
+                  <div className="absolute top-3 left-3">
+                    <span className="px-2.5 py-1 rounded-sm text-[10px] font-black uppercase tracking-wider bg-red-600 text-white shadow-xs">
+                      {leadArticle.rubrik.name}
+                    </span>
+                  </div>
                 </div>
-              </div>
 
-              {/* Content Side */}
-              <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between bg-amber-50/25">
-                <div>
-                  <div className="flex items-center gap-2 text-[11px] font-bold text-amber-800 uppercase tracking-wider mb-2.5">
-                    <span>Catatan Meja Warkop</span>
-                    <span>•</span>
-                    <span className="text-zinc-500">{formatDate(leadArticle.publishedAt)}</span>
+                {/* Content */}
+                <div className="p-6">
+                  <div className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider mb-2">
+                    POLEMIK TONGKRONGAN • {formatDate(leadArticle.publishedAt)}
                   </div>
 
                   <Link href={`/artikel/${leadArticle.slug}`}>
-                    <h3 className="text-xl sm:text-2xl font-black text-zinc-950 leading-tight group-hover:text-amber-800 transition-colors tracking-tight">
+                    <h3 className="text-xl sm:text-2xl font-black text-black leading-snug group-hover:text-red-600 transition-colors tracking-tight">
                       {leadArticle.title}
                     </h3>
                   </Link>
 
-                  <div className="relative mt-4 pl-4 border-l-2 border-amber-400">
-                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-normal italic">
-                      &ldquo;{leadArticle.excerpt}&rdquo;
-                    </p>
-                  </div>
-                </div>
+                  <p className="mt-3 text-xs sm:text-sm text-zinc-600 leading-relaxed font-normal">
+                    {leadArticle.excerpt}
+                  </p>
 
-                <div className="pt-5 mt-6 border-t border-amber-200/60 flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 rounded-full overflow-hidden relative bg-zinc-200 border border-amber-300">
-                      <Image
-                        src={leadArticle.author.avatarUrl}
-                        alt={leadArticle.author.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <Link
-                        href={`/penulis/${leadArticle.author.slug}`}
-                        className="font-bold text-zinc-900 hover:text-amber-800 transition-colors block leading-tight"
-                      >
-                        {leadArticle.author.name}
-                      </Link>
-                      <span className="text-[10px] text-zinc-500 font-medium">
-                        {leadArticle.author.role}
-                      </span>
-                    </div>
+                  <div className="mt-4 p-3.5 rounded-xl bg-zinc-50 border-l-2 border-red-600 text-xs text-zinc-700 italic font-medium">
+                    &ldquo;Kalau kebijakan publik tidak bisa dipahami penjaga warkop dalam sepuluh detik, kemungkinan besar kebijakan itu cuma akal-akalan birokrasi.&rdquo;
                   </div>
-
-                  <Link
-                    href={`/artikel/${leadArticle.slug}`}
-                    className="inline-flex items-center gap-1 font-bold text-amber-800 hover:text-black uppercase text-[11px] tracking-wider transition-colors"
-                  >
-                    <span>Baca Obrolan</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
                 </div>
               </div>
-            </div>
-          </article>
+
+              {/* Footer Meta */}
+              <div className="px-6 pb-6 pt-3 border-t border-zinc-100 flex items-center justify-between text-xs text-zinc-500">
+                <Link
+                  href={`/penulis/${leadArticle.author.slug}`}
+                  className="font-bold text-zinc-900 hover:text-red-600 transition-colors"
+                >
+                  {leadArticle.author.name}
+                </Link>
+                <Link
+                  href={`/artikel/${leadArticle.slug}`}
+                  className="font-bold text-red-600 hover:text-black flex items-center gap-1 uppercase text-[11px] tracking-wider transition-colors"
+                >
+                  <span>Baca Selengkapnya</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </article>
+          </div>
         )}
 
-        {/* 2. Companion Stories (3 Kolom Kartu Meja Warkop) */}
-        {companionArticles.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {companionArticles.map((article) => (
+        {/* Sisi Kanan: 3 Baris Artikel Horizontal dengan Thumbnail */}
+        <div className="lg:col-span-6 flex flex-col justify-between rounded-2xl bg-white border border-zinc-200 p-6 shadow-xs h-full">
+          <div className="divide-y divide-zinc-100 flex-1 flex flex-col justify-between">
+            {companionArticles.map((article, idx) => (
               <article
                 key={article.id}
-                className="group rounded-2xl bg-white border border-zinc-200 overflow-hidden shadow-xs hover:border-amber-400 hover:shadow-md transition-all flex flex-col justify-between"
+                className="group py-4 first:pt-0 last:pb-0 flex flex-col sm:flex-row gap-4 items-start"
               >
-                <div>
-                  {/* Card Image */}
-                  <div className="relative aspect-16/10 w-full overflow-hidden bg-zinc-100">
-                    <Image
-                      src={article.featuredImage}
-                      alt={article.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-400"
-                    />
-                    <div className="absolute top-3 left-3">
-                      <span className="px-2.5 py-0.5 rounded-sm text-[10px] font-black uppercase tracking-wider bg-amber-500 text-black font-mono shadow-xs">
-                        MEJA WARKOP
+                {/* Thumbnail */}
+                <div className="relative w-full sm:w-36 aspect-16/10 sm:aspect-4/3 shrink-0 rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200">
+                  <Image
+                    src={article.featuredImage}
+                    alt={article.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 150px"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <span className="absolute top-2 left-2 px-1.5 py-0.5 rounded-xs text-[9px] font-mono font-bold bg-black/80 text-white">
+                    0{idx + 2}
+                  </span>
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 min-w-0 flex flex-col justify-between h-full">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-black uppercase tracking-wider text-red-600">
+                        {article.rubrik.name}
+                      </span>
+                      <span className="text-[10px] text-zinc-400 font-medium">
+                        • {formatDate(article.publishedAt)}
                       </span>
                     </div>
-                  </div>
 
-                  {/* Card Body */}
-                  <div className="p-5">
                     <Link href={`/artikel/${article.slug}`}>
-                      <h4 className="text-base font-black text-zinc-950 leading-snug line-clamp-2 group-hover:text-amber-800 transition-colors tracking-tight">
+                      <h4 className="text-sm sm:text-base font-bold text-zinc-900 leading-snug group-hover:text-red-600 transition-colors line-clamp-2">
                         {article.title}
                       </h4>
                     </Link>
-                    <p className="mt-2 text-xs text-zinc-600 line-clamp-2 leading-relaxed font-normal">
+
+                    <p className="mt-1 text-xs text-zinc-500 line-clamp-2 font-normal leading-relaxed">
                       {article.excerpt}
                     </p>
                   </div>
-                </div>
 
-                {/* Footer Meta */}
-                <div className="px-5 pb-5 pt-3 border-t border-zinc-100 flex items-center justify-between text-[11px] text-zinc-500">
-                  <Link
-                    href={`/penulis/${article.author.slug}`}
-                    className="font-bold text-zinc-800 hover:text-amber-800 transition-colors"
-                  >
-                    {article.author.name}
-                  </Link>
-                  <div className="flex items-center gap-1 font-medium text-zinc-400">
-                    <Clock className="w-3 h-3" />
-                    <span>{formatDate(article.publishedAt)}</span>
+                  <div className="mt-2 text-[11px] text-zinc-500 font-medium">
+                    <span>Oleh: </span>
+                    <Link
+                      href={`/penulis/${article.author.slug}`}
+                      className="font-bold text-zinc-800 hover:text-red-600 transition-colors"
+                    >
+                      {article.author.name}
+                    </Link>
                   </div>
                 </div>
               </article>
             ))}
           </div>
-        )}
+        </div>
       </div>
     </section>
   );
