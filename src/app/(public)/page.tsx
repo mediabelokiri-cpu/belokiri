@@ -11,6 +11,7 @@ import {
 import { formatDate } from "@/lib/utils";
 import HeroArticle from "@/components/public/HeroArticle";
 import EditorsPick from "@/components/public/EditorsPick";
+import MejaWarkopSection from "@/components/public/MejaWarkopSection";
 import { ArrowRight, Clock } from "lucide-react";
 
 export default async function HomePage() {
@@ -18,6 +19,7 @@ export default async function HomePage() {
     heroArticles,
     { articles: latestArticles },
     { articles: berisikArticles },
+    { articles: warkopArticles },
     editorsPicks,
     popularArticles,
     rubriks,
@@ -25,6 +27,7 @@ export default async function HomePage() {
     getHeroArticles(3),
     getLatestArticles(8, 1),
     getArticlesByRubrik("berisik", 6),
+    getArticlesByRubrik("meja-warkop", 5),
     getEditorsPick(5),
     getPopularArticles(5),
     getAllRubriks(),
@@ -208,7 +211,14 @@ export default async function HomePage() {
           <EditorsPick articles={editorsPicks} />
         </section>
 
-        {/* 4. Rubrik Explorer Matrix */}
+        {/* 4. MEJA WARKOP Rubrik Section (Distinct Horizontal Lead + 3-Column Strip) */}
+        {warkopArticles.length > 0 && (
+          <section className="pt-4">
+            <MejaWarkopSection articles={warkopArticles} />
+          </section>
+        )}
+
+        {/* 5. Rubrik Explorer Matrix */}
         <section className="pt-8 border-t border-zinc-200">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-2">
             <div>

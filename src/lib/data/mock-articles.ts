@@ -467,7 +467,78 @@ export const MOCK_ARTICLES: MockArticle[] = [
     views: 5210,
     isEditorPick: true,
     isFeatured: false,
-    publishedAt: "2026-03-23T10:15:00Z",
+    publishedAt: "2026-03-24T14:15:00Z",
+  },
+  {
+    id: "art-warkop-2",
+    title: "Filosofi Gorengan dan Utang Warung: Indikator Ekonomi Paling Jujur di Akar Rumput",
+    slug: "filosofi-gorengan-dan-utang-warung-indikator-ekonomi-jujur",
+    excerpt: "BPS boleh merilis angka pertumbuhan 5%, tapi kesehatan ekonomi warga sesungguhnya terbaca dari buku kasbon berminyak di meja kasir warung kopi.",
+    content: `
+      <p class="lead">Para teknokrat di gedung ber-AC gemar berbicara soal indeks kepercayaan konsumen dan inflasi inti. Tetapi tanyakan pada pemilik warkop di gang sempit: kapan terakhir kali pelanggan melunasi kopi dan bakwannya secara tunai?</p>
+      
+      <h3>Buku Kasbon sebagai Barometer Riil</h3>
+      <p>Buku tulis bergaris yang sampulnya sudah kusam oleh minyak gorengan adalah cermin paling jernih dari daya beli masyarakat. Ketika halaman utang kian menebal dan tenggat bayar bergeser dari mingguan menjadi bulanan, itu tanda alarm ekonomi mikro sedang menyala merah.</p>
+      <p>Di warung kopi, solidaritas kelas pekerja teruji: pemilik warung memberi napas bagi mereka yang belum gajian, karena ia tahu betul roda hidup tetangganya sama rapuhnya.</p>
+    `,
+    featuredImage: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80",
+    featuredImageCaption: "Suasana santai percakapan warga di sela rehat kerja sore hari.",
+    photoSource: "Unsplash / Warung Rakyat",
+    source: "Catatan Lapangan Rubrik Meja Warkop BELOKIRI",
+    rubrik: MOCK_RUBRIKS[1], // MEJA WARKOP
+    author: MOCK_AUTHORS[0],
+    tags: ["Ekonomi Rakyat", "Warkop", "Sosial", "Kasbon"],
+    views: 4580,
+    isEditorPick: false,
+    isFeatured: false,
+    publishedAt: "2026-03-24T11:00:00Z",
+  },
+  {
+    id: "art-warkop-3",
+    title: "Sindrom 'Bisa Diatur': Ketika Obrolan Meja Kopi Menjadi Alternatif Jalur Birokrasi",
+    slug: "sindrom-bisa-diatur-obrolan-kopi-alternatif-birokrasi",
+    excerpt: "Mengurus surat izin usaha butuh tiga minggu lewat loket resmi, tapi lewat kenalan paman di warkop depan kantor dinas cukup tiga jam. Mengapa ruang informal selalu lebih digdaya?",
+    content: `
+      <p class="lead">Di negeri di mana prosedur resmi dirancang berbelit-belit, warkop menjelma menjadi kantor pelayanan terpadu satu atap yang tak resmi namun beroperasi dengan efisiensi mencengangkan.</p>
+      
+      <h3>Pelumas Sosial Bernama Kopi Hitam</h3>
+      <p>Ada mantra sakti yang kerap meluncur di sela seruputan kopi: 'Tenang, itu bisa diatur.' Bukan melulu soal suap-menyuap vulgar, melainkan jalinan modal sosial, pertemanan lama, dan rasa ewuh-pakewuh yang mengisi kekosongan tata kelola publik.</p>
+      <p>Ketika birokrasi gagal memanusiakan warga, warga mencari jalurnya sendiri di antara kepulan asap rokok dan cangkir kopi tubruk.</p>
+    `,
+    featuredImage: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1200&q=80",
+    featuredImageCaption: "Secangkir kopi tubruk hitam panas di atas meja kayu warkop.",
+    photoSource: "Unsplash / Ruang Temu",
+    source: "Esai Percakapan Rubrik Meja Warkop",
+    rubrik: MOCK_RUBRIKS[1], // MEJA WARKOP
+    author: MOCK_AUTHORS[2],
+    tags: ["Birokrasi", "Kultur", "Warkop", "Sosial"],
+    views: 3890,
+    isEditorPick: false,
+    isFeatured: false,
+    publishedAt: "2026-03-23T14:45:00Z",
+  },
+  {
+    id: "art-warkop-4",
+    title: "Kopi Sachet vs Kopi Artisan: Perang Kelas yang Diseduh Setiap Pagi",
+    slug: "kopi-sachet-vs-kopi-artisan-perang-kelas-diseduh-pagi",
+    excerpt: "Dari air termos plastik Rp4.000 hingga manual brew V60 Rp45.000, secangkir kafein memetakan segregasi sosial perkotaan lebih gamblang dari data sensus.",
+    content: `
+      <p class="lead">Dua orang sama-sama membutuhkan dorongan kafein untuk bertahan hidup hari ini. Tetapi yang satu meminumnya di atas dingklik plastik sambil menghirup debu knalpot, sementara yang lain di sofa beludru dengan musik lofi ambient.</p>
+      
+      <h3>Komodifikasi Ruang Nongkrong</h3>
+      <p>Kopi bukan lagi sekadar komoditas pangan; ia telah diubah menjadi penanda status dan tiket masuk komunitas tertentu. Namun di balik pretensi rasa dan aroma buah beri dari biji kopi specialty, warkop tradisional tetap tak tergoyahkan sebagai benteng terakhir obrolan warga yang tanpa filter.</p>
+    `,
+    featuredImage: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80",
+    featuredImageCaption: "Penyajian kopi hangat di kedai kota.",
+    photoSource: "Unsplash / Kultur Kafe",
+    source: "Analisis Sosial Meja Warkop BELOKIRI",
+    rubrik: MOCK_RUBRIKS[1], // MEJA WARKOP
+    author: MOCK_AUTHORS[3],
+    tags: ["Gaya Hidup", "Kultur Kopi", "Kelas Sosial", "Perkotaan"],
+    views: 4120,
+    isEditorPick: false,
+    isFeatured: false,
+    publishedAt: "2026-03-22T08:15:00Z",
   },
   {
     id: "art-10",
