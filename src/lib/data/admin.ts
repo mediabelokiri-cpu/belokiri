@@ -228,6 +228,38 @@ async function enrichArticle(article: ContributorArticleItem): Promise<AdminArti
  * Get comprehensive editorial dashboard KPIs
  */
 export async function getAdminDashboardStats(): Promise<AdminDashboardStats> {
+  try {
+    const [
+      reviewQueueCount,
+      publishedCount,
+      revisionCount,
+      draftCount,
+      totalContributors,
+      viewsAggregate,
+    ] = await Promise.all([
+      prisma.article.count({ where: { status: "REVIEW" } }),
+      prisma.article.count({ where: { status: "PUBLISHED" } }),
+      prisma.article.count({ where: { status: "REVISION" } }),
+      prisma.article.count({ where: { status: "DRAFT" } }),
+      prisma.user.count({ where: { role: "USER" } }),
+      prisma.article.aggregate({
+        _sum: { views: true },
+        where: { status: "PUBLISHED" },
+      }),
+    ]);
+
+    return {
+      reviewQueueCount,
+      publishedCount,
+      revisionCount,
+      draftCount,
+      totalContributors,
+      totalViews: viewsAggregate._sum.views || 0,
+    };
+  } catch (err) {
+    console.error("Error getAdminDashboardStats from db:", err);
+  }
+
   const reviewQueueCount = contributorArticlesStore.filter((a) => a.status === "REVIEW").length;
   const publishedArticles = contributorArticlesStore.filter((a) => a.status === "PUBLISHED");
   const publishedCount = publishedArticles.length;
@@ -291,12 +323,8 @@ export async function getReviewQueue(): Promise<AdminArticleItem[]> {
       metaDescription: a.metaDescription,
     }));
 
-    const reviews = contributorArticlesStore.filter((a) => a.status === "REVIEW");
-    const enriched = await Promise.all(reviews.map(enrichArticle));
-    const existingIds = new Set(mappedDb.map((m) => m.id));
-    const combined = [...mappedDb, ...enriched.filter((e) => !existingIds.has(e.id))];
-
-    return combined.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+    // Database is the single source of truth when connected
+    return mappedDb;
   } catch (err) {
     console.error("Error getReviewQueue db:", err);
   }
@@ -369,29 +397,8 @@ export async function getAllArticlesForAdmin(filters?: {
       metaDescription: a.metaDescription,
     }));
 
-    let list = await Promise.all(contributorArticlesStore.map(enrichArticle));
-    if (filters?.status && filters.status !== "ALL") {
-      list = list.filter((a) => a.status === filters.status);
-    }
-    if (filters?.categorySlug && filters.categorySlug !== "ALL") {
-      list = list.filter((a) => a.categorySlug === filters.categorySlug);
-    }
-    if (filters?.search && filters.search.trim()) {
-      const q = filters.search.toLowerCase().trim();
-      list = list.filter(
-        (a) =>
-          a.title.toLowerCase().includes(q) ||
-          a.authorName.toLowerCase().includes(q) ||
-          a.categoryName.toLowerCase().includes(q)
-      );
-    }
-
-    const existingIds = new Set(mappedDb.map((m) => m.id));
-    const combined = [...mappedDb, ...list.filter((m) => !existingIds.has(m.id))];
-
-    return combined.sort(
-      (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-    );
+    // Database is the single source of truth when connected
+    return mappedDb;
   } catch (err) {
     console.error("Error in getAllArticlesForAdmin db:", err);
   }
@@ -426,8 +433,10 @@ export async function getAllArticlesForAdmin(filters?: {
  */
 export async function getArticleForReview(articleId: string): Promise<AdminArticleItem | null> {
   try {
-    const dbArticle = await prisma.article.findUnique({
-      where: { id: articleId },
+    const dbArticle = await prisma.article.findFirst({
+      where: {
+        OR: [{ id: articleId }, { slug: articleId }],
+      },
       include: {
         author: true,
         category: true,
@@ -470,7 +479,7 @@ export async function getArticleForReview(articleId: string): Promise<AdminArtic
     console.error("Error getArticleForReview db:", err);
   }
 
-  const article = contributorArticlesStore.find((a) => a.id === articleId);
+  const article = contributorArticlesStore.find((a) => a.id === articleId || a.slug === articleId);
   if (!article) return null;
   return await enrichArticle(article);
 }
@@ -492,7 +501,11 @@ export async function publishArticleByAdmin(
   const now = new Date().toISOString();
 
   try {
-    const dbArticle = await prisma.article.findUnique({ where: { id: articleId } });
+    const dbArticle = await prisma.article.findFirst({
+      where: {
+        OR: [{ id: articleId }, { slug: articleId }],
+      },
+    });
     if (dbArticle) {
       let finalCatId = dbArticle.categoryId;
       if (seoData?.categoryId) {
@@ -504,7 +517,7 @@ export async function publishArticleByAdmin(
       }
 
       const updated = await prisma.article.update({
-        where: { id: articleId },
+        where: { id: dbArticle.id },
         data: {
           title: seoData?.title || dbArticle.title,
           categoryId: finalCatId,
@@ -746,10 +759,14 @@ export async function requestRevisionByAdmin(
   const now = new Date().toISOString();
 
   try {
-    const dbArticle = await prisma.article.findUnique({ where: { id: articleId } });
+    const dbArticle = await prisma.article.findFirst({
+      where: {
+        OR: [{ id: articleId }, { slug: articleId }],
+      },
+    });
     if (dbArticle) {
       const updated = await prisma.article.update({
-        where: { id: articleId },
+        where: { id: dbArticle.id },
         data: {
           status: "REVISION",
           adminNote: adminNote.trim(),
@@ -807,7 +824,7 @@ export async function requestRevisionByAdmin(
     console.error("Error requestRevisionByAdmin db:", err);
   }
 
-  const index = contributorArticlesStore.findIndex((a) => a.id === articleId);
+  const index = contributorArticlesStore.findIndex((a) => a.id === articleId || a.slug === articleId);
   if (index === -1) {
     throw new Error("Artikel tidak ditemukan");
   }
@@ -849,10 +866,14 @@ export async function unpublishArticleByAdmin(
   const now = new Date().toISOString();
 
   try {
-    const dbArticle = await prisma.article.findUnique({ where: { id: articleId } });
+    const dbArticle = await prisma.article.findFirst({
+      where: {
+        OR: [{ id: articleId }, { slug: articleId }],
+      },
+    });
     if (dbArticle) {
       const updated = await prisma.article.update({
-        where: { id: articleId },
+        where: { id: dbArticle.id },
         data: {
           status: "DRAFT",
         },
@@ -909,7 +930,7 @@ export async function unpublishArticleByAdmin(
     console.error("Error unpublishArticleByAdmin db:", err);
   }
 
-  const index = contributorArticlesStore.findIndex((a) => a.id === articleId);
+  const index = contributorArticlesStore.findIndex((a) => a.id === articleId || a.slug === articleId);
   if (index === -1) {
     throw new Error("Artikel tidak ditemukan");
   }
@@ -946,10 +967,14 @@ export async function toggleEditorPickByAdmin(
   articleId: string
 ): Promise<boolean> {
   try {
-    const dbArticle = await prisma.article.findUnique({ where: { id: articleId } });
+    const dbArticle = await prisma.article.findFirst({
+      where: {
+        OR: [{ id: articleId }, { slug: articleId }],
+      },
+    });
     if (dbArticle) {
       const updated = await prisma.article.update({
-        where: { id: articleId },
+        where: { id: dbArticle.id },
         data: { isEditorPick: !dbArticle.isEditorPick },
       });
       return updated.isEditorPick;
@@ -958,7 +983,7 @@ export async function toggleEditorPickByAdmin(
     console.error("Error toggleEditorPickByAdmin db:", err);
   }
 
-  const index = contributorArticlesStore.findIndex((a) => a.id === articleId);
+  const index = contributorArticlesStore.findIndex((a) => a.id === articleId || a.slug === articleId);
   if (index === -1) return false;
 
   const current = (contributorArticlesStore[index] as any).isEditorPick || false;
@@ -974,10 +999,14 @@ export async function deleteArticleByAdmin(
   adminName: string
 ): Promise<boolean> {
   try {
-    const dbArticle = await prisma.article.findUnique({ where: { id: articleId } });
+    const dbArticle = await prisma.article.findFirst({
+      where: {
+        OR: [{ id: articleId }, { slug: articleId }],
+      },
+    });
     if (dbArticle) {
-      await prisma.articleTag.deleteMany({ where: { articleId } });
-      await prisma.article.delete({ where: { id: articleId } });
+      await prisma.articleTag.deleteMany({ where: { articleId: dbArticle.id } });
+      await prisma.article.delete({ where: { id: dbArticle.id } });
 
       activityLogsStore.unshift({
         id: `act-${Date.now()}`,

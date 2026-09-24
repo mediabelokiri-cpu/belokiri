@@ -2,6 +2,9 @@ import { requireUser } from "@/lib/auth/session";
 import ContributorHeader from "@/components/dashboard/ContributorHeader";
 import ContributorNav from "@/components/dashboard/ContributorNav";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata = {
   title: "Meja Warga Belokan | BELOKIRI",
   description: "Kelola naskah, draft liputan, dan pantau kurasi Agen Belokan BELOKIRI.",

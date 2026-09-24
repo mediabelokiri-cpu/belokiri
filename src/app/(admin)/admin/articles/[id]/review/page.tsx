@@ -3,6 +3,9 @@ import { requireAdmin } from "@/lib/auth/session";
 import { getArticleForReview } from "@/lib/data/admin";
 import EditorialWorkbench from "@/components/admin/EditorialWorkbench";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata = {
   title: "Meja Uji Kurasi Agen Belokan | BELOKIRI",
 };

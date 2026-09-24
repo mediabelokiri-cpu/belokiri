@@ -3,6 +3,9 @@ import { getReviewQueue } from "@/lib/data/admin";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminNav from "@/components/admin/AdminNav";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata = {
   title: "Meja Agen Belokan & CMS | BELOKIRI",
   description: "Panel kurasi, publikasi naskah, dan manajemen editorial Agen Belokan BELOKIRI.",

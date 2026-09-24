@@ -13,6 +13,9 @@ import {
   FileCheck,
 } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata = {
   title: "Antrean Kurasi Naskah | Meja Agen Belokan BELOKIRI",
 };

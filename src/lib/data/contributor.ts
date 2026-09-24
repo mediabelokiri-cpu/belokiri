@@ -95,11 +95,11 @@ Transportasi massal pada hakikatnya bukan sekadar entitas bisnis komersial, mela
     categoryId: "rubrik-meja-warkop",
     categoryName: "MEJA WARKOP",
     categorySlug: "meja-warkop",
-    status: "REVIEW",
+    status: "PUBLISHED",
     adminNote: null,
     tags: ["Transportasi", "KRL", "Subsidi", "Kebijakan Publik"],
-    views: 0,
-    publishedAt: null,
+    views: 320,
+    publishedAt: new Date(Date.now() - 3 * 86400000).toISOString(),
     createdAt: new Date(Date.now() - 4 * 86400000).toISOString(),
     updatedAt: new Date(Date.now() - 3 * 86400000).toISOString(),
   },
@@ -246,13 +246,12 @@ export async function getContributorStats(userId: string): Promise<ContributorSt
     const publishedCount = publishedArticles.length;
     const totalViews = publishedArticles.reduce((acc, curr) => acc + (curr.views || 0), 0);
 
-    const memArticles = contributorArticlesStore.filter((a) => a.authorId === userId);
     return {
-      draftCount: draftCount + memArticles.filter((a) => a.status === "DRAFT").length,
-      reviewCount: reviewCount + memArticles.filter((a) => a.status === "REVIEW").length,
-      revisionCount: revisionCount + memArticles.filter((a) => a.status === "REVISION").length,
-      publishedCount: publishedCount + memArticles.filter((a) => a.status === "PUBLISHED").length,
-      totalViews: totalViews + memArticles.reduce((acc, curr) => acc + curr.views, 0),
+      draftCount,
+      reviewCount,
+      revisionCount,
+      publishedCount,
+      totalViews,
     };
   } catch (error) {
     console.error("Error getContributorStats:", error);
@@ -300,23 +299,7 @@ export async function getContributorArticles(
     });
 
     const mapped = dbArticles.map(mapDbArticleToContributorItem);
-
-    // Merge in-memory drafts for same user if any
-    let memList = contributorArticlesStore.filter((a) => a.authorId === userId);
-    if (filter?.status && filter.status !== "ALL") {
-      memList = memList.filter((a) => a.status === filter.status);
-    }
-    if (filter?.search && filter.search.trim()) {
-      const q = filter.search.toLowerCase().trim();
-      memList = memList.filter((a) => a.title.toLowerCase().includes(q) || a.excerpt?.toLowerCase().includes(q));
-    }
-
-    const existingIds = new Set(mapped.map((m) => m.id));
-    const combined = [...mapped, ...memList.filter((m) => !existingIds.has(m.id))];
-
-    return combined.sort(
-      (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-    );
+    return mapped;
   } catch (error) {
     console.error("Error in getContributorArticles:", error);
   }

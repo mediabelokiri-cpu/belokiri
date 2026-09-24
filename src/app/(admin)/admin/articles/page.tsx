@@ -4,6 +4,9 @@ import { getAllArticlesForAdmin } from "@/lib/data/admin";
 import AdminArticleTable from "@/components/admin/AdminArticleTable";
 import { FileText, Inbox, Plus } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata = {
   title: "Manajemen Seluruh Artikel | Agen Belokan BELOKIRI",
 };
