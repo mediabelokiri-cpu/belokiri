@@ -19,6 +19,9 @@ import {
 } from "lucide-react";
 import { NewsArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { sanitizeHtml } from "@/lib/security/sanitize";
+import ReadingProgressBar from "@/components/public/ReadingProgressBar";
+import ArticleShareButtons from "@/components/public/ArticleShareButtons";
+import ArticleReactions from "@/components/public/ArticleReactions";
 
 interface ArticleDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -96,6 +99,9 @@ export default async function ArticleDetailPage({
 
   return (
     <article className="min-h-screen pb-16 sm:pb-24">
+      {/* Scroll Reading Progress Bar */}
+      <ReadingProgressBar />
+
       {/* Schema.org JSON-LD Structured Data */}
       <NewsArticleJsonLd
         url={canonicalUrl}
@@ -185,34 +191,11 @@ export default async function ArticleDetailPage({
                   </div>
                 </Link>
 
-                {/* Social Share */}
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-zinc-500 font-black uppercase tracking-wider">Bagikan:</span>
-                  <a
-                    href={`https://wa.me/?text=${encodeURIComponent(
-                      `${article.title} - ${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/artikel/${article.slug}`
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1.5 rounded-lg border border-zinc-300 text-black hover:bg-emerald-600 hover:text-white hover:border-emerald-600 transition-colors text-xs font-black"
-                    title="Bagikan ke WhatsApp"
-                  >
-                    WhatsApp
-                  </a>
-                  <a
-                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                      `${article.title}`
-                    )}&url=${encodeURIComponent(
-                      `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/artikel/${article.slug}`
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1.5 rounded-lg border border-zinc-300 text-black hover:bg-black hover:text-white hover:border-black transition-colors text-xs font-black"
-                    title="Bagikan ke X"
-                  >
-                    𝕏 Twitter
-                  </a>
-                </div>
+                {/* Interactive Social Share */}
+                <ArticleShareButtons
+                  title={article.title}
+                  slug={article.slug}
+                />
               </div>
             </header>
 
@@ -270,6 +253,9 @@ export default async function ArticleDetailPage({
                 </Link>
               ))}
             </div>
+
+            {/* Reader Reactions Section */}
+            <ArticleReactions articleSlug={article.slug} />
 
             {/* Author Profile Card */}
             <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-zinc-50 border border-zinc-200 flex flex-col sm:flex-row items-start sm:items-center gap-6">
