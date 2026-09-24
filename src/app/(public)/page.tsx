@@ -10,6 +10,7 @@ import {
 } from "@/lib/data/articles";
 import { formatDate } from "@/lib/utils";
 import HeroArticle from "@/components/public/HeroArticle";
+import ArticleCard from "@/components/public/ArticleCard";
 import EditorsPick from "@/components/public/EditorsPick";
 import MejaWarkopSection from "@/components/public/MejaWarkopSection";
 import { ArrowRight, Clock, Megaphone } from "lucide-react";
@@ -222,50 +223,34 @@ export default async function HomePage() {
           </section>
         )}
 
-        {/* 5. Rubrik Explorer Matrix */}
+        {/* 5. Semua Artikel Masuk (Urut Tanggal Publish) */}
         <section className="pt-8 border-t border-zinc-200">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
             <div>
               <span className="text-xs font-black uppercase tracking-widest text-red-600">
-                JELAJAHI SUDUT PANDANG
+                PUBLIKASI TERKINI
               </span>
               <h2 className="text-2xl sm:text-3xl font-black text-black tracking-tight mt-1 uppercase">
-                8 RUBRIK KARAKTER BELOKIRI
+                TULISAN TERBARU
               </h2>
             </div>
-            <p className="text-xs text-zinc-500 max-w-sm font-medium">
-              Bukan sekadar kategori tema, melainkan metode berbeda dalam
-              membedah setiap isu publik.
-            </p>
+            <div className="flex items-center gap-4">
+              <p className="text-xs text-zinc-500 max-w-sm font-medium hidden sm:block">
+                Arsip esai, laporan analisis, dan percakapan kritis paling mutakhir dari seluruh rubrik BELOKIRI.
+              </p>
+              <Link
+                href="/berita"
+                className="text-xs font-black uppercase text-zinc-600 hover:text-red-600 flex items-center gap-1 transition-colors shrink-0"
+              >
+                <span>Semua Tulisan</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {rubriks.map((rubrik) => (
-              <Link
-                key={rubrik.slug}
-                href={`/kategori/${rubrik.slug}`}
-                className="group p-5 rounded-xl bg-white border border-zinc-200 shadow-xs hover:border-red-600 hover:shadow-md transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <span className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block mb-1">
-                    Rubrik
-                  </span>
-                  <h3 className="text-xl font-black text-black group-hover:text-red-600 transition-colors uppercase">
-                    {rubrik.name}
-                  </h3>
-                  <p className="text-xs font-bold text-red-700 mt-1 italic">
-                    “{rubrik.question}”
-                  </p>
-                  <p className="text-xs text-zinc-600 mt-2.5 line-clamp-2 leading-relaxed font-normal">
-                    {rubrik.description}
-                  </p>
-                </div>
-
-                <div className="pt-4 mt-4 border-t border-zinc-100 flex items-center text-xs font-black text-black group-hover:text-red-600 uppercase tracking-wider">
-                  <span>Buka Rubrik</span>
-                  <ArrowRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" />
-                </div>
-              </Link>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {latestArticles.slice(0, 8).map((article) => (
+              <ArticleCard key={article.id} article={article} />
             ))}
           </div>
         </section>
