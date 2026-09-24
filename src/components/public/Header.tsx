@@ -16,20 +16,20 @@ export default function Header() {
       <header className="sticky top-0 z-40 shadow-xs bg-white border-b border-zinc-200">
         {/* 1. Main Masthead Bar (Logo, Search, Kirim Tulisan) */}
         <div>
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-5 flex items-center justify-between">
+          <div className="max-w-6xl mx-auto px-3 sm:px-6 py-3 sm:py-4.5 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
             {/* Left: Mobile hamburger & Search Button */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center justify-start gap-1 sm:gap-2.5">
               <button
                 onClick={() => setMobileMenuOpen(true)}
-                className="p-2 -ml-2 rounded-lg text-zinc-800 hover:bg-zinc-100 md:hidden cursor-pointer transition-colors"
+                className="p-2 -ml-1 rounded-xl text-zinc-800 hover:bg-zinc-100 md:hidden cursor-pointer transition-colors"
                 aria-label="Buka Menu"
               >
-                <Menu className="w-6 h-6" />
+                <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
 
               <Link
                 href="/cari"
-                className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-lg bg-zinc-100 hover:bg-zinc-200/80 border border-zinc-200 text-zinc-700 transition-colors"
+                className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200/80 border border-zinc-200 text-zinc-700 transition-colors"
               >
                 <Search className="w-4 h-4 text-zinc-500" />
                 <span className="text-xs font-semibold text-zinc-600">
@@ -39,37 +39,37 @@ export default function Header() {
 
               <Link
                 href="/cari"
-                className="p-2 rounded-lg text-zinc-800 hover:bg-zinc-100 sm:hidden transition-colors"
+                className="p-2 rounded-xl text-zinc-800 hover:bg-zinc-100 sm:hidden transition-colors"
                 aria-label="Cari"
               >
                 <Search className="w-5 h-5" />
               </Link>
             </div>
 
-            {/* Center: Brand Masthead */}
-            <div className="flex flex-col items-center">
-              <Link href="/" className="group flex flex-col items-center">
-                <div className="relative">
+            {/* Center: Brand Masthead (Pasti Tepat di Tengah Layar HP & Desktop) */}
+            <div className="flex flex-col items-center justify-center text-center px-1">
+              <Link href="/" className="group flex flex-col items-center text-center">
+                <div className="relative flex items-center justify-center">
                   <Image
                     src="/images/logo-belokiri-red.png"
                     alt="BELOKIRI"
                     width={240}
                     height={46}
                     priority
-                    className="h-8 sm:h-10 md:h-11 w-auto object-contain transition-transform group-hover:scale-102"
+                    className="h-7 sm:h-9 md:h-11 w-auto object-contain transition-transform group-hover:scale-102"
                   />
                 </div>
-                <span className="text-[9px] sm:text-[10px] md:text-[11px] tracking-[0.22em] uppercase font-black text-zinc-600 mt-1.5 group-hover:text-red-600 transition-colors">
+                <span className="text-[8px] xs:text-[9px] sm:text-[10px] md:text-[11px] tracking-[0.14em] sm:tracking-[0.20em] uppercase font-black text-zinc-600 mt-1 sm:mt-1.5 text-center leading-none select-none group-hover:text-red-600 transition-colors whitespace-nowrap">
                   Liar Seperlunya, Jenaka Secukupnya
                 </span>
               </Link>
             </div>
 
             {/* Right: Actions */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center justify-end gap-1 sm:gap-3">
               <Link
                 href="/login"
-                className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider shadow-sm transition-all transform active:scale-95"
+                className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider shadow-sm transition-all transform active:scale-95"
               >
                 <PenSquare className="w-4 h-4 text-white" />
                 <span>Kirim Tulisan</span>
@@ -77,10 +77,10 @@ export default function Header() {
 
               <Link
                 href="/login"
-                className="p-2 rounded-lg text-zinc-800 hover:text-red-600 hover:bg-zinc-100 sm:hidden transition-colors"
+                className="p-2 rounded-xl text-zinc-800 hover:text-red-600 hover:bg-zinc-100 sm:hidden transition-colors"
                 aria-label="Masuk Akun"
               >
-                <UserCircle className="w-6 h-6 text-zinc-700" />
+                <UserCircle className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-700" />
               </Link>
             </div>
           </div>

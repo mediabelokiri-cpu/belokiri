@@ -222,12 +222,18 @@ export default async function ArticleDetailPage({
                   className="object-cover"
                 />
               </div>
-              <div className="mt-2.5 px-1 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-zinc-500 gap-1 font-medium">
-                <p className="italic text-zinc-600">{article.featuredImageCaption}</p>
-                <p className="text-[11px] text-zinc-400 shrink-0">
-                  Foto: {article.photoSource}
-                </p>
-              </div>
+              {(article.featuredImageCaption || article.photoSource) && (
+                <div className="mt-2.5 px-1 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-zinc-500 gap-1 font-medium">
+                  {article.featuredImageCaption && (
+                    <p className="italic text-zinc-600">{article.featuredImageCaption}</p>
+                  )}
+                  {article.photoSource && (
+                    <p className="text-[11px] text-zinc-400 shrink-0 sm:ml-auto">
+                      Foto: {article.photoSource}
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Article Content: Crisp Lato Typography */}
@@ -241,8 +247,8 @@ export default async function ArticleDetailPage({
               dangerouslySetInnerHTML={{ __html: formatArticleContent(article.content) }}
             />
 
-            {/* Source Attribution */}
-            {article.source && (
+            {/* Source Attribution (Hanya jika benar-benar diisi) */}
+            {article.source && article.source.trim() !== "" && (
               <div className="mt-10 p-4 rounded-xl bg-zinc-100 border border-zinc-200 text-xs text-zinc-700 font-medium">
                 <strong className="text-black font-bold">Sumber & Liputan:</strong>{" "}
                 {article.source}

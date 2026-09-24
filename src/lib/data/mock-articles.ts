@@ -6,8 +6,8 @@ export interface MockArticle {
   content: string;
   featuredImage: string;
   featuredImageCaption: string;
-  photoSource: string;
-  source: string;
+  photoSource?: string | null;
+  source?: string | null;
   rubrik: {
     name: string;
     slug: string;
