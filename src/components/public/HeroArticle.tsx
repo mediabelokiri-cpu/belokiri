@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MockArticle } from "@/lib/data/mock-articles";
 import { formatDate } from "@/lib/utils";
+import AuthorAvatar from "@/components/public/AuthorAvatar";
 import {
   ArrowRight,
   Clock,
@@ -115,14 +116,12 @@ export default function HeroArticle({
                     href={`/penulis/${activeArticle.author.slug}`}
                     className="flex items-center gap-2.5 group/author"
                   >
-                    <div className="relative w-9 h-9 rounded-full overflow-hidden bg-zinc-700 ring-2 ring-white/60 shrink-0">
-                      <Image
-                        src={activeArticle.author.avatarUrl}
-                        alt={activeArticle.author.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
+                    <AuthorAvatar
+                      src={activeArticle.author.avatarUrl}
+                      alt={activeArticle.author.name}
+                      size="sm"
+                      className="ring-2 ring-white/60"
+                    />
                     <div>
                       <p className="text-xs font-black text-white group-hover/author:text-red-300 transition-colors">
                         {activeArticle.author.name}

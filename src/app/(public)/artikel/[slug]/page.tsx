@@ -24,6 +24,7 @@ import ReadingProgressBar from "@/components/public/ReadingProgressBar";
 import ArticleShareButtons from "@/components/public/ArticleShareButtons";
 import ArticleReactions from "@/components/public/ArticleReactions";
 import ArticleViewTracker from "@/components/public/ArticleViewTracker";
+import AuthorAvatar from "@/components/public/AuthorAvatar";
 
 export const revalidate = 60;
 
@@ -184,14 +185,12 @@ export default async function ArticleDetailPage({
                   href={`/penulis/${article.author.slug}`}
                   className="flex items-center gap-3 group/author"
                 >
-                  <div className="relative w-11 h-11 rounded-full overflow-hidden bg-zinc-200 ring-2 ring-zinc-200">
-                    <Image
-                      src={article.author.avatarUrl}
-                      alt={article.author.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
+                  <AuthorAvatar
+                    src={article.author.avatarUrl}
+                    alt={article.author.name}
+                    size="md"
+                    className="ring-2 ring-zinc-200"
+                  />
                   <div>
                     <p className="text-sm font-black text-black group-hover/author:text-red-600 transition-colors">
                       {article.author.name}
@@ -271,14 +270,12 @@ export default async function ArticleDetailPage({
 
             {/* Author Profile Card */}
             <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-zinc-50 border border-zinc-200 flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <div className="relative w-16 h-16 rounded-full overflow-hidden bg-zinc-200 shrink-0 ring-2 ring-red-600">
-                <Image
-                  src={article.author.avatarUrl}
-                  alt={article.author.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
+              <AuthorAvatar
+                src={article.author.avatarUrl}
+                alt={article.author.name}
+                size="lg"
+                className="ring-2 ring-red-600"
+              />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between">
                   <div>

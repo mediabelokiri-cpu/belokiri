@@ -3,7 +3,7 @@ import { getAllArticlesForAdmin } from "@/lib/data/admin";
 import { MOCK_RUBRIKS, MOCK_AUTHORS } from "@/lib/data/mock-articles";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://belokiri.id";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.belokiri.site";
 
   // 1. Static Pages
   const staticRoutes: MetadataRoute.Sitemap = [

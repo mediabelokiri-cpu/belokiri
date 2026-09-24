@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getAuthorBySlug } from "@/lib/data/articles";
 import ArticleCard from "@/components/public/ArticleCard";
+import AuthorAvatar from "@/components/public/AuthorAvatar";
 import { BookOpen, ChevronRight } from "lucide-react";
 
 interface AuthorPageProps {
@@ -54,15 +55,12 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
 
       {/* Author Bio Banner */}
       <div className="rounded-3xl bg-white border border-zinc-200 p-8 sm:p-10 shadow-xs flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
-        <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden bg-zinc-200 ring-4 ring-red-600 shrink-0">
-          <Image
-            src={author.avatarUrl}
-            alt={author.name}
-            fill
-            className="object-cover"
-            unoptimized
-          />
-        </div>
+        <AuthorAvatar
+          src={author.avatarUrl}
+          alt={author.name}
+          size="xl"
+          className="ring-4 ring-red-600"
+        />
 
         <div className="flex-1 space-y-3">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">

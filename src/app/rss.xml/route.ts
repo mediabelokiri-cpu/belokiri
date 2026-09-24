@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getAllArticlesForAdmin } from "@/lib/data/admin";
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://belokiri.id";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.belokiri.site";
 
   let articles: any[] = [];
   try {

@@ -47,10 +47,10 @@ export function NewsArticleJsonLd({
     publisher: {
       "@type": "NewsMediaOrganization",
       name: "BELOKIRI",
-      url: "https://belokiri.id",
+      url: "https://www.belokiri.site",
       logo: {
         "@type": "ImageObject",
-        url: "https://belokiri.id/images/logo-belokiri-red.png",
+        url: "https://www.belokiri.site/images/logo-belokiri-red.png",
         width: 512,
         height: 97,
       },
@@ -103,8 +103,8 @@ export function OrganizationJsonLd() {
     "@type": "NewsMediaOrganization",
     name: "BELOKIRI",
     alternateName: "BELOKIRI Media",
-    url: "https://belokiri.id",
-    logo: "https://belokiri.id/images/logo-belokiri-red.png",
+    url: "https://www.belokiri.site",
+    logo: "https://www.belokiri.site/images/logo-belokiri-red.png",
     slogan: "Liar Seperlunya, Jenaka Secukupnya",
     description:
       "Media esai populer, analisis santai, arsip sejarah rakyat, dan percakapan kritis yang disajikan dengan tajam dan jenaka.",
