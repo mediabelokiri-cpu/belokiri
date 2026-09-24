@@ -220,9 +220,10 @@ export async function loginWithGoogleAction(redirectTo: string = "/dashboard") {
   }
 
   const redirectUri = `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/api/auth/callback/google`;
+  const state = Buffer.from(JSON.stringify({ redirectTo })).toString("base64url");
   const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${googleClientId}&redirect_uri=${encodeURIComponent(
     redirectUri
-  )}&response_type=code&scope=openid%20email%20profile&access_type=offline&prompt=consent`;
+  )}&response_type=code&scope=openid%20email%20profile&access_type=offline&prompt=consent&state=${state}`;
 
   redirect(googleAuthUrl);
 }
