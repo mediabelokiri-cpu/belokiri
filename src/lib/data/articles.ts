@@ -59,13 +59,11 @@ export async function getHeroArticles(limit: number = 3): Promise<MockArticle[]>
       take: limit * 2,
     });
 
-    if (dbArticles.length > 0) {
-      const mapped = dbArticles.map(mapDbToArticle);
-      const featured = mapped.find((a) => a.isFeatured);
-      const others = mapped.filter((a) => a.id !== featured?.id);
-      const result = featured ? [featured, ...others] : [...mapped];
-      return result.slice(0, limit);
-    }
+    const mapped = dbArticles.map(mapDbToArticle);
+    const featured = mapped.find((a) => a.isFeatured);
+    const others = mapped.filter((a) => a.id !== featured?.id);
+    const result = featured ? [featured, ...others] : [...mapped];
+    return result.slice(0, limit);
   } catch (err) {
     console.error("Error getHeroArticles db:", err);
   }
@@ -86,31 +84,22 @@ export async function getLatestArticles(
   page: number = 1
 ): Promise<{ articles: MockArticle[]; total: number; totalPages: number }> {
   try {
-    const dbArticles = await prisma.article.findMany({
-      where: { status: "PUBLISHED" },
-      include: {
-        author: true,
-        category: true,
-        tags: { include: { tag: true } },
-      },
-      orderBy: { publishedAt: "desc" },
-    });
+    const [total, dbArticles] = await Promise.all([
+      prisma.article.count({ where: { status: "PUBLISHED" } }),
+      prisma.article.findMany({
+        where: { status: "PUBLISHED" },
+        include: {
+          author: true,
+          category: true,
+          tags: { include: { tag: true } },
+        },
+        orderBy: { publishedAt: "desc" },
+        skip: (page - 1) * limit,
+        take: limit,
+      }),
+    ]);
 
-    const mapped = dbArticles.map(mapDbToArticle);
-    const existingSlugs = new Set(mapped.map((m) => m.slug));
-    const combined = [
-      ...mapped,
-      ...MOCK_ARTICLES.filter((m) => !existingSlugs.has(m.slug)),
-    ];
-
-    const sorted = combined.sort(
-      (a, b) =>
-        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-    );
-
-    const start = (page - 1) * limit;
-    const articles = sorted.slice(start, start + limit);
-    const total = sorted.length;
+    const articles = dbArticles.map(mapDbToArticle);
     const totalPages = Math.ceil(total / limit);
 
     return { articles, total, totalPages };
@@ -140,12 +129,7 @@ export async function getEditorsPick(limit: number = 4): Promise<MockArticle[]> 
       take: limit,
     });
 
-    if (dbArticles.length > 0) {
-      const mapped = dbArticles.map(mapDbToArticle);
-      if (mapped.length >= limit) return mapped;
-      const extra = MOCK_ARTICLES.filter((a) => a.isEditorPick && !mapped.some((m) => m.slug === a.slug));
-      return [...mapped, ...extra].slice(0, limit);
-    }
+    return dbArticles.map(mapDbToArticle);
   } catch (err) {
     console.error("Error getEditorsPick db:", err);
   }
@@ -162,12 +146,7 @@ export async function getPopularArticles(limit: number = 5): Promise<MockArticle
       take: limit,
     });
 
-    if (dbArticles.length > 0) {
-      const mapped = dbArticles.map(mapDbToArticle);
-      const existing = new Set(mapped.map((m) => m.slug));
-      const combined = [...mapped, ...MOCK_ARTICLES.filter((m) => !existing.has(m.slug))];
-      return combined.sort((a, b) => b.views - a.views).slice(0, limit);
-    }
+    return dbArticles.map(mapDbToArticle);
   } catch (err) {
     console.error("Error getPopularArticles db:", err);
   }
@@ -193,6 +172,7 @@ export async function getArticleBySlug(
     if (dbArticle) {
       return mapDbToArticle(dbArticle);
     }
+    return null;
   } catch (err) {
     console.error("Error getArticleBySlug db:", err);
   }
@@ -220,34 +200,31 @@ export async function getArticlesByRubrik(
   }
 
   try {
-    const dbArticles = await prisma.article.findMany({
-      where: {
-        status: "PUBLISHED",
-        category: { slug: rubrikSlug.toLowerCase() },
-      },
-      include: {
-        author: true,
-        category: true,
-        tags: { include: { tag: true } },
-      },
-      orderBy: { publishedAt: "desc" },
-    });
+    const [total, dbArticles] = await Promise.all([
+      prisma.article.count({
+        where: {
+          status: "PUBLISHED",
+          category: { slug: rubrikSlug.toLowerCase() },
+        },
+      }),
+      prisma.article.findMany({
+        where: {
+          status: "PUBLISHED",
+          category: { slug: rubrikSlug.toLowerCase() },
+        },
+        include: {
+          author: true,
+          category: true,
+          tags: { include: { tag: true } },
+        },
+        orderBy: { publishedAt: "desc" },
+        skip: (page - 1) * limit,
+        take: limit,
+      }),
+    ]);
 
-    const mapped = dbArticles.map(mapDbToArticle);
-    const existing = new Set(mapped.map((m) => m.slug));
-    const mockFiltered = MOCK_ARTICLES.filter(
-      (a) => a.rubrik.slug.toLowerCase() === rubrikSlug.toLowerCase() && !existing.has(a.slug)
-    );
-
-    const combined = [...mapped, ...mockFiltered].sort(
-      (a, b) =>
-        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-    );
-
-    const start = (page - 1) * limit;
-    const articles = combined.slice(start, start + limit);
-
-    return { rubrik, articles, total: combined.length };
+    const articles = dbArticles.map(mapDbToArticle);
+    return { rubrik, articles, total };
   } catch (err) {
     console.error("Error getArticlesByRubrik db:", err);
   }
@@ -270,6 +247,30 @@ export async function searchArticles(
 ): Promise<{ articles: MockArticle[]; count: number }> {
   const q = query.toLowerCase().trim();
   if (!q) return { articles: [], count: 0 };
+
+  try {
+    const dbArticles = await prisma.article.findMany({
+      where: {
+        status: "PUBLISHED",
+        OR: [
+          { title: { contains: q, mode: "insensitive" } },
+          { excerpt: { contains: q, mode: "insensitive" } },
+          { content: { contains: q, mode: "insensitive" } },
+          { category: { name: { contains: q, mode: "insensitive" } } },
+          { author: { name: { contains: q, mode: "insensitive" } } },
+          { author: { penName: { contains: q, mode: "insensitive" } } },
+          { tags: { some: { tag: { name: { contains: q, mode: "insensitive" } } } } },
+        ],
+      },
+      include: { author: true, category: true, tags: { include: { tag: true } } },
+      orderBy: { publishedAt: "desc" },
+    });
+
+    const mapped = dbArticles.map(mapDbToArticle);
+    return { articles: mapped, count: mapped.length };
+  } catch (err) {
+    console.error("Error searchArticles db:", err);
+  }
 
   const results = MOCK_ARTICLES.filter((article) => {
     return (
@@ -380,6 +381,37 @@ export async function getRelatedArticles(
   rubrikSlug: string,
   limit: number = 3
 ): Promise<MockArticle[]> {
+  try {
+    const sameRubrik = await prisma.article.findMany({
+      where: {
+        status: "PUBLISHED",
+        slug: { not: currentSlug },
+        category: { slug: rubrikSlug.toLowerCase() },
+      },
+      include: { author: true, category: true, tags: { include: { tag: true } } },
+      orderBy: { publishedAt: "desc" },
+      take: limit,
+    });
+
+    if (sameRubrik.length >= limit) {
+      return sameRubrik.map(mapDbToArticle);
+    }
+
+    const otherArticles = await prisma.article.findMany({
+      where: {
+        status: "PUBLISHED",
+        slug: { notIn: [currentSlug, ...sameRubrik.map((a) => a.slug)] },
+      },
+      include: { author: true, category: true, tags: { include: { tag: true } } },
+      orderBy: { publishedAt: "desc" },
+      take: limit - sameRubrik.length,
+    });
+
+    return [...sameRubrik.map(mapDbToArticle), ...otherArticles.map(mapDbToArticle)];
+  } catch (err) {
+    console.error("Error getRelatedArticles db:", err);
+  }
+
   // 1. First priority: same rubrik
   const sameRubrik = MOCK_ARTICLES.filter(
     (a) => a.slug !== currentSlug && a.rubrik.slug === rubrikSlug
@@ -404,6 +436,22 @@ export async function getRecentArticles(
   currentSlug?: string,
   limit: number = 4
 ): Promise<MockArticle[]> {
+  try {
+    const dbArticles = await prisma.article.findMany({
+      where: {
+        status: "PUBLISHED",
+        ...(currentSlug ? { slug: { not: currentSlug } } : {}),
+      },
+      include: { author: true, category: true, tags: { include: { tag: true } } },
+      orderBy: { publishedAt: "desc" },
+      take: limit,
+    });
+
+    return dbArticles.map(mapDbToArticle);
+  } catch (err) {
+    console.error("Error getRecentArticles db:", err);
+  }
+
   return MOCK_ARTICLES.filter((a) => !currentSlug || a.slug !== currentSlug)
     .sort(
       (a, b) =>
@@ -413,6 +461,23 @@ export async function getRecentArticles(
 }
 
 export async function getAllRubriks() {
+  try {
+    const dbCats = await prisma.category.findMany({
+      orderBy: { createdAt: "asc" },
+    });
+    if (dbCats.length > 0) {
+      return dbCats.map((c) => ({
+        id: c.id,
+        name: c.name,
+        slug: c.slug,
+        question: c.description || "Liar Seperlunya, Jenaka Secukupnya.",
+        badgeColor: "bg-red-600",
+        description: c.description || "",
+      }));
+    }
+  } catch (err) {
+    console.error("Error getAllRubriks db:", err);
+  }
   return MOCK_RUBRIKS;
 }
 
