@@ -26,6 +26,7 @@ import { formatArticleContent } from "@/lib/security/sanitize";
 import ReadingProgressBar from "@/components/public/ReadingProgressBar";
 import ArticleShareButtons from "@/components/public/ArticleShareButtons";
 import ArticleReactions from "@/components/public/ArticleReactions";
+import ArticleViewTracker from "@/components/public/ArticleViewTracker";
 
 interface ArticleDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -105,6 +106,9 @@ export default async function ArticleDetailPage({
     <article className="min-h-screen pb-16 sm:pb-24">
       {/* Scroll Reading Progress Bar */}
       <ReadingProgressBar />
+
+      {/* Real-time View Tracker */}
+      <ArticleViewTracker slug={article.slug} />
 
       {/* Schema.org JSON-LD Structured Data */}
       <NewsArticleJsonLd
@@ -190,7 +194,7 @@ export default async function ArticleDetailPage({
                       {article.author.name}
                     </p>
                     <p className="text-xs text-zinc-500 font-medium">
-                      {article.author.role} • {formatDate(article.publishedAt)}
+                      {article.author.role} • {formatDate(article.publishedAt)} • {article.views.toLocaleString("id-ID")} kali dibaca
                     </p>
                   </div>
                 </Link>
