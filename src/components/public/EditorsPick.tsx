@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MockArticle } from "@/lib/data/mock-articles";
 import { formatDate } from "@/lib/utils";
-import { Award } from "lucide-react";
+import { Star } from "lucide-react";
 
 interface EditorsPickProps {
   articles: MockArticle[];
@@ -20,7 +20,7 @@ export default function EditorsPick({ articles }: EditorsPickProps) {
       <div className="flex items-center justify-between pb-5 mb-6 border-b border-zinc-800">
         <div className="flex items-center gap-2.5">
           <div className="p-1.5 rounded-sm bg-red-600 text-white">
-            <Award className="w-5 h-5" />
+            <Star className="w-5 h-5 fill-white" />
           </div>
           <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white">
             PILIHAN AGEN BELOKAN

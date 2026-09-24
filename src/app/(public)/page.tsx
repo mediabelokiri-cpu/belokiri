@@ -12,7 +12,7 @@ import { formatDate } from "@/lib/utils";
 import HeroArticle from "@/components/public/HeroArticle";
 import EditorsPick from "@/components/public/EditorsPick";
 import MejaWarkopSection from "@/components/public/MejaWarkopSection";
-import { ArrowRight, Clock } from "lucide-react";
+import { ArrowRight, Clock, Megaphone } from "lucide-react";
 
 export default async function HomePage() {
   const [
@@ -65,10 +65,14 @@ export default async function HomePage() {
           {/* BERISIK Section */}
           <div className="lg:col-span-8 space-y-6">
             <div className="flex items-center justify-between pb-3 border-b-2 border-black">
-              <h2 className="text-xl font-black uppercase tracking-tight text-black flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" />
-                BERISIK
-              </h2>
+              <div className="flex items-center gap-2.5">
+                <div className="p-1.5 rounded-sm bg-red-600 text-white">
+                  <Megaphone className="w-4 h-4 fill-white" />
+                </div>
+                <h2 className="text-xl font-black uppercase tracking-tight text-black">
+                  BERISIK
+                </h2>
+              </div>
               <Link
                 href="/kategori/berisik"
                 className="text-xs font-black uppercase text-zinc-600 hover:text-red-600 flex items-center gap-1 transition-colors"

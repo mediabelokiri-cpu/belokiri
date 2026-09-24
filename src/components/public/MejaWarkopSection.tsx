@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MockArticle } from "@/lib/data/mock-articles";
 import { formatDate } from "@/lib/utils";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Coffee } from "lucide-react";
 
 interface MejaWarkopSectionProps {
   articles: MockArticle[];
@@ -19,7 +19,9 @@ export default function MejaWarkopSection({ articles }: MejaWarkopSectionProps) 
       {/* Header Section */}
       <div className="flex items-center justify-between pb-3 border-b-2 border-black">
         <div className="flex items-center gap-2.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" />
+          <div className="p-1.5 rounded-sm bg-red-600 text-white">
+            <Coffee className="w-4 h-4" />
+          </div>
           <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-black">
             MEJA WARKOP
           </h2>
