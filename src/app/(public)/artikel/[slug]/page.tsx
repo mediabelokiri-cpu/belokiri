@@ -342,11 +342,8 @@ export default async function ArticleDetailPage({
               <h4 className="text-xl font-black text-black uppercase">
                 {article.rubrik.name}
               </h4>
-              <p className="text-xs font-bold text-red-700 mt-1 italic">
-                “{article.rubrik.question}”
-              </p>
               <p className="text-xs text-zinc-600 mt-3 leading-relaxed font-normal">
-                {article.rubrik.description}
+                {article.rubrik.description || article.rubrik.question}
               </p>
               <div className="mt-5 pt-4 border-t border-zinc-100">
                 <Link
