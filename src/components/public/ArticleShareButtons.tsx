@@ -22,7 +22,7 @@ export default function ArticleShareButtons({
     url ||
     (typeof window !== "undefined"
       ? `${window.location.origin}/artikel/${slug}`
-      : `https://belokiri.id/artikel/${slug}`);
+      : `https://www.belokiri.site/artikel/${slug}`);
 
   const handleCopyLink = async () => {
     try {
@@ -52,7 +52,7 @@ export default function ArticleShareButtons({
   const shareLinks = [
     {
       name: "WhatsApp",
-      href: `https://wa.me/?text=${encodedTitle}%20-%20${encodedUrl}`,
+      href: `https://api.whatsapp.com/send?text=${encodedTitle}%0A%0A${encodedUrl}`,
       className:
         "hover:bg-emerald-600 hover:text-white hover:border-emerald-600",
       title: "Bagikan ke WhatsApp",

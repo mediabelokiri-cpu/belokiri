@@ -1,3 +1,4 @@
+import { cache } from "react";
 import {
   MOCK_ARTICLES,
   MOCK_RUBRIKS,
@@ -156,7 +157,7 @@ export async function getPopularArticles(limit: number = 5): Promise<MockArticle
     .slice(0, limit);
 }
 
-export async function getArticleBySlug(
+export const getArticleBySlug = cache(async function getArticleBySlug(
   slug: string
 ): Promise<MockArticle | null> {
   try {
@@ -179,7 +180,7 @@ export async function getArticleBySlug(
 
   const article = MOCK_ARTICLES.find((a) => a.slug === slug);
   return article || null;
-}
+});
 
 export async function getArticlesByRubrik(
   rubrikSlug: string,

@@ -1,6 +1,3 @@
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -28,6 +25,8 @@ import ArticleShareButtons from "@/components/public/ArticleShareButtons";
 import ArticleReactions from "@/components/public/ArticleReactions";
 import ArticleViewTracker from "@/components/public/ArticleViewTracker";
 
+export const revalidate = 60;
+
 interface ArticleDetailPageProps {
   params: Promise<{ slug: string }>;
 }
@@ -42,8 +41,9 @@ export async function generateMetadata({
     return { title: "Artikel Tidak Ditemukan" };
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://belokiri.id";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.belokiri.site";
   const canonicalUrl = `${baseUrl}/artikel/${article.slug}`;
+  const ogImageUrl = `${baseUrl}/api/og/${article.slug}`;
 
   return {
     title: `${article.title} | BELOKIRI`,
@@ -57,6 +57,7 @@ export async function generateMetadata({
       description: article.excerpt,
       url: canonicalUrl,
       siteName: "BELOKIRI",
+      locale: "id_ID",
       type: "article",
       publishedTime: article.publishedAt,
       modifiedTime: article.updatedAt || article.publishedAt,
@@ -65,9 +66,11 @@ export async function generateMetadata({
       tags: article.tags,
       images: [
         {
-          url: article.featuredImage,
+          url: ogImageUrl,
+          secureUrl: ogImageUrl,
           width: 1200,
           height: 630,
+          type: "image/png",
           alt: article.title,
         },
       ],
@@ -76,7 +79,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: article.title,
       description: article.excerpt,
-      images: [article.featuredImage],
+      images: [ogImageUrl],
       creator: "@belokiri_id",
       site: "@belokiri_id",
     },
@@ -99,7 +102,7 @@ export default async function ArticleDetailPage({
   ]);
 
   const readingTime = estimateReadingTime(article.content);
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://belokiri.id";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.belokiri.site";
   const canonicalUrl = `${baseUrl}/artikel/${article.slug}`;
 
   return (
@@ -203,6 +206,7 @@ export default async function ArticleDetailPage({
                 <ArticleShareButtons
                   title={article.title}
                   slug={article.slug}
+                  url={canonicalUrl}
                 />
               </div>
             </header>

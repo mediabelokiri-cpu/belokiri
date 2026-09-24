@@ -55,11 +55,11 @@ export const metadata: Metadata = {
       { url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://www.belokiri.site"),
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+    url: process.env.NEXT_PUBLIC_APP_URL || "https://www.belokiri.site",
     siteName: "BELOKIRI",
     title: "BELOKIRI — Liar Seperlunya, Jenaka Secukupnya",
     description:
