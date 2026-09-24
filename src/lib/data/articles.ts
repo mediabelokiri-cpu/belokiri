@@ -4,6 +4,7 @@ import {
   MOCK_AUTHORS,
   MockArticle,
 } from "./mock-articles";
+import { prisma } from "@/lib/db/prisma";
 
 export async function getHeroArticles(limit: number = 3): Promise<MockArticle[]> {
   const featured = MOCK_ARTICLES.find((a) => a.isFeatured);
@@ -103,6 +104,89 @@ export async function searchArticles(
 }
 
 export async function getAuthorBySlug(slug: string) {
+  try {
+    // 1. Try querying registered user from Prisma PostgreSQL
+    const dbUser = await prisma.user.findFirst({
+      where: {
+        OR: [
+          { slug: slug.toLowerCase() },
+          { id: slug },
+        ],
+      },
+      include: {
+        articles: {
+          where: { status: "PUBLISHED" },
+          include: {
+            category: true,
+            tags: { include: { tag: true } },
+          },
+          orderBy: { publishedAt: "desc" },
+        },
+      },
+    });
+
+    if (dbUser) {
+      const roleLabel =
+        dbUser.role === "ADMIN" ? "Agen Belokan (Admin)" : "Warga Belokan BELOKIRI";
+
+      const author = {
+        id: dbUser.id,
+        name: dbUser.name,
+        penName: dbUser.penName,
+        slug: dbUser.slug,
+        avatarUrl:
+          dbUser.avatarUrl ||
+          "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80",
+        bio:
+          dbUser.bio ||
+          "Warga Belokan aktif yang menyuarakan gagasan, opini kritis, dan cerita masyarakat sehari-hari.",
+        role: roleLabel,
+      };
+
+      const mappedArticles: MockArticle[] = dbUser.articles.map((a) => ({
+        id: a.id,
+        title: a.title,
+        slug: a.slug,
+        excerpt: a.excerpt || "",
+        content: a.content,
+        featuredImage: a.featuredImage || "/images/placeholder.jpg",
+        featuredImageCaption: a.featuredImageCaption || "",
+        photoSource: a.photoSource || "BELOKIRI",
+        source: a.source || "BELOKIRI",
+        publishedAt: (a.publishedAt || a.createdAt).toISOString(),
+        views: a.views,
+        isFeatured: false,
+        isEditorPick: a.isEditorPick,
+        rubrik: {
+          name: a.category.name,
+          slug: a.category.slug,
+          question: a.category.description || "Liar Seperlunya, Jenaka Secukupnya.",
+          badgeColor: "bg-red-600",
+          description: a.category.description || "",
+        },
+        author: {
+          name: dbUser.name,
+          penName: dbUser.penName,
+          slug: dbUser.slug,
+          avatarUrl: author.avatarUrl,
+          bio: author.bio,
+          role: roleLabel,
+        },
+        tags: a.tags.map((t) => t.tag.name),
+        readTimeMinutes: Math.max(1, Math.ceil((a.content || "").length / 800)),
+      }));
+
+      return {
+        author,
+        articles: mappedArticles,
+        totalArticles: mappedArticles.length,
+      };
+    }
+  } catch (err) {
+    console.error("getAuthorBySlug db error:", err);
+  }
+
+  // 2. Fallback to mock authors
   const author = MOCK_AUTHORS.find((a) => a.slug === slug) || null;
   if (!author) return null;
 

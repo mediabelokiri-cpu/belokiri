@@ -57,6 +57,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
             alt={author.name}
             fill
             className="object-cover"
+            unoptimized
           />
         </div>
 
