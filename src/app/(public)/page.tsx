@@ -13,7 +13,7 @@ import HeroArticle from "@/components/public/HeroArticle";
 import ArticleCard from "@/components/public/ArticleCard";
 import EditorsPick from "@/components/public/EditorsPick";
 import MejaWarkopSection from "@/components/public/MejaWarkopSection";
-import { ArrowRight, Clock, Megaphone } from "lucide-react";
+import { ArrowRight, Clock, Megaphone, PenLine } from "lucide-react";
 
 export default async function HomePage() {
   const [
@@ -227,12 +227,17 @@ export default async function HomePage() {
         <section className="pt-8 border-t border-zinc-200">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
             <div>
-              <span className="text-xs font-black uppercase tracking-widest text-red-600">
+              <span className="text-xs font-black uppercase tracking-widest text-red-600 block mb-1.5">
                 PUBLIKASI TERKINI
               </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-black tracking-tight mt-1 uppercase">
-                TULISAN TERBARU
-              </h2>
+              <div className="flex items-center gap-2.5">
+                <div className="p-1.5 rounded-sm bg-red-600 text-white">
+                  <PenLine className="w-4 h-4" />
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-black text-black tracking-tight uppercase">
+                  TULISAN TERBARU
+                </h2>
+              </div>
             </div>
             <div className="flex items-center gap-4">
               <p className="text-xs text-zinc-500 max-w-sm font-medium hidden sm:block">
@@ -250,7 +255,7 @@ export default async function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {latestArticles.slice(0, 8).map((article) => (
-              <ArticleCard key={article.id} article={article} />
+              <ArticleCard key={article.id} article={article} showExcerpt={false} />
             ))}
           </div>
         </section>

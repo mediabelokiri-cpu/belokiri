@@ -8,12 +8,14 @@ interface ArticleCardProps {
   article: MockArticle;
   variant?: "grid" | "horizontal" | "compact";
   priority?: boolean;
+  showExcerpt?: boolean;
 }
 
 export default function ArticleCard({
   article,
   variant = "grid",
   priority = false,
+  showExcerpt = true,
 }: ArticleCardProps) {
   if (variant === "horizontal") {
     return (
@@ -103,9 +105,11 @@ export default function ArticleCard({
               {article.title}
             </h2>
           </Link>
-          <p className="mt-2 text-xs sm:text-sm text-zinc-600 leading-relaxed line-clamp-2 font-normal">
-            {article.excerpt}
-          </p>
+          {showExcerpt && (
+            <p className="mt-2 text-xs sm:text-sm text-zinc-600 leading-relaxed line-clamp-2 font-normal">
+              {article.excerpt}
+            </p>
+          )}
         </div>
       </div>
 
