@@ -83,8 +83,8 @@ export interface FullSiteSettings {
   social: SocialMediaConfig;
 }
 
-// Initial In-Memory Store
-let siteSettingsStore: FullSiteSettings = {
+// Initial In-Memory Store & Defaults
+export const defaultSiteSettings: FullSiteSettings = {
   identity: {
     siteName: "BELOKIRI",
     tagline: "Liar Seperlunya, Jenaka Secukupnya",
@@ -156,6 +156,8 @@ let siteSettingsStore: FullSiteSettings = {
   },
 };
 
+let siteSettingsStore: FullSiteSettings = { ...defaultSiteSettings };
+
 let suratKalengStore: SuratKalengItem[] = [
   {
     id: "sk-1",
@@ -186,7 +188,7 @@ let suratKalengStore: SuratKalengItem[] = [
   },
 ];
 
-let kabinetStore: KabinetMember[] = [
+export const defaultKabinetMembers: KabinetMember[] = [
   {
     id: "kab-1",
     name: "Mbah Broto",
@@ -347,6 +349,8 @@ let kabinetStore: KabinetMember[] = [
     status: "AKTIF",
   },
 ];
+
+let kabinetStore: KabinetMember[] = [...defaultKabinetMembers];
 
 // Helper Functions
 export async function getSiteSettings(): Promise<FullSiteSettings> {

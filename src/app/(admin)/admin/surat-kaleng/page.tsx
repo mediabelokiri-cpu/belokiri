@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Inbox,
   Star,
@@ -12,67 +12,100 @@ import {
   AlertCircle,
   MessageSquare,
   Search,
+  RefreshCw,
+  Loader2,
 } from "lucide-react";
 import { SuratKalengItem } from "@/lib/data/site-settings";
+import {
+  getSuratKalengListAction,
+  toggleSuratKalengReadAction,
+  toggleSuratKalengStarAction,
+  deleteSuratKalengAction,
+} from "@/actions/surat-kaleng.actions";
 
 export default function AdminSuratKalengPage() {
-  const [letters, setLetters] = useState<SuratKalengItem[]>([
-    {
-      id: "sk-1",
-      namaSamaran: "Anonim Senja Warkop",
-      isiSurat:
-        "Tolong bahas tuntas soal kenaikan pajak rokok linting dan dampaknya ke warung-warung kopi kecil di kampung. Kami makin terjepit dengan serbuan ritel modern berjejaring.",
-      createdAt: "2026-09-24T08:30:00Z",
-      isRead: false,
-      isStarred: true,
-    },
-    {
-      id: "sk-2",
-      namaSamaran: "Buruh Desain Lepas",
-      isiSurat:
-        "Terima kasih rubrik Ordal-nya tajam sekali. Akhirnya ada media yang berani buka-bukaan soal praktik oligarki pengadaan aplikasi pemerintah yang anggarannya fantastis tapi hasilnya mubazir.",
-      createdAt: "2026-09-23T14:15:00Z",
-      isRead: true,
-      isStarred: false,
-    },
-    {
-      id: "sk-3",
-      namaSamaran: "Warga Pinggiran Rel",
-      isiSurat:
-        "Bahas isu penggusuran lahan sempadan rel di kota satelit dong min, jangan cuma ributin pilkada doang! Suara kami di kampung tidak pernah sampai ke meja bupati.",
-      createdAt: "2026-09-22T19:40:00Z",
-      isRead: true,
-      isStarred: true,
-    },
-    {
-      id: "sk-4",
-      namaSamaran: "Mahasiswa Semester Tua",
-      isiSurat:
-        "Rubrik Sedikit Akademis sangat membantu saya memahami konsep hegemoni Gramsci tanpa harus pusing baca buku tebal berbahasa rumit. Terus menyala agen belokan!",
-      createdAt: "2026-09-21T11:20:00Z",
-      isRead: false,
-      isStarred: false,
-    },
-  ]);
-
+  const [letters, setLetters] = useState<SuratKalengItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [filter, setFilter] = useState<"ALL" | "UNREAD" | "STARRED">("ALL");
   const [searchTerm, setSearchTerm] = useState("");
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  const toggleRead = (id: string) => {
+  const fetchLetters = useCallback(async (isRefresh = false) => {
+    if (isRefresh) setRefreshing(true);
+    else setLoading(true);
+    setErrorMsg(null);
+
+    try {
+      const res = await getSuratKalengListAction();
+      if (res.success) {
+        setLetters(res.data);
+      } else {
+        setErrorMsg(res.error || "Gagal memuat daftar surat kaleng dari database.");
+      }
+    } catch (err) {
+      setErrorMsg(
+        err instanceof Error ? err.message : "Terjadi kesalahan saat memuat data."
+      );
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchLetters();
+  }, [fetchLetters]);
+
+  const toggleRead = async (id: string) => {
+    // Optimistic update
     setLetters((prev) =>
       prev.map((l) => (l.id === id ? { ...l, isRead: !l.isRead } : l))
     );
+
+    try {
+      const res = await toggleSuratKalengReadAction(id);
+      if (!res.success) {
+        // Revert on error
+        fetchLetters();
+      }
+    } catch {
+      fetchLetters();
+    }
   };
 
-  const toggleStar = (id: string) => {
+  const toggleStar = async (id: string) => {
+    // Optimistic update
     setLetters((prev) =>
       prev.map((l) => (l.id === id ? { ...l, isStarred: !l.isStarred } : l))
     );
+
+    try {
+      const res = await toggleSuratKalengStarAction(id);
+      if (!res.success) {
+        // Revert on error
+        fetchLetters();
+      }
+    } catch {
+      fetchLetters();
+    }
   };
 
-  const deleteLetter = (id: string) => {
-    if (confirm("Hapus surat kaleng ini dari arsip?")) {
-      setLetters((prev) => prev.filter((l) => l.id !== id));
+  const deleteLetter = async (id: string) => {
+    if (!confirm("Hapus surat kaleng ini dari arsip database?")) return;
+
+    // Optimistic removal
+    setLetters((prev) => prev.filter((l) => l.id !== id));
+
+    try {
+      const res = await deleteSuratKalengAction(id);
+      if (!res.success) {
+        alert(res.error || "Gagal menghapus surat.");
+        fetchLetters();
+      }
+    } catch (err) {
+      alert("Terjadi kesalahan saat menghapus.");
+      fetchLetters();
     }
   };
 
@@ -108,8 +141,18 @@ export default function AdminSuratKalengPage() {
           </p>
         </div>
 
-        {/* Quick Stats Badges */}
+        {/* Quick Stats Badges & Refresh */}
         <div className="flex items-center gap-3">
+          <button
+            onClick={() => fetchLetters(true)}
+            disabled={refreshing || loading}
+            title="Muat Ulang Pesan Terbaru"
+            className="p-3 rounded-xl bg-white hover:bg-zinc-100 border border-zinc-200 text-zinc-700 hover:text-black transition-all shadow-xs flex items-center justify-center cursor-pointer disabled:opacity-50"
+          >
+            <RefreshCw
+              className={`w-4 h-4 ${refreshing ? "animate-spin text-red-600" : ""}`}
+            />
+          </button>
           <div className="px-4 py-2 rounded-xl bg-white border border-zinc-200 shadow-xs text-center">
             <span className="block text-[10px] font-black uppercase tracking-wider text-zinc-400">
               Belum Dibaca
@@ -131,6 +174,13 @@ export default function AdminSuratKalengPage() {
         </div>
       </div>
 
+      {errorMsg && (
+        <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-3">
+          <AlertCircle className="w-5 h-5 shrink-0 text-red-600" />
+          <span className="font-semibold">{errorMsg}</span>
+        </div>
+      )}
+
       {/* Filter and Search Bar */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
@@ -141,7 +191,7 @@ export default function AdminSuratKalengPage() {
           ].map((item) => (
             <button
               key={item.id}
-              onClick={() => setFilter(item.id as any)}
+              onClick={() => setFilter(item.id as "ALL" | "UNREAD" | "STARRED")}
               className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap ${
                 filter === item.id
                   ? "bg-black text-white shadow-xs"
@@ -167,14 +217,23 @@ export default function AdminSuratKalengPage() {
 
       {/* Letters List */}
       <div className="space-y-4">
-        {filteredLetters.length === 0 ? (
+        {loading ? (
+          <div className="p-16 text-center bg-white border border-zinc-200 rounded-3xl space-y-3">
+            <Loader2 className="w-8 h-8 text-red-600 animate-spin mx-auto" />
+            <p className="text-xs text-zinc-500 font-bold uppercase tracking-wider">
+              Memuat Kotak Suara dari Supabase...
+            </p>
+          </div>
+        ) : filteredLetters.length === 0 ? (
           <div className="p-12 text-center bg-white border border-zinc-200 rounded-3xl space-y-3">
             <MessageSquare className="w-10 h-10 text-zinc-300 mx-auto" />
             <h3 className="text-sm font-black uppercase text-zinc-700">
               Tidak Ada Surat Kaleng
             </h3>
             <p className="text-xs text-zinc-400">
-              Belum ada pesan yang cocok dengan kriteria filter saat ini.
+              {letters.length === 0
+                ? "Belum ada surat kaleng yang dikirim oleh warga ke database."
+                : "Tidak ada surat yang cocok dengan kriteria filter saat ini."}
             </p>
           </div>
         ) : (
@@ -209,7 +268,7 @@ export default function AdminSuratKalengPage() {
                     </span>
                   </div>
 
-                  <p className="text-sm text-zinc-800 leading-relaxed font-normal pt-1">
+                  <p className="text-sm text-zinc-800 leading-relaxed font-normal pt-1 whitespace-pre-wrap">
                     &ldquo;{letter.isiSurat}&rdquo;
                   </p>
                 </div>
@@ -218,7 +277,7 @@ export default function AdminSuratKalengPage() {
                 <div className="flex items-center gap-1.5 shrink-0 self-end sm:self-start">
                   <button
                     onClick={() => toggleStar(letter.id)}
-                    className={`p-2 rounded-xl transition-colors ${
+                    className={`p-2 rounded-xl transition-colors cursor-pointer ${
                       letter.isStarred
                         ? "text-amber-500 bg-amber-50 hover:bg-amber-100"
                         : "text-zinc-400 hover:text-amber-500 hover:bg-zinc-100"
@@ -230,7 +289,7 @@ export default function AdminSuratKalengPage() {
 
                   <button
                     onClick={() => toggleRead(letter.id)}
-                    className="p-2 rounded-xl text-zinc-500 hover:text-red-600 hover:bg-zinc-100 transition-colors"
+                    className="p-2 rounded-xl text-zinc-500 hover:text-red-600 hover:bg-zinc-100 transition-colors cursor-pointer"
                     title={letter.isRead ? "Tandai Belum Dibaca" : "Tandai Sudah Dibaca"}
                   >
                     {letter.isRead ? (
@@ -242,7 +301,7 @@ export default function AdminSuratKalengPage() {
 
                   <button
                     onClick={() => deleteLetter(letter.id)}
-                    className="p-2 rounded-xl text-zinc-400 hover:text-red-600 hover:bg-zinc-100 transition-colors"
+                    className="p-2 rounded-xl text-zinc-400 hover:text-red-600 hover:bg-zinc-100 transition-colors cursor-pointer"
                     title="Hapus Surat"
                   >
                     <Trash2 className="w-4 h-4" />

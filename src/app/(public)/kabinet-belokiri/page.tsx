@@ -17,6 +17,10 @@ import {
   ArrowRight,
   UserCheck,
 } from "lucide-react";
+import { getSiteSettingsAction } from "@/actions/settings.actions";
+import { defaultKabinetMembers } from "@/lib/data/site-settings";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Kabinet Belokiri | Struktur Dewan & Agen Belokan",
@@ -24,134 +28,47 @@ export const metadata: Metadata = {
     "Susunan struktur organisasi dan dewan agen BELOKIRI: Ketua RT, Bendahara RT, Pimpinan Redaksi, Agen Agitasi & Propaganda, Agen Program, hingga Agen Penjaga 8 Rubrik lengkap dengan foto profil.",
 };
 
-export default function KabinetBelokiriPage() {
-  const pimpinan = [
-    {
-      name: "Mbah Broto",
-      alias: "Pak RT Warkop",
-      role: "Ketua RT Belokan",
-      title: "Pamong Warga & Kepala Lingkungan Gagasan",
-      desc: "Menjaga keharmonisan pertikaian intelektual warga belokan, mengesahkan maklumat darurat, dan memastikan ronda malam akal sehat tetap berjalan.",
-      photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
-      icon: UserCheck,
-      color: "bg-red-50 border-red-200 text-red-600",
-    },
-    {
-      name: "Ibu Ratna Susanti",
-      alias: "Juru Kunci Dapur",
-      role: "Bendahara RT Belokan",
-      title: "Juru Kunci Kas & Logistik Kopi",
-      desc: "Mengelola iuran sukarela, subsidi kopi warkop sachet, transparansi kas recehan, dan menjamin dapur redaksi tidak pernah kehabisan gula.",
-      photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
-      icon: Scale,
-      color: "bg-amber-50 border-amber-200 text-amber-700",
-    },
-    {
-      name: "Arya Wicaksono",
-      alias: "Pena Belokan",
-      role: "Pimpinan Redaksi",
-      title: "Kurator Utama & Penjaga Ketajaman",
-      desc: "Menentukan arah kurasi naskah, mencoret kalimat basa-basi birokratis, menolak intervensi kepentingan kekuasaan, dan bertanggung jawab penuh.",
-      photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
-      icon: PenTool,
-      color: "bg-zinc-100 border-zinc-300 text-black",
-    },
-    {
-      name: "Gilang Perkasa",
-      alias: "Si Pamflet",
-      role: "Agen Agitasi & Propaganda",
-      title: "Pemicu Percakapan & Pamflet Digital",
-      desc: "Mengemas narasi perlawanan menjadi visual jenaka nan tajam, mengguncang kenyamanan linimasa, dan membakar semangat pembangkangan kritis warga.",
-      photo: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80",
-      icon: Megaphone,
-      color: "bg-red-50 border-red-200 text-red-600",
-    },
-    {
-      name: "Dian Paramita",
-      alias: "Mbak Lapangan",
-      role: "Agen Program",
-      title: "Penggerak Meja Warkop & Aksi Warga",
-      desc: "Mengorganisir lapak baca mandiri Literatur Liberte, bedah opini akar rumput di warung kopi pinggiran, serta menjalin aliansi antar-komunitas.",
-      photo: "https://images.unsplash.com/photo-1534751516642-a171ed28a0e5?auto=format&fit=crop&w=400&q=80",
-      icon: Calendar,
-      color: "bg-zinc-100 border-zinc-300 text-zinc-800",
-    },
-  ];
+function getPimpinanMeta(role: string) {
+  const r = role.toLowerCase();
+  if (r.includes("ketua rt")) {
+    return { icon: UserCheck, color: "bg-red-50 border-red-200 text-red-600" };
+  }
+  if (r.includes("bendahara")) {
+    return { icon: Scale, color: "bg-amber-50 border-amber-200 text-amber-700" };
+  }
+  if (r.includes("pemred") || r.includes("redaksi")) {
+    return { icon: PenTool, color: "bg-zinc-100 border-zinc-300 text-black" };
+  }
+  if (r.includes("propaganda") || r.includes("agitasi")) {
+    return { icon: Megaphone, color: "bg-red-50 border-red-200 text-red-600" };
+  }
+  if (r.includes("program")) {
+    return { icon: Calendar, color: "bg-zinc-100 border-zinc-300 text-zinc-800" };
+  }
+  return { icon: Users, color: "bg-zinc-100 border-zinc-300 text-black" };
+}
 
-  const rubrikAgents = [
-    {
-      name: "Fajar Nugroho",
-      alias: "Penggedor Pintu",
-      rubrik: "BERISIK",
-      focus: "Esai Populer Politik, Ekonomi & Sosial Kritis",
-      desc: "Menyaring artikel-artikel bervolume tinggi yang membongkar kemunafikan kebijakan dan ketimpangan struktural.",
-      photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
-      icon: Megaphone,
-    },
-    {
-      name: "Reza Mahendra",
-      alias: "Juru Seduh",
-      rubrik: "MEJA WARKOP",
-      focus: "Analisis Budaya & Percakapan Tongkrongan",
-      desc: "Mencatat dialektika meja warung kopi: obrolan santai, satire pinggir jalan, dan keresahan rakyat sehari-hari.",
-      photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
-      icon: Coffee,
-    },
-    {
-      name: "Bayu Kusuma",
-      alias: "Mata Elang",
-      rubrik: "ORDAL",
-      focus: "Membongkar Dinamika Kuasa, Kebijakan & Elite",
-      desc: "Mengendus manuver orang dalam, relasi oligarki, dan kroni kekuasaan di balik panggung seremonial.",
-      photo: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=400&q=80",
-      icon: Eye,
-    },
-    {
-      name: "Hendra Wijaya",
-      alias: "Pencatat Sunyi",
-      rubrik: "ARSIP PINGGIRAN",
-      focus: "Sejarah Rakyat, Kaum Buruh & Marjinal",
-      desc: "Menggali memori kolektif yang sengaja ditenggelamkan historiografi resmi penguasa.",
-      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
-      icon: Archive,
-    },
-    {
-      name: "Dr. Danang Prabowo",
-      alias: "Filsuf Kopi",
-      rubrik: "SEDIKIT AKADEMIS",
-      focus: "Filsafat & Teori Kritis Tanpa Jargon Rumit",
-      desc: "Membumikan gagasan para filsuf dan pemikir kiri agar bisa dipahami sambil menyeruput kopi hitam.",
-      photo: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80",
-      icon: BookOpen,
-    },
-    {
-      name: "Larasati Dewi",
-      alias: "Pena Renjana",
-      rubrik: "SISA BAHASA",
-      focus: "Puisi, Prosa, Fragmen & Sastra Emosional",
-      desc: "Merawat kepekaan rasa dan estetika kata ketika kalimat berita kehilangan daya gugahnya.",
-      photo: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
-      icon: Feather,
-    },
-    {
-      name: "Anisa Nurul",
-      alias: "Suara Merdeka",
-      rubrik: "SETARA",
-      focus: "Isu Perempuan, Gender & Keadilan Sosial",
-      desc: "Mengawal ruang aman, keadilan gender, dan perjuangan kelompok rentan yang kerap dikesampingkan.",
-      photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
-      icon: Scale,
-    },
-    {
-      name: "Joko Parodi",
-      alias: "Pawang Satir",
-      rubrik: "SERIAL ANABEL",
-      focus: "Serial Fiksi Satir & Parodi Mingguan",
-      desc: "Menertawakan realitas politik yang lebih absurd daripada fiksi melalui serial cerita berkala.",
-      photo: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80",
-      icon: Sparkles,
-    },
-  ];
+function getRubrikIcon(rubrik?: string) {
+  const r = (rubrik || "").toLowerCase();
+  if (r.includes("berisik")) return Megaphone;
+  if (r.includes("warkop")) return Coffee;
+  if (r.includes("ordal")) return Eye;
+  if (r.includes("arsip")) return Archive;
+  if (r.includes("akademis")) return BookOpen;
+  if (r.includes("bahasa")) return Feather;
+  if (r.includes("setara")) return Scale;
+  if (r.includes("anabel")) return Sparkles;
+  return PenTool;
+}
+
+export default async function KabinetBelokiriPage() {
+  const res = await getSiteSettingsAction();
+  const allMembers =
+    res.kabinet && res.kabinet.length > 0 ? res.kabinet : defaultKabinetMembers;
+
+  const activeMembers = allMembers.filter((m) => m.status === "AKTIF");
+  const pimpinan = activeMembers.filter((m) => m.category === "PIMPINAN");
+  const rubrikAgents = activeMembers.filter((m) => m.category === "AGEN_RUBRIK");
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-16 font-sans">
@@ -181,16 +98,17 @@ export default function KabinetBelokiriPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {pimpinan.map((item) => {
-            const Icon = item.icon;
+            const meta = getPimpinanMeta(item.role);
+            const Icon = meta.icon;
             return (
               <div
-                key={item.role}
+                key={item.id}
                 className="bg-white border border-zinc-200 rounded-3xl p-6 shadow-xs flex flex-col justify-between hover:border-zinc-400 hover:shadow-md transition-all space-y-5"
               >
                 <div className="space-y-4">
                   {/* Photo & Role Header */}
                   <div className="flex items-start gap-4">
-                    <div className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-2xl overflow-hidden border-2 border-zinc-200 shrink-0 shadow-xs">
+                    <div className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-2xl overflow-hidden border-2 border-zinc-200 shrink-0 shadow-xs bg-zinc-100">
                       <Image
                         src={item.photo}
                         alt={item.name}
@@ -201,7 +119,7 @@ export default function KabinetBelokiriPage() {
                     </div>
                     <div className="space-y-1 min-w-0">
                       <span
-                        className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md border text-[10px] font-black uppercase tracking-wider ${item.color}`}
+                        className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md border text-[10px] font-black uppercase tracking-wider ${meta.color}`}
                       >
                         <Icon className="w-3 h-3 shrink-0" />
                         <span className="truncate">{item.role}</span>
@@ -209,17 +127,21 @@ export default function KabinetBelokiriPage() {
                       <h3 className="text-base font-black uppercase text-black tracking-tight leading-snug">
                         {item.name}
                       </h3>
-                      <p className="text-[11px] text-zinc-500 font-bold uppercase tracking-tight">
-                        alias &ldquo;{item.alias}&rdquo;
-                      </p>
+                      {item.alias && (
+                        <p className="text-[11px] text-zinc-500 font-bold uppercase tracking-tight">
+                          alias &ldquo;{item.alias}&rdquo;
+                        </p>
+                      )}
                     </div>
                   </div>
 
                   {/* Title & Desc */}
                   <div>
-                    <h4 className="text-xs font-black uppercase text-zinc-800 tracking-tight">
-                      {item.title}
-                    </h4>
+                    {item.title && (
+                      <h4 className="text-xs font-black uppercase text-zinc-800 tracking-tight">
+                        {item.title}
+                      </h4>
+                    )}
                     <p className="text-xs text-zinc-600 font-normal leading-relaxed mt-1.5">
                       {item.desc}
                     </p>
@@ -252,16 +174,20 @@ export default function KabinetBelokiriPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {rubrikAgents.map((item) => {
-            const Icon = item.icon;
+            const Icon = getRubrikIcon(item.rubrik);
+            const rubrikSlug = item.rubrik
+              ? item.rubrik.toLowerCase().replace(/\s+/g, "-")
+              : "berisik";
+
             return (
               <div
-                key={item.rubrik}
+                key={item.id}
                 className="bg-zinc-50 border border-zinc-200 hover:border-red-600 rounded-3xl p-5 transition-all group flex flex-col justify-between space-y-4 hover:shadow-md hover:bg-white"
               >
                 <div className="space-y-3">
                   {/* Photo & Badge */}
                   <div className="flex items-center gap-3">
-                    <div className="relative w-13 h-13 rounded-2xl overflow-hidden border-2 border-zinc-200 group-hover:border-red-600 transition-colors shrink-0 shadow-xs">
+                    <div className="relative w-13 h-13 rounded-2xl overflow-hidden border-2 border-zinc-200 group-hover:border-red-600 transition-colors shrink-0 shadow-xs bg-zinc-100">
                       <Image
                         src={item.photo}
                         alt={item.name}
@@ -278,19 +204,25 @@ export default function KabinetBelokiriPage() {
                       <h3 className="text-xs font-black uppercase text-black group-hover:text-red-600 transition-colors truncate">
                         {item.name}
                       </h3>
-                      <p className="text-[10px] text-zinc-400 font-bold uppercase truncate">
-                        &ldquo;{item.alias}&rdquo;
-                      </p>
+                      {item.alias && (
+                        <p className="text-[10px] text-zinc-400 font-bold uppercase truncate">
+                          &ldquo;{item.alias}&rdquo;
+                        </p>
+                      )}
                     </div>
                   </div>
 
                   <div>
-                    <h4 className="text-xs font-black uppercase text-zinc-900 tracking-tight group-hover:text-red-600 transition-colors">
-                      Rubrik {item.rubrik}
-                    </h4>
-                    <p className="text-[11px] font-semibold text-zinc-500 uppercase tracking-tight mt-0.5 leading-snug">
-                      {item.focus}
-                    </p>
+                    {item.rubrik && (
+                      <h4 className="text-xs font-black uppercase text-zinc-900 tracking-tight group-hover:text-red-600 transition-colors">
+                        Rubrik {item.rubrik}
+                      </h4>
+                    )}
+                    {item.focus && (
+                      <p className="text-[11px] font-semibold text-zinc-500 uppercase tracking-tight mt-0.5 leading-snug">
+                        {item.focus}
+                      </p>
+                    )}
                   </div>
 
                   <p className="text-xs text-zinc-600 font-normal leading-relaxed">
@@ -300,7 +232,7 @@ export default function KabinetBelokiriPage() {
 
                 <div className="pt-2 border-t border-zinc-200 text-[10px] font-bold uppercase tracking-wider text-red-600 flex items-center justify-between">
                   <Link
-                    href={`/kategori/${item.rubrik.toLowerCase().replace(/\s+/g, "-")}`}
+                    href={`/kategori/${rubrikSlug}`}
                     className="hover:underline flex items-center gap-1"
                   >
                     <span>Jelajahi Rubrik</span>

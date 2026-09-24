@@ -1,13 +1,20 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Mail, MapPin, Send, ArrowRight, ShieldCheck } from "lucide-react";
+import { Mail, MapPin, Send, ArrowRight, ShieldCheck, MessageCircle } from "lucide-react";
+import { getSiteSettingsAction } from "@/actions/settings.actions";
+import { defaultSiteSettings } from "@/lib/data/site-settings";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Kontak & Agen Belokan | BELOKIRI",
   description: "Hubungi Agen Belokan BELOKIRI, kirim siaran pers, atau panduan naskah tulisan bagi Warga Belokan.",
 };
 
-export default function KontakPage() {
+export default async function KontakPage() {
+  const res = await getSiteSettingsAction();
+  const social = res.settings?.social || defaultSiteSettings.social;
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-12">
       <div className="text-center space-y-3">
@@ -37,7 +44,7 @@ export default function KontakPage() {
               </div>
               <div>
                 <strong className="text-black font-bold block mb-0.5">Kantor Agen Belokan BELOKIRI:</strong>
-                <p className="font-normal">Gedung Media Nusantara Lt. 4, Jl. Kebon Sirih No. 45, Jakarta Pusat 10340</p>
+                <p className="font-normal">{social.address || "Gedung Media Nusantara Lt. 4, Jl. Kebon Sirih No. 45, Jakarta Pusat 10340"}</p>
               </div>
             </div>
 
@@ -47,9 +54,28 @@ export default function KontakPage() {
               </div>
               <div>
                 <strong className="text-black font-bold block mb-0.5">Surel Agen Belokan & Liputan:</strong>
-                <p className="font-normal">agen@belokiri.id</p>
+                <p className="font-normal">{social.email || "redaksi@belokiri.id"}</p>
               </div>
             </div>
+
+            {social.whatsapp && (
+              <div className="flex items-start gap-3">
+                <div className="p-2 rounded-lg bg-red-50 text-red-600 shrink-0 mt-0.5">
+                  <MessageCircle className="w-4 h-4" />
+                </div>
+                <div>
+                  <strong className="text-black font-bold block mb-0.5">WhatsApp Hotline Redaksi:</strong>
+                  <a
+                    href={social.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-normal text-red-600 hover:underline"
+                  >
+                    Hubungi via WhatsApp
+                  </a>
+                </div>
+              </div>
+            )}
 
             <div className="flex items-start gap-3">
               <div className="p-2 rounded-lg bg-red-50 text-red-600 shrink-0 mt-0.5">
@@ -57,7 +83,7 @@ export default function KontakPage() {
               </div>
               <div>
                 <strong className="text-black font-bold block mb-0.5">Siaran Pers & Kemitraan:</strong>
-                <p className="font-normal">kerjasama@belokiri.id</p>
+                <p className="font-normal">{social.email || "kerjasama@belokiri.id"}</p>
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import {
   Sliders,
@@ -20,202 +20,132 @@ import {
   Sparkles,
   PenLine,
   Star,
+  Loader2,
+  AlertCircle,
+  RefreshCw,
 } from "lucide-react";
 import {
   FullSiteSettings,
   KabinetMember,
+  defaultSiteSettings,
+  defaultKabinetMembers,
 } from "@/lib/data/site-settings";
+import {
+  getSiteSettingsAction,
+  saveSiteSettingsAction,
+} from "@/actions/settings.actions";
 
 export default function AdminSettingsPage() {
   const [activeTab, setActiveTab] = useState<
     "identity" | "sections" | "cta" | "social" | "kabinet"
   >("identity");
 
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   // Identity Form State
-  const [identity, setIdentity] = useState({
-    siteName: "BELOKIRI",
-    tagline: "Liar Seperlunya, Jenaka Secukupnya",
-    description:
-      "BELOKIRI adalah media esai populer, analisis santai, arsip sejarah rakyat, dan percakapan kritis yang disajikan dengan tajam dan jenaka. Menanggapi dunia yang berisik tanpa harus kehilangan akal sehat.",
-    copyrightText:
-      "© 2026 BELOKIRI. Seluruh hak cipta milik Tuhan YME. | Liar Seperlunya, Jenaka Secukupnya",
-    logoUrl: "/images/logo-belokiri-red.png",
-    logoWhiteUrl: "/images/logo-belokiri-white.png",
-  });
+  const [identity, setIdentity] = useState(defaultSiteSettings.identity);
 
   // Sections State
-  const [sections, setSections] = useState({
-    berisik: {
-      enabled: true,
-      title: "BERISIK",
-      subtitle: "Esai Populer, Politik & Sosial Kritis",
-      iconName: "Megaphone",
-    },
-    editorsPick: {
-      enabled: true,
-      title: "PILIHAN AGEN BELOKAN",
-      subtitle: "Kurasi Khusus Naskah Berani & Tajam",
-      iconName: "Star",
-    },
-    mejaWarkop: {
-      enabled: true,
-      title: "MEJA WARKOP",
-      subtitle: "Dialektika Tongkrongan & Kultur Warung Kopi",
-      iconName: "Coffee",
-    },
-    latestArticles: {
-      enabled: true,
-      title: "TULISAN TERBARU",
-      subtitle: "Semua Tulisan Masuk Berdasarkan Waktu Terbit",
-      iconName: "PenLine",
-    },
-  });
+  const [sections, setSections] = useState(defaultSiteSettings.sections);
 
   // CTA State
-  const [cta, setCta] = useState({
-    ruangWarga: {
-      title: "Punya Gagasan atau Cerita yang Perlu Didengar?",
-      description:
-        "BELOKIRI membuka ruang seluas-luasnya bagi mahasiswa, pelajar, peneliti, dan masyarakat umum untuk menyumbangkan tulisan, esai kritis, atau pandangan nyeleneh yang jujur.",
-      buttonText: "KIRIM TULISAN",
-      buttonUrl: "/login",
-    },
-    ruangAgen: {
-      title: "Tertarik Menjadi Bagian Awak BELOKIRI?",
-      description:
-        "Kami membuka kesempatan bagi jurnalis investigasi, penulis esai, editor, dan kreator independen yang berani menyusup di antara narasi mapan demi menyuarakan realitas rakyat.",
-      buttonText: "GABUNG JADI AGEN",
-      buttonUrl: "/rekrutmen",
-    },
-    rekrutmenBanner: {
-      badgeText: "PANGGILAN AGEN",
-      title: "SIAP BERGABUNG DENGAN DEWAN BELOKAN?",
-      description:
-        "Kami tidak mencari orang yang patuh, tapi mereka yang punya sudut pandang tajam dan berani bersuara.",
-      buttonText: "ISI FORM AGEN",
-      buttonUrl: "/rekrutmen/form",
-      bgColor: "bg-red-600",
-    },
-  });
+  const [cta, setCta] = useState(defaultSiteSettings.cta);
 
   // Social State
-  const [social, setSocial] = useState({
-    whatsapp: "https://wa.me/6281234567890",
-    facebook: "https://facebook.com/belokiri.id",
-    instagram: "https://instagram.com/belokiri.id",
-    tiktok: "https://tiktok.com/@belokiri.id",
-    email: "redaksi@belokiri.id",
-    address: "Gedung Media Nusantara Lt. 4, Jl. Kebon Sirih No. 45, Jakarta Pusat 10340",
-  });
+  const [social, setSocial] = useState(defaultSiteSettings.social);
 
   // Kabinet Members State
-  const [kabinet, setKabinet] = useState<KabinetMember[]>([
-    {
-      id: "kab-1",
-      name: "Mbah Broto",
-      alias: "Pak RT Warkop",
-      role: "Ketua RT Belokan",
-      title: "Pamong Warga & Kepala Lingkungan Gagasan",
-      category: "PIMPINAN",
-      desc: "Menjaga keharmonisan pertikaian intelektual warga belokan, mengesahkan maklumat darurat, dan memastikan ronda malam akal sehat tetap berjalan.",
-      photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
-      status: "AKTIF",
-    },
-    {
-      id: "kab-2",
-      name: "Ibu Ratna Susanti",
-      alias: "Juru Kunci Dapur",
-      role: "Bendahara RT Belokan",
-      title: "Juru Kunci Kas & Logistik Kopi",
-      category: "PIMPINAN",
-      desc: "Mengelola iuran sukarela, subsidi kopi warkop sachet, transparansi kas recehan, dan menjamin dapur redaksi tidak pernah kehabisan gula.",
-      photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
-      status: "AKTIF",
-    },
-    {
-      id: "kab-3",
-      name: "Arya Wicaksono",
-      alias: "Pena Belokan",
-      role: "Pimpinan Redaksi",
-      title: "Kurator Utama & Penjaga Ketajaman",
-      category: "PIMPINAN",
-      desc: "Menentukan arah kurasi naskah, mencoret kalimat basa-basi birokratis, menolak intervensi kepentingan kekuasaan, dan bertanggung jawab penuh.",
-      photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
-      status: "AKTIF",
-    },
-    {
-      id: "kab-4",
-      name: "Gilang Perkasa",
-      alias: "Si Pamflet",
-      role: "Agen Agitasi & Propaganda",
-      title: "Pemicu Percakapan & Pamflet Digital",
-      category: "PIMPINAN",
-      desc: "Mengemas narasi perlawanan menjadi visual jenaka nan tajam, mengguncang kenyamanan linimasa, dan membakar semangat pembangkangan kritis warga.",
-      photo: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80",
-      status: "AKTIF",
-    },
-    {
-      id: "kab-5",
-      name: "Dian Paramita",
-      alias: "Mbak Lapangan",
-      role: "Agen Program",
-      title: "Penggerak Meja Warkop & Aksi Warga",
-      category: "PIMPINAN",
-      desc: "Mengorganisir lapak baca mandiri Literatur Liberte, bedah opini akar rumput di warung kopi pinggiran, serta menjalin aliansi antar-komunitas.",
-      photo: "https://images.unsplash.com/photo-1534751516642-a171ed28a0e5?auto=format&fit=crop&w=400&q=80",
-      status: "AKTIF",
-    },
-    {
-      id: "kab-6",
-      name: "Fajar Nugroho",
-      alias: "Penggedor Pintu",
-      role: "Agen Rubrik BERISIK",
-      title: "Kurator Esai Politik & Sosial Kritis",
-      category: "AGEN_RUBRIK",
-      rubrik: "BERISIK",
-      focus: "Esai Populer Politik, Ekonomi & Sosial Kritis",
-      desc: "Menyaring artikel-artikel bervolume tinggi yang membongkar kemunafikan kebijakan dan ketimpangan struktural.",
-      photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
-      status: "AKTIF",
-    },
-    {
-      id: "kab-7",
-      name: "Reza Mahendra",
-      alias: "Juru Seduh",
-      role: "Agen Rubrik MEJA WARKOP",
-      title: "Kurator Kultur & Tongkrongan Warga",
-      category: "AGEN_RUBRIK",
-      rubrik: "MEJA WARKOP",
-      focus: "Analisis Budaya & Percakapan Tongkrongan",
-      desc: "Mencatat dialektika meja warung kopi: obrolan santai, satire pinggir jalan, dan keresahan rakyat sehari-hari.",
-      photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
-      status: "AKTIF",
-    },
-  ]);
+  const [kabinet, setKabinet] = useState<KabinetMember[]>(defaultKabinetMembers);
 
   const [editingMember, setEditingMember] = useState<KabinetMember | null>(null);
 
-  const handleSave = () => {
-    setSavedSuccess(true);
-    setTimeout(() => {
-      setSavedSuccess(false);
-    }, 2500);
+  // Load from Supabase on mount
+  useEffect(() => {
+    async function loadData() {
+      setLoading(true);
+      try {
+        const res = await getSiteSettingsAction();
+        if (res.success) {
+          if (res.settings.identity) setIdentity(res.settings.identity);
+          if (res.settings.sections) setSections(res.settings.sections);
+          if (res.settings.cta) setCta(res.settings.cta);
+          if (res.settings.social) setSocial(res.settings.social);
+          if (res.kabinet && res.kabinet.length > 0) setKabinet(res.kabinet);
+        }
+      } catch (err) {
+        console.error("Gagal memuat pengaturan:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadData();
+  }, []);
+
+  const handleSave = async (overrideKabinet?: KabinetMember[]) => {
+    setSaving(true);
+    setErrorMsg(null);
+    try {
+      const targetKabinet = overrideKabinet || kabinet;
+      const res = await saveSiteSettingsAction(
+        { identity, sections, cta, social },
+        targetKabinet
+      );
+      if (res.success) {
+        setSavedSuccess(true);
+        setTimeout(() => {
+          setSavedSuccess(false);
+        }, 3000);
+      } else {
+        setErrorMsg(res.error || "Gagal menyimpan pengaturan ke database.");
+      }
+    } catch (err) {
+      setErrorMsg(
+        err instanceof Error ? err.message : "Terjadi kesalahan saat menyimpan."
+      );
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleAddMember = () => {
+    const newMember: KabinetMember = {
+      id: `kab-${Date.now()}`,
+      name: "",
+      alias: "",
+      role: "",
+      title: "",
+      category: "PIMPINAN",
+      desc: "",
+      photo:
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      status: "AKTIF",
+    };
+    setEditingMember(newMember);
   };
 
   const handleSaveMember = (member: KabinetMember) => {
-    setKabinet((prev) =>
-      prev.map((k) => (k.id === member.id ? member : k))
-    );
+    if (!member.name.trim() || !member.role.trim()) {
+      alert("Nama asli dan peran/jabatan wajib diisi!");
+      return;
+    }
+    const exists = kabinet.some((k) => k.id === member.id);
+    const updatedKabinet = exists
+      ? kabinet.map((k) => (k.id === member.id ? member : k))
+      : [...kabinet, member];
+
+    setKabinet(updatedKabinet);
     setEditingMember(null);
-    handleSave();
+    handleSave(updatedKabinet);
   };
 
   const handleDeleteMember = (id: string) => {
     if (confirm("Hapus personil ini dari struktur Kabinet Belokiri?")) {
-      setKabinet((prev) => prev.filter((k) => k.id !== id));
-      handleSave();
+      const updatedKabinet = kabinet.filter((k) => k.id !== id);
+      setKabinet(updatedKabinet);
+      handleSave(updatedKabinet);
     }
   };
 
@@ -231,18 +161,36 @@ export default function AdminSettingsPage() {
             Kelola Tampilan & Pengaturan Website
           </h1>
           <p className="text-xs sm:text-sm text-zinc-500 font-normal mt-1">
-            Kelola identitas, susunan section beranda, banner CTA, tautan media sosial, hingga struktur Kabinet Belokiri.
+            Kelola identitas, susunan section beranda, banner CTA, tautan media sosial, hingga struktur Kabinet Belokiri (Tersimpan Permanen di Supabase).
           </p>
         </div>
 
         <button
-          onClick={handleSave}
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-red-600 hover:bg-black text-white text-xs font-black uppercase tracking-wider shadow-sm transition-all cursor-pointer"
+          onClick={() => handleSave()}
+          disabled={saving || loading}
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-red-600 hover:bg-black text-white text-xs font-black uppercase tracking-wider shadow-sm transition-all cursor-pointer disabled:opacity-50"
         >
-          <Save className="w-4 h-4" />
-          <span>Simpan Perubahan</span>
+          {saving ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              <span>Menyimpan ke Supabase...</span>
+            </>
+          ) : (
+            <>
+              <Save className="w-4 h-4" />
+              <span>Simpan Perubahan</span>
+            </>
+          )}
         </button>
       </div>
+
+      {/* Error Notification */}
+      {errorMsg && (
+        <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 flex items-center gap-3">
+          <AlertCircle className="w-5 h-5 text-red-600 shrink-0" />
+          <p className="text-xs sm:text-sm font-bold">{errorMsg}</p>
+        </div>
+      )}
 
       {/* Success Notification */}
       {savedSuccess && (
@@ -1024,11 +972,7 @@ export default function AdminSettingsPage() {
               </div>
 
               <button
-                onClick={() =>
-                  alert(
-                    "Fitur Tambah Personil siap! Anda dapat mengedit personil yang sudah terdaftar langsung di bawah."
-                  )
-                }
+                onClick={handleAddMember}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900 hover:bg-black text-white text-xs font-bold uppercase tracking-wider cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" />

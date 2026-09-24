@@ -196,3 +196,26 @@ model ActivityLog {
   @@index([createdAt])
   @@map("activity_logs")
 }
+
+model SiteSetting {
+  key       String   @id
+  value     Json     @db.JsonB
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("site_settings")
+}
+
+model SuratKaleng {
+  id          String   @id @default(cuid())
+  namaSamaran String   @map("nama_samaran")
+  isiSurat    String   @map("isi_surat") @db.Text
+  isRead      Boolean  @default(false) @map("is_read")
+  isStarred   Boolean  @default(false) @map("is_starred")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@index([isRead])
+  @@index([isStarred])
+  @@map("surat_kaleng")
+}
+
