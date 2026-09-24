@@ -1072,12 +1072,21 @@ export async function saveArticleByAdmin(
   // 1. Try PostgreSQL persistence
   try {
     let effectiveAdminId = adminId;
-    const dbAdmin = await prisma.user.findFirst({
-      where: {
-        OR: [{ id: adminId }, { role: "ADMIN" }],
-      },
-      orderBy: { createdAt: "asc" },
-    });
+    let dbAdmin = adminId
+      ? await prisma.user.findFirst({
+          where: {
+            OR: [{ id: adminId }, { email: adminId }],
+          },
+        })
+      : null;
+
+    if (!dbAdmin) {
+      dbAdmin = await prisma.user.findFirst({
+        where: { role: "ADMIN" },
+        orderBy: { createdAt: "desc" },
+      });
+    }
+
     if (dbAdmin) {
       effectiveAdminId = dbAdmin.id;
     }

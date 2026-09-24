@@ -18,13 +18,13 @@ export const DEMO_CONTRIBUTOR: UserSessionData = {
 };
 
 export const DEMO_ADMIN: UserSessionData = {
-  id: "admin-demo-1",
-  email: "agen@belokiri.id",
-  name: "Agen Belokan BELOKIRI",
-  penName: null,
-  slug: "agen-belokan-belokiri",
+  id: "cmuf74mql0008uft8108jhxex",
+  email: "admin@belokiri.id",
+  name: "Agen Belokan",
+  penName: "Agen Belokan",
+  slug: "agen-belokan",
   avatarUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300",
+    "https://vdvwjosnilunsubnttjj.supabase.co/storage/v1/object/sign/PRPFILE%20AVATAR/logourlbar.png?token=eyJraWQiOiI1ODA3Y2RjZC0xZGE5LTQ0NjEtYWQ4Ny0yYWEwZWM1YTY2NmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQUlBGSUxFIEFWQVRBUi9sb2dvdXJsYmFyLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTAyMzY1MzYsImV4cCI6MjEwNTU5NjUzNn0.WYSa0aSREFHV5bb2U85kCQvNwm0qOoEe0t5WmKkgmgCegMqHEGyZDdgLbRrbsWXxURFp-i0sZhqSO1drnUvMXA",
   role: "ADMIN",
   status: "ACTIVE",
 };
