@@ -72,6 +72,9 @@ export async function getArticlesByRubrik(
 
   const filtered = MOCK_ARTICLES.filter(
     (a) => a.rubrik.slug.toLowerCase() === rubrikSlug.toLowerCase()
+  ).sort(
+    (a, b) =>
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 
   const start = (page - 1) * limit;

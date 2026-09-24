@@ -1,26 +1,30 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   getHeroArticles,
   getLatestArticles,
+  getArticlesByRubrik,
   getEditorsPick,
   getPopularArticles,
   getAllRubriks,
 } from "@/lib/data/articles";
+import { formatDate } from "@/lib/utils";
 import HeroArticle from "@/components/public/HeroArticle";
-import ArticleCard from "@/components/public/ArticleCard";
 import EditorsPick from "@/components/public/EditorsPick";
-import { ArrowRight, Sparkles, BookOpen, Layers, Flame } from "lucide-react";
+import { ArrowRight, Clock } from "lucide-react";
 
 export default async function HomePage() {
   const [
     heroArticles,
     { articles: latestArticles },
+    { articles: berisikArticles },
     editorsPicks,
     popularArticles,
     rubriks,
   ] = await Promise.all([
     getHeroArticles(3),
     getLatestArticles(8, 1),
+    getArticlesByRubrik("berisik", 6),
     getEditorsPick(4),
     getPopularArticles(5),
     getAllRubriks(),
@@ -28,6 +32,9 @@ export default async function HomePage() {
 
   // Use the remaining articles for secondary focus in Hero
   const secondaryArticles = latestArticles.slice(3, 5);
+
+  const featuredBerisik = berisikArticles[0];
+  const otherBerisik = berisikArticles.slice(1, 5);
 
   return (
     <div className="w-full">
@@ -47,69 +54,134 @@ export default async function HomePage() {
       )}
 
       {/* ======================================================== */}
-      {/* MAIN CONTAINER: TERKINI, AGEN BELOKAN, 8 RUBRIK          */}
+      {/* MAIN CONTAINER: BERISIK, AGEN BELOKAN, 8 RUBRIK          */}
       {/* ======================================================== */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-12 sm:space-y-16">
-        {/* 2. Main Content: Latest Articles (65%) + Editorial Highlight (35%) */}
+        {/* 2. Main Content: BERISIK (1 image card + title list) + Rubrik Focus */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
-          {/* Latest Articles Feed */}
+          {/* BERISIK Section */}
           <div className="lg:col-span-8 space-y-6">
             <div className="flex items-center justify-between pb-3 border-b-2 border-black">
               <h2 className="text-xl font-black uppercase tracking-tight text-black flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" />
-                KABAR & TULISAN TERKINI
+                BERISIK
               </h2>
               <Link
-                href="/berita"
+                href="/kategori/berisik"
                 className="text-xs font-black uppercase text-zinc-600 hover:text-red-600 flex items-center gap-1 transition-colors"
               >
-                <span>Semua Berita</span>
+                <span>Semua Berisik</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {latestArticles.slice(0, 6).map((article) => (
-                <ArticleCard key={article.id} article={article} />
-              ))}
-            </div>
+            {featuredBerisik ? (
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+                {/* 1 Display Artikel dengan Gambar */}
+                <div className="md:col-span-7 flex flex-col">
+                  <article className="group flex flex-col justify-between rounded-2xl bg-white border border-zinc-200 overflow-hidden shadow-xs hover:border-zinc-400 hover:shadow-md transition-all h-full">
+                    <div>
+                      {/* Card Image */}
+                      <div className="relative aspect-16/10 w-full overflow-hidden bg-zinc-200">
+                        <Image
+                          src={featuredBerisik.featuredImage}
+                          alt={featuredBerisik.title}
+                          fill
+                          priority
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-400"
+                        />
+                        <div className="absolute top-3 left-3">
+                          <span className="px-2.5 py-1 rounded-sm text-[10px] font-black uppercase tracking-wider bg-red-600 text-white shadow-xs">
+                            {featuredBerisik.rubrik.name}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Card Body */}
+                      <div className="p-5">
+                        <Link href={`/artikel/${featuredBerisik.slug}`}>
+                          <h3 className="text-lg sm:text-xl font-black text-black leading-snug line-clamp-3 group-hover:text-red-600 transition-colors tracking-tight">
+                            {featuredBerisik.title}
+                          </h3>
+                        </Link>
+                        <p className="mt-2.5 text-xs sm:text-sm text-zinc-600 leading-relaxed line-clamp-3 font-normal">
+                          {featuredBerisik.excerpt}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Footer Meta */}
+                    <div className="px-5 pb-5 pt-3 border-t border-zinc-100 flex items-center justify-between text-[11px] text-zinc-500">
+                      <Link
+                        href={`/penulis/${featuredBerisik.author.slug}`}
+                        className="font-bold text-zinc-800 hover:text-red-600 transition-colors"
+                      >
+                        {featuredBerisik.author.name}
+                      </Link>
+                      <div className="flex items-center gap-1 font-medium">
+                        <Clock className="w-3 h-3 text-zinc-400" />
+                        <span>{formatDate(featuredBerisik.publishedAt)}</span>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+
+                {/* Artikel Lainnya Hanya Judul */}
+                <div className="md:col-span-5 flex flex-col justify-between rounded-2xl bg-white border border-zinc-200 p-5 shadow-xs">
+                  <div className="divide-y divide-zinc-100 flex-1 flex flex-col justify-between">
+                    {otherBerisik.map((article, idx) => (
+                      <article
+                        key={article.id}
+                        className="group py-3.5 first:pt-0 last:pb-0"
+                      >
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-[10px] font-mono font-bold text-red-600">
+                            0{idx + 2}
+                          </span>
+                          <span className="text-[10px] font-medium text-zinc-400">
+                            {formatDate(article.publishedAt)}
+                          </span>
+                        </div>
+                        <Link href={`/artikel/${article.slug}`}>
+                          <h4 className="text-sm font-bold text-zinc-900 leading-snug group-hover:text-red-600 transition-colors line-clamp-2">
+                            {article.title}
+                          </h4>
+                        </Link>
+                        <div className="mt-1 flex items-center gap-1 text-[11px] text-zinc-400 font-medium">
+                          <span>Oleh</span>
+                          <Link
+                            href={`/penulis/${article.author.slug}`}
+                            className="text-zinc-600 font-semibold hover:text-red-600 transition-colors"
+                          >
+                            {article.author.name}
+                          </Link>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : null}
           </div>
 
-          {/* Editorial Sidebar: Mission & Rubrik Focus */}
-          <div className="lg:col-span-4 space-y-6">
-            {/* Editorial Mission Card (White card, red accent line) */}
-            <div className="rounded-2xl bg-white border border-zinc-200 p-6 shadow-xs relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-red-600" />
-              <div className="flex items-center gap-2 text-red-600 text-[10px] font-black uppercase tracking-wider mb-2 pt-1">
-                <Sparkles className="w-3.5 h-3.5 fill-current" />
-                <span>Prinsip Editorial</span>
-              </div>
-              <h4 className="font-black text-black text-lg mb-2 tracking-tight">
-                Liar Seperlunya, Jenaka Secukupnya
-              </h4>
-              <p className="text-xs text-zinc-600 leading-relaxed font-normal">
-                BELOKIRI menyajikan esai populer, percakapan liar meja warkop,
-                arsip sejarah rakyat, dan kritik budaya dengan cara yang tajam dan bernas.
-                Sebab dunia memang sudah terlalu berisik untuk ditanggapi dengan bisik-bisik.
-              </p>
-              <div className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between text-xs font-black">
+          {/* Editorial Sidebar: Rubrik Focus (Prinsip Editorial card removed) */}
+          <div className="lg:col-span-4">
+            {/* Rubrik Spotlight Box */}
+            <div className="rounded-2xl bg-white border border-zinc-200 p-6 shadow-xs sticky top-24">
+              <div className="flex items-center justify-between mb-4 pb-2 border-b border-zinc-100">
+                <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400">
+                  Pilihan Rubrik Khusus
+                </h4>
                 <Link
-                  href="/tentang-kami"
-                  className="text-red-600 hover:text-black flex items-center gap-1 transition-colors uppercase tracking-wider"
+                  href="/kategori"
+                  className="text-[11px] font-bold text-red-600 hover:underline"
                 >
-                  <span>Kenali Karakter BELOKIRI</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  Semua Rubrik
                 </Link>
               </div>
-            </div>
-
-            {/* Rubrik Spotlight Box */}
-            <div className="rounded-2xl bg-white border border-zinc-200 p-6 shadow-xs">
-              <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-3 pb-2 border-b border-zinc-100">
-                Pilihan Rubrik Khusus
-              </h4>
               <div className="space-y-3">
-                {rubriks.slice(0, 4).map((r) => (
+                {rubriks.slice(0, 5).map((r) => (
                   <Link
                     key={r.slug}
                     href={`/kategori/${r.slug}`}

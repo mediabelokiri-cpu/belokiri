@@ -176,6 +176,100 @@ export const MOCK_ARTICLES: MockArticle[] = [
     metaDescription: "Analisis tajam seputar integrasi antarmoda perkotaan dan beban riil masyarakat komuter.",
   },
   {
+    id: "art-berisik-2",
+    title: "Menertawakan Janji Swasembada: Ketika Beras Impor Tetap Membanjiri Pasar Tradisional",
+    slug: "menertawakan-janji-swasembada-ketika-beras-impor-membanjiri-pasar",
+    excerpt: "Di layar kaca pidato ketahanan pangan menggema gagah, tetapi di karung-karung beras pasar induk cap bendera asing tetap jadi penyelamat dompet warga.",
+    content: `
+      <p class="lead">Setiap musim panen tiba, retorika kemandirian pangan selalu diputar ulang seperti kaset kusut. Namun faktanya, ribuan ton beras impor tetap bersandar mulus di dermaga kontainer.</p>
+      
+      <h3>Ironi di Lumbung Padi</h3>
+      <p>Petani di sentra pertanian mengeluhkan harga gabah yang ditekan perantara, sementara konsumen di perkotaan mengeluh harga eceran tertinggi yang tak pernah ditaati pasar modern. Di titik mana sebenarnya rantai logistik pangan kita patah?</p>
+      <p>Berisik menelusuri bagaimana rente impor pangan terus berulang setiap rezim berganti, mengorbankan kesejahteraan petani demi stabilitas politik jangka pendek.</p>
+    `,
+    featuredImage: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1200&q=80",
+    featuredImageCaption: "Hamparan bulir padi di lumbung pangan lokal yang menanti kepastian harga beli pemerintah.",
+    photoSource: "Unsplash / Pangan Nusantara",
+    source: "Liputan Investigasi Rubrik Berisik BELOKIRI",
+    rubrik: MOCK_RUBRIKS[0], // BERISIK
+    author: MOCK_AUTHORS[0],
+    tags: ["Pangan", "Kebijakan Publik", "Petani", "Ekonomi"],
+    views: 6240,
+    isEditorPick: true,
+    isFeatured: false,
+    publishedAt: "2026-03-24T09:00:00Z",
+  },
+  {
+    id: "art-berisik-3",
+    title: "Demokrasi Baliho dan Biaya Politik: Siapa Sebenarnya yang Membayar Senyum Para Calon?",
+    slug: "demokrasi-baliho-dan-biaya-politik-siapa-membayar-senyum-calon",
+    excerpt: "Wajah-wajah ramah berukuran 4x6 meter memenuhi tiap tiang listrik. Di balik ongkos pasang miliaran rupiah, utang budi apa yang sedang diteken?",
+    content: `
+      <p class="lead">Menjelang kontestasi politik, kota-kota kita berubah menjadi galeri foto luar ruang yang mencekik pandangan mata. Senyum rekayasa politisi terpampang dari jembatan penyeberangan hingga dahan pohon yang dipaku paksa.</p>
+      
+      <h3>Kalkulasi Modal dan Balas Budi</h3>
+      <p>Menjadi calon kepala daerah atau wakil rakyat membutuhkan modal puluhan hingga ratusan miliar rupiah. Gaji resmi negara tak akan pernah mampu menutup biaya operasional kampanye sebesar itu.</p>
+      <p>Lalu siapa yang menalangi kekurangannya? Di sinilah konsesi izin tambang, proyek jalan tol, dan pengadaan barang daerah mulai digadaikan sebelum pelantikan bahkan dimulai.</p>
+    `,
+    featuredImage: "https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=1200&q=80",
+    featuredImageCaption: "Deretan spanduk dan baliho politik di sepanjang jalan arteri ibu kota.",
+    photoSource: "Unsplash / Dinamika Kota",
+    source: "Liputan Lapangan Rubrik Berisik",
+    rubrik: MOCK_RUBRIKS[0], // BERISIK
+    author: MOCK_AUTHORS[1],
+    tags: ["Politik", "Demokrasi", "Pemilu", "Kekuasaan"],
+    views: 5120,
+    isEditorPick: false,
+    isFeatured: false,
+    publishedAt: "2026-03-23T15:30:00Z",
+  },
+  {
+    id: "art-berisik-4",
+    title: "Gaji Pas-Pasan Gaya Sultan: Jebakan Algoritma Belanja dan Kecemasan Kelas Menengah Semu",
+    slug: "gaji-pas-pasan-gaya-sultan-jebakan-algoritma-belanja",
+    excerpt: "Menikmati kopi artisan sambil menghitung sisa saldo paylater. Mengapa generasi kita dipaksa terlihat makmur di tengah ketidakpastian ekonomi?",
+    content: `
+      <p class="lead">Setiap tanggal 25, rekening terisi penuh hanya untuk dikosongkan kembali dalam hitungan hari. Kita adalah generasi yang fasih memesan makanan online premium tetapi gugup memikirkan uang muka rumah pertama.</p>
+      
+      <h3>Ilusi Kemewahan yang Didesain</h3>
+      <p>Platform media sosial dirancang dengan algoritma yang mengukur harga diri berdasarkan konsumsi visual. Gaya hidup bukan lagi pilihan pribadi, melainkan tuntutan konformitas sosial yang menelan tabungan darurat generasi muda.</p>
+    `,
+    featuredImage: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1200&q=80",
+    featuredImageCaption: "Generasi muda berkumpul di kafe urban dengan gawai masing-masing.",
+    photoSource: "Unsplash / Gaya Hidup",
+    source: "Esai Budaya Populer BELOKIRI",
+    rubrik: MOCK_RUBRIKS[0], // BERISIK
+    author: MOCK_AUTHORS[2],
+    tags: ["Sosial", "Generasi Z", "Gaya Hidup", "Ekonomi"],
+    views: 4390,
+    isEditorPick: false,
+    isFeatured: false,
+    publishedAt: "2026-03-22T14:00:00Z",
+  },
+  {
+    id: "art-berisik-5",
+    title: "Polusi Udara dan Basa-Basi Kebijakan: Napas Sesak Warga di Bawah Langit Kelabu",
+    slug: "polusi-udara-dan-basa-basi-kebijakan-napas-sesak-warga",
+    excerpt: "Uji emisi musiman dan semprotan air jalanan tak menyembuhkan paru-paru anak-anak kita. Mengapa pembatasan PLTU dan industri kotor selalu tabu disentuh?",
+    content: `
+      <p class="lead">Langit ibu kota dan kota-kota sekitarnya tidak lagi biru; ia dilapisi kabut putih kecokelatan yang pekat oleh partikel mikro beracun PM2.5.</p>
+      
+      <h3>Kambing Hitam Kendaraan Bermotor</h3>
+      <p>Pemerintah gemar menyalahkan knalpot sepeda motor warga sambil menutup mata terhadap deretan cerobong PLTU batu bara dan pabrik berat di radius 50 kilometer. Napas bersih kini menjadi barang langka yang tak mampu dilindungi negara.</p>
+    `,
+    featuredImage: "https://images.unsplash.com/photo-1530563885674-66db50a1af19?auto=format&fit=crop&w=1200&q=80",
+    featuredImageCaption: "Kabut asap tebal menyelimuti lanskap gedung perkotaan saat pagi hari.",
+    photoSource: "Unsplash / Lingkungan",
+    source: "Investigasi Lingkungan Rubrik Berisik",
+    rubrik: MOCK_RUBRIKS[0], // BERISIK
+    author: MOCK_AUTHORS[3],
+    tags: ["Lingkungan", "Kesehatan", "Kebijakan Publik"],
+    views: 3950,
+    isEditorPick: false,
+    isFeatured: false,
+    publishedAt: "2026-03-21T11:20:00Z",
+  },
+  {
     id: "art-2",
     title: "Bedah Biaya Pendidikan Tinggi: Mengapa Kuliah Terasa Semakin Mewah bagi Generasi Z?",
     slug: "bedah-biaya-pendidikan-tinggi-kenapa-kuliah-semakin-mewah",
