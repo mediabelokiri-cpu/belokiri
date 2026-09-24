@@ -1017,12 +1017,230 @@ export async function saveArticleByAdmin(
   },
   articleId?: string
 ): Promise<AdminArticleItem> {
-  const rubrik = MOCK_RUBRIKS.find(
-    (r) => r.slug === data.categoryId || `rubrik-${r.slug}` === data.categoryId
-  ) || MOCK_RUBRIKS[0];
+  const catSlug = (data.categoryId || "berisik").replace(/^rubrik-/, "");
+  let dbCategory = null;
+  try {
+    dbCategory = await prisma.category.findFirst({
+      where: { OR: [{ slug: catSlug }, { id: data.categoryId }] },
+    });
+  } catch (err) {
+    console.error("Error finding category in db for saveArticleByAdmin:", err);
+  }
+
+  const rubrik =
+    MOCK_RUBRIKS.find(
+      (r) => r.slug === catSlug || `rubrik-${r.slug}` === data.categoryId
+    ) || MOCK_RUBRIKS[0];
 
   const now = new Date().toISOString();
+  const isPublished = data.status === "PUBLISHED";
 
+  // 1. Try PostgreSQL persistence
+  try {
+    let effectiveAdminId = adminId;
+    const dbAdmin = await prisma.user.findFirst({
+      where: {
+        OR: [{ id: adminId }, { role: "ADMIN" }],
+      },
+      orderBy: { createdAt: "asc" },
+    });
+    if (dbAdmin) {
+      effectiveAdminId = dbAdmin.id;
+    }
+
+    let finalCatId = dbCategory?.id;
+    if (!finalCatId) {
+      const defaultCat = await prisma.category.findFirst();
+      finalCatId = defaultCat?.id;
+    }
+
+    if (articleId) {
+      const dbArticle = await prisma.article.findUnique({ where: { id: articleId } });
+      if (dbArticle) {
+        const publishedAt = isPublished
+          ? dbArticle.publishedAt || new Date()
+          : data.status === "DRAFT"
+          ? null
+          : dbArticle.publishedAt;
+
+        const updated = await prisma.article.update({
+          where: { id: articleId },
+          data: {
+            title: data.title || dbArticle.title,
+            categoryId: finalCatId || dbArticle.categoryId,
+            content: data.content || dbArticle.content,
+            excerpt: data.excerpt !== undefined ? data.excerpt : dbArticle.excerpt,
+            featuredImage: data.featuredImage !== undefined ? data.featuredImage : dbArticle.featuredImage,
+            featuredImageCaption:
+              data.featuredImageCaption !== undefined
+                ? data.featuredImageCaption
+                : dbArticle.featuredImageCaption,
+            photoSource: data.photoSource !== undefined ? data.photoSource : dbArticle.photoSource,
+            source: data.source !== undefined ? data.source : dbArticle.source,
+            status: data.status,
+            publishedAt,
+            isEditorPick: data.isEditorPick !== undefined ? data.isEditorPick : dbArticle.isEditorPick,
+            seoTitle: data.seoTitle || dbArticle.seoTitle,
+            metaDescription: data.metaDescription || dbArticle.metaDescription,
+          },
+          include: {
+            author: true,
+            category: true,
+            tags: { include: { tag: true } },
+          },
+        });
+
+        if (data.tags && data.tags.length > 0) {
+          await prisma.articleTag.deleteMany({ where: { articleId } });
+          for (const tagName of data.tags) {
+            const tagSlug = slugify(tagName);
+            const tag = await prisma.tag.upsert({
+              where: { slug: tagSlug },
+              update: { name: tagName },
+              create: { name: tagName, slug: tagSlug },
+            });
+            await prisma.articleTag.create({
+              data: { articleId: updated.id, tagId: tag.id },
+            });
+          }
+        }
+
+        activityLogsStore.unshift({
+          id: `act-${Date.now()}`,
+          action: isPublished ? "PUBLISH_ARTICLE" : "UPDATE_ARTICLE",
+          userName: adminName,
+          userRole: "ADMIN",
+          targetType: "ARTICLE",
+          targetTitle: updated.title,
+          targetId: updated.id,
+          note: isPublished
+            ? `Diterbitkan langsung oleh Agen Belokan di Rubrik ${updated.category.name}`
+            : `Naskah diperbarui oleh Agen Belokan (Status: ${data.status})`,
+          createdAt: now,
+        });
+
+        return {
+          id: updated.id,
+          authorId: updated.authorId,
+          authorName: updated.author.penName || updated.author.name,
+          authorEmail: updated.author.email,
+          authorAvatarUrl: updated.author.avatarUrl,
+          authorBio: updated.author.bio || "Dewan Agen Belokan BELOKIRI.",
+          title: updated.title,
+          slug: updated.slug,
+          excerpt: updated.excerpt,
+          content: updated.content,
+          featuredImage: updated.featuredImage,
+          featuredImageCaption: updated.featuredImageCaption,
+          photoSource: updated.photoSource,
+          source: updated.source,
+          categoryId: updated.categoryId,
+          categoryName: updated.category.name,
+          categorySlug: updated.category.slug,
+          status: updated.status as any,
+          adminNote: updated.adminNote,
+          tags: data.tags || updated.tags.map((t) => t.tag.name),
+          views: updated.views,
+          publishedAt: updated.publishedAt ? updated.publishedAt.toISOString() : null,
+          createdAt: updated.createdAt.toISOString(),
+          updatedAt: updated.updatedAt.toISOString(),
+          isEditorPick: updated.isEditorPick,
+          seoTitle: updated.seoTitle,
+          metaDescription: updated.metaDescription,
+        };
+      }
+    } else {
+      const generatedSlug = `${slugify(data.title || "naskah-agen-belokan")}-${Date.now().toString().slice(-4)}`;
+      if (finalCatId && effectiveAdminId) {
+        const created = await prisma.article.create({
+          data: {
+            authorId: effectiveAdminId,
+            categoryId: finalCatId,
+            title: data.title || "Naskah Agen Belokan BELOKIRI",
+            slug: generatedSlug,
+            content: data.content || "",
+            excerpt: data.excerpt || null,
+            featuredImage: data.featuredImage || null,
+            featuredImageCaption: data.featuredImageCaption || null,
+            photoSource: data.photoSource || null,
+            source: data.source || null,
+            status: data.status,
+            isEditorPick: data.isEditorPick !== undefined ? data.isEditorPick : isPublished,
+            seoTitle: data.seoTitle || null,
+            metaDescription: data.metaDescription || null,
+            publishedAt: isPublished ? new Date() : null,
+          },
+          include: {
+            author: true,
+            category: true,
+            tags: { include: { tag: true } },
+          },
+        });
+
+        if (data.tags && data.tags.length > 0) {
+          for (const tagName of data.tags) {
+            const tagSlug = slugify(tagName);
+            const tag = await prisma.tag.upsert({
+              where: { slug: tagSlug },
+              update: { name: tagName },
+              create: { name: tagName, slug: tagSlug },
+            });
+            await prisma.articleTag.create({
+              data: { articleId: created.id, tagId: tag.id },
+            });
+          }
+        }
+
+        activityLogsStore.unshift({
+          id: `act-${Date.now()}`,
+          action: isPublished ? "PUBLISH_ARTICLE" : "CREATE_ARTICLE",
+          userName: adminName,
+          userRole: "ADMIN",
+          targetType: "ARTICLE",
+          targetTitle: created.title,
+          targetId: created.id,
+          note: isPublished
+            ? `Artikel baru diterbitkan langsung oleh Agen Belokan di Rubrik ${created.category.name}`
+            : `Draf naskah baru dibuat oleh Agen Belokan (Status: ${data.status})`,
+          createdAt: now,
+        });
+
+        return {
+          id: created.id,
+          authorId: created.authorId,
+          authorName: created.author.penName || created.author.name,
+          authorEmail: created.author.email,
+          authorAvatarUrl: created.author.avatarUrl,
+          authorBio: created.author.bio || "Dewan Agen Belokan BELOKIRI.",
+          title: created.title,
+          slug: created.slug,
+          excerpt: created.excerpt,
+          content: created.content,
+          featuredImage: created.featuredImage,
+          featuredImageCaption: created.featuredImageCaption,
+          photoSource: created.photoSource,
+          source: created.source,
+          categoryId: created.categoryId,
+          categoryName: created.category.name,
+          categorySlug: created.category.slug,
+          status: created.status as any,
+          adminNote: created.adminNote,
+          tags: data.tags || created.tags.map((t) => t.tag.name),
+          views: created.views,
+          publishedAt: created.publishedAt ? created.publishedAt.toISOString() : null,
+          createdAt: created.createdAt.toISOString(),
+          updatedAt: created.updatedAt.toISOString(),
+          isEditorPick: created.isEditorPick,
+          seoTitle: created.seoTitle,
+          metaDescription: created.metaDescription,
+        };
+      }
+    }
+  } catch (dbErr) {
+    console.error("Error in saveArticleByAdmin DB:", dbErr);
+  }
+
+  // 2. In-memory fallback
   if (articleId) {
     const existingIndex = contributorArticlesStore.findIndex((a) => a.id === articleId);
     if (existingIndex === -1) {
@@ -1087,10 +1305,8 @@ export async function saveArticleByAdmin(
     return await enrichArticle(updated);
   }
 
-  // Create new article
   const newId = `art-admin-${Date.now()}`;
   const newSlug = `${slugify(data.title || "naskah-agen-belokan")}-${newId.slice(-4)}`;
-  const isPublished = data.status === "PUBLISHED";
 
   const newArticle: ContributorArticleItem = {
     id: newId,
