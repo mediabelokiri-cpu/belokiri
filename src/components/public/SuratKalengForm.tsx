@@ -5,7 +5,6 @@ import { Send, CheckCircle2 } from "lucide-react";
 
 export default function SuratKalengForm() {
   const [nama, setNama] = useState("");
-  const [tentang, setTentang] = useState("");
   const [pesan, setPesan] = useState("");
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -40,7 +39,6 @@ export default function SuratKalengForm() {
           onClick={() => {
             setSent(false);
             setNama("");
-            setTentang("");
             setPesan("");
           }}
           className="text-[11px] font-bold text-red-500 hover:text-red-400 underline underline-offset-2 transition-colors cursor-pointer"
@@ -63,20 +61,6 @@ export default function SuratKalengForm() {
           value={nama}
           onChange={(e) => setNama(e.target.value)}
           placeholder="cth. Anonim Senja"
-          className="w-full px-3 py-2 rounded-lg bg-zinc-900 border border-zinc-800 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none text-xs text-white placeholder-zinc-600 transition-all font-medium"
-        />
-      </div>
-
-      <div>
-        <label className="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">
-          Tentang Apa? <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="text"
-          required
-          value={tentang}
-          onChange={(e) => setTentang(e.target.value)}
-          placeholder="cth. Rubrik Ordal, Kritik Redaksi..."
           className="w-full px-3 py-2 rounded-lg bg-zinc-900 border border-zinc-800 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none text-xs text-white placeholder-zinc-600 transition-all font-medium"
         />
       </div>
