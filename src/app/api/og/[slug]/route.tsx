@@ -24,6 +24,20 @@ export async function GET(
     const authorName = article.author.penName || article.author.name;
     const featuredImage = article.featuredImage;
 
+    let imageBase64: string | null = null;
+    if (featuredImage) {
+      try {
+        const imgRes = await fetch(featuredImage);
+        if (imgRes.ok) {
+          const buf = await imgRes.arrayBuffer();
+          const mime = imgRes.headers.get("content-type") || "image/jpeg";
+          imageBase64 = `data:${mime};base64,${Buffer.from(buf).toString("base64")}`;
+        }
+      } catch (err) {
+        console.warn("Could not pre-fetch featured image for OG:", err);
+      }
+    }
+
     return new ImageResponse(
       (
         <div
@@ -36,9 +50,9 @@ export async function GET(
           }}
         >
           {/* Full Cover Background */}
-          {featuredImage ? (
+          {imageBase64 ? (
             <img
-              src={featuredImage}
+              src={imageBase64}
               alt={title}
               style={{
                 position: "absolute",
