@@ -89,13 +89,13 @@ export default function RekrutmenPage() {
       <section className="bg-red-600 text-white rounded-3xl p-8 sm:p-12 border-t-4 border-red-700 shadow-xl space-y-8">
         <div className="space-y-3 text-center sm:text-left">
           <span className="inline-block text-[11px] font-black uppercase tracking-widest text-red-100 bg-red-700/80 px-3.5 py-1 rounded-full">
-            PROSEDUR PENGIRIMAN BERKAS
+            RUANG AGEN BELOKAN
           </span>
           <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-white leading-tight">
             Bagaimana Cara Bergabung?
           </h2>
           <p className="text-sm sm:text-base text-red-100/90 font-normal max-w-2xl leading-relaxed">
-            Kirimkan perkenalan singkat dirimu, alasan tertarik bergabung dengan Belokiri.id, serta 1 contoh tulisan (esai, opini warkop, catatan lapangan, atau kritik isu terkini minimal 500 kata).
+            Belokiri.id membuka ruang bagi mahasiswa dan anak muda yang merasa dunia hari ini terlalu ramai oleh kepalsuan, tetapi terlalu sepi oleh keberanian. Kami mencari mereka yang masih punya kegelisahan, yang tidak mudah puas dengan narasi resmi, dan yang percaya bahwa tulisan bisa menjadi lebih dari sekadar konten.
           </p>
         </div>
 
@@ -103,13 +103,13 @@ export default function RekrutmenPage() {
         <div className="p-6 sm:p-8 rounded-2xl bg-red-700/60 border border-red-500/60 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="space-y-1.5 text-center sm:text-left">
             <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-red-200">
-              Jalur Pendaftaran Resmi Online
+              Liar Seperlunya, Jenaka Secukupnya
             </span>
             <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
               Formulir Pendaftaran Agen Belokan
             </h3>
             <p className="text-xs sm:text-sm text-red-100 font-normal max-w-md">
-              Isi biodata calon agen dan lampirkan draf naskah tulisanmu langsung ke sistem seleksi redaksi.
+              Isi pertanyaan dalam keadaan sadar & tidak dalam pengaruh minuman keras.
             </p>
           </div>
           <Link

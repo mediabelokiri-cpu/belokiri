@@ -2,48 +2,84 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Send, CheckCircle2, AlertCircle, ShieldAlert } from "lucide-react";
+import {
+  ArrowLeft,
+  Send,
+  CheckCircle2,
+  User,
+  HelpCircle,
+  CheckSquare,
+  Globe2,
+  Egg,
+  Check,
+} from "lucide-react";
+
+const FOKUS_OPTIONS = [
+  "Mengurusi Rubrik",
+  "Kampanye & Propaganda",
+  "Menulis untuk Keabadian",
+  "Terserah Nanti Saja",
+];
 
 export default function FormRekrutmenPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
+    // IDENTITAS CALON AGEN
     namaLengkap: "",
     namaPena: "",
-    email: "",
     whatsapp: "",
+    email: "",
     domisili: "",
     institusi: "",
-    minatRubrik: "BERISIK",
-    alasan: "",
-    judulNaskah: "",
-    tautanNaskah: "",
-    isiNaskah: "",
-    setujuPernyataan: false,
+
+    // PERTANYAAN TAMBAHAN
+    namaPresiden: "",
+    kepercayaanBumi: "Bumi Bulat",
+    ayamAtauTelur: "Ayam",
+    alasanBergabung: "",
+
+    // FOKUS BIDANG AGEN (pilihan jawaban, centang)
+    fokusBidang: [] as string[],
   });
+
+  const handleCheckboxToggle = (option: string) => {
+    setFormData((prev) => {
+      const exists = prev.fokusBidang.includes(option);
+      return {
+        ...prev,
+        fokusBidang: exists
+          ? prev.fokusBidang.filter((item) => item !== option)
+          : [...prev.fokusBidang, option],
+      };
+    });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (formData.fokusBidang.length === 0) {
+      alert("Pilih minimal satu Fokus Bidang Agen!");
+      return;
+    }
     setLoading(true);
-    // Simulate submission delay
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 800);
+    }, 600);
   };
 
   if (submitted) {
     return (
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16 sm:py-24 text-center font-sans">
-        <div className="bg-white border border-zinc-200 rounded-3xl p-8 sm:p-12 shadow-sm space-y-6">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16 sm:py-24 font-sans">
+        <div className="bg-white border border-zinc-200 rounded-3xl p-8 sm:p-12 shadow-sm space-y-8 text-center">
           <div className="w-16 h-16 rounded-full bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mx-auto">
             <CheckCircle2 className="w-8 h-8" />
           </div>
 
           <div className="space-y-2">
             <span className="text-xs font-black uppercase tracking-widest text-red-600">
-              BERKAS BERHASIL DITERIMA
+              BERKAS TELAH DITERIMA
             </span>
             <h1 className="text-2xl sm:text-3xl font-black text-black tracking-tight uppercase">
               Formulir Agen Belokan Terkirim!
@@ -51,19 +87,68 @@ export default function FormRekrutmenPage() {
           </div>
 
           <p className="text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
-            Terima kasih, <strong className="text-black font-bold">{formData.namaLengkap}</strong>.
-            Gagasan dan naskah perdanamu untuk rubrik{" "}
-            <span className="font-mono font-bold text-red-600">[{formData.minatRubrik}]</span> telah
-            masuk ke antrean kurasi Tim Dewan Belokan.
+            Terima kasih, <strong className="text-black font-bold">{formData.namaLengkap}</strong>
+            {formData.namaPena ? ` (alias "${formData.namaPena}")` : ""}. Jawaban dan profilmu
+            sudah diamankan oleh Dewan Belokan.
           </p>
 
-          <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-zinc-500 leading-relaxed text-left space-y-1">
-            <p className="font-bold text-zinc-700">Tahapan Selanjutnya:</p>
-            <p>1. Kurasi kelayakan sudut pandang dan orisinalitas naskah (3–5 hari kerja).</p>
-            <p>2. Konfirmasi & undangan perbincangan awal via surel: <strong>{formData.email}</strong> atau WhatsApp.</p>
+          {/* Submission Recap */}
+          <div className="text-left bg-zinc-50 border border-zinc-200 rounded-2xl p-5 sm:p-6 space-y-4 text-xs">
+            <h3 className="font-black uppercase tracking-wider text-black text-xs border-b border-zinc-200 pb-2">
+              Ringkasan Data Formulir
+            </h3>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-zinc-600">
+              <div>
+                <span className="text-zinc-400 block font-semibold uppercase text-[10px]">No. WhatsApp</span>
+                <span className="font-bold text-zinc-900">{formData.whatsapp}</span>
+              </div>
+              <div>
+                <span className="text-zinc-400 block font-semibold uppercase text-[10px]">Alamat Email</span>
+                <span className="font-bold text-zinc-900">{formData.email}</span>
+              </div>
+              <div>
+                <span className="text-zinc-400 block font-semibold uppercase text-[10px]">Domisili</span>
+                <span className="font-bold text-zinc-900">{formData.domisili}</span>
+              </div>
+              <div>
+                <span className="text-zinc-400 block font-semibold uppercase text-[10px]">Kampus / Komunitas / Profesi</span>
+                <span className="font-bold text-zinc-900">{formData.institusi}</span>
+              </div>
+            </div>
+
+            <div className="pt-2 border-t border-zinc-200 space-y-2">
+              <div>
+                <span className="text-zinc-400 block font-semibold uppercase text-[10px]">Nama Presidenmu</span>
+                <span className="font-bold text-zinc-900">{formData.namaPresiden}</span>
+              </div>
+              <div className="flex gap-4">
+                <div>
+                  <span className="text-zinc-400 block font-semibold uppercase text-[10px]">Bumi Bulat / Datar</span>
+                  <span className="font-bold text-red-600">{formData.kepercayaanBumi}</span>
+                </div>
+                <div>
+                  <span className="text-zinc-400 block font-semibold uppercase text-[10px]">Ayam / Telur Duluan</span>
+                  <span className="font-bold text-red-600">{formData.ayamAtauTelur}</span>
+                </div>
+              </div>
+              <div>
+                <span className="text-zinc-400 block font-semibold uppercase text-[10px]">Fokus Bidang Pilihan</span>
+                <div className="flex flex-wrap gap-1.5 mt-1">
+                  {formData.fokusBidang.map((fokus) => (
+                    <span
+                      key={fokus}
+                      className="px-2.5 py-0.5 rounded-md bg-zinc-900 text-white font-bold text-[11px]"
+                    >
+                      {fokus}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
+          <div className="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/"
               className="px-6 py-3 rounded-xl bg-black hover:bg-zinc-800 text-white text-xs font-black uppercase tracking-wider transition-colors"
@@ -74,7 +159,7 @@ export default function FormRekrutmenPage() {
               href="/rekrutmen"
               className="px-6 py-3 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-black text-xs font-black uppercase tracking-wider transition-colors"
             >
-              Baca Panduan Rekrutmen
+              Halaman Rekrutmen
             </Link>
           </div>
         </div>
@@ -103,27 +188,29 @@ export default function FormRekrutmenPage() {
         </h1>
         <p className="text-sm sm:text-base text-zinc-600 font-normal leading-relaxed">
           Silakan isi formulir di bawah ini dengan jujur dan apa adanya. Kami lebih menghargai
-          ketajaman sudut pandang dan keberanian berpikir daripada sekadar kalimat yang aman.
+          ketajaman sudut pandang dan keberanian bersikap daripada basa-basi birokratis.
         </p>
       </header>
 
       {/* Form Card */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-10 shadow-xs space-y-8"
+        className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-10 shadow-xs space-y-10"
       >
-        {/* Section 1: Data Diri */}
+        {/* =========================================================================
+            SECTION 1: IDENTITAS CALON AGEN
+        ========================================================================= */}
         <div className="space-y-5">
-          <div className="flex items-center gap-2 pb-2 border-b border-zinc-200">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-600" />
-            <h2 className="text-base font-black uppercase tracking-tight text-black">
-              1. Identitas Calon Agen
+          <div className="flex items-center gap-2.5 pb-3 border-b border-zinc-200">
+            <User className="w-5 h-5 text-red-600" />
+            <h2 className="text-base sm:text-lg font-black uppercase tracking-tight text-black">
+              Identitas Calon Agen
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-zinc-700 uppercase mb-1">
+              <label className="block text-xs font-bold text-zinc-700 uppercase mb-1.5">
                 Nama Lengkap <span className="text-red-600">*</span>
               </label>
               <input
@@ -137,14 +224,14 @@ export default function FormRekrutmenPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-zinc-700 uppercase mb-1">
-                Nama Pena / Alias <span className="text-zinc-400 font-normal lowercase">(opsional)</span>
+              <label className="block text-xs font-bold text-zinc-700 uppercase mb-1.5">
+                Nama Pena / Samaran <span className="text-zinc-400 font-normal lowercase">(opsional)</span>
               </label>
               <input
                 type="text"
                 value={formData.namaPena}
                 onChange={(e) => setFormData({ ...formData, namaPena: e.target.value })}
-                placeholder="cth. Arya W."
+                placeholder="cth. Si Anak Pinggiran"
                 className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none text-sm font-medium transition-all"
               />
             </div>
@@ -152,22 +239,8 @@ export default function FormRekrutmenPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-zinc-700 uppercase mb-1">
-                Alamat Surel (Email) <span className="text-red-600">*</span>
-              </label>
-              <input
-                type="email"
-                required
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="nama@email.com"
-                className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none text-sm font-medium transition-all"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-zinc-700 uppercase mb-1">
-                Nomor WhatsApp / HP <span className="text-red-600">*</span>
+              <label className="block text-xs font-bold text-zinc-700 uppercase mb-1.5">
+                No. What&apos;s App <span className="text-red-600">*</span>
               </label>
               <input
                 type="tel"
@@ -178,12 +251,26 @@ export default function FormRekrutmenPage() {
                 className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none text-sm font-medium transition-all"
               />
             </div>
+
+            <div>
+              <label className="block text-xs font-bold text-zinc-700 uppercase mb-1.5">
+                Alamat Email <span className="text-red-600">*</span>
+              </label>
+              <input
+                type="email"
+                required
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                placeholder="nama@email.com"
+                className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none text-sm font-medium transition-all"
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-zinc-700 uppercase mb-1">
-                Kota / Domisili <span className="text-red-600">*</span>
+              <label className="block text-xs font-bold text-zinc-700 uppercase mb-1.5">
+                Domisili <span className="text-red-600">*</span>
               </label>
               <input
                 type="text"
@@ -196,7 +283,7 @@ export default function FormRekrutmenPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-zinc-700 uppercase mb-1">
+              <label className="block text-xs font-bold text-zinc-700 uppercase mb-1.5">
                 Kampus / Komunitas / Profesi <span className="text-red-600">*</span>
               </label>
               <input
@@ -204,136 +291,203 @@ export default function FormRekrutmenPage() {
                 required
                 value={formData.institusi}
                 onChange={(e) => setFormData({ ...formData, institusi: e.target.value })}
-                placeholder="cth. Mahasiswa Unhas / Peneliti Lepas"
+                placeholder="cth. Mahasiswa Unhas / Buruh Kreatif"
                 className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none text-sm font-medium transition-all"
               />
             </div>
           </div>
         </div>
 
-        {/* Section 2: Peminatan Rubrik */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 pb-2 border-b border-zinc-200">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-600" />
-            <h2 className="text-base font-black uppercase tracking-tight text-black">
-              2. Fokus Bidang & Rubrik Minat
+        {/* =========================================================================
+            SECTION 2: PERTANYAAN TAMBAHAN
+        ========================================================================= */}
+        <div className="space-y-6 pt-2">
+          <div className="flex items-center gap-2.5 pb-3 border-b border-zinc-200">
+            <HelpCircle className="w-5 h-5 text-red-600" />
+            <h2 className="text-base sm:text-lg font-black uppercase tracking-tight text-black">
+              Pertanyaan Tambahan
             </h2>
           </div>
 
+          {/* Q1: Siapa Nama Presidenmu? */}
           <div>
             <label className="block text-xs font-bold text-zinc-700 uppercase mb-1.5">
-              Pilih Rubrik yang Paling Cocok dengan Karaktermu <span className="text-red-600">*</span>
-            </label>
-            <select
-              value={formData.minatRubrik}
-              onChange={(e) => setFormData({ ...formData, minatRubrik: e.target.value })}
-              className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none text-sm font-semibold transition-all bg-white"
-            >
-              <option value="BERISIK">BERISIK — Esai Populer Politik, Ekonomi & Sosial Kritis</option>
-              <option value="MEJA WARKOP">MEJA WARKOP — Analisis Budaya & Percakapan Tongkrongan Warga</option>
-              <option value="ORDAL">ORDAL — Membongkar Dinamika Kuasa, Kebijakan & Elite</option>
-              <option value="ARSIP PINGGIRAN">ARSIP PINGGIRAN — Sejarah Rakyat, Gerakan Buruh & Kaum Tani</option>
-              <option value="SEDIKIT AKADEMIS">SEDIKIT AKADEMIS — Filsafat & Pemikiran Tanpa Bahasa Rumit</option>
-              <option value="SISA BAHASA">SISA BAHASA — Puisi, Prosa, Fragmen & Sastra Emosional</option>
-              <option value="SETARA">SETARA — Isu Perempuan, Gender & Keadilan Sosial</option>
-              <option value="SERIAL ANABEL">SERIAL ANABEL — Serial Fiksi & Cerita Satir Mingguan</option>
-              <option value="VISUAL / ILUSTRASI">DIVISI VISUAL — Ilustrator, Kartunis & Desain Opini</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-zinc-700 uppercase mb-1">
-              Mengapa Tertarik Bergabung Bersama BELOKIRI? <span className="text-red-600">*</span>
-            </label>
-            <textarea
-              required
-              rows={3}
-              value={formData.alasan}
-              onChange={(e) => setFormData({ ...formData, alasan: e.target.value })}
-              placeholder="Ceritakan kegelisahanmu terhadap lanskap informasi saat ini dan apa yang ingin kamu suarakan..."
-              className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none text-sm font-medium transition-all"
-            />
-          </div>
-        </div>
-
-        {/* Section 3: Lampiran Contoh Tulisan / Naskah */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 pb-2 border-b border-zinc-200">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-600" />
-            <h2 className="text-base font-black uppercase tracking-tight text-black">
-              3. Contoh Naskah / Tulisan Perdana
-            </h2>
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-zinc-700 uppercase mb-1">
-              Judul Contoh Naskah / Tulisan <span className="text-red-600">*</span>
+              Siapa Nama Presidenmu? <span className="text-red-600">*</span>
             </label>
             <input
               type="text"
               required
-              value={formData.judulNaskah}
-              onChange={(e) => setFormData({ ...formData, judulNaskah: e.target.value })}
-              placeholder="cth. Menertawakan Janji Manis Swasembada"
+              value={formData.namaPresiden}
+              onChange={(e) => setFormData({ ...formData, namaPresiden: e.target.value })}
+              placeholder="Tuliskan nama siapa pun yang kamu anggap presidenmu..."
               className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none text-sm font-medium transition-all"
             />
           </div>
 
+          {/* Q2: Lebih Percaya Mana: Bumi Bulat atau Bumi Datar? */}
           <div>
-            <label className="block text-xs font-bold text-zinc-700 uppercase mb-1">
-              Isi Naskah Lengkap (Minimal 500 kata) <span className="text-red-600">*</span>
+            <label className="block text-xs font-bold text-zinc-700 uppercase mb-2">
+              Lebih Percaya Mana: Bumi Bulat atau Bumi Datar? <span className="text-red-600">*</span>
+            </label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[
+                { label: "Bumi Bulat", desc: "Sesuai sains & gravitasi konvensional" },
+                { label: "Bumi Datar", desc: "Piringan beratap kubah langit" },
+              ].map((item) => {
+                const isSelected = formData.kepercayaanBumi === item.label;
+                return (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onClick={() => setFormData({ ...formData, kepercayaanBumi: item.label })}
+                    className={`flex items-center justify-between p-3.5 rounded-2xl border text-left transition-all ${
+                      isSelected
+                        ? "border-red-600 bg-red-50/50 text-red-950 ring-1 ring-red-600"
+                        : "border-zinc-200 bg-white hover:border-zinc-300 text-zinc-700"
+                    }`}
+                  >
+                    <div className="space-y-0.5">
+                      <div className="flex items-center gap-2">
+                        <Globe2 className={`w-4 h-4 ${isSelected ? "text-red-600" : "text-zinc-400"}`} />
+                        <span className="text-sm font-black uppercase tracking-tight">
+                          {item.label}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-zinc-500 font-normal pl-6">{item.desc}</p>
+                    </div>
+                    <div
+                      className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
+                        isSelected
+                          ? "border-red-600 bg-red-600 text-white"
+                          : "border-zinc-300 bg-white"
+                      }`}
+                    >
+                      {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Q3: Ayam atau Telur yang Ada Lebih Dulu? */}
+          <div>
+            <label className="block text-xs font-bold text-zinc-700 uppercase mb-2">
+              Ayam atau Telur yang Ada Lebih Dulu? <span className="text-red-600">*</span>
+            </label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[
+                { label: "Ayam", desc: "Harus ada ayam dulu untuk bertelur" },
+                { label: "Telur", desc: "Hewan bertelur ada jutaan tahun sebelum ayam" },
+              ].map((item) => {
+                const isSelected = formData.ayamAtauTelur === item.label;
+                return (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onClick={() => setFormData({ ...formData, ayamAtauTelur: item.label })}
+                    className={`flex items-center justify-between p-3.5 rounded-2xl border text-left transition-all ${
+                      isSelected
+                        ? "border-red-600 bg-red-50/50 text-red-950 ring-1 ring-red-600"
+                        : "border-zinc-200 bg-white hover:border-zinc-300 text-zinc-700"
+                    }`}
+                  >
+                    <div className="space-y-0.5">
+                      <div className="flex items-center gap-2">
+                        <Egg className={`w-4 h-4 ${isSelected ? "text-red-600" : "text-zinc-400"}`} />
+                        <span className="text-sm font-black uppercase tracking-tight">
+                          {item.label}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-zinc-500 font-normal pl-6">{item.desc}</p>
+                    </div>
+                    <div
+                      className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
+                        isSelected
+                          ? "border-red-600 bg-red-600 text-white"
+                          : "border-zinc-300 bg-white"
+                      }`}
+                    >
+                      {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Q4: Jelaskan dengan Singkat Mengapa Kamu Mau Bergabung */}
+          <div>
+            <label className="block text-xs font-bold text-zinc-700 uppercase mb-1.5">
+              Jelaskan dengan Singkat Mengapa Kamu Mau Bergabung <span className="text-red-600">*</span>
             </label>
             <textarea
               required
-              rows={8}
-              value={formData.isiNaskah}
-              onChange={(e) => setFormData({ ...formData, isiNaskah: e.target.value })}
-              placeholder="Tempelkan draf tulisan, opini warkop, atau catatan lapanganmu di sini..."
-              className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none text-sm font-medium transition-all font-mono leading-relaxed"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-zinc-700 uppercase mb-1">
-              Tautan Dokumen / Portofolio Eksternal{" "}
-              <span className="text-zinc-400 font-normal lowercase">(opsional, cth. Google Docs / Medium / Blog)</span>
-            </label>
-            <input
-              type="url"
-              value={formData.tautanNaskah}
-              onChange={(e) => setFormData({ ...formData, tautanNaskah: e.target.value })}
-              placeholder="https://docs.google.com/..."
-              className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none text-sm font-medium transition-all"
+              rows={4}
+              value={formData.alasanBergabung}
+              onChange={(e) => setFormData({ ...formData, alasanBergabung: e.target.value })}
+              placeholder="Ceritakan alasan, kegelisahan, atau motif di balik niatmu bergabung jadi Agen Belokan..."
+              className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none text-sm font-medium transition-all leading-relaxed"
             />
           </div>
         </div>
 
-        {/* Section 4: Persetujuan */}
-        <div className="pt-2 border-t border-zinc-200">
-          <label className="flex items-start gap-3 cursor-pointer select-none">
-            <input
-              type="checkbox"
-              required
-              checked={formData.setujuPernyataan}
-              onChange={(e) => setFormData({ ...formData, setujuPernyataan: e.target.checked })}
-              className="mt-1 w-4 h-4 text-red-600 border-zinc-300 rounded focus:ring-red-500 accent-red-600"
-            />
-            <span className="text-xs text-zinc-600 font-medium leading-relaxed">
-              Saya menyatakan bahwa naskah yang dikirimkan adalah karya asli pemikiran saya sendiri, bukan hasil
-              plagiasi, dan siap berdiskusi secara terbuka dalam ekosistem independen Belokiri.id.
-            </span>
-          </label>
+        {/* =========================================================================
+            SECTION 3: FOKUS BIDANG AGEN (pilihan jawaban, centang)
+        ========================================================================= */}
+        <div className="space-y-4 pt-2">
+          <div className="flex items-center gap-2.5 pb-3 border-b border-zinc-200">
+            <CheckSquare className="w-5 h-5 text-red-600" />
+            <div>
+              <h2 className="text-base sm:text-lg font-black uppercase tracking-tight text-black">
+                Fokus Bidang Agen
+              </h2>
+              <p className="text-xs text-zinc-500 font-normal">
+                Pilihan jawaban (bisa centang lebih dari satu):
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            {FOKUS_OPTIONS.map((option) => {
+              const isChecked = formData.fokusBidang.includes(option);
+              return (
+                <label
+                  key={option}
+                  onClick={() => handleCheckboxToggle(option)}
+                  className={`flex items-center gap-3.5 p-4 rounded-2xl border cursor-pointer select-none transition-all ${
+                    isChecked
+                      ? "border-red-600 bg-red-50/40 text-black ring-1 ring-red-600 shadow-xs"
+                      : "border-zinc-200 bg-white hover:border-zinc-300 text-zinc-700"
+                  }`}
+                >
+                  <div
+                    className={`w-5 h-5 rounded-md border flex items-center justify-center transition-colors flex-shrink-0 ${
+                      isChecked
+                        ? "border-red-600 bg-red-600 text-white"
+                        : "border-zinc-300 bg-white"
+                    }`}
+                  >
+                    {isChecked && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                  </div>
+                  <span className="text-sm font-bold uppercase tracking-tight">
+                    {option}
+                  </span>
+                </label>
+              );
+            })}
+          </div>
         </div>
 
         {/* Action Button */}
-        <div className="pt-4">
+        <div className="pt-6 border-t border-zinc-200">
           <button
             type="submit"
             disabled={loading}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-black uppercase tracking-wider shadow-lg transition-all transform active:scale-95 disabled:opacity-50"
           >
             <Send className="w-4 h-4" />
-            <span>{loading ? "Mengirim Berkas..." : "Kirim Formulir Agen Belokan"}</span>
+            <span>{loading ? "Mengirim Formulir..." : "Kirim Formulir Agen Belokan"}</span>
           </button>
         </div>
       </form>
