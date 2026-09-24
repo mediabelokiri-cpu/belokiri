@@ -1,15 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
-import { MOCK_RUBRIKS } from "@/lib/data/mock-articles";
 import { Mail } from "lucide-react";
+import SuratKalengForm from "./SuratKalengForm";
 
 export default function Footer() {
   return (
     <footer className="border-t-4 border-red-600 bg-black text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
           {/* Brand Col */}
-          <div className="md:col-span-2 space-y-4">
+          <div className="lg:col-span-4 space-y-4">
             <Link href="/" className="inline-block">
               <Image
                 src="/images/logo-belokiri-white.png"
@@ -98,27 +98,21 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Rubriks Col */}
-          <div>
-            <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-4 pb-1 border-b border-zinc-800">
-              8 Rubrik BELOKIRI
-            </h4>
-            <ul className="space-y-2 text-xs font-bold">
-              {MOCK_RUBRIKS.map((rubrik) => (
-                <li key={rubrik.slug}>
-                  <Link
-                    href={`/kategori/${rubrik.slug}`}
-                    className="text-zinc-300 hover:text-red-500 transition-colors block py-0.5"
-                  >
-                    {rubrik.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Surat Kaleng Warga Col */}
+          <div className="lg:col-span-4 space-y-3">
+            <div>
+              <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-1 pb-1 border-b border-zinc-800">
+                SURAT KALENG WARGA
+              </h4>
+              <p className="text-[11px] text-zinc-400 font-normal leading-relaxed mt-2">
+                Tinggalkan Kritik, saran, ocehan atau bahkan caci maki.
+              </p>
+            </div>
+            <SuratKalengForm />
           </div>
 
           {/* Kanal & Gerakan */}
-          <div>
+          <div className="lg:col-span-2">
             <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-4 pb-1 border-b border-zinc-800">
               Kanal & Gerakan
             </h4>
@@ -152,7 +146,7 @@ export default function Footer() {
           </div>
 
           {/* Sindikasi & Arsip */}
-          <div>
+          <div className="lg:col-span-2">
             <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-4 pb-1 border-b border-zinc-800">
               Sindikasi & Arsip
             </h4>
