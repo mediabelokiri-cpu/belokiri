@@ -262,28 +262,59 @@ export default async function HomePage() {
       </div>
 
       {/* ======================================================== */}
-      {/* 5. RUANG WARGA BELOKAN (FULL-WIDTH SECTION DI ATAS FOOTER) */}
+      {/* 6. RUANG WARGA & AGEN BELOKAN (DUA KOLOM DI ATAS FOOTER) */}
       {/* ======================================================== */}
       <section className="w-full bg-red-600 text-white py-16 sm:py-20 border-t-2 border-red-700 shadow-inner">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <span className="inline-block text-[11px] font-black uppercase tracking-widest text-red-100 bg-red-700/70 border border-red-500/50 px-3.5 py-1 rounded-full mb-4">
-            RUANG WARGA BELOKAN
-          </span>
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight uppercase mb-4 leading-tight">
-            Punya Gagasan atau Cerita yang Perlu Didengar?
-          </h2>
-          <p className="text-sm sm:text-base text-red-100/90 leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
-            BELOKIRI membuka ruang seluas-luasnya bagi mahasiswa, pelajar, peneliti,
-            dan masyarakat umum untuk menyumbangkan tulisan, esai kritis, atau
-            pandangan nyeleneh yang jujur.
-          </p>
-          <Link
-            href="/login"
-            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-black hover:bg-zinc-900 text-white text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform active:scale-95 border border-zinc-800 hover:border-zinc-700"
-          >
-            <span>Masuk & Mulai Menulis</span>
-            <ArrowRight className="w-4 h-4 text-red-500" />
-          </Link>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 md:divide-x md:divide-red-500/50">
+            {/* Kolom 1: RUANG WARGA BELOKAN (Kirim Tulisan) */}
+            <div className="flex flex-col justify-between items-start text-left md:pr-8">
+              <div>
+                <span className="inline-block text-[11px] font-black uppercase tracking-widest text-red-100 bg-red-700/70 border border-red-500/50 px-3.5 py-1 rounded-full mb-4">
+                  RUANG WARGA BELOKAN
+                </span>
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight uppercase mb-3 leading-tight">
+                  Punya Gagasan atau Cerita yang Perlu Didengar?
+                </h3>
+                <p className="text-sm text-red-100/90 leading-relaxed mb-8 font-normal">
+                  BELOKIRI membuka ruang seluas-luasnya bagi mahasiswa, pelajar, peneliti,
+                  dan masyarakat umum untuk menyumbangkan tulisan, esai kritis, atau
+                  pandangan nyeleneh yang jujur.
+                </p>
+              </div>
+              <Link
+                href="/login"
+                className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-white hover:bg-zinc-100 text-red-600 text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform active:scale-95"
+              >
+                <span>Kirim Tulisan</span>
+                <ArrowRight className="w-4 h-4 text-red-600" />
+              </Link>
+            </div>
+
+            {/* Kolom 2: RUANG AGEN BELOKAN (Rekrutmen Belokiri) */}
+            <div className="flex flex-col justify-between items-start text-left pt-8 md:pt-0 md:pl-8 border-t md:border-t-0 border-red-500/50">
+              <div>
+                <span className="inline-block text-[11px] font-black uppercase tracking-widest text-red-100 bg-red-700/70 border border-red-500/50 px-3.5 py-1 rounded-full mb-4">
+                  RUANG AGEN BELOKAN
+                </span>
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight uppercase mb-3 leading-tight">
+                  Tertarik Menjadi Bagian Awak BELOKIRI?
+                </h3>
+                <p className="text-sm text-red-100/90 leading-relaxed mb-8 font-normal">
+                  Kami membuka kesempatan bagi jurnalis investigasi, penulis esai, editor,
+                  dan kreator independen yang berani menyusup di antara narasi mapan demi
+                  menyuarakan realitas rakyat.
+                </p>
+              </div>
+              <Link
+                href="/rekrutmen"
+                className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-white hover:bg-zinc-100 text-red-600 text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform active:scale-95"
+              >
+                <span>Gabung Jadi Agen</span>
+                <ArrowRight className="w-4 h-4 text-red-600" />
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </div>
