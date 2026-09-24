@@ -43,7 +43,7 @@ export async function generateMetadata({
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.belokiri.site";
   const canonicalUrl = `${baseUrl}/artikel/${article.slug}`;
-  const ogImageUrl = `${baseUrl}/api/og/${article.slug}`;
+  const ogImageUrl = `${baseUrl}/api/cover/${article.slug}`;
 
   return {
     title: `${article.title} | BELOKIRI`,
@@ -70,7 +70,7 @@ export async function generateMetadata({
           secureUrl: ogImageUrl,
           width: 1200,
           height: 630,
-          type: "image/png",
+          type: "image/jpeg",
           alt: article.title,
         },
       ],
