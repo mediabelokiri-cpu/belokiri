@@ -344,4 +344,122 @@ export const MOCK_ARTICLES: MockArticle[] = [
     isFeatured: false,
     publishedAt: "2026-03-20T16:00:00Z",
   },
+  {
+    id: "art-9",
+    title: "Teori Kopi Tubruk: Kenapa Masalah Negara Lebih Cepat Kelar di Meja Warkop?",
+    slug: "teori-kopi-tubruk-masalah-negara-kelar-di-warkop",
+    excerpt: "Dua cangkir robusta pekat, kepulan kretek, dan empat orang yang tak saling kenal bisa merumuskan solusi krisis subsidi pangan lebih cepat dari rapat lintas kementerian.",
+    content: `
+      <p class="lead">Warkop bukan sekadar tempat nongkrong murah; ia adalah gedung parlemen tanpa karpet merah, tanpa tunjangan rumah, dan tanpa absensi bodong.</p>
+      
+      <h3>Demokrasi Tanpa Protokoler</h3>
+      <p>Di meja warkop kayu yang sedikit goyang, gelar profesor dan lulusan SMP berdiri setara di depan sepiring gorengan hangat. Ketika berita televisi tabung di sudut ruangan menyiarkan kenaikan harga beras, analisis yang keluar bukan rumus regresi berganda, melainkan hitungan dompet riil seorang supir pikap dan buruh konveksi.</p>
+      <p>Tidak ada yang perlu menjaga wibawa institusi. Siapa saja boleh bersuara keras, asal siap ditertawakan kalau argumennya terlalu mengada-ada. Dan ajaibnya, justru di ruang tanpa rasa takut itulah kebenaran kerap muncul telanjang tanpa polesan juru bicara.</p>
+
+      <blockquote>
+        "Kalau kebijakan publik tidak bisa dipahami penjaga warkop dalam sepuluh detik, kemungkinan besar kebijakan itu memang cuma akal-akalan birokrasi."
+      </blockquote>
+
+      <h3>Seni Mendengar yang Hilang di Senayan</h3>
+      <p>Pelajaran terbesar dari meja warkop bukan seberapa banyak teori yang dilontarkan, tetapi kerelaan orang-orang untuk saling mendengarkan setelah saling ledek. Sesuatu yang tampaknya sudah punah dari ruang-ruang pendingin berpelapis marmer kekuasaan.</p>
+    `,
+    featuredImage: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80",
+    featuredImageCaption: "Secangkir kopi panas dan percakapan lepas di warkop pinggir jalan.",
+    photoSource: "Unsplash / Tongkrongan Urban",
+    source: "Observasi Lepas Warga Belokan",
+    rubrik: MOCK_RUBRIKS[1], // MEJA WARKOP
+    author: MOCK_AUTHORS[1],
+    tags: ["Warkop", "Kebijakan Publik", "Generasi Z"],
+    views: 5210,
+    isEditorPick: true,
+    isFeatured: false,
+    publishedAt: "2026-03-23T10:15:00Z",
+  },
+  {
+    id: "art-10",
+    title: "Ordal dan Labirin Kekuasaan: Siapa Menjaga Pintu di Balik Konferensi Pers?",
+    slug: "ordal-dan-labirin-kekuasaan-siapa-menjaga-pintu",
+    excerpt: "Di balik podium menteri yang berkilau, ada transaksi tak tertulis, lobi lorong sempit, dan jaringan 'orang dalam' yang menentukan nasib ratusan triliun uang rakyat.",
+    content: `
+      <p class="lead">Konferensi pers adalah panggung teater yang ditata rapi. Tetapi jalannya pertunjukan sesungguhnya ditentukan oleh orang-orang yang tidak pernah berada di depan lampu sorot.</p>
+      
+      <h3>Anatomi 'Ordal' di Lingkaran Pengambil Keputusan</h3>
+      <p>Di birokrasi kita, istilah ordal bukan sekadar titipan lowongan kerja, melainkan jejaring perantara kekuasaan. Mulai dari vendor pengadaan hingga pengamanan konsesi sumber daya alam, semua memiliki pintu masuk khusus yang tidak ada dalam bagan struktur organisasi resmi kementerian.</p>
+      
+      <blockquote>
+        "Kekuasaan formal hanyalah stempel. Tinta dan kertasnya sudah disiapkan tiga hari sebelumnya di ruang makan privat hotel berbintang."
+      </blockquote>
+
+      <h3>Membongkar yang Tersembunyi</h3>
+      <p>Belokiri menolak memandang politik hanya dari apa yang diucapkan di mikrofon. Kami melacak jejak audit anggaran, afiliasi kepemilikan perseroan, dan irisan keluarga yang saling menyambung dalam pusaran APBD dan APBN.</p>
+    `,
+    featuredImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+    featuredImageCaption: "Gedung pencakar langit ibu kota tempat berlangsungnya lobi dan kesepakatan tertutup.",
+    photoSource: "Unsplash / Gedung Pusat",
+    source: "Investigasi Meja Agen Belokan BELOKIRI",
+    rubrik: MOCK_RUBRIKS[2], // ORDAL
+    author: MOCK_AUTHORS[0],
+    tags: ["Birokrasi", "Kekuasaan", "Investigasi"],
+    views: 7420,
+    isEditorPick: true,
+    isFeatured: false,
+    publishedAt: "2026-03-23T14:30:00Z",
+  },
+  {
+    id: "art-11",
+    title: "Beban Ganda yang Tak Masuk APBN: Keringat Tak Berbayar Perempuan Pekerja",
+    slug: "beban-ganda-tak-masuk-apbn-keringat-perempuan-pekerja",
+    excerpt: "Perempuan bukan catatan kaki. Perekonomian nasional akan lumpuh total dalam 24 jam jika kerja perawatan, pengasuhan, dan domestik perempuan mogok serentak.",
+    content: `
+      <p class="lead">Pukul empat subuh, saat para pembuat kebijakan masih mendengkur di bawah pendingin ruangan, jutaan ibu di penjuru negeri sudah menyalakan kompor, mencuci seragam, dan memastikan anak-anak siap menyongsong masa depan.</p>
+      
+      <h3>Kerja Perawatan: Tulang Punggung Ekonomi yang Dianggap 'Nol'</h3>
+      <p>Dalam perhitungan Produk Domestik Bruto (PDB), memasak makanan di rumah bernilai nol. Mengasuh balita bernilai nol. Merawat lansia bernilai nol. Tetapi jika perempuan mogok melakukan kerja-kerja ini barang sehari saja, seluruh angkatan kerja laki-laki tidak akan bisa melangkah keluar pintu rumah.</p>
+      
+      <blockquote>
+        "Menuntut kesetaraan bukan meminta keringanan tugas, melainkan merombak tatanan sosial yang mengeksploitasi kasih sayang sebagai tenaga kerja gratis."
+      </blockquote>
+    `,
+    featuredImage: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80",
+    featuredImageCaption: "Perempuan pekerja mandiri berdiskusi dalam forum komunitas.",
+    photoSource: "Unsplash / Potret Perempuan",
+    source: "Kolaborasi Rubrik Setara BELOKIRI",
+    rubrik: MOCK_RUBRIKS[6], // SETARA
+    author: MOCK_AUTHORS[3],
+    tags: ["Gender", "Feminisme", "Kebijakan Publik"],
+    views: 5670,
+    isEditorPick: true,
+    isFeatured: false,
+    publishedAt: "2026-03-23T16:00:00Z",
+  },
+  {
+    id: "art-12",
+    title: "Serial Anabel: Anwar, Bella, dan Rahasia Botol Kecap Kedaluwarsa",
+    slug: "serial-anabel-anwar-bella-rahasia-botol-kecap",
+    excerpt: "Anwar yakin label kecap manis di warung pecel lele adalah metafora runtuhnya oligarki pangan. Bella cuma mau makan malam dengan tenang.",
+    content: `
+      <p class="lead">"Bel, lu pernah mikir nggak kenapa tutup botol kecap di warung tenda selalu mampet?" tanya Anwar sambil mengetuk-ngetukkan botol kaca ke meja kayu yang beralas terpal oranye.</p>
+      
+      <p>Bella melirik tajam tanpa melepaskan sendok bebeknya. "Nwar, gua bayar lele goreng ini pakai duit hasil lembur sampai jam delapan. Kalau lu mau ceramah soal geopolitik kedelai impor sekarang, gua tumpahin kuah soto ini ke jaket lu."</p>
+      
+      <h3>Teori Konspirasi Bumbu Dapur</h3>
+      <p>"Gua serius, Bel! Ini bukan soal kedelai. Ini soal ilusi kelimpahan!" Anwar tetap berapi-api. "Pemerintah bilang swasembada, tapi pabrik kecap ini dimiliki konglomerasi yang saham terbesarnya dipegang perusahaan cangkang di Kepulauan Cayman. Kita ini makan manisnya hasil ekstraksi kapitalisme global!"</p>
+      
+      <p>Bella menghela napas panjang, merogoh tusuk gigi dari wadah plastik kecil, lalu menusuk lubang tutup botol kecap itu sekali dengan presisi seorang dokter bedah. Kecap hitam kental langsung mengucur deras ke atas piring Anwar.</p>
+      
+      <p>"Udah keluar kan kecapnya?" kata Bella datar. "Makan. Kebanyakan teori bikin lu kurus, Nwar."</p>
+    `,
+    featuredImage: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80",
+    featuredImageCaption: "Suasana santap malam di kedai makan pinggir jalan kota.",
+    photoSource: "Unsplash / Kehidupan Kota",
+    source: "Cerita Lepas Serial Anabel BELOKIRI",
+    rubrik: MOCK_RUBRIKS[7], // SERIAL ANABEL
+    author: MOCK_AUTHORS[2],
+    tags: ["Serial Anabel", "Warkop", "Generasi Z"],
+    views: 6890,
+    isEditorPick: true,
+    isFeatured: false,
+    publishedAt: "2026-03-24T08:00:00Z",
+  },
 ];
+

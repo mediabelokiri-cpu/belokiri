@@ -112,11 +112,39 @@ export async function getRelatedArticles(
   rubrikSlug: string,
   limit: number = 3
 ): Promise<MockArticle[]> {
-  return MOCK_ARTICLES.filter(
+  // 1. First priority: same rubrik
+  const sameRubrik = MOCK_ARTICLES.filter(
     (a) => a.slug !== currentSlug && a.rubrik.slug === rubrikSlug
-  ).slice(0, limit);
+  );
+
+  if (sameRubrik.length >= limit) {
+    return sameRubrik.slice(0, limit);
+  }
+
+  // 2. Second priority: backfill with recent articles from other rubriks
+  const otherArticles = MOCK_ARTICLES.filter(
+    (a) => a.slug !== currentSlug && a.rubrik.slug !== rubrikSlug
+  ).sort(
+    (a, b) =>
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
+
+  return [...sameRubrik, ...otherArticles].slice(0, limit);
+}
+
+export async function getRecentArticles(
+  currentSlug?: string,
+  limit: number = 4
+): Promise<MockArticle[]> {
+  return MOCK_ARTICLES.filter((a) => !currentSlug || a.slug !== currentSlug)
+    .sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    )
+    .slice(0, limit);
 }
 
 export async function getAllRubriks() {
   return MOCK_RUBRIKS;
 }
+

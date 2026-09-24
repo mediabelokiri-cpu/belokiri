@@ -16,6 +16,7 @@ import {
   ChevronRight,
   Flame,
   ArrowRight,
+  Sparkles,
 } from "lucide-react";
 import { NewsArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { sanitizeHtml } from "@/lib/security/sanitize";
@@ -290,14 +291,33 @@ export default async function ArticleDetailPage({
               </div>
             </div>
 
-            {/* Related Articles in Rubrik */}
+            {/* Related & Recent Articles (Tepat di Bawah Card Profile Penulis) */}
             {relatedArticles.length > 0 && (
-              <section className="mt-14 pt-8 border-t border-zinc-200">
-                <h3 className="text-xl font-black text-black uppercase tracking-tight mb-6 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-red-600" />
-                  Tulisan Terkait di Rubrik {article.rubrik.name}
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <section className="mt-12 pt-8 border-t-2 border-black space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+                  <div>
+                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-red-600 mb-1">
+                      <Sparkles className="w-4 h-4" />
+                      <span>Rekomendasi Bacaan Lanjutan</span>
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
+                      Tulisan Terkait & Terkini
+                    </h3>
+                    <p className="text-xs text-zinc-500 mt-0.5 font-normal">
+                      Lanjut membaca esai, analisis warkop, dan perspektif kritis lainnya di BELOKIRI.
+                    </p>
+                  </div>
+
+                  <Link
+                    href={`/kategori/${article.rubrik.slug}`}
+                    className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-red-600 hover:text-black transition-colors shrink-0"
+                  >
+                    <span>Rubrik {article.rubrik.name}</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   {relatedArticles.map((rel) => (
                     <ArticleCard key={rel.id} article={rel} />
                   ))}
