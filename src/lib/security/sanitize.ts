@@ -230,3 +230,141 @@ export function sanitizeHtml(html: string): string {
 
   return clean;
 }
+
+/**
+ * Format article content for display.
+ * Supports:
+ * 1. Plain text with newlines (auto-converts double newlines to paragraphs)
+ * 2. Markdown shortcuts (##, ###, **, *, >, -, 1., ---)
+ * 3. Pre-formatted HTML (safely sanitized)
+ */
+export function formatArticleContent(raw: string): string {
+  if (!raw || typeof raw !== "string") return "";
+
+  // If content already contains HTML block tags (<p>, <h3>, <div>, etc.), sanitize and return
+  const hasHtmlBlocks = /<(p|h[1-6]|div|blockquote|ul|ol|table|article|section)[^>]*>/i.test(raw);
+  if (hasHtmlBlocks) {
+    return sanitizeHtml(raw);
+  }
+
+  // Parse Markdown and plain text paragraphs
+  const lines = raw.split(/\r?\n/);
+  const result: string[] = [];
+  let inList: "ul" | "ol" | null = null;
+  let inBlockquote = false;
+  let currentBlockquote: string[] = [];
+
+  const flushBlockquote = () => {
+    if (inBlockquote && currentBlockquote.length > 0) {
+      result.push(`<blockquote>${currentBlockquote.join("<br />")}</blockquote>`);
+      currentBlockquote = [];
+      inBlockquote = false;
+    }
+  };
+
+  const flushList = () => {
+    if (inList) {
+      result.push(`</${inList}>`);
+      inList = null;
+    }
+  };
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+
+    if (!line) {
+      flushBlockquote();
+      flushList();
+      continue;
+    }
+
+    // Horizontal Divider
+    if (/^(---|___|\*\*\*)$/.test(line)) {
+      flushBlockquote();
+      flushList();
+      result.push("<hr />");
+      continue;
+    }
+
+    // Headings
+    if (line.startsWith("### ")) {
+      flushBlockquote();
+      flushList();
+      const text = parseInlineFormatting(line.slice(4));
+      result.push(`<h4>${text}</h4>`);
+      continue;
+    }
+    if (line.startsWith("## ")) {
+      flushBlockquote();
+      flushList();
+      const text = parseInlineFormatting(line.slice(3));
+      result.push(`<h3>${text}</h3>`);
+      continue;
+    }
+    if (line.startsWith("# ")) {
+      flushBlockquote();
+      flushList();
+      const text = parseInlineFormatting(line.slice(2));
+      result.push(`<h2>${text}</h2>`);
+      continue;
+    }
+
+    // Blockquote
+    if (line.startsWith("> ") || line.startsWith(">")) {
+      flushList();
+      inBlockquote = true;
+      const text = parseInlineFormatting(line.replace(/^>\s?/, ""));
+      currentBlockquote.push(text);
+      continue;
+    } else {
+      flushBlockquote();
+    }
+
+    // Unordered List
+    if (/^[-*•]\s+/.test(line)) {
+      flushBlockquote();
+      if (inList !== "ul") {
+        flushList();
+        result.push("<ul>");
+        inList = "ul";
+      }
+      const text = parseInlineFormatting(line.replace(/^[-*•]\s+/, ""));
+      result.push(`<li>${text}</li>`);
+      continue;
+    }
+
+    // Ordered List
+    if (/^\d+\.\s+/.test(line)) {
+      flushBlockquote();
+      if (inList !== "ol") {
+        flushList();
+        result.push("<ol>");
+        inList = "ol";
+      }
+      const text = parseInlineFormatting(line.replace(/^\d+\.\s+/, ""));
+      result.push(`<li>${text}</li>`);
+      continue;
+    }
+
+    // Regular paragraph
+    flushList();
+    const text = parseInlineFormatting(line);
+    result.push(`<p>${text}</p>`);
+  }
+
+  flushBlockquote();
+  flushList();
+
+  const finalHtml = result.join("\n");
+  return sanitizeHtml(finalHtml);
+}
+
+function parseInlineFormatting(text: string): string {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+    .replace(/__(.*?)__/g, "<strong>$1</strong>")
+    .replace(/\*(.*?)\*/g, "<em>$1</em>")
+    .replace(/_(.*?)_/g, "<em>$1</em>")
+    .replace(/`([^`]+)`/g, "<code>$1</code>");
+}
+

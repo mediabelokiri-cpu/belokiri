@@ -19,7 +19,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { NewsArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
-import { sanitizeHtml } from "@/lib/security/sanitize";
+import { formatArticleContent } from "@/lib/security/sanitize";
 import ReadingProgressBar from "@/components/public/ReadingProgressBar";
 import ArticleShareButtons from "@/components/public/ArticleShareButtons";
 import ArticleReactions from "@/components/public/ArticleReactions";
@@ -228,7 +228,7 @@ export default async function ArticleDetailPage({
                 [&_h3]:font-black [&_h3]:text-2xl [&_h3]:mt-10 [&_h3]:mb-4 [&_h3]:text-black [&_h3]:tracking-tight
                 [&_blockquote]:border-l-4 [&_blockquote]:border-red-600 [&_blockquote]:bg-zinc-50 [&_blockquote]:p-5 [&_blockquote]:rounded-r-xl [&_blockquote]:font-bold [&_blockquote]:text-black [&_blockquote]:my-8
                 [&_.lead]:text-xl [&_.lead]:font-bold [&_.lead]:text-black [&_.lead]:leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: sanitizeHtml(article.content) }}
+              dangerouslySetInnerHTML={{ __html: formatArticleContent(article.content) }}
             />
 
             {/* Source Attribution */}

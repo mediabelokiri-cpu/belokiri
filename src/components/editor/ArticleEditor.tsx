@@ -9,6 +9,7 @@ import { ContributorArticleItem } from "@/lib/data/contributor";
 import ArticleStatusBadge from "@/components/dashboard/ArticleStatusBadge";
 import { saveDraftAction, submitToReviewAction } from "@/actions/contributor.actions";
 import ImageUploadDropzone from "@/components/common/ImageUploadDropzone";
+import { formatArticleContent } from "@/lib/security/sanitize";
 import {
   Save,
   Send,
@@ -694,9 +695,22 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
           )}
 
           {/* Parsed Content Preview */}
-          <div className="prose max-w-none text-zinc-800 space-y-4 font-sans leading-relaxed text-sm sm:text-base whitespace-pre-wrap">
-            {content || "Belum ada isi naskah yang ditulis."}
-          </div>
+          {content ? (
+            <div
+              className="prose prose-zinc prose-base max-w-none text-zinc-900 leading-relaxed
+                [&_p]:mb-4 [&_p]:leading-[1.8] [&_p]:text-[16px]
+                [&_h2]:font-black [&_h2]:text-2xl [&_h2]:mt-6 [&_h2]:mb-3 [&_h2]:text-black
+                [&_h3]:font-black [&_h3]:text-xl [&_h3]:mt-6 [&_h3]:mb-3 [&_h3]:text-black
+                [&_h4]:font-bold [&_h4]:text-lg [&_h4]:mt-4 [&_h4]:mb-2 [&_h4]:text-black
+                [&_blockquote]:border-l-4 [&_blockquote]:border-red-600 [&_blockquote]:bg-zinc-50 [&_blockquote]:p-4 [&_blockquote]:rounded-r-xl [&_blockquote]:font-bold [&_blockquote]:text-black [&_blockquote]:my-6
+                [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5"
+              dangerouslySetInnerHTML={{ __html: formatArticleContent(content) }}
+            />
+          ) : (
+            <div className="text-zinc-400 italic text-sm">
+              Belum ada isi naskah yang ditulis.
+            </div>
+          )}
 
           {/* Tags */}
           {tags.length > 0 && (
