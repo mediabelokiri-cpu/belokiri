@@ -114,32 +114,32 @@ export default function Footer() {
           {/* Kanal & Gerakan */}
           <div className="lg:col-span-2">
             <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-4 pb-1 border-b border-zinc-800">
-              Kanal & Gerakan
+              KANAL & GERAKAN
             </h4>
-            <ul className="space-y-2.5 text-xs text-zinc-300 font-medium">
+            <ul className="space-y-2.5 text-xs text-zinc-300 font-bold uppercase tracking-wider">
               <li>
-                <Link href="/manifesto" className="hover:text-red-500 transition-colors font-bold text-white">
-                  Manifesto
+                <Link href="/manifesto" className="hover:text-red-500 transition-colors text-white">
+                  MANIFESTO
                 </Link>
               </li>
               <li>
                 <Link href="/rekrutmen" className="hover:text-red-500 transition-colors">
-                  Rekrutmen Anggota
+                  REKRUTMEN ANGGOTA
                 </Link>
               </li>
               <li>
                 <Link href="/literatur-liberte" className="hover:text-red-500 transition-colors">
-                  Literatur Liberte
+                  LITERATUR LIBERTE
                 </Link>
               </li>
               <li>
                 <Link href="/konstitusi" className="hover:text-red-500 transition-colors">
-                  Konstitusi Belokiri
+                  KONSTITUSI BELOKIRI
                 </Link>
               </li>
               <li>
                 <Link href="/kontak" className="hover:text-red-500 transition-colors">
-                  Agen Belokan & Kontak
+                  AGEN BELOKAN & KONTAK
                 </Link>
               </li>
             </ul>
@@ -148,39 +148,32 @@ export default function Footer() {
           {/* Sindikasi & Arsip */}
           <div className="lg:col-span-2">
             <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-4 pb-1 border-b border-zinc-800">
-              Sindikasi & Arsip
+              SINDIKASI & ARSIP
             </h4>
-            <ul className="space-y-2.5 text-xs text-zinc-300 font-medium">
+            <ul className="space-y-2.5 text-xs text-zinc-300 font-bold uppercase tracking-wider">
               <li>
-                <Link href="/berita" className="hover:text-red-500 transition-colors">
-                  Indeks Semua Tulisan
+                <Link href="/kabinet-belokiri" className="hover:text-red-500 transition-colors text-white">
+                  KABINET BELOKIRI
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/rss.xml"
-                  target="_blank"
-                  className="hover:text-red-500 transition-colors inline-flex items-center gap-1"
-                >
-                  <span>RSS Feed 2.0</span>
+                <Link href="/pedoman-media-siber" className="hover:text-red-500 transition-colors">
+                  PEDOMAN MEDIA SIBER
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/feed.json"
-                  target="_blank"
-                  className="hover:text-red-500 transition-colors inline-flex items-center gap-1"
-                >
-                  <span>JSON Feed</span>
+                <Link href="/disclaimer" className="hover:text-red-500 transition-colors">
+                  DISCLAIMER
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/sitemap.xml"
-                  target="_blank"
-                  className="hover:text-red-500 transition-colors inline-flex items-center gap-1"
-                >
-                  <span>Peta Situs (Sitemap)</span>
+                <Link href="/kebijakan-privasi" className="hover:text-red-500 transition-colors">
+                  KEBIJAKAN PRIVASI
+                </Link>
+              </li>
+              <li>
+                <Link href="/syarat-ketentuan" className="hover:text-red-500 transition-colors">
+                  SYARAT & KETENTUAN
                 </Link>
               </li>
             </ul>
