@@ -606,6 +606,113 @@ export async function publishArticleByAdmin(
 
   contributorArticlesStore[index] = updated;
 
+  // Persist to PostgreSQL if not previously saved in DB
+  try {
+    const effectiveCatSlug = (seoData?.categoryId || categorySlug || "berisik").replace(/^rubrik-/, "");
+    let dbCat = await prisma.category.findFirst({
+      where: { OR: [{ slug: effectiveCatSlug }, { id: seoData?.categoryId }] },
+    });
+    if (!dbCat) {
+      dbCat = await prisma.category.findFirst();
+    }
+
+    let authorId = existing.authorId;
+    const authorUser = await prisma.user.findFirst({
+      where: {
+        OR: [{ id: existing.authorId }, { email: existing.authorId }, { slug: existing.authorId }],
+      },
+    });
+
+    if (authorUser) {
+      authorId = authorUser.id;
+    } else {
+      const anyUser = await prisma.user.findFirst({ orderBy: { createdAt: "asc" } });
+      if (anyUser) authorId = anyUser.id;
+    }
+
+    if (dbCat && authorId) {
+      const createdInDb = await prisma.article.upsert({
+        where: { slug: existing.slug },
+        update: {
+          title: seoData?.title || existing.title,
+          categoryId: dbCat.id,
+          status: "PUBLISHED",
+          adminNote: null,
+          isEditorPick: seoData?.isEditorPick !== undefined ? seoData.isEditorPick : true,
+          seoTitle: seoData?.seoTitle || null,
+          metaDescription: seoData?.metaDescription || null,
+          publishedAt: new Date(),
+        },
+        create: {
+          title: seoData?.title || existing.title,
+          slug: existing.slug,
+          content: existing.content,
+          excerpt: existing.excerpt,
+          featuredImage: existing.featuredImage,
+          featuredImageCaption: existing.featuredImageCaption,
+          photoSource: existing.photoSource,
+          source: existing.source,
+          authorId: authorId,
+          categoryId: dbCat.id,
+          status: "PUBLISHED",
+          isEditorPick: seoData?.isEditorPick !== undefined ? seoData.isEditorPick : true,
+          seoTitle: seoData?.seoTitle || null,
+          metaDescription: seoData?.metaDescription || null,
+          publishedAt: new Date(),
+        },
+        include: {
+          author: true,
+          category: true,
+          tags: { include: { tag: true } },
+        },
+      });
+
+      activityLogsStore.unshift({
+        id: `act-${Date.now()}`,
+        action: "PUBLISH_ARTICLE",
+        userName: adminName,
+        userRole: "ADMIN",
+        targetType: "ARTICLE",
+        targetTitle: createdInDb.title,
+        targetId: createdInDb.id,
+        note: `Diterbitkan di Rubrik ${createdInDb.category.name}`,
+        createdAt: now,
+      });
+
+      return {
+        id: createdInDb.id,
+        authorId: createdInDb.authorId,
+        authorName: createdInDb.author.penName || createdInDb.author.name,
+        authorEmail: createdInDb.author.email,
+        authorAvatarUrl: createdInDb.author.avatarUrl,
+        authorBio: createdInDb.author.bio || "Warga Belokan resmi BELOKIRI.",
+        title: createdInDb.title,
+        slug: createdInDb.slug,
+        excerpt: createdInDb.excerpt,
+        content: createdInDb.content,
+        featuredImage: createdInDb.featuredImage,
+        featuredImageCaption: createdInDb.featuredImageCaption,
+        photoSource: createdInDb.photoSource,
+        source: createdInDb.source,
+        categoryId: createdInDb.categoryId,
+        categoryName: createdInDb.category.name,
+        categorySlug: createdInDb.category.slug,
+        status: "PUBLISHED",
+        adminNote: null,
+        tags: createdInDb.tags.map((t) => t.tag.name),
+        views: createdInDb.views,
+        publishedAt: createdInDb.publishedAt ? createdInDb.publishedAt.toISOString() : null,
+        createdAt: createdInDb.createdAt.toISOString(),
+        updatedAt: createdInDb.updatedAt.toISOString(),
+        isEditorPick: createdInDb.isEditorPick,
+        seoTitle: createdInDb.seoTitle,
+        metaDescription: createdInDb.metaDescription,
+      };
+    }
+  } catch (err) {
+    console.error("Error creating article in DB during publishArticleByAdmin fallback:", err);
+  }
+
   // Log action
   activityLogsStore.unshift({
     id: `act-${Date.now()}`,
