@@ -181,9 +181,10 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-zinc-800 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 gap-4 font-medium">
-          <p>© {new Date().getFullYear()} BELOKIRI. Seluruh hak cipta dilindungi undang-undang.</p>
-          <p className="text-zinc-400">Liar Seperlunya, Jenaka Secukupnya</p>
+        <div className="border-t border-zinc-800 mt-12 pt-8 text-center text-xs text-zinc-500 font-medium">
+          <p>
+            © {new Date().getFullYear()} BELOKIRI. Seluruh hak cipta milik Tuhan YME. | Liar Seperlunya, Jenaka Secukupnya
+          </p>
         </div>
       </div>
     </footer>
