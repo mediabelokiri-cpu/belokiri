@@ -25,8 +25,23 @@ import ArticleShareButtons from "@/components/public/ArticleShareButtons";
 import ArticleReactions from "@/components/public/ArticleReactions";
 import ArticleViewTracker from "@/components/public/ArticleViewTracker";
 import AuthorAvatar from "@/components/public/AuthorAvatar";
+import { prisma } from "@/lib/db/prisma";
 
 export const revalidate = 60;
+
+export async function generateStaticParams() {
+  try {
+    const articles = await prisma.article.findMany({
+      where: { status: "PUBLISHED" },
+      select: { slug: true },
+      orderBy: { publishedAt: "desc" },
+      take: 25,
+    });
+    return articles.map((a: { slug: string }) => ({ slug: a.slug }));
+  } catch {
+    return [];
+  }
+}
 
 interface ArticleDetailPageProps {
   params: Promise<{ slug: string }>;
