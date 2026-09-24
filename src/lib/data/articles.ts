@@ -6,7 +6,70 @@ import {
 } from "./mock-articles";
 import { prisma } from "@/lib/db/prisma";
 
+function mapDbToArticle(a: any): MockArticle {
+  const roleLabel =
+    a.author.role === "ADMIN" ? "Agen Belokan (Admin)" : "Warga Belokan BELOKIRI";
+
+  return {
+    id: a.id,
+    title: a.title,
+    slug: a.slug,
+    excerpt: a.excerpt || "",
+    content: a.content,
+    featuredImage: a.featuredImage || "/images/placeholder.jpg",
+    featuredImageCaption: a.featuredImageCaption || "",
+    photoSource: a.photoSource || "BELOKIRI",
+    source: a.source || "BELOKIRI",
+    publishedAt: (a.publishedAt || a.createdAt).toISOString(),
+    updatedAt: a.updatedAt ? a.updatedAt.toISOString() : undefined,
+    views: a.views || 0,
+    isFeatured: a.isEditorPick || false,
+    isEditorPick: a.isEditorPick || false,
+    seoTitle: a.seoTitle || undefined,
+    metaDescription: a.metaDescription || undefined,
+    rubrik: {
+      name: a.category.name,
+      slug: a.category.slug,
+      question: a.category.description || "Liar Seperlunya, Jenaka Secukupnya.",
+      badgeColor: "bg-red-600",
+      description: a.category.description || "",
+    },
+    author: {
+      name: a.author.penName || a.author.name,
+      penName: a.author.penName,
+      slug: a.author.slug,
+      avatarUrl:
+        a.author.avatarUrl ||
+        "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80",
+      bio:
+        a.author.bio ||
+        "Warga Belokan aktif yang menyuarakan gagasan, opini kritis, dan cerita masyarakat sehari-hari.",
+      role: roleLabel,
+    },
+    tags: a.tags ? a.tags.map((t: any) => t.tag?.name || t.name || t) : [],
+  };
+}
+
 export async function getHeroArticles(limit: number = 3): Promise<MockArticle[]> {
+  try {
+    const dbArticles = await prisma.article.findMany({
+      where: { status: "PUBLISHED" },
+      include: { author: true, category: true, tags: { include: { tag: true } } },
+      orderBy: { publishedAt: "desc" },
+      take: limit * 2,
+    });
+
+    if (dbArticles.length > 0) {
+      const mapped = dbArticles.map(mapDbToArticle);
+      const featured = mapped.find((a) => a.isFeatured);
+      const others = mapped.filter((a) => a.id !== featured?.id);
+      const result = featured ? [featured, ...others] : [...mapped];
+      return result.slice(0, limit);
+    }
+  } catch (err) {
+    console.error("Error getHeroArticles db:", err);
+  }
+
   const featured = MOCK_ARTICLES.find((a) => a.isFeatured);
   const others = MOCK_ARTICLES.filter((a) => a.id !== featured?.id);
   const result = featured ? [featured, ...others] : [...MOCK_ARTICLES];
@@ -22,7 +85,39 @@ export async function getLatestArticles(
   limit: number = 6,
   page: number = 1
 ): Promise<{ articles: MockArticle[]; total: number; totalPages: number }> {
-  // Urutkan berdasarkan tanggal terbit descending
+  try {
+    const dbArticles = await prisma.article.findMany({
+      where: { status: "PUBLISHED" },
+      include: {
+        author: true,
+        category: true,
+        tags: { include: { tag: true } },
+      },
+      orderBy: { publishedAt: "desc" },
+    });
+
+    const mapped = dbArticles.map(mapDbToArticle);
+    const existingSlugs = new Set(mapped.map((m) => m.slug));
+    const combined = [
+      ...mapped,
+      ...MOCK_ARTICLES.filter((m) => !existingSlugs.has(m.slug)),
+    ];
+
+    const sorted = combined.sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    );
+
+    const start = (page - 1) * limit;
+    const articles = sorted.slice(start, start + limit);
+    const total = sorted.length;
+    const totalPages = Math.ceil(total / limit);
+
+    return { articles, total, totalPages };
+  } catch (err) {
+    console.error("Error getLatestArticles db:", err);
+  }
+
   const sorted = [...MOCK_ARTICLES].sort(
     (a, b) =>
       new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
@@ -37,10 +132,46 @@ export async function getLatestArticles(
 }
 
 export async function getEditorsPick(limit: number = 4): Promise<MockArticle[]> {
+  try {
+    const dbArticles = await prisma.article.findMany({
+      where: { status: "PUBLISHED", isEditorPick: true },
+      include: { author: true, category: true, tags: { include: { tag: true } } },
+      orderBy: { publishedAt: "desc" },
+      take: limit,
+    });
+
+    if (dbArticles.length > 0) {
+      const mapped = dbArticles.map(mapDbToArticle);
+      if (mapped.length >= limit) return mapped;
+      const extra = MOCK_ARTICLES.filter((a) => a.isEditorPick && !mapped.some((m) => m.slug === a.slug));
+      return [...mapped, ...extra].slice(0, limit);
+    }
+  } catch (err) {
+    console.error("Error getEditorsPick db:", err);
+  }
+
   return MOCK_ARTICLES.filter((a) => a.isEditorPick).slice(0, limit);
 }
 
 export async function getPopularArticles(limit: number = 5): Promise<MockArticle[]> {
+  try {
+    const dbArticles = await prisma.article.findMany({
+      where: { status: "PUBLISHED" },
+      include: { author: true, category: true, tags: { include: { tag: true } } },
+      orderBy: { views: "desc" },
+      take: limit,
+    });
+
+    if (dbArticles.length > 0) {
+      const mapped = dbArticles.map(mapDbToArticle);
+      const existing = new Set(mapped.map((m) => m.slug));
+      const combined = [...mapped, ...MOCK_ARTICLES.filter((m) => !existing.has(m.slug))];
+      return combined.sort((a, b) => b.views - a.views).slice(0, limit);
+    }
+  } catch (err) {
+    console.error("Error getPopularArticles db:", err);
+  }
+
   return [...MOCK_ARTICLES]
     .sort((a, b) => b.views - a.views)
     .slice(0, limit);
@@ -49,6 +180,23 @@ export async function getPopularArticles(limit: number = 5): Promise<MockArticle
 export async function getArticleBySlug(
   slug: string
 ): Promise<MockArticle | null> {
+  try {
+    const dbArticle = await prisma.article.findFirst({
+      where: { slug, status: "PUBLISHED" },
+      include: {
+        author: true,
+        category: true,
+        tags: { include: { tag: true } },
+      },
+    });
+
+    if (dbArticle) {
+      return mapDbToArticle(dbArticle);
+    }
+  } catch (err) {
+    console.error("Error getArticleBySlug db:", err);
+  }
+
   const article = MOCK_ARTICLES.find((a) => a.slug === slug);
   return article || null;
 }
@@ -69,6 +217,39 @@ export async function getArticlesByRubrik(
 
   if (!rubrik) {
     return { rubrik: null, articles: [], total: 0 };
+  }
+
+  try {
+    const dbArticles = await prisma.article.findMany({
+      where: {
+        status: "PUBLISHED",
+        category: { slug: rubrikSlug.toLowerCase() },
+      },
+      include: {
+        author: true,
+        category: true,
+        tags: { include: { tag: true } },
+      },
+      orderBy: { publishedAt: "desc" },
+    });
+
+    const mapped = dbArticles.map(mapDbToArticle);
+    const existing = new Set(mapped.map((m) => m.slug));
+    const mockFiltered = MOCK_ARTICLES.filter(
+      (a) => a.rubrik.slug.toLowerCase() === rubrikSlug.toLowerCase() && !existing.has(a.slug)
+    );
+
+    const combined = [...mapped, ...mockFiltered].sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    );
+
+    const start = (page - 1) * limit;
+    const articles = combined.slice(start, start + limit);
+
+    return { rubrik, articles, total: combined.length };
+  } catch (err) {
+    console.error("Error getArticlesByRubrik db:", err);
   }
 
   const filtered = MOCK_ARTICLES.filter(

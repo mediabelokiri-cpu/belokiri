@@ -1,6 +1,7 @@
 import { contributorArticlesStore, ContributorArticleItem } from "./contributor";
 import { MOCK_RUBRIKS } from "./mock-articles";
 import { slugify } from "@/lib/utils/slugify";
+import { prisma } from "@/lib/db/prisma";
 
 export interface AdminArticleItem extends ContributorArticleItem {
   authorName: string;
@@ -168,14 +169,55 @@ let activityLogsStore: ActivityLogItem[] = [
 /**
  * Helper to enrich article with author metadata
  */
-function enrichArticle(article: ContributorArticleItem): AdminArticleItem {
-  const author = adminUsersStore.find((u) => u.id === article.authorId) || adminUsersStore[0];
+async function enrichArticle(article: ContributorArticleItem): Promise<AdminArticleItem> {
+  let authorName = article.authorName || "";
+  let authorEmail = "";
+  let authorAvatarUrl: string | null = article.authorAvatarUrl || null;
+  let authorBio: string | null = article.authorBio || "Warga Belokan resmi BELOKIRI.";
+
+  if (!authorName) {
+    try {
+      const dbUser = await prisma.user.findFirst({
+        where: {
+          OR: [
+            { id: article.authorId },
+            { email: article.authorId },
+            { slug: article.authorId },
+          ],
+        },
+      });
+
+      if (dbUser) {
+        authorName = dbUser.penName || dbUser.name;
+        authorEmail = dbUser.email;
+        authorAvatarUrl = dbUser.avatarUrl || null;
+        authorBio = dbUser.bio || "Warga Belokan resmi BELOKIRI.";
+      }
+    } catch (err) {
+      console.error("Error finding user in db for enrichArticle:", err);
+    }
+  }
+
+  if (!authorName) {
+    const author = adminUsersStore.find((u) => u.id === article.authorId);
+    if (author) {
+      authorName = author.penName || author.name;
+      authorEmail = author.email;
+      authorAvatarUrl = author.avatarUrl;
+      authorBio = author.bio || "Warga Belokan resmi BELOKIRI.";
+    }
+  }
+
+  if (!authorName) {
+    authorName = "Warga Belokan";
+  }
+
   return {
     ...article,
-    authorName: author.penName || author.name,
-    authorEmail: author.email,
-    authorAvatarUrl: author.avatarUrl,
-    authorBio: author.bio,
+    authorName,
+    authorEmail,
+    authorAvatarUrl,
+    authorBio,
     isEditorPick: (article as any).isEditorPick || false,
     seoTitle: (article as any).seoTitle || null,
     metaDescription: (article as any).metaDescription || null,
@@ -208,10 +250,60 @@ export async function getAdminDashboardStats(): Promise<AdminDashboardStats> {
  * Get all articles currently in REVIEW queue awaiting editor action
  */
 export async function getReviewQueue(): Promise<AdminArticleItem[]> {
+  try {
+    const dbReviews = await prisma.article.findMany({
+      where: { status: "REVIEW" },
+      include: {
+        author: true,
+        category: true,
+        tags: { include: { tag: true } },
+      },
+      orderBy: { createdAt: "asc" },
+    });
+
+    const mappedDb: AdminArticleItem[] = dbReviews.map((a) => ({
+      id: a.id,
+      authorId: a.authorId,
+      authorName: a.author.penName || a.author.name,
+      authorEmail: a.author.email,
+      authorAvatarUrl: a.author.avatarUrl,
+      authorBio: a.author.bio || "Warga Belokan resmi BELOKIRI.",
+      title: a.title,
+      slug: a.slug,
+      excerpt: a.excerpt,
+      content: a.content,
+      featuredImage: a.featuredImage,
+      featuredImageCaption: a.featuredImageCaption,
+      photoSource: a.photoSource,
+      source: a.source,
+      categoryId: a.categoryId,
+      categoryName: a.category.name,
+      categorySlug: a.category.slug,
+      status: "REVIEW" as const,
+      adminNote: a.adminNote,
+      tags: a.tags.map((t) => t.tag.name),
+      views: a.views,
+      publishedAt: a.publishedAt ? a.publishedAt.toISOString() : null,
+      createdAt: a.createdAt.toISOString(),
+      updatedAt: a.updatedAt.toISOString(),
+      isEditorPick: a.isEditorPick,
+      seoTitle: a.seoTitle,
+      metaDescription: a.metaDescription,
+    }));
+
+    const reviews = contributorArticlesStore.filter((a) => a.status === "REVIEW");
+    const enriched = await Promise.all(reviews.map(enrichArticle));
+    const existingIds = new Set(mappedDb.map((m) => m.id));
+    const combined = [...mappedDb, ...enriched.filter((e) => !existingIds.has(e.id))];
+
+    return combined.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+  } catch (err) {
+    console.error("Error getReviewQueue db:", err);
+  }
+
   const reviews = contributorArticlesStore.filter((a) => a.status === "REVIEW");
-  return reviews
-    .map(enrichArticle)
-    .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+  const enriched = await Promise.all(reviews.map(enrichArticle));
+  return enriched.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
 }
 
 /**
@@ -222,7 +314,89 @@ export async function getAllArticlesForAdmin(filters?: {
   categorySlug?: string;
   search?: string;
 }): Promise<AdminArticleItem[]> {
-  let list = contributorArticlesStore.map(enrichArticle);
+  try {
+    const whereClause: any = {};
+    if (filters?.status && filters.status !== "ALL") {
+      whereClause.status = filters.status;
+    }
+    if (filters?.categorySlug && filters.categorySlug !== "ALL") {
+      whereClause.category = { slug: filters.categorySlug };
+    }
+    if (filters?.search && filters.search.trim()) {
+      whereClause.OR = [
+        { title: { contains: filters.search.trim(), mode: "insensitive" } },
+        { excerpt: { contains: filters.search.trim(), mode: "insensitive" } },
+      ];
+    }
+
+    const dbArticles = await prisma.article.findMany({
+      where: whereClause,
+      include: {
+        author: true,
+        category: true,
+        tags: { include: { tag: true } },
+      },
+      orderBy: { updatedAt: "desc" },
+    });
+
+    const mappedDb: AdminArticleItem[] = dbArticles.map((a) => ({
+      id: a.id,
+      authorId: a.authorId,
+      authorName: a.author.penName || a.author.name,
+      authorEmail: a.author.email,
+      authorAvatarUrl: a.author.avatarUrl,
+      authorBio: a.author.bio || "Warga Belokan resmi BELOKIRI.",
+      title: a.title,
+      slug: a.slug,
+      excerpt: a.excerpt,
+      content: a.content,
+      featuredImage: a.featuredImage,
+      featuredImageCaption: a.featuredImageCaption,
+      photoSource: a.photoSource,
+      source: a.source,
+      categoryId: a.categoryId,
+      categoryName: a.category.name,
+      categorySlug: a.category.slug,
+      status: a.status as any,
+      adminNote: a.adminNote,
+      tags: a.tags.map((t) => t.tag.name),
+      views: a.views,
+      publishedAt: a.publishedAt ? a.publishedAt.toISOString() : null,
+      createdAt: a.createdAt.toISOString(),
+      updatedAt: a.updatedAt.toISOString(),
+      isEditorPick: a.isEditorPick,
+      seoTitle: a.seoTitle,
+      metaDescription: a.metaDescription,
+    }));
+
+    let list = await Promise.all(contributorArticlesStore.map(enrichArticle));
+    if (filters?.status && filters.status !== "ALL") {
+      list = list.filter((a) => a.status === filters.status);
+    }
+    if (filters?.categorySlug && filters.categorySlug !== "ALL") {
+      list = list.filter((a) => a.categorySlug === filters.categorySlug);
+    }
+    if (filters?.search && filters.search.trim()) {
+      const q = filters.search.toLowerCase().trim();
+      list = list.filter(
+        (a) =>
+          a.title.toLowerCase().includes(q) ||
+          a.authorName.toLowerCase().includes(q) ||
+          a.categoryName.toLowerCase().includes(q)
+      );
+    }
+
+    const existingIds = new Set(mappedDb.map((m) => m.id));
+    const combined = [...mappedDb, ...list.filter((m) => !existingIds.has(m.id))];
+
+    return combined.sort(
+      (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+    );
+  } catch (err) {
+    console.error("Error in getAllArticlesForAdmin db:", err);
+  }
+
+  let list = await Promise.all(contributorArticlesStore.map(enrichArticle));
 
   if (filters?.status && filters.status !== "ALL") {
     list = list.filter((a) => a.status === filters.status);
@@ -251,9 +425,54 @@ export async function getAllArticlesForAdmin(filters?: {
  * Get single article for review workbench
  */
 export async function getArticleForReview(articleId: string): Promise<AdminArticleItem | null> {
+  try {
+    const dbArticle = await prisma.article.findUnique({
+      where: { id: articleId },
+      include: {
+        author: true,
+        category: true,
+        tags: { include: { tag: true } },
+      },
+    });
+
+    if (dbArticle) {
+      return {
+        id: dbArticle.id,
+        authorId: dbArticle.authorId,
+        authorName: dbArticle.author.penName || dbArticle.author.name,
+        authorEmail: dbArticle.author.email,
+        authorAvatarUrl: dbArticle.author.avatarUrl,
+        authorBio: dbArticle.author.bio || "Warga Belokan resmi BELOKIRI.",
+        title: dbArticle.title,
+        slug: dbArticle.slug,
+        excerpt: dbArticle.excerpt,
+        content: dbArticle.content,
+        featuredImage: dbArticle.featuredImage,
+        featuredImageCaption: dbArticle.featuredImageCaption,
+        photoSource: dbArticle.photoSource,
+        source: dbArticle.source,
+        categoryId: dbArticle.categoryId,
+        categoryName: dbArticle.category.name,
+        categorySlug: dbArticle.category.slug,
+        status: dbArticle.status as any,
+        adminNote: dbArticle.adminNote,
+        tags: dbArticle.tags.map((t) => t.tag.name),
+        views: dbArticle.views,
+        publishedAt: dbArticle.publishedAt ? dbArticle.publishedAt.toISOString() : null,
+        createdAt: dbArticle.createdAt.toISOString(),
+        updatedAt: dbArticle.updatedAt.toISOString(),
+        isEditorPick: dbArticle.isEditorPick,
+        seoTitle: dbArticle.seoTitle,
+        metaDescription: dbArticle.metaDescription,
+      };
+    }
+  } catch (err) {
+    console.error("Error getArticleForReview db:", err);
+  }
+
   const article = contributorArticlesStore.find((a) => a.id === articleId);
   if (!article) return null;
-  return enrichArticle(article);
+  return await enrichArticle(article);
 }
 
 /**
@@ -270,13 +489,91 @@ export async function publishArticleByAdmin(
     categoryId?: string;
   }
 ): Promise<AdminArticleItem> {
+  const now = new Date().toISOString();
+
+  try {
+    const dbArticle = await prisma.article.findUnique({ where: { id: articleId } });
+    if (dbArticle) {
+      let finalCatId = dbArticle.categoryId;
+      if (seoData?.categoryId) {
+        const catSlug = seoData.categoryId.replace(/^rubrik-/, "");
+        const cat = await prisma.category.findFirst({
+          where: { OR: [{ slug: catSlug }, { id: seoData.categoryId }] },
+        });
+        if (cat) finalCatId = cat.id;
+      }
+
+      const updated = await prisma.article.update({
+        where: { id: articleId },
+        data: {
+          title: seoData?.title || dbArticle.title,
+          categoryId: finalCatId,
+          status: "PUBLISHED",
+          adminNote: null,
+          isEditorPick: seoData?.isEditorPick !== undefined ? seoData.isEditorPick : true,
+          seoTitle: seoData?.seoTitle || null,
+          metaDescription: seoData?.metaDescription || null,
+          publishedAt: dbArticle.publishedAt || new Date(),
+        },
+        include: {
+          author: true,
+          category: true,
+          tags: { include: { tag: true } },
+        },
+      });
+
+      activityLogsStore.unshift({
+        id: `act-${Date.now()}`,
+        action: "PUBLISH_ARTICLE",
+        userName: adminName,
+        userRole: "ADMIN",
+        targetType: "ARTICLE",
+        targetTitle: updated.title,
+        targetId: updated.id,
+        note: `Diterbitkan di Rubrik ${updated.category.name}`,
+        createdAt: now,
+      });
+
+      return {
+        id: updated.id,
+        authorId: updated.authorId,
+        authorName: updated.author.penName || updated.author.name,
+        authorEmail: updated.author.email,
+        authorAvatarUrl: updated.author.avatarUrl,
+        authorBio: updated.author.bio || "Warga Belokan resmi BELOKIRI.",
+        title: updated.title,
+        slug: updated.slug,
+        excerpt: updated.excerpt,
+        content: updated.content,
+        featuredImage: updated.featuredImage,
+        featuredImageCaption: updated.featuredImageCaption,
+        photoSource: updated.photoSource,
+        source: updated.source,
+        categoryId: updated.categoryId,
+        categoryName: updated.category.name,
+        categorySlug: updated.category.slug,
+        status: "PUBLISHED",
+        adminNote: null,
+        tags: updated.tags.map((t) => t.tag.name),
+        views: updated.views,
+        publishedAt: updated.publishedAt ? updated.publishedAt.toISOString() : null,
+        createdAt: updated.createdAt.toISOString(),
+        updatedAt: updated.updatedAt.toISOString(),
+        isEditorPick: updated.isEditorPick,
+        seoTitle: updated.seoTitle,
+        metaDescription: updated.metaDescription,
+      };
+    }
+  } catch (err) {
+    console.error("Error publishArticleByAdmin db:", err);
+  }
+
   const index = contributorArticlesStore.findIndex((a) => a.id === articleId);
   if (index === -1) {
     throw new Error("Artikel tidak ditemukan");
   }
 
   const existing = contributorArticlesStore[index];
-  const now = new Date().toISOString();
 
   // If editor updated rubrik
   let categoryName = existing.categoryName;
@@ -324,7 +621,7 @@ export async function publishArticleByAdmin(
     createdAt: now,
   });
 
-  return enrichArticle(updated);
+  return await enrichArticle(updated);
 }
 
 /**
@@ -339,13 +636,76 @@ export async function requestRevisionByAdmin(
     throw new Error("Catatan kurasi revisi wajib diisi dengan jelas (minimal 10 karakter).");
   }
 
+  const now = new Date().toISOString();
+
+  try {
+    const dbArticle = await prisma.article.findUnique({ where: { id: articleId } });
+    if (dbArticle) {
+      const updated = await prisma.article.update({
+        where: { id: articleId },
+        data: {
+          status: "REVISION",
+          adminNote: adminNote.trim(),
+        },
+        include: {
+          author: true,
+          category: true,
+          tags: { include: { tag: true } },
+        },
+      });
+
+      activityLogsStore.unshift({
+        id: `act-${Date.now()}`,
+        action: "REQUEST_REVISION",
+        userName: adminName,
+        userRole: "ADMIN",
+        targetType: "ARTICLE",
+        targetTitle: updated.title,
+        targetId: updated.id,
+        note: adminNote.trim(),
+        createdAt: now,
+      });
+
+      return {
+        id: updated.id,
+        authorId: updated.authorId,
+        authorName: updated.author.penName || updated.author.name,
+        authorEmail: updated.author.email,
+        authorAvatarUrl: updated.author.avatarUrl,
+        authorBio: updated.author.bio || "Warga Belokan resmi BELOKIRI.",
+        title: updated.title,
+        slug: updated.slug,
+        excerpt: updated.excerpt,
+        content: updated.content,
+        featuredImage: updated.featuredImage,
+        featuredImageCaption: updated.featuredImageCaption,
+        photoSource: updated.photoSource,
+        source: updated.source,
+        categoryId: updated.categoryId,
+        categoryName: updated.category.name,
+        categorySlug: updated.category.slug,
+        status: "REVISION",
+        adminNote: updated.adminNote,
+        tags: updated.tags.map((t) => t.tag.name),
+        views: updated.views,
+        publishedAt: updated.publishedAt ? updated.publishedAt.toISOString() : null,
+        createdAt: updated.createdAt.toISOString(),
+        updatedAt: updated.updatedAt.toISOString(),
+        isEditorPick: updated.isEditorPick,
+        seoTitle: updated.seoTitle,
+        metaDescription: updated.metaDescription,
+      };
+    }
+  } catch (err) {
+    console.error("Error requestRevisionByAdmin db:", err);
+  }
+
   const index = contributorArticlesStore.findIndex((a) => a.id === articleId);
   if (index === -1) {
     throw new Error("Artikel tidak ditemukan");
   }
 
   const existing = contributorArticlesStore[index];
-  const now = new Date().toISOString();
 
   const updated: ContributorArticleItem = {
     ...existing,
@@ -369,7 +729,7 @@ export async function requestRevisionByAdmin(
     createdAt: now,
   });
 
-  return enrichArticle(updated);
+  return await enrichArticle(updated);
 }
 
 /**
@@ -379,13 +739,75 @@ export async function unpublishArticleByAdmin(
   articleId: string,
   adminName: string
 ): Promise<AdminArticleItem> {
+  const now = new Date().toISOString();
+
+  try {
+    const dbArticle = await prisma.article.findUnique({ where: { id: articleId } });
+    if (dbArticle) {
+      const updated = await prisma.article.update({
+        where: { id: articleId },
+        data: {
+          status: "DRAFT",
+        },
+        include: {
+          author: true,
+          category: true,
+          tags: { include: { tag: true } },
+        },
+      });
+
+      activityLogsStore.unshift({
+        id: `act-${Date.now()}`,
+        action: "UNPUBLISH_ARTICLE",
+        userName: adminName,
+        userRole: "ADMIN",
+        targetType: "ARTICLE",
+        targetTitle: updated.title,
+        targetId: updated.id,
+        note: "Status ditarik kembali menjadi Draf oleh Agen Belokan",
+        createdAt: now,
+      });
+
+      return {
+        id: updated.id,
+        authorId: updated.authorId,
+        authorName: updated.author.penName || updated.author.name,
+        authorEmail: updated.author.email,
+        authorAvatarUrl: updated.author.avatarUrl,
+        authorBio: updated.author.bio || "Warga Belokan resmi BELOKIRI.",
+        title: updated.title,
+        slug: updated.slug,
+        excerpt: updated.excerpt,
+        content: updated.content,
+        featuredImage: updated.featuredImage,
+        featuredImageCaption: updated.featuredImageCaption,
+        photoSource: updated.photoSource,
+        source: updated.source,
+        categoryId: updated.categoryId,
+        categoryName: updated.category.name,
+        categorySlug: updated.category.slug,
+        status: "DRAFT",
+        adminNote: updated.adminNote,
+        tags: updated.tags.map((t) => t.tag.name),
+        views: updated.views,
+        publishedAt: updated.publishedAt ? updated.publishedAt.toISOString() : null,
+        createdAt: updated.createdAt.toISOString(),
+        updatedAt: updated.updatedAt.toISOString(),
+        isEditorPick: updated.isEditorPick,
+        seoTitle: updated.seoTitle,
+        metaDescription: updated.metaDescription,
+      };
+    }
+  } catch (err) {
+    console.error("Error unpublishArticleByAdmin db:", err);
+  }
+
   const index = contributorArticlesStore.findIndex((a) => a.id === articleId);
   if (index === -1) {
     throw new Error("Artikel tidak ditemukan");
   }
 
   const existing = contributorArticlesStore[index];
-  const now = new Date().toISOString();
 
   const updated: ContributorArticleItem = {
     ...existing,
@@ -407,7 +829,7 @@ export async function unpublishArticleByAdmin(
     createdAt: now,
   });
 
-  return enrichArticle(updated);
+  return await enrichArticle(updated);
 }
 
 /**
@@ -416,6 +838,19 @@ export async function unpublishArticleByAdmin(
 export async function toggleEditorPickByAdmin(
   articleId: string
 ): Promise<boolean> {
+  try {
+    const dbArticle = await prisma.article.findUnique({ where: { id: articleId } });
+    if (dbArticle) {
+      const updated = await prisma.article.update({
+        where: { id: articleId },
+        data: { isEditorPick: !dbArticle.isEditorPick },
+      });
+      return updated.isEditorPick;
+    }
+  } catch (err) {
+    console.error("Error toggleEditorPickByAdmin db:", err);
+  }
+
   const index = contributorArticlesStore.findIndex((a) => a.id === articleId);
   if (index === -1) return false;
 
@@ -431,6 +866,29 @@ export async function deleteArticleByAdmin(
   articleId: string,
   adminName: string
 ): Promise<boolean> {
+  try {
+    const dbArticle = await prisma.article.findUnique({ where: { id: articleId } });
+    if (dbArticle) {
+      await prisma.articleTag.deleteMany({ where: { articleId } });
+      await prisma.article.delete({ where: { id: articleId } });
+
+      activityLogsStore.unshift({
+        id: `act-${Date.now()}`,
+        action: "UPDATE_ARTICLE",
+        userName: adminName,
+        userRole: "ADMIN",
+        targetType: "ARTICLE",
+        targetTitle: dbArticle.title,
+        targetId: dbArticle.id,
+        note: "Artikel dihapus permanen oleh Agen Belokan",
+        createdAt: new Date().toISOString(),
+      });
+      return true;
+    }
+  } catch (err) {
+    console.error("Error deleteArticleByAdmin db:", err);
+  }
+
   const index = contributorArticlesStore.findIndex((a) => a.id === articleId);
   if (index === -1) return false;
 
@@ -456,6 +914,36 @@ export async function deleteArticleByAdmin(
  * Get all users for admin management
  */
 export async function getAdminUsersList(): Promise<AdminUserItem[]> {
+  try {
+    const dbUsers = await prisma.user.findMany({
+      include: {
+        articles: { select: { id: true } },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+
+    if (dbUsers.length > 0) {
+      return dbUsers.map((u) => {
+        const memoryCount = contributorArticlesStore.filter((a) => a.authorId === u.id).length;
+        return {
+          id: u.id,
+          name: u.name,
+          penName: u.penName,
+          email: u.email,
+          slug: u.slug,
+          role: u.role,
+          status: u.status,
+          avatarUrl: u.avatarUrl,
+          bio: u.bio,
+          articleCount: u.articles.length + memoryCount,
+          createdAt: u.createdAt.toISOString(),
+        };
+      });
+    }
+  } catch (err) {
+    console.error("Error fetching db users for admin:", err);
+  }
+
   // Update article counts
   return adminUsersStore.map((u) => {
     const count = contributorArticlesStore.filter((a) => a.authorId === u.id).length;
@@ -596,7 +1084,7 @@ export async function saveArticleByAdmin(
       createdAt: now,
     });
 
-    return enrichArticle(updated);
+    return await enrichArticle(updated);
   }
 
   // Create new article
@@ -648,6 +1136,6 @@ export async function saveArticleByAdmin(
     createdAt: now,
   });
 
-  return enrichArticle(newArticle);
+  return await enrichArticle(newArticle);
 }
 

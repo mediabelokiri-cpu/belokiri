@@ -54,7 +54,10 @@ export async function saveDraftAction(
       parsed.excerpt = parsed.excerpt.trim();
     }
 
-    const saved = await saveArticleDraft(session.id, parsed, articleId);
+    const saved = await saveArticleDraft(session.id, parsed, articleId, {
+      name: session.penName || session.name,
+      avatarUrl: session.avatarUrl,
+    });
 
     revalidatePath("/dashboard");
     revalidatePath("/dashboard/artikel");
