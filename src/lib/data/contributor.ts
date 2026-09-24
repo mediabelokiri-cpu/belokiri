@@ -197,17 +197,6 @@ export interface ContributorProfile {
   avatarUrl: string | null;
 }
 
-// Profile store for user demo
-let contributorProfileStore: ContributorProfile = {
-  id: "user-demo-1",
-  name: "Budi Santoso",
-  penName: "Budi Santoso",
-  slug: "budi-santoso",
-  email: "budi.santoso@belokiri.id",
-  bio: "Penulis lepas dan pemerhati tata ruang kota, kebijakan transportasi, serta kebudayaan Nusantara. Aktif menyuarakan realitas warga sehari-hari.",
-  avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
-};
-
 /**
  * Get dashboard overview metrics for contributor
  */
@@ -407,28 +396,58 @@ export async function deleteArticleDraft(
 }
 
 /**
- * Get profile of contributor
+ * Get profile of contributor from Prisma database
  */
 export async function getContributorProfile(userId: string) {
-  return contributorProfileStore;
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+    if (user) {
+      return {
+        id: user.id,
+        name: user.name,
+        penName: user.penName,
+        slug: user.slug,
+        email: user.email,
+        bio: user.bio,
+        avatarUrl: user.avatarUrl,
+      };
+    }
+  } catch (error) {
+    console.error("Error in getContributorProfile:", error);
+  }
+  return null;
 }
 
 /**
- * Update profile of contributor
+ * Update profile of contributor in Prisma database
  */
 export async function updateContributorProfile(
   userId: string,
   data: ProfileInput
 ) {
-  contributorProfileStore = {
-    ...contributorProfileStore,
-    name: data.name,
-    penName: data.penName || null,
-    bio: data.bio || null,
-    avatarUrl: data.avatarUrl || contributorProfileStore.avatarUrl,
+  const updated = await prisma.user.update({
+    where: { id: userId },
+    data: {
+      name: data.name,
+      penName: data.penName || null,
+      bio: data.bio || null,
+      ...(data.avatarUrl ? { avatarUrl: data.avatarUrl } : {}),
+    },
+  });
+
+  return {
+    id: updated.id,
+    name: updated.name,
+    penName: updated.penName,
+    slug: updated.slug,
+    email: updated.email,
+    bio: updated.bio,
+    avatarUrl: updated.avatarUrl,
   };
-  return contributorProfileStore;
 }
 
 export { contributorArticlesStore };
+
 

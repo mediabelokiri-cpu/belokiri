@@ -14,6 +14,7 @@ import {
   Mail,
   ShieldCheck,
   ChevronRight,
+  UserCog,
 } from "lucide-react";
 
 interface AdminNavProps {
@@ -77,6 +78,12 @@ export default function AdminNav({ reviewCount = 0 }: AdminNavProps) {
       href: "/admin/surat-kaleng",
       icon: Mail,
       active: pathname === "/admin/surat-kaleng",
+    },
+    {
+      name: "Profil Admin",
+      href: "/admin/profil",
+      icon: UserCog,
+      active: pathname === "/admin/profil",
     },
     {
       name: "Log Aktivitas",

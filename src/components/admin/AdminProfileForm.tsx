@@ -3,30 +3,27 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 import { UserSessionData } from "@/types";
-import { updateProfileAction } from "@/actions/contributor.actions";
+import { updateAdminProfileAction } from "@/actions/admin.actions";
 import {
   Save,
   CheckCircle2,
   AlertTriangle,
-  ExternalLink,
+  ShieldCheck,
 } from "lucide-react";
 
-interface ContributorProfileFormProps {
-  initialUser: UserSessionData & { bio?: string | null };
+interface AdminProfileFormProps {
+  admin: UserSessionData & { bio?: string | null };
 }
 
-export default function ContributorProfileForm({
-  initialUser,
-}: ContributorProfileFormProps) {
+export default function AdminProfileForm({ admin }: AdminProfileFormProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
-  const [name, setName] = useState(initialUser.name);
-  const [penName, setPenName] = useState(initialUser.penName || "");
-  const [bio, setBio] = useState(initialUser.bio || "");
-  const [avatarUrl, setAvatarUrl] = useState(initialUser.avatarUrl || "");
+  const [name, setName] = useState(admin.name);
+  const [penName, setPenName] = useState(admin.penName || "");
+  const [avatarUrl, setAvatarUrl] = useState(admin.avatarUrl || "");
+  const [bio, setBio] = useState(admin.bio || "");
 
   const [statusMessage, setStatusMessage] = useState<{
     type: "success" | "error";
@@ -38,23 +35,23 @@ export default function ContributorProfileForm({
     setStatusMessage(null);
 
     startTransition(async () => {
-      const res = await updateProfileAction({
+      const res = await updateAdminProfileAction({
         name,
         penName: penName || null,
-        bio: bio || null,
         avatarUrl: avatarUrl || null,
+        bio: bio || null,
       });
 
       if (res.success) {
         setStatusMessage({
           type: "success",
-          text: res.message || "Profil berhasil diperbarui.",
+          text: res.message || "Profil Admin berhasil diperbarui.",
         });
         router.refresh();
       } else {
         setStatusMessage({
           type: "error",
-          text: res.message,
+          text: res.message || "Gagal memperbarui profil admin.",
         });
       }
     });
@@ -62,14 +59,14 @@ export default function ContributorProfileForm({
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      {/* Left Column: Profile Form (7 cols) */}
+      {/* Left Form: 7 cols */}
       <div className="lg:col-span-7 bg-white rounded-3xl border border-zinc-200 p-6 sm:p-8 shadow-xs space-y-6">
         <div>
           <h2 className="text-lg font-black text-black uppercase tracking-tight">
-            Data Penulis
+            Data Akun Administrator
           </h2>
           <p className="text-xs text-zinc-500 font-normal">
-            Perbarui nama pena, foto, dan bio yang akan dibaca publik.
+            Perbarui nama tampilan, nama pena redaksi, foto profil, dan biodata akun pengelola.
           </p>
         </div>
 
@@ -93,28 +90,28 @@ export default function ContributorProfileForm({
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs font-black uppercase tracking-wider text-zinc-700 mb-1">
-              Nama Lengkap Asli <span className="text-red-600">*</span>
+              Nama Admin / Penanggung Jawab <span className="text-red-600">*</span>
             </label>
             <input
               type="text"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Nama sesuai identitas..."
-              className="w-full px-4 py-2.5 text-xs rounded-xl border border-zinc-200 focus:outline-none focus:border-red-600 bg-zinc-50/50"
+              placeholder="Contoh: Admin Belokiri / Ihsanul Hakim"
+              className="w-full px-4 py-2.5 text-xs rounded-xl border border-zinc-200 focus:outline-hidden focus:border-red-600 bg-zinc-50/50 text-black font-medium"
             />
           </div>
 
           <div>
             <label className="block text-xs font-black uppercase tracking-wider text-zinc-700 mb-1">
-              Nama Pena / Pen Name (Opsional)
+              Nama Pena / Jabatan Redaksi (Opsional)
             </label>
             <input
               type="text"
               value={penName}
               onChange={(e) => setPenName(e.target.value)}
-              placeholder="Nama pena yang akan ditampilkan di artikel (kosongkan jika sama)..."
-              className="w-full px-4 py-2.5 text-xs rounded-xl border border-zinc-200 focus:outline-none focus:border-red-600 bg-zinc-50/50"
+              placeholder="Contoh: Dewan Agen Belokan / Pemimpin Redaksi"
+              className="w-full px-4 py-2.5 text-xs rounded-xl border border-zinc-200 focus:outline-hidden focus:border-red-600 bg-zinc-50/50 text-black font-medium"
             />
           </div>
 
@@ -126,15 +123,18 @@ export default function ContributorProfileForm({
               type="url"
               value={avatarUrl}
               onChange={(e) => setAvatarUrl(e.target.value)}
-              placeholder="https://images.unsplash.com/..."
-              className="w-full px-4 py-2.5 text-xs rounded-xl border border-zinc-200 focus:outline-none focus:border-red-600 bg-zinc-50/50"
+              placeholder="https://images.unsplash.com/... atau URL gambar langsung"
+              className="w-full px-4 py-2.5 text-xs rounded-xl border border-zinc-200 focus:outline-hidden focus:border-red-600 bg-zinc-50/50 text-black font-medium"
             />
+            <p className="text-[10px] text-zinc-400 mt-1 font-medium">
+              Masukkan tautan langsung gambar (JPG, PNG, atau WebP).
+            </p>
           </div>
 
           <div>
             <div className="flex items-center justify-between mb-1">
               <label className="text-xs font-black uppercase tracking-wider text-zinc-700">
-                Biodata Singkat
+                Biodata Redaksi
               </label>
               <span className="text-[10px] text-zinc-400">
                 {bio.length}/1000 karakter
@@ -144,8 +144,8 @@ export default function ContributorProfileForm({
               rows={4}
               value={bio}
               onChange={(e) => setBio(e.target.value.slice(0, 1000))}
-              placeholder="Tuliskan latar belakang, minat isu, atau kredensial kepenulisan Anda..."
-              className="w-full p-3 text-xs rounded-xl border border-zinc-200 focus:outline-none focus:border-red-600 bg-zinc-50/50 leading-relaxed"
+              placeholder="Tuliskan catatan singkat peran Anda di redaksi BELOKIRI..."
+              className="w-full p-3 text-xs rounded-xl border border-zinc-200 focus:outline-hidden focus:border-red-600 bg-zinc-50/50 leading-relaxed text-black font-medium"
             />
           </div>
 
@@ -156,42 +156,31 @@ export default function ContributorProfileForm({
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-all shadow-xs cursor-pointer disabled:opacity-50"
             >
               <Save className="w-4 h-4" />
-              <span>{isPending ? "Menyimpan..." : "Simpan Perubahan"}</span>
+              <span>{isPending ? "Menyimpan..." : "Simpan Perubahan Admin"}</span>
             </button>
           </div>
         </form>
       </div>
 
-      {/* Right Column: Live Author Card Preview (5 cols) */}
+      {/* Right Column: Live Admin Badge Preview (5 cols) */}
       <div className="lg:col-span-5 space-y-4">
-        <div className="flex items-center justify-between">
-          <span className="text-xs font-black uppercase tracking-wider text-zinc-500">
-            Pratinjau Kartu Penulis Publik
-          </span>
-          <Link
-            href={`/penulis/${initialUser.slug}`}
-            target="_blank"
-            className="inline-flex items-center gap-1 text-xs font-bold text-red-600 hover:text-red-700"
-          >
-            <span>Buka Profil Live</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </Link>
-        </div>
+        <span className="text-xs font-black uppercase tracking-wider text-zinc-500">
+          Pratinjau Identitas Admin
+        </span>
 
-        {/* Card Mockup */}
         <div className="bg-white rounded-3xl border border-zinc-200 p-6 sm:p-8 shadow-xs space-y-5 text-center">
-          <div className="relative w-24 h-24 mx-auto rounded-full overflow-hidden border-2 border-red-600 shadow-md">
+          <div className="relative w-24 h-24 mx-auto rounded-full overflow-hidden border-2 border-red-600 shadow-md bg-zinc-100">
             {avatarUrl ? (
               <Image
                 src={avatarUrl}
-                alt={penName || name}
+                alt={name}
                 fill
                 className="object-cover"
                 unoptimized
               />
             ) : (
-              <div className="w-full h-full bg-zinc-100 flex items-center justify-center font-black text-2xl text-zinc-500">
-                {(penName || name).charAt(0).toUpperCase()}
+              <div className="w-full h-full flex items-center justify-center font-black text-2xl text-zinc-500">
+                {name.charAt(0).toUpperCase()}
               </div>
             )}
           </div>
@@ -203,25 +192,28 @@ export default function ContributorProfileForm({
             {penName && penName !== name && (
               <p className="text-[11px] text-zinc-400 font-medium">({name})</p>
             )}
-            <span className="inline-block mt-1 text-[10px] font-black uppercase tracking-widest text-red-600 bg-red-50 border border-red-200 px-2.5 py-0.5 rounded-full">
-              Warga Belokan BELOKIRI
-            </span>
+            <div className="mt-2 flex items-center justify-center gap-1.5">
+              <span className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-white bg-black px-2.5 py-0.5 rounded-full">
+                <ShieldCheck className="w-3 h-3 text-red-500" />
+                <span>Agen Belokan (Admin)</span>
+              </span>
+            </div>
           </div>
 
           <p className="text-xs text-zinc-600 leading-relaxed font-normal italic">
-            “{bio || "Belum ada biodata yang ditambahkan."}”
+            “{bio || "Administrator Utama Meja Agen Belokan BELOKIRI."}”
           </p>
 
           <div className="pt-4 border-t border-zinc-100 flex items-center justify-around text-xs">
             <div>
-              <span className="block text-base font-black text-black">BELOKIRI</span>
+              <span className="block text-base font-black text-black">Akses Penuh</span>
               <span className="text-[10px] text-zinc-400 font-bold uppercase">
-                Portal
+                Hak Kelola
               </span>
             </div>
             <div className="w-[1px] h-6 bg-zinc-200" />
             <div>
-              <span className="block text-base font-black text-red-600">Terverifikasi</span>
+              <span className="block text-base font-black text-red-600">Terautentikasi</span>
               <span className="text-[10px] text-zinc-400 font-bold uppercase">
                 Status
               </span>

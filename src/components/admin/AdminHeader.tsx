@@ -56,30 +56,36 @@ export default function AdminHeader({ user }: AdminHeaderProps) {
 
             {/* Admin Profile Pill */}
             <div className="flex items-center gap-2.5 pl-3 sm:border-l border-zinc-200">
-              <div className="relative w-8 h-8 rounded-full overflow-hidden border border-zinc-300 bg-zinc-100 shrink-0">
-                {user.avatarUrl ? (
-                  <Image
-                    src={user.avatarUrl}
-                    alt={user.name}
-                    fill
-                    className="object-cover"
-                    sizes="32px"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center font-black text-xs text-zinc-600">
-                    {user.name.charAt(0).toUpperCase()}
-                  </div>
-                )}
-              </div>
+              <Link
+                href="/admin/profil"
+                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity p-1 rounded-xl hover:bg-zinc-50"
+                title="Kelola Profil Admin"
+              >
+                <div className="relative w-8 h-8 rounded-full overflow-hidden border border-zinc-300 bg-zinc-100 shrink-0">
+                  {user.avatarUrl ? (
+                    <Image
+                      src={user.avatarUrl}
+                      alt={user.name}
+                      fill
+                      className="object-cover"
+                      sizes="32px"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center font-black text-xs text-zinc-600">
+                      {user.name.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                </div>
 
-              <div className="hidden lg:block text-left">
-                <p className="text-xs font-black text-black leading-tight">
-                  {user.name}
-                </p>
-                <p className="text-[10px] text-red-600 font-bold uppercase tracking-wider">
-                  Agen Belokan
-                </p>
-              </div>
+                <div className="hidden lg:block text-left">
+                  <p className="text-xs font-black text-black leading-tight hover:text-red-600 transition-colors">
+                    {user.name}
+                  </p>
+                  <p className="text-[10px] text-red-600 font-bold uppercase tracking-wider">
+                    Agen Belokan
+                  </p>
+                </div>
+              </Link>
 
               {/* Logout Button */}
               <form action={logoutAction}>

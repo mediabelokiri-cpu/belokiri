@@ -83,7 +83,7 @@ export default function AuthForm({ callbackUrl }: AuthFormProps) {
                 type="text"
                 required
                 autoComplete="username email"
-                placeholder="misal: admin@belokiri.id"
+                placeholder="Masukkan username atau email Anda..."
                 className="w-full px-3.5 py-2.5 text-xs bg-white border border-zinc-300 rounded-xl focus:outline-hidden focus:border-black focus:ring-2 focus:ring-black/5 transition-all text-black placeholder:text-zinc-400 font-medium"
               />
             </div>

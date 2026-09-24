@@ -28,8 +28,9 @@ export default async function ContributorProfilePage() {
       <ContributorProfileForm
         initialUser={{
           ...user,
-          bio: profile?.bio,
-          penName: profile?.penName,
+          name: profile?.name || user.name,
+          penName: profile?.penName ?? user.penName,
+          bio: profile?.bio ?? null,
           avatarUrl: profile?.avatarUrl || user.avatarUrl,
         }}
       />

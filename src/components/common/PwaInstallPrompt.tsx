@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Download, X, Share2, PlusSquare, Smartphone, CheckCircle2 } from "lucide-react";
+import { Download, X, Share2, PlusSquare, Smartphone } from "lucide-react";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -227,7 +227,7 @@ export default function PwaInstallPrompt() {
                 </span>
                 <div>
                   Gulir ke bawah dan pilih{" "}
-                  <strong className="text-black">"Tambahkan ke Layar Utama" (Add to Home Screen)</strong>{" "}
+                  <strong className="text-black">&ldquo;Tambahkan ke Layar Utama&rdquo; (Add to Home Screen)</strong>{" "}
                   <PlusSquare className="w-3.5 h-3.5 inline text-zinc-800 mx-0.5" />.
                 </div>
               </div>
@@ -237,7 +237,7 @@ export default function PwaInstallPrompt() {
                   3
                 </span>
                 <div>
-                  Ketuk <strong className="text-black">"Tambah" (Add)</strong> di pojok kanan atas. Selesai!
+                  Ketuk <strong className="text-black">&ldquo;Tambah&rdquo; (Add)</strong> di pojok kanan atas. Selesai!
                 </div>
               </div>
             </div>

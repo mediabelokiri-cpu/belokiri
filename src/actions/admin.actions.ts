@@ -1,7 +1,8 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { requireAdmin } from "@/lib/auth/session";
+import { requireAdmin, setSession } from "@/lib/auth/session";
+import { prisma } from "@/lib/db/prisma";
 import {
   publishArticleByAdmin,
   requestRevisionByAdmin,
@@ -321,3 +322,62 @@ export async function saveArticleByAdminAction(
     };
   }
 }
+
+/**
+ * Update Admin Profile (name, penName, avatarUrl, bio)
+ */
+export async function updateAdminProfileAction(data: {
+  name: string;
+  penName?: string | null;
+  avatarUrl?: string | null;
+  bio?: string | null;
+}): Promise<ApiResponse<null>> {
+  try {
+    const admin = await requireAdmin();
+
+    const name = data.name?.trim();
+    if (!name || name.length < 2) {
+      return { success: false, message: "Nama admin minimal 2 karakter." };
+    }
+
+    const penName = data.penName?.trim() || null;
+    const avatarUrl = data.avatarUrl?.trim() || null;
+    const bio = data.bio?.trim() || null;
+
+    // Update in Prisma PostgreSQL database
+    await prisma.user.update({
+      where: { id: admin.id },
+      data: {
+        name,
+        penName,
+        avatarUrl,
+        bio,
+      },
+    });
+
+    // Sync current session cookie
+    await setSession({
+      ...admin,
+      name,
+      penName,
+      avatarUrl,
+    });
+
+    revalidatePath("/admin");
+    revalidatePath("/admin/settings");
+    revalidatePath("/admin/profil");
+
+    return {
+      success: true,
+      data: null,
+      message: "Profil Admin berhasil diperbarui.",
+    };
+  } catch (error: any) {
+    console.error("Update admin profile error:", error);
+    return {
+      success: false,
+      message: error?.message || "Gagal memperbarui profil admin.",
+    };
+  }
+}
+
