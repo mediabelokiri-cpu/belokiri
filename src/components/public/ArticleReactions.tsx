@@ -18,35 +18,35 @@ const REACTION_CONFIGS: ReactionDef[] = [
     emoji: "☕",
     label: "Masuk Akal",
     description: "Analisis tongkrongan yang ngena & logis",
-    defaultCount: 38,
+    defaultCount: 0,
   },
   {
     id: "sepakat",
     emoji: "✊",
     label: "Sepakat",
     description: "Solidaritas & keberpihakan pada gagasan ini",
-    defaultCount: 52,
+    defaultCount: 0,
   },
   {
     id: "mendidih",
     emoji: "🔥",
     label: "Mendidih",
     description: "Keresahan atas ketimpangan / ketidakadilan",
-    defaultCount: 29,
+    defaultCount: 0,
   },
   {
     id: "jenaka",
     emoji: "🎭",
     label: "Jenaka",
     description: "Satir tajam dengan tawa getir",
-    defaultCount: 19,
+    defaultCount: 0,
   },
   {
     id: "tersentil",
     emoji: "🤯",
     label: "Tersentil",
     description: "Membongkar apa yang selama ini terabaikan",
-    defaultCount: 24,
+    defaultCount: 0,
   },
 ];
 
@@ -61,27 +61,32 @@ export default function ArticleReactions({
   const [counts, setCounts] = useState<Record<string, number>>({});
   const [mounted, setMounted] = useState(false);
 
-  // Compute deterministic initial base counts based on articleSlug
   useEffect(() => {
     setMounted(true);
-    let hash = 0;
-    for (let i = 0; i < articleSlug.length; i++) {
-      hash = (hash << 5) - hash + articleSlug.charCodeAt(i);
-      hash |= 0;
-    }
-    const seed = Math.abs(hash);
-
     const initialCounts: Record<string, number> = {};
-    REACTION_CONFIGS.forEach((r, idx) => {
-      const offset = (seed + idx * 17) % 30;
-      initialCounts[r.id] = r.defaultCount + offset;
+    REACTION_CONFIGS.forEach((r) => {
+      initialCounts[r.id] = 0;
     });
 
     const storageKey = `belokiri_reaction_${articleSlug}`;
+    const countsKey = `belokiri_reaction_counts_${articleSlug}`;
+
+    const savedCounts = localStorage.getItem(countsKey);
+    if (savedCounts) {
+      try {
+        const parsed = JSON.parse(savedCounts);
+        Object.assign(initialCounts, parsed);
+      } catch {
+        // Ignore parse error
+      }
+    }
+
     const saved = localStorage.getItem(storageKey);
     if (saved && initialCounts[saved] !== undefined) {
       setUserSelected(saved);
-      initialCounts[saved] += 1;
+      if (initialCounts[saved] === 0) {
+        initialCounts[saved] = 1;
+      }
     }
 
     setCounts(initialCounts);
@@ -89,6 +94,7 @@ export default function ArticleReactions({
 
   const handleToggleReaction = (reactionId: string) => {
     const storageKey = `belokiri_reaction_${articleSlug}`;
+    const countsKey = `belokiri_reaction_counts_${articleSlug}`;
 
     setCounts((prev) => {
       const next = { ...prev };
@@ -109,6 +115,7 @@ export default function ArticleReactions({
         localStorage.setItem(storageKey, reactionId);
       }
 
+      localStorage.setItem(countsKey, JSON.stringify(next));
       return next;
     });
   };
@@ -131,7 +138,7 @@ export default function ArticleReactions({
           </p>
         </div>
 
-        {mounted && totalReactions > 0 && (
+        {mounted && (
           <span className="text-[11px] font-bold text-zinc-600 bg-white px-3 py-1.5 rounded-full border border-zinc-200 self-start sm:self-auto">
             Total Reaksi: <strong className="text-red-600">{totalReactions}</strong>
           </span>
@@ -142,7 +149,7 @@ export default function ArticleReactions({
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
         {REACTION_CONFIGS.map((reaction) => {
           const isSelected = userSelected === reaction.id;
-          const count = counts[reaction.id] || reaction.defaultCount;
+          const count = counts[reaction.id] ?? 0;
 
           return (
             <button
