@@ -85,43 +85,66 @@ export default function RekrutmenPage() {
         </div>
       </div>
 
-      {/* Cara Mendaftar & Kontak */}
-      <section className="bg-black text-white rounded-3xl p-8 sm:p-12 border-t-4 border-red-600 space-y-6">
+      {/* Cara Mendaftar & Kontak (Red Theme CTA) */}
+      <section className="bg-red-600 text-white rounded-3xl p-8 sm:p-12 border-t-4 border-red-700 shadow-xl space-y-8">
         <div className="space-y-2 text-center sm:text-left">
-          <span className="text-xs font-black uppercase tracking-widest text-red-500">
-            Prosedur Pengiriman Berkas
+          <span className="inline-block text-[11px] font-black uppercase tracking-widest text-red-100 bg-red-700/80 px-3.5 py-1 rounded-full mb-1">
+            PROSEDUR PENGIRIMAN BERKAS
           </span>
-          <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">
+          <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-white leading-tight">
             Bagaimana Cara Bergabung?
           </h2>
-          <p className="text-xs sm:text-sm text-zinc-400 font-normal max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-red-100/90 font-normal max-w-2xl leading-relaxed">
             Kirimkan perkenalan singkat dirimu, alasan tertarik bergabung dengan Belokiri.id, serta 1 contoh tulisan (esai, opini warkop, catatan lapangan, atau kritik isu terkini minimal 500 kata).
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-          <div className="p-5 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-2">
-            <div className="flex items-center gap-2 text-red-500 font-bold text-xs uppercase tracking-wider">
+        {/* Primary CTA: Tombol Putih "ISI FORM AGEN" */}
+        <div className="p-6 sm:p-8 rounded-2xl bg-red-700/60 border border-red-500/60 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="space-y-1.5 text-center sm:text-left">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-red-200">
+              Jalur Pendaftaran Resmi Online
+            </span>
+            <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
+              Formulir Pendaftaran Agen Belokan
+            </h3>
+            <p className="text-xs sm:text-sm text-red-100 font-normal max-w-md">
+              Isi biodata calon agen dan lampirkan draf naskah tulisanmu langsung ke sistem seleksi redaksi.
+            </p>
+          </div>
+          <Link
+            href="/rekrutmen/form"
+            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-white hover:bg-zinc-100 text-red-600 text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform active:scale-95 shrink-0"
+          >
+            <span>Isi Form Agen</span>
+            <ArrowRight className="w-4 h-4 text-red-600" />
+          </Link>
+        </div>
+
+        {/* Secondary Options: Email & Warga Belokan */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="p-5 rounded-2xl bg-red-700/40 border border-red-500/40 space-y-1.5">
+            <div className="flex items-center gap-2 text-red-200 font-bold text-xs uppercase tracking-wider">
               <Mail className="w-4 h-4" />
               <span>Kirim Melalui Surel</span>
             </div>
             <p className="text-sm font-bold text-white">rekrutmen@belokiri.id</p>
-            <p className="text-xs text-zinc-400 font-normal">
-              Subjek: <code>[REKRUTMEN-BELOKIRI] Nama Lengkap - Kota / Kampus</code>
+            <p className="text-xs text-red-200 font-normal">
+              Subjek: <code className="bg-red-800/60 px-1.5 py-0.5 rounded text-[11px]">[REKRUTMEN-BELOKIRI] Nama - Kota</code>
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-2">
-            <div className="flex items-center gap-2 text-red-500 font-bold text-xs uppercase tracking-wider">
+          <div className="p-5 rounded-2xl bg-red-700/40 border border-red-500/40 space-y-1.5">
+            <div className="flex items-center gap-2 text-red-200 font-bold text-xs uppercase tracking-wider">
               <Sparkles className="w-4 h-4" />
-              <span>Atau Langsung Tulis di Portal</span>
+              <span>Atau Tulis Lepas di Portal</span>
             </div>
-            <p className="text-xs text-zinc-300 font-normal">
-              Kamu juga bisa langsung mendaftar sebagai Warga Belokan dan mengirim naskah langsung ke antrean Agen Belokan kami.
+            <p className="text-xs text-red-100 font-normal">
+              Kamu juga bisa langsung mendaftar sebagai Warga Belokan untuk mengirimkan naskah lepas.
             </p>
             <Link
               href="/login"
-              className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-red-500 hover:text-red-400 pt-1"
+              className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white hover:underline pt-1"
             >
               <span>Masuk ke Meja Warga Belokan</span>
               <ArrowRight className="w-3.5 h-3.5" />
