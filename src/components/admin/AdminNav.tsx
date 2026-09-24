@@ -10,6 +10,8 @@ import {
   Users,
   History,
   PenTool,
+  Sliders,
+  Mail,
 } from "lucide-react";
 
 interface AdminNavProps {
@@ -61,6 +63,18 @@ export default function AdminNav({ reviewCount = 0 }: AdminNavProps) {
       href: "/admin/users",
       icon: Users,
       active: pathname === "/admin/users",
+    },
+    {
+      name: "Kelola Website",
+      href: "/admin/settings",
+      icon: Sliders,
+      active: pathname === "/admin/settings",
+    },
+    {
+      name: "Surat Kaleng",
+      href: "/admin/surat-kaleng",
+      icon: Mail,
+      active: pathname === "/admin/surat-kaleng",
     },
     {
       name: "Log Aktivitas",
