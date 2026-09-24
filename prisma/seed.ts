@@ -1,4 +1,5 @@
 import { PrismaClient, Role, UserStatus, ArticleStatus } from "@prisma/client";
+import { hashPassword } from "../src/lib/security/password";
 
 const prisma = new PrismaClient();
 
@@ -55,7 +56,21 @@ const RUBRIKS = [
 ];
 
 // 2. Akun Inti: Dewan Agen Belokan & Warga Belokan
+const DEFAULT_PASSWORD_HASH = hashPassword("Brip@l007");
+
 const USERS = [
+  {
+    email: "admin@belokiri.id",
+    name: "Admin Belokiri",
+    penName: "Admin Utama",
+    slug: "admin-belokiri",
+    avatarUrl:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80",
+    bio: "Administrator Utama BELOKIRI. Memegang kendali penuh atas manajemen konten, kurasi naskah, dan tata kelola platform.",
+    role: Role.ADMIN,
+    status: UserStatus.ACTIVE,
+    passwordHash: DEFAULT_PASSWORD_HASH,
+  },
   {
     email: "agen@belokiri.id",
     name: "Agen Belokan BELOKIRI",
@@ -66,6 +81,7 @@ const USERS = [
     bio: "Dewan Agen Belokan dan Tim Kurasi Naskah BELOKIRI. Memastikan setiap tulisan liar seperlunya, jenaka secukupnya.",
     role: Role.ADMIN,
     status: UserStatus.ACTIVE,
+    passwordHash: DEFAULT_PASSWORD_HASH,
   },
   {
     email: "warga@belokiri.id",
@@ -77,6 +93,7 @@ const USERS = [
     bio: "Warga Belokan aktif, penikmat kopi tubruk warkop, dan pemerhati dinamika sosial jalanan serta kebijakan publik.",
     role: Role.USER,
     status: UserStatus.ACTIVE,
+    passwordHash: DEFAULT_PASSWORD_HASH,
   },
   {
     email: "arya@belokiri.id",
@@ -88,6 +105,7 @@ const USERS = [
     bio: "Jurnalis investigasi dan peminat isu kebijakan publik, lingkungan hidup, dan tata kelola perkotaan.",
     role: Role.ADMIN,
     status: UserStatus.ACTIVE,
+    passwordHash: DEFAULT_PASSWORD_HASH,
   },
   {
     email: "dian@belokiri.id",
@@ -99,6 +117,7 @@ const USERS = [
     bio: "Peneliti data sosial dan pengamat dinamika pendidikan tinggi serta masa depan anak muda.",
     role: Role.ADMIN,
     status: UserStatus.ACTIVE,
+    passwordHash: DEFAULT_PASSWORD_HASH,
   },
   {
     email: "reza@belokiri.id",
@@ -110,6 +129,7 @@ const USERS = [
     bio: "Pecinta sejarah lokal, sastra Nusantara, dan tradisi seni rakyat di berbagai pelosok Indonesia.",
     role: Role.USER,
     status: UserStatus.ACTIVE,
+    passwordHash: DEFAULT_PASSWORD_HASH,
   },
   {
     email: "nadia@belokiri.id",
@@ -121,6 +141,7 @@ const USERS = [
     bio: "Menulis seputar sains populer, kecerdasan buatan, teknologi terbuka, dan gerakan mahasiswa.",
     role: Role.USER,
     status: UserStatus.ACTIVE,
+    passwordHash: DEFAULT_PASSWORD_HASH,
   },
 ];
 
@@ -431,6 +452,7 @@ async function main() {
         bio: user.bio,
         role: user.role,
         status: user.status,
+        passwordHash: user.passwordHash,
       },
       create: {
         email: user.email,
@@ -441,6 +463,7 @@ async function main() {
         bio: user.bio,
         role: user.role,
         status: user.status,
+        passwordHash: user.passwordHash,
       },
     });
     userMap.set(user.email, createdUser.id);
