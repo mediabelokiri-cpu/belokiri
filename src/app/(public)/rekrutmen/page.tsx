@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Users, Send, CheckCircle2, Mail, Sparkles, ArrowRight } from "lucide-react";
+import { Users, Send, CheckCircle2, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Rekrutmen Anggota & Penulis | BELOKIRI",
@@ -87,14 +87,14 @@ export default function RekrutmenPage() {
 
       {/* Cara Mendaftar & Kontak (Red Theme CTA) */}
       <section className="bg-red-600 text-white rounded-3xl p-8 sm:p-12 border-t-4 border-red-700 shadow-xl space-y-8">
-        <div className="space-y-2 text-center sm:text-left">
-          <span className="inline-block text-[11px] font-black uppercase tracking-widest text-red-100 bg-red-700/80 px-3.5 py-1 rounded-full mb-1">
+        <div className="space-y-3 text-center sm:text-left">
+          <span className="inline-block text-[11px] font-black uppercase tracking-widest text-red-100 bg-red-700/80 px-3.5 py-1 rounded-full">
             PROSEDUR PENGIRIMAN BERKAS
           </span>
           <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-white leading-tight">
             Bagaimana Cara Bergabung?
           </h2>
-          <p className="text-xs sm:text-sm text-red-100/90 font-normal max-w-2xl leading-relaxed">
+          <p className="text-sm sm:text-base text-red-100/90 font-normal max-w-2xl leading-relaxed">
             Kirimkan perkenalan singkat dirimu, alasan tertarik bergabung dengan Belokiri.id, serta 1 contoh tulisan (esai, opini warkop, catatan lapangan, atau kritik isu terkini minimal 500 kata).
           </p>
         </div>
@@ -119,37 +119,6 @@ export default function RekrutmenPage() {
             <span>Isi Form Agen</span>
             <ArrowRight className="w-4 h-4 text-red-600" />
           </Link>
-        </div>
-
-        {/* Secondary Options: Email & Warga Belokan */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="p-5 rounded-2xl bg-red-700/40 border border-red-500/40 space-y-1.5">
-            <div className="flex items-center gap-2 text-red-200 font-bold text-xs uppercase tracking-wider">
-              <Mail className="w-4 h-4" />
-              <span>Kirim Melalui Surel</span>
-            </div>
-            <p className="text-sm font-bold text-white">rekrutmen@belokiri.id</p>
-            <p className="text-xs text-red-200 font-normal">
-              Subjek: <code className="bg-red-800/60 px-1.5 py-0.5 rounded text-[11px]">[REKRUTMEN-BELOKIRI] Nama - Kota</code>
-            </p>
-          </div>
-
-          <div className="p-5 rounded-2xl bg-red-700/40 border border-red-500/40 space-y-1.5">
-            <div className="flex items-center gap-2 text-red-200 font-bold text-xs uppercase tracking-wider">
-              <Sparkles className="w-4 h-4" />
-              <span>Atau Tulis Lepas di Portal</span>
-            </div>
-            <p className="text-xs text-red-100 font-normal">
-              Kamu juga bisa langsung mendaftar sebagai Warga Belokan untuk mengirimkan naskah lepas.
-            </p>
-            <Link
-              href="/login"
-              className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white hover:underline pt-1"
-            >
-              <span>Masuk ke Meja Warga Belokan</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
         </div>
       </section>
     </div>
