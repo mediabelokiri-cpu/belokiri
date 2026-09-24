@@ -25,7 +25,7 @@ export default async function HomePage() {
     getHeroArticles(3),
     getLatestArticles(8, 1),
     getArticlesByRubrik("berisik", 6),
-    getEditorsPick(4),
+    getEditorsPick(5),
     getPopularArticles(5),
     getAllRubriks(),
   ]);
