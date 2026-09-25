@@ -256,6 +256,7 @@ export async function saveArticleByAdminAction(
     seoTitle?: string | null;
     metaDescription?: string | null;
     status: "DRAFT" | "REVIEW" | "PUBLISHED";
+    authorId?: string | null;
   },
   articleId?: string
 ): Promise<ApiResponse<{ id: string; slug: string; status: string }>> {
@@ -279,6 +280,7 @@ export async function saveArticleByAdminAction(
     // Sanitize content and text inputs
     const sanitizedData = {
       ...data,
+      authorId: data.authorId ? data.authorId.trim() : null,
       title: data.title.trim(),
       content: sanitizeHtml(data.content),
       excerpt: data.excerpt ? data.excerpt.trim() : null,
@@ -381,6 +383,52 @@ export async function updateAdminProfileAction(data: {
     return {
       success: false,
       message: error?.message || "Gagal memperbarui profil admin.",
+    };
+  }
+}
+
+/**
+ * Fetch list of active users/authors for admin article assignment
+ */
+export async function getAdminAuthorsListAction(): Promise<
+  ApiResponse<
+    {
+      id: string;
+      name: string;
+      penName: string | null;
+      email: string;
+      role: string;
+      avatarUrl: string | null;
+    }[]
+  >
+> {
+  try {
+    await requireAdmin();
+    const users = await prisma.user.findMany({
+      where: { status: "ACTIVE" },
+      select: {
+        id: true,
+        name: true,
+        penName: true,
+        email: true,
+        role: true,
+        avatarUrl: true,
+      },
+      orderBy: [
+        { role: "asc" },
+        { name: "asc" },
+      ],
+    });
+
+    return {
+      success: true,
+      data: users,
+    };
+  } catch (error) {
+    console.error("Error getAdminAuthorsListAction:", error);
+    return {
+      success: false,
+      message: "Gagal memuat daftar penulis.",
     };
   }
 }

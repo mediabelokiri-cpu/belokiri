@@ -1,13 +1,16 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useEffect, useTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { MOCK_RUBRIKS } from "@/lib/data/mock-articles";
 import { AdminArticleItem } from "@/lib/data/admin";
 import ArticleStatusBadge from "@/components/dashboard/ArticleStatusBadge";
-import { saveArticleByAdminAction } from "@/actions/admin.actions";
+import {
+  saveArticleByAdminAction,
+  getAdminAuthorsListAction,
+} from "@/actions/admin.actions";
 import ImageUploadDropzone from "@/components/common/ImageUploadDropzone";
 import {
   Save,
@@ -34,14 +37,28 @@ import {
   ListOrdered,
   Minus,
   ExternalLink,
+  UserCheck,
 } from "lucide-react";
+
+export interface AuthorOption {
+  id: string;
+  name: string;
+  penName?: string | null;
+  email: string;
+  role: string;
+  avatarUrl?: string | null;
+}
 
 interface AdminArticleEditorProps {
   initialData?: AdminArticleItem | null;
+  authors?: AuthorOption[];
+  currentUserId?: string;
 }
 
 export default function AdminArticleEditor({
   initialData,
+  authors,
+  currentUserId,
 }: AdminArticleEditorProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -77,6 +94,70 @@ export default function AdminArticleEditor({
   const [metaDescription, setMetaDescription] = useState(
     initialData?.metaDescription || ""
   );
+
+  // Author selection states
+  const [authorList, setAuthorList] = useState<AuthorOption[]>(() => {
+    const list = authors ? [...authors] : [];
+    if (initialData?.authorId && !list.some((a) => a.id === initialData.authorId)) {
+      list.unshift({
+        id: initialData.authorId,
+        name: initialData.authorName || "Penulis Naskah",
+        penName: initialData.authorName,
+        email: initialData.authorEmail || "",
+        role: "PENULIS",
+        avatarUrl: initialData.authorAvatarUrl,
+      });
+    }
+    return list;
+  });
+
+  const [authorId, setAuthorId] = useState<string>(
+    initialData?.authorId ||
+      currentUserId ||
+      (authors && authors.length > 0 ? authors[0].id : "")
+  );
+
+  useEffect(() => {
+    if (authors && authors.length > 0) {
+      const merged = [...authors];
+      if (initialData?.authorId && !merged.some((a) => a.id === initialData.authorId)) {
+        merged.unshift({
+          id: initialData.authorId,
+          name: initialData.authorName || "Penulis Naskah",
+          penName: initialData.authorName,
+          email: initialData.authorEmail || "",
+          role: "PENULIS",
+          avatarUrl: initialData.authorAvatarUrl,
+        });
+      }
+      setAuthorList(merged);
+      if (!authorId) {
+        setAuthorId(initialData?.authorId || currentUserId || merged[0].id);
+      }
+    } else {
+      getAdminAuthorsListAction().then((res) => {
+        if (res.success && res.data && res.data.length > 0) {
+          const list = [...res.data];
+          if (initialData?.authorId && !list.some((a) => a.id === initialData.authorId)) {
+            list.unshift({
+              id: initialData.authorId,
+              name: initialData.authorName || "Penulis Naskah",
+              penName: initialData.authorName,
+              email: initialData.authorEmail || "",
+              role: "PENULIS",
+              avatarUrl: initialData.authorAvatarUrl,
+            });
+          }
+          setAuthorList(list);
+          if (!authorId) {
+            setAuthorId(initialData?.authorId || currentUserId || list[0].id);
+          }
+        }
+      });
+    }
+  }, [authors, currentUserId, initialData, authorId]);
+
+  const selectedAuthor = authorList.find((a) => a.id === authorId) || null;
 
   // Feedback states
   const [feedback, setFeedback] = useState<{
@@ -163,6 +244,7 @@ export default function AdminArticleEditor({
           seoTitle,
           metaDescription,
           status: targetStatus,
+          authorId: authorId || undefined,
         },
         initialData?.id
       );
@@ -575,6 +657,74 @@ export default function AdminArticleEditor({
                 <span>Simpan Sebagai Draf</span>
               </button>
             </div>
+          </div>
+
+          {/* Author Selector Card */}
+          <div className="bg-white rounded-3xl border border-zinc-200 p-6 shadow-xs space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <UserCheck className="w-4 h-4 text-red-600" />
+                <label className="text-xs font-black uppercase tracking-wider text-black">
+                  Akun Penulis Naskah
+                </label>
+              </div>
+              <span className="text-[10px] font-bold text-zinc-500 bg-zinc-100 px-2.5 py-0.5 rounded-full border border-zinc-200">
+                {authorList.length} Akun
+              </span>
+            </div>
+
+            <p className="text-[11px] text-zinc-500 font-normal leading-relaxed">
+              Pilih akun penulis yang akan diatribusikan sebagai pemilik naskah ini:
+            </p>
+
+            <select
+              value={authorId}
+              onChange={(e) => setAuthorId(e.target.value)}
+              className="w-full px-3.5 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-bold text-black focus:outline-hidden focus:ring-2 focus:ring-red-600 focus:bg-white transition-all cursor-pointer"
+            >
+              {authorList.map((user) => (
+                <option key={user.id} value={user.id}>
+                  {user.penName || user.name} ({user.role === "ADMIN" ? "Agen Belokan" : user.role === "EDITOR" ? "Editor" : "Penulis"}) — {user.email}
+                </option>
+              ))}
+            </select>
+
+            {/* Selected Author Preview Badge */}
+            {selectedAuthor && (
+              <div className="flex items-center gap-3 p-3 rounded-2xl bg-zinc-50 border border-zinc-200/80">
+                {selectedAuthor.avatarUrl ? (
+                  <div className="relative w-9 h-9 rounded-full overflow-hidden shrink-0 ring-2 ring-red-600/20">
+                    <Image
+                      src={selectedAuthor.avatarUrl}
+                      alt={selectedAuthor.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-9 h-9 rounded-full bg-red-100 text-red-700 font-black text-xs flex items-center justify-center shrink-0 ring-2 ring-red-600/20">
+                    {(selectedAuthor.penName || selectedAuthor.name || "A")
+                      .slice(0, 2)
+                      .toUpperCase()}
+                  </div>
+                )}
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-black text-black truncate">
+                    {selectedAuthor.penName || selectedAuthor.name}
+                  </p>
+                  <p className="text-[10px] text-zinc-500 truncate">
+                    <span className="font-bold text-red-600">
+                      {selectedAuthor.role === "ADMIN"
+                        ? "Dewan Redaksi / Agen Belokan"
+                        : selectedAuthor.role === "EDITOR"
+                        ? "Editor"
+                        : "Penulis Warga"}
+                    </span>{" "}
+                    • {selectedAuthor.email}
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Rubrik Selector Card */}

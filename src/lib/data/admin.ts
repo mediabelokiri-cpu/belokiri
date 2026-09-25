@@ -1048,6 +1048,7 @@ export async function saveArticleByAdmin(
     seoTitle?: string | null;
     metaDescription?: string | null;
     status: "DRAFT" | "REVIEW" | "PUBLISHED";
+    authorId?: string | null;
   },
   articleId?: string
 ): Promise<AdminArticleItem> {
@@ -1091,6 +1092,18 @@ export async function saveArticleByAdmin(
       effectiveAdminId = dbAdmin.id;
     }
 
+    let finalAuthorId = effectiveAdminId;
+    if (data.authorId) {
+      const dbAuthor = await prisma.user.findFirst({
+        where: {
+          OR: [{ id: data.authorId }, { email: data.authorId }],
+        },
+      });
+      if (dbAuthor) {
+        finalAuthorId = dbAuthor.id;
+      }
+    }
+
     let finalCatId = dbCategory?.id;
     if (!finalCatId) {
       const defaultCat = await prisma.category.findFirst();
@@ -1109,6 +1122,7 @@ export async function saveArticleByAdmin(
         const updated = await prisma.article.update({
           where: { id: articleId },
           data: {
+            ...(data.authorId ? { authorId: finalAuthorId } : {}),
             title: data.title || dbArticle.title,
             categoryId: finalCatId || dbArticle.categoryId,
             content: data.content || dbArticle.content,
@@ -1194,10 +1208,10 @@ export async function saveArticleByAdmin(
       }
     } else {
       const generatedSlug = `${slugify(data.title || "naskah-agen-belokan")}-${Date.now().toString().slice(-4)}`;
-      if (finalCatId && effectiveAdminId) {
+      if (finalCatId && (finalAuthorId || effectiveAdminId)) {
         const created = await prisma.article.create({
           data: {
-            authorId: effectiveAdminId,
+            authorId: finalAuthorId || effectiveAdminId,
             categoryId: finalCatId,
             title: data.title || "Naskah Agen Belokan BELOKIRI",
             slug: generatedSlug,
@@ -1353,7 +1367,7 @@ export async function saveArticleByAdmin(
 
   const newArticle: ContributorArticleItem = {
     id: newId,
-    authorId: adminId,
+    authorId: data.authorId || adminId,
     title: data.title || "Naskah Agen Belokan BELOKIRI",
     slug: newSlug,
     content: data.content || "",
