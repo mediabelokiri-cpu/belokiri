@@ -12,7 +12,10 @@ import {
   Globe2,
   Egg,
   Check,
+  AlertCircle,
+  Loader2,
 } from "lucide-react";
+import { submitRekrutmenAction } from "@/actions/rekrutmen.actions";
 
 const FOKUS_OPTIONS = [
   "Mengurusi Rubrik",
@@ -24,6 +27,7 @@ const FOKUS_OPTIONS = [
 export default function FormRekrutmenPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     // IDENTITAS CALON AGEN
     namaLengkap: "",
@@ -55,18 +59,34 @@ export default function FormRekrutmenPage() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.fokusBidang.length === 0) {
       alert("Pilih minimal satu Fokus Bidang Agen!");
       return;
     }
     setLoading(true);
-    setTimeout(() => {
+    setErrorMsg(null);
+
+    try {
+      const res = await submitRekrutmenAction(formData);
+      if (res.success) {
+        setSubmitted(true);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        setErrorMsg(
+          res.error || "Gagal mengirim formulir pendaftaran. Silakan coba lagi."
+        );
+      }
+    } catch (err) {
+      setErrorMsg(
+        err instanceof Error
+          ? err.message
+          : "Terjadi kesalahan saat mengirim formulir."
+      );
+    } finally {
       setLoading(false);
-      setSubmitted(true);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 600);
+    }
   };
 
   if (submitted) {
@@ -197,6 +217,12 @@ export default function FormRekrutmenPage() {
         onSubmit={handleSubmit}
         className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-10 shadow-xs space-y-10"
       >
+        {errorMsg && (
+          <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 flex items-center gap-3">
+            <AlertCircle className="w-5 h-5 text-red-600 shrink-0" />
+            <p className="text-xs sm:text-sm font-bold">{errorMsg}</p>
+          </div>
+        )}
         {/* =========================================================================
             SECTION 1: IDENTITAS CALON AGEN
         ========================================================================= */}
@@ -484,10 +510,14 @@ export default function FormRekrutmenPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-black uppercase tracking-wider shadow-lg transition-all transform active:scale-95 disabled:opacity-50"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-black uppercase tracking-wider shadow-lg transition-all transform active:scale-95 disabled:opacity-50 cursor-pointer"
           >
-            <Send className="w-4 h-4" />
-            <span>{loading ? "Mengirim Formulir..." : "Kirim Formulir Agen Belokan"}</span>
+            {loading ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Send className="w-4 h-4" />
+            )}
+            <span>{loading ? "Menyimpan ke Redaksi..." : "Kirim Formulir Agen Belokan"}</span>
           </button>
         </div>
       </form>

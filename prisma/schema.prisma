@@ -219,3 +219,34 @@ model SuratKaleng {
   @@map("surat_kaleng")
 }
 
+enum RekrutmenStatus {
+  PENDING
+  DITERIMA
+  DITOLAK
+}
+
+model RekrutmenAgen {
+  id              String           @id @default(cuid())
+  namaLengkap     String           @map("nama_lengkap")
+  namaPena        String?          @map("nama_pena")
+  whatsapp        String
+  email           String
+  domisili        String
+  institusi       String?
+  namaPresiden    String           @map("nama_presiden")
+  kepercayaanBumi String           @map("kepercayaan_bumi")
+  ayamAtauTelur   String           @map("ayam_atau_telur")
+  alasanBergabung String           @map("alasan_bergabung") @db.Text
+  fokusBidang     String[]         @map("fokus_bidang")
+  status          RekrutmenStatus  @default(PENDING)
+  catatanAdmin    String?          @map("catatan_admin") @db.Text
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
+
+  @@index([createdAt])
+  @@index([status])
+  @@index([email])
+  @@map("rekrutmen_agen")
+}
+
+

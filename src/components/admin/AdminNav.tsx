@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   ChevronRight,
   UserCog,
+  UserPlus,
 } from "lucide-react";
 
 interface AdminNavProps {
@@ -66,6 +67,12 @@ export default function AdminNav({ reviewCount = 0 }: AdminNavProps) {
       href: "/admin/users",
       icon: Users,
       active: pathname === "/admin/users",
+    },
+    {
+      name: "Pendaftaran Agen",
+      href: "/admin/rekrutmen",
+      icon: UserPlus,
+      active: pathname.startsWith("/admin/rekrutmen"),
     },
     {
       name: "Kelola Website",
