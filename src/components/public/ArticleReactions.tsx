@@ -1,15 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { MessageSquareText, PenSquare, Sparkles } from "lucide-react";
+import {
+  getArticleReactionsAction,
+  toggleArticleReactionAction,
+  ReactionCounts,
+} from "@/actions/reaction.actions";
 
 interface ReactionDef {
   id: string;
   emoji: string;
   label: string;
   description: string;
-  defaultCount: number;
 }
 
 const REACTION_CONFIGS: ReactionDef[] = [
@@ -18,105 +22,152 @@ const REACTION_CONFIGS: ReactionDef[] = [
     emoji: "☕",
     label: "Masuk Akal",
     description: "Analisis tongkrongan yang ngena & logis",
-    defaultCount: 0,
   },
   {
     id: "sepakat",
     emoji: "✊",
     label: "Sepakat",
     description: "Solidaritas & keberpihakan pada gagasan ini",
-    defaultCount: 0,
   },
   {
     id: "mendidih",
     emoji: "🔥",
     label: "Mendidih",
     description: "Keresahan atas ketimpangan / ketidakadilan",
-    defaultCount: 0,
   },
   {
     id: "jenaka",
     emoji: "🎭",
     label: "Jenaka",
     description: "Satir tajam dengan tawa getir",
-    defaultCount: 0,
   },
   {
     id: "tersentil",
     emoji: "🤯",
     label: "Tersentil",
     description: "Membongkar apa yang selama ini terabaikan",
-    defaultCount: 0,
   },
 ];
 
+const DEFAULT_COUNTS: ReactionCounts = {
+  "masuk-akal": 0,
+  sepakat: 0,
+  mendidih: 0,
+  jenaka: 0,
+  tersentil: 0,
+};
+
 interface ArticleReactionsProps {
   articleSlug: string;
+  initialCounts?: ReactionCounts;
+  initialTotal?: number;
 }
 
 export default function ArticleReactions({
   articleSlug,
+  initialCounts,
+  initialTotal = 0,
 }: ArticleReactionsProps) {
   const [userSelected, setUserSelected] = useState<string | null>(null);
-  const [counts, setCounts] = useState<Record<string, number>>({});
+  const [counts, setCounts] = useState<ReactionCounts>(
+    initialCounts || DEFAULT_COUNTS
+  );
+  const [voterToken, setVoterToken] = useState<string>("");
   const [mounted, setMounted] = useState(false);
+  const [isPending, startTransition] = useTransition();
+
+  // Helper to retrieve or create persistent voter token
+  const getOrCreateVoterToken = (): string => {
+    let token = "";
+    try {
+      token = localStorage.getItem("belokiri_voter_token") || "";
+      if (!token) {
+        token =
+          typeof crypto !== "undefined" && crypto.randomUUID
+            ? crypto.randomUUID()
+            : "voter_" +
+              Math.random().toString(36).substring(2) +
+              Date.now().toString(36);
+        localStorage.setItem("belokiri_voter_token", token);
+      }
+    } catch {
+      token = "voter_fallback_" + Date.now();
+    }
+    return token;
+  };
 
   useEffect(() => {
     setMounted(true);
-    const initialCounts: Record<string, number> = {};
-    REACTION_CONFIGS.forEach((r) => {
-      initialCounts[r.id] = 0;
+    const token = getOrCreateVoterToken();
+    setVoterToken(token);
+
+    let isCancelled = false;
+
+    // Fetch live global counts and this device's specific vote from Supabase
+    getArticleReactionsAction(articleSlug, token).then((res) => {
+      if (!isCancelled && res.success) {
+        setCounts(res.counts);
+        setUserSelected(res.userSelected);
+      }
     });
 
-    const storageKey = `belokiri_reaction_${articleSlug}`;
-    const countsKey = `belokiri_reaction_counts_${articleSlug}`;
-
-    const savedCounts = localStorage.getItem(countsKey);
-    if (savedCounts) {
-      try {
-        const parsed = JSON.parse(savedCounts);
-        Object.assign(initialCounts, parsed);
-      } catch {
-        // Ignore parse error
-      }
-    }
-
-    const saved = localStorage.getItem(storageKey);
-    if (saved && initialCounts[saved] !== undefined) {
-      setUserSelected(saved);
-      if (initialCounts[saved] === 0) {
-        initialCounts[saved] = 1;
-      }
-    }
-
-    setCounts(initialCounts);
+    return () => {
+      isCancelled = true;
+    };
   }, [articleSlug]);
 
   const handleToggleReaction = (reactionId: string) => {
-    const storageKey = `belokiri_reaction_${articleSlug}`;
-    const countsKey = `belokiri_reaction_counts_${articleSlug}`;
+    const token = voterToken || getOrCreateVoterToken();
+    if (!voterToken) {
+      setVoterToken(token);
+    }
 
-    setCounts((prev) => {
-      const next = { ...prev };
+    // 1. Optimistic UI update
+    const previousSelected = userSelected;
+    const previousCounts = { ...counts };
 
-      // If user clicks the currently selected reaction, unselect it
-      if (userSelected === reactionId) {
-        next[reactionId] = Math.max(0, (next[reactionId] || 1) - 1);
-        setUserSelected(null);
-        localStorage.removeItem(storageKey);
-      } else {
-        // If user already had a different reaction, decrement previous
-        if (userSelected && next[userSelected]) {
-          next[userSelected] = Math.max(0, next[userSelected] - 1);
-        }
-        // Increment newly selected
-        next[reactionId] = (next[reactionId] || 0) + 1;
-        setUserSelected(reactionId);
-        localStorage.setItem(storageKey, reactionId);
+    const nextCounts = { ...counts };
+    let nextSelected: string | null = null;
+
+    if (userSelected === reactionId) {
+      // Toggle OFF
+      nextCounts[reactionId] = Math.max(0, (nextCounts[reactionId] || 1) - 1);
+      nextSelected = null;
+    } else {
+      // If user had previous reaction, decrement old
+      if (userSelected && nextCounts[userSelected]) {
+        nextCounts[userSelected] = Math.max(0, nextCounts[userSelected] - 1);
       }
+      // Increment new
+      nextCounts[reactionId] = (nextCounts[reactionId] || 0) + 1;
+      nextSelected = reactionId;
+    }
 
-      localStorage.setItem(countsKey, JSON.stringify(next));
-      return next;
+    setUserSelected(nextSelected);
+    setCounts(nextCounts);
+
+    // 2. Persist to Supabase Database via Server Action
+    startTransition(async () => {
+      try {
+        const res = await toggleArticleReactionAction(
+          articleSlug,
+          reactionId,
+          token
+        );
+        if (res.success) {
+          setCounts(res.counts);
+          setUserSelected(res.userSelected);
+        } else {
+          // Revert to previous state if server rejected
+          console.error("Failed to toggle reaction:", res.error);
+          setUserSelected(previousSelected);
+          setCounts(previousCounts);
+        }
+      } catch (err) {
+        console.error("Network error toggling reaction:", err);
+        setUserSelected(previousSelected);
+        setCounts(previousCounts);
+      }
     });
   };
 
@@ -138,11 +189,12 @@ export default function ArticleReactions({
           </p>
         </div>
 
-        {mounted && (
-          <span className="text-[11px] font-bold text-zinc-600 bg-white px-3 py-1.5 rounded-full border border-zinc-200 self-start sm:self-auto">
-            Total Reaksi: <strong className="text-red-600">{totalReactions}</strong>
-          </span>
-        )}
+        <span className="text-[11px] font-bold text-zinc-600 bg-white px-3 py-1.5 rounded-full border border-zinc-200 self-start sm:self-auto">
+          Total Reaksi:{" "}
+          <strong className="text-red-600">
+            {mounted ? totalReactions : initialTotal}
+          </strong>
+        </span>
       </div>
 
       {/* Reaction Buttons Grid */}

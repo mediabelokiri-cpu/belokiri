@@ -143,6 +143,7 @@ model Article {
   author               User          @relation(fields: [authorId], references: [id])
   category             Category      @relation(fields: [categoryId], references: [id])
   tags                 ArticleTag[]
+  reactions            ArticleReaction[]
 
   @@index([authorId])
   @@index([categoryId])
@@ -248,5 +249,22 @@ model RekrutmenAgen {
   @@index([email])
   @@map("rekrutmen_agen")
 }
+
+model ArticleReaction {
+  id           String   @id @default(cuid())
+  articleId    String   @map("article_id")
+  voterToken   String   @map("voter_token")
+  reactionType String   @map("reaction_type")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  article      Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@unique([articleId, voterToken])
+  @@index([articleId])
+  @@index([reactionType])
+  @@map("article_reactions")
+}
+
 
 

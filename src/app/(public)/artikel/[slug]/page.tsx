@@ -23,6 +23,7 @@ import { formatArticleContent } from "@/lib/security/sanitize";
 import ReadingProgressBar from "@/components/public/ReadingProgressBar";
 import ArticleShareButtons from "@/components/public/ArticleShareButtons";
 import ArticleReactions from "@/components/public/ArticleReactions";
+import { getArticleReactionsAction } from "@/actions/reaction.actions";
 import ArticleViewTracker from "@/components/public/ArticleViewTracker";
 import AuthorAvatar from "@/components/public/AuthorAvatar";
 import { prisma } from "@/lib/db/prisma";
@@ -112,9 +113,10 @@ export default async function ArticleDetailPage({
     notFound();
   }
 
-  const [relatedArticles, popularArticles] = await Promise.all([
+  const [relatedArticles, popularArticles, reactionsData] = await Promise.all([
     getRelatedArticles(article.slug, article.rubrik.slug, 3),
     getPopularArticles(5),
+    getArticleReactionsAction(article.slug),
   ]);
 
   const readingTime = estimateReadingTime(article.content);
@@ -287,7 +289,11 @@ export default async function ArticleDetailPage({
             </div>
 
             {/* Reader Reactions Section */}
-            <ArticleReactions articleSlug={article.slug} />
+            <ArticleReactions
+              articleSlug={article.slug}
+              initialCounts={reactionsData.counts}
+              initialTotal={reactionsData.total}
+            />
 
             {/* Author Profile Card */}
             <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-zinc-50 border border-zinc-200 flex flex-col sm:flex-row items-start sm:items-center gap-6">
