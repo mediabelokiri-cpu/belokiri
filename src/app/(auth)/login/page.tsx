@@ -56,10 +56,10 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
 
         <div className="space-y-1">
           <h1 className="text-xl font-black text-black uppercase tracking-tight">
-            Portal Warga & Redaksi
+            Portal Warga Belokan
           </h1>
           <p className="text-xs text-zinc-500 leading-relaxed font-normal">
-            Masuk untuk menulis naskah atau mengakses panel editorial Agen Belokan.
+            Masuk ke ruang gagasan warga Belokan & menulislah untuk keabadian.
           </p>
         </div>
 
