@@ -30,7 +30,6 @@ export default function ArticleShareButtons({
   }, [slug]);
 
   const handleCopyLink = async () => {
-    // Always use the real live address if in browser, guaranteed belokiri.site
     const urlToCopy =
       typeof window !== "undefined" && window.location.href
         ? window.location.href.replace("belokiri.id", "belokiri.site")
@@ -63,12 +62,97 @@ export default function ArticleShareButtons({
   const btnSize = compact ? "w-8 h-8 rounded-lg" : "w-9 h-9 rounded-xl";
   const iconSize = compact ? "w-3.5 h-3.5" : "w-4 h-4";
 
+  // Native Web Share Trigger (Android / iOS)
+  const triggerNativeShare = async (): Promise<boolean> => {
+    if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+      try {
+        await navigator.share({
+          title: title,
+          text: title,
+          url: shareUrl,
+        });
+        return true;
+      } catch (err: any) {
+        if (err.name === "AbortError") {
+          return true; // User intentionally dismissed the share dialog
+        }
+        return false;
+      }
+    }
+    return false;
+  };
+
+  // Smart Facebook Share: Web Share API on Mobile, Popup on Desktop
+  const handleFacebookShare = async (e: React.MouseEvent) => {
+    const isMobile =
+      typeof navigator !== "undefined" &&
+      (/Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(
+        navigator.userAgent
+      ) ||
+        (typeof window !== "undefined" && window.innerWidth < 768));
+
+    if (isMobile) {
+      const handled = await triggerNativeShare();
+      if (handled) {
+        e.preventDefault();
+        return;
+      }
+    }
+
+    // Desktop or mobile fallback when native share isn't supported
+    e.preventDefault();
+    const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+    const w = 626;
+    const h = 436;
+    const left =
+      typeof window !== "undefined"
+        ? window.screenX + (window.outerWidth - w) / 2
+        : 100;
+    const top =
+      typeof window !== "undefined"
+        ? window.screenY + (window.outerHeight - h) / 2
+        : 100;
+    window.open(
+      fbUrl,
+      "facebook-share-dialog",
+      `width=${w},height=${h},top=${top},left=${left},toolbar=no,menubar=no,location=no,status=no`
+    );
+  };
+
+  // Desktop popup helper for Twitter / X
+  const handleTwitterShare = (e: React.MouseEvent) => {
+    if (typeof window !== "undefined" && window.innerWidth >= 768) {
+      e.preventDefault();
+      const twUrl = `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`;
+      const w = 600;
+      const h = 400;
+      const left = window.screenX + (window.outerWidth - w) / 2;
+      const top = window.screenY + (window.outerHeight - h) / 2;
+      window.open(
+        twUrl,
+        "twitter-share-dialog",
+        `width=${w},height=${h},top=${top},left=${left},toolbar=no,menubar=no,location=no,status=no`
+      );
+    }
+  };
+
   return (
     <div className="flex items-center gap-1.5 relative">
-      <span className="text-xs text-zinc-500 font-black uppercase tracking-wider flex items-center gap-1.5 mr-1">
-        <Share2 className="w-3.5 h-3.5 text-zinc-400" />
+      <button
+        type="button"
+        onClick={async () => {
+          const shared = await triggerNativeShare();
+          if (!shared) {
+            handleCopyLink();
+          }
+        }}
+        className="text-xs text-zinc-500 hover:text-red-600 transition-colors font-black uppercase tracking-wider flex items-center gap-1.5 mr-1 cursor-pointer group"
+        title="Bagikan Naskah"
+        aria-label="Bagikan Naskah"
+      >
+        <Share2 className="w-3.5 h-3.5 text-zinc-400 group-hover:text-red-600 transition-colors" />
         <span className="hidden sm:inline">Bagikan:</span>
-      </span>
+      </button>
 
       {/* 1. WhatsApp */}
       <a
@@ -84,11 +168,12 @@ export default function ArticleShareButtons({
         </svg>
       </a>
 
-      {/* 2. Facebook */}
+      {/* 2. Facebook (Native Share Sheet on Mobile, Popup on Desktop) */}
       <a
         href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={handleFacebookShare}
         className={`${btnSize} flex items-center justify-center border border-zinc-200 bg-white text-zinc-700 shadow-2xs hover:scale-105 active:scale-95 transition-all duration-150 hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2]`}
         title="Bagikan ke Facebook"
         aria-label="Bagikan ke Facebook"
@@ -103,6 +188,7 @@ export default function ArticleShareButtons({
         href={`https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={handleTwitterShare}
         className={`${btnSize} flex items-center justify-center border border-zinc-200 bg-white text-zinc-700 shadow-2xs hover:scale-105 active:scale-95 transition-all duration-150 hover:bg-black hover:text-white hover:border-black`}
         title="Bagikan ke X (Twitter)"
         aria-label="Bagikan ke X (Twitter)"
