@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useTransition } from "react";
+import { useState, useEffect, useTransition, useRef } from "react";
 import Link from "next/link";
 import {
   Compass,
@@ -33,6 +33,10 @@ import {
   Check,
   MapPin,
   HeartHandshake,
+  Upload,
+  Trash2,
+  Loader2,
+  ImageIcon,
 } from "lucide-react";
 import {
   CustomPageContent,
@@ -60,6 +64,10 @@ export default function AdminPagesManagerPage() {
     type: "success" | "error";
     text: string;
   } | null>(null);
+
+  // QRIS Image Upload state
+  const [uploadingQris, setUploadingQris] = useState(false);
+  const qrisFileInputRef = useRef<HTMLInputElement>(null);
 
   // Load all pages on mount
   useEffect(() => {
@@ -160,6 +168,68 @@ export default function AdminPagesManagerPage() {
       });
     } finally {
       setSaving(false);
+    }
+  };
+
+  // Handle QRIS Image Direct Upload from device
+  const handleQrisUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !formData) return;
+
+    if (!file.type.startsWith("image/")) {
+      setStatusMessage({
+        type: "error",
+        text: "Harap pilih berkas gambar (PNG, JPG, WebP).",
+      });
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setStatusMessage({
+        type: "error",
+        text: "Ukuran gambar barcode QRIS maksimal 5 MB.",
+      });
+      return;
+    }
+
+    setUploadingQris(true);
+    setStatusMessage(null);
+    try {
+      const uploadData = new FormData();
+      uploadData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: uploadData,
+      });
+
+      const json = await res.json();
+      if (res.ok && json.success && json.url) {
+        setFormData({
+          ...formData,
+          extraData: {
+            ...formData.extraData,
+            qrisImageUrl: json.url,
+          },
+        });
+        setStatusMessage({
+          type: "success",
+          text: "Gambar barcode QRIS berhasil diunggah! Jangan lupa klik 'Simpan Perubahan' di atas.",
+        });
+      } else {
+        setStatusMessage({
+          type: "error",
+          text: json.message || "Gagal mengunggah gambar QRIS.",
+        });
+      }
+    } catch (err: any) {
+      setStatusMessage({
+        type: "error",
+        text: err?.message || "Terjadi kesalahan saat mengunggah gambar QRIS.",
+      });
+    } finally {
+      setUploadingQris(false);
+      if (qrisFileInputRef.current) qrisFileInputRef.current.value = "";
     }
   };
 
@@ -623,25 +693,108 @@ export default function AdminPagesManagerPage() {
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="sm:col-span-2 space-y-1.5">
-                      <label className="text-xs font-bold text-zinc-800 uppercase tracking-wider block">
-                        URL Gambar / Barcode QRIS (Opsional)
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.extraData?.qrisImageUrl || ""}
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            extraData: {
-                              ...formData.extraData,
-                              qrisImageUrl: e.target.value,
-                            },
-                          })
-                        }
-                        placeholder="https://... atau /images/qris-belokiri.png"
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs font-mono text-zinc-900 focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
-                      />
+                    {/* QRIS Upload & URL */}
+                    <div className="sm:col-span-2 space-y-3 p-4 rounded-xl bg-white border border-zinc-200">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                          <label className="text-xs font-black text-zinc-900 uppercase tracking-wider block">
+                            Gambar / Barcode QRIS
+                          </label>
+                          <p className="text-[11px] text-zinc-500 font-normal">
+                            Unggah langsung foto atau tangkapan layar barcode QRIS dari HP / Laptop Anda.
+                          </p>
+                        </div>
+
+                        <div className="flex items-center gap-2 shrink-0">
+                          <input
+                            type="file"
+                            ref={qrisFileInputRef}
+                            onChange={handleQrisUpload}
+                            accept="image/*"
+                            className="hidden"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => qrisFileInputRef.current?.click()}
+                            disabled={uploadingQris}
+                            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-all shadow-xs cursor-pointer active:scale-95 disabled:opacity-50"
+                          >
+                            {uploadingQris ? (
+                              <>
+                                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                                <span>Mengunggah...</span>
+                              </>
+                            ) : (
+                              <>
+                                <Upload className="w-3.5 h-3.5" />
+                                <span>Unggah Gambar QRIS</span>
+                              </>
+                            )}
+                          </button>
+
+                          {formData.extraData?.qrisImageUrl && (
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setFormData({
+                                  ...formData,
+                                  extraData: {
+                                    ...formData.extraData,
+                                    qrisImageUrl: "",
+                                  },
+                                })
+                              }
+                              className="p-2.5 rounded-xl border border-zinc-200 hover:bg-red-50 hover:text-red-600 text-zinc-500 transition-colors cursor-pointer"
+                              title="Hapus Gambar QRIS"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Preview if exists */}
+                      {formData.extraData?.qrisImageUrl && (
+                        <div className="flex items-center gap-4 p-3 rounded-lg bg-zinc-50 border border-zinc-200">
+                          <div className="relative w-16 h-16 rounded-lg bg-white border border-zinc-200 overflow-hidden shrink-0 flex items-center justify-center">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={formData.extraData.qrisImageUrl}
+                              alt="Preview QRIS"
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded inline-block mb-1">
+                              ✓ Gambar QRIS Terpasang
+                            </span>
+                            <p className="text-xs font-mono text-zinc-600 truncate">
+                              {formData.extraData.qrisImageUrl}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="pt-1">
+                        <label className="text-[10px] font-bold text-zinc-500 uppercase block mb-1">
+                          Atau Tulis Tautan / URL Gambar Manual:
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.extraData?.qrisImageUrl || ""}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              extraData: {
+                                ...formData.extraData,
+                                qrisImageUrl: e.target.value,
+                              },
+                            })
+                          }
+                          placeholder="Contoh: /images/qris.png atau https://..."
+                          className="w-full px-3 py-2 rounded-xl border border-zinc-300 text-xs font-mono text-zinc-900 focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-zinc-50"
+                        />
+                      </div>
                     </div>
 
                     <div className="space-y-1.5">
