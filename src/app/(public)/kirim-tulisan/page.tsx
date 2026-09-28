@@ -5,14 +5,14 @@ import {
   Sparkles,
   ArrowRight,
   ShieldAlert,
-  Coins,
   BookOpen,
-  UserCheck,
-  FolderGit2,
   Gift,
-  HelpCircle,
-  MessageSquare,
   CheckCircle2,
+  Clock,
+  Award,
+  CupSoda,
+  Shirt,
+  Flame,
 } from "lucide-react";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
@@ -34,31 +34,84 @@ const WRITING_TOPICS = [
   { title: "Isu Lain yang Mengganjal", desc: "Segala hal yang menurutmu layak dibicarakan." },
 ];
 
-const REWARDS = [
+const REWARD_ITEMS = [
   {
-    icon: Coins,
-    title: "Honorarium Tulisan",
-    desc: "Apresiasi finansial untuk tulisan yang memenuhi kriteria, standar bobot, dan kategori editorial redaksi.",
-  },
-  {
-    icon: UserCheck,
-    title: "Nama & Profil Resmi",
-    desc: "Nama pena, foto avatar, dan bio lengkapmu tercantum di setiap artikel yang diterbitkan.",
-  },
-  {
-    icon: FolderGit2,
-    title: "Portofolio Publik",
-    desc: "Halaman arsip karya digital pribadi yang dapat dibagikan dan dijadikan portofolio kepenulisan profesional.",
-  },
-  {
+    emoji: "📚",
+    title: "Buku",
+    subtitle: "Buku Pilihan Redaksi",
+    desc: "Buku bermutu pilihan redaksi yang memperkaya perspektif dan wawasan membaca.",
     icon: BookOpen,
-    title: "Proyek & Kolaborasi Editorial",
-    desc: "Kesempatan dilibatkan dalam liputan khusus, proyek riset, dan serial kolaborasi redaksi Belokiri.",
   },
   {
-    icon: Gift,
-    title: "Apresiasi & Reward Khusus",
-    desc: "Reward ekstra bagi tulisan yang memantik diskursus luas, analisis paling bernas, atau respons warga tertinggi.",
+    emoji: "🥤",
+    title: "Tumbler",
+    subtitle: "Merchandise Eksklusif",
+    desc: "Tumbler eksklusif Belokiri untuk menemani ngopi, nulis, dan diskusi harianmu.",
+    icon: CupSoda,
+  },
+  {
+    emoji: "👕",
+    title: "Kaos Belokiri",
+    subtitle: "Kaos Warga Belokan",
+    desc: "Kaos sablon orisinal edisi Warga Belokan yang berkarakter dan berani bersikap.",
+    icon: Shirt,
+  },
+];
+
+const REWARD_RULES = [
+  {
+    text: (
+      <>
+        500 pembaca harus tercapai dalam{" "}
+        <strong className="text-black font-black">maksimal 3 × 24 jam</strong> sejak tulisan dipublikasikan.
+      </>
+    ),
+  },
+  {
+    text: (
+      <>
+        Jumlah pembaca mengacu pada{" "}
+        <strong className="text-black font-black">data pembaca yang tercatat pada sistem Belokiri</strong>.
+      </>
+    ),
+  },
+  {
+    text: (
+      <>
+        Satu tulisan hanya mendapatkan{" "}
+        <strong className="text-black font-black">satu reward</strong>.
+      </>
+    ),
+  },
+  {
+    text: (
+      <>
+        Reward diberikan kepada{" "}
+        <strong className="text-black font-black">penulis yang terdaftar sebagai Warga Belokan</strong> dan mengirimkan tulisan tersebut.
+      </>
+    ),
+  },
+  {
+    text: (
+      <>
+        Jenis, desain, ukuran, atau pilihan produk reward mengikuti{" "}
+        <strong className="text-black font-black">stok yang tersedia</strong>.
+      </>
+    ),
+  },
+  {
+    text: (
+      <>
+        Jika reward pilihan sedang tidak tersedia, Warga Belokan dapat memilih reward lain yang tersedia.
+      </>
+    ),
+  },
+  {
+    text: (
+      <>
+        Keputusan redaksi terkait validasi pencapaian pembaca dan pemberian reward bersifat final.
+      </>
+    ),
   },
 ];
 
@@ -232,53 +285,154 @@ export default function KirimTulisanPage() {
       </section>
 
       {/* Section 2: Reward Bagi Warga Belokan */}
-      <section className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-10 shadow-xs space-y-8">
-        <div>
-          <span className="text-xs font-black uppercase tracking-widest text-red-600">
-            Apresiasi Redaksi
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-black text-black uppercase tracking-tight mt-1">
+      <section className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-10 shadow-xs space-y-10">
+        <div className="space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200 text-red-600 text-xs font-black uppercase tracking-widest">
+            <Gift className="w-3.5 h-3.5" />
+            <span>Apresiasi Warga Belokan</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-black uppercase tracking-tight">
             Reward Bagi Warga Belokan
           </h2>
-          <p className="text-xs sm:text-sm text-zinc-600 mt-1 font-normal leading-relaxed">
-            Menulis memang tidak selalu membuat rekening gemuk. Tapi setidaknya, tulisanmu jangan sampai cuma dibaca sendiri. Setiap tulisan yang diterbitkan di Belokiri akan mendapatkan apresiasi sebagai bagian dari <strong>Warga Belokan</strong>:
+          <h3 className="text-lg sm:text-xl font-black text-red-600 tracking-tight">
+            Tulisanmu dibaca 500 orang dalam 3 hari? Ada hadiahnya.
+          </h3>
+        </div>
+
+        <div className="space-y-4 text-base sm:text-lg text-zinc-700 leading-relaxed font-normal">
+          <p>
+            Kami tahu, menulis itu kadang lebih melelahkan daripada membaca komentar orang yang tidak membaca tulisan kita.
+          </p>
+          <p>
+            Makanya, Belokiri ingin memberi apresiasi buat{" "}
+            <strong className="text-black font-black">Warga Belokan</strong> yang tulisannya berhasil mengundang banyak pembaca.
+          </p>
+          <p>
+            Jika tulisanmu mencapai{" "}
+            <strong className="text-black font-black bg-yellow-100 px-2 py-0.5 rounded">
+              500 pembaca dalam waktu 3 hari sejak dipublikasikan di Belokiri
+            </strong>
+            , kamu berhak mendapatkan reward berupa:
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {REWARDS.map((reward, i) => {
-            const Icon = reward.icon;
-            return (
-              <div
-                key={i}
-                className="p-5 rounded-2xl bg-zinc-50 border border-zinc-200 flex items-start gap-4 hover:border-zinc-400 transition-colors"
-              >
-                <div className="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center shrink-0">
-                  <Icon className="w-5 h-5" />
-                </div>
-                <div className="space-y-1">
-                  <h3 className="text-sm font-black text-black uppercase tracking-tight">
-                    {reward.title}
-                  </h3>
-                  <p className="text-xs text-zinc-600 leading-relaxed font-normal">
-                    {reward.desc}
-                  </p>
-                </div>
+        {/* Reward Items Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {REWARD_ITEMS.map((item, i) => (
+            <div
+              key={i}
+              className="p-6 rounded-2xl bg-zinc-50 border-2 border-zinc-200/80 hover:border-red-600 hover:bg-white hover:shadow-md transition-all text-center space-y-3 group"
+            >
+              <div className="w-16 h-16 mx-auto rounded-2xl bg-red-100 text-red-600 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+                <span>{item.emoji}</span>
               </div>
-            );
-          })}
+              <div className="space-y-1">
+                <h4 className="text-lg font-black text-black uppercase tracking-tight">
+                  {item.title}
+                </h4>
+                <p className="text-xs font-bold text-red-600 uppercase tracking-wider">
+                  {item.subtitle}
+                </p>
+                <p className="text-xs text-zinc-600 font-normal leading-relaxed pt-1">
+                  {item.desc}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
 
-        <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-zinc-500 font-normal leading-relaxed">
-          * Besaran dan bentuk reward dapat berbeda sesuai jenis tulisan, program, atau kebijakan editorial yang sedang berjalan.
+        {/* Motivational Humorous Callout */}
+        <div className="p-6 sm:p-8 rounded-2xl bg-zinc-900 text-white space-y-4 border-l-4 border-yellow-400">
+          <p className="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed">
+            Tidak perlu jadi penulis terkenal. Tidak perlu punya ribuan followers.
+          </p>
+          <p className="text-sm sm:text-base text-zinc-200 font-normal leading-relaxed">
+            Cukup bikin tulisan yang membuat orang berhenti scroll, lalu berpikir:
+          </p>
+          <div className="text-2xl sm:text-3xl font-black text-yellow-400 tracking-tight italic">
+            &ldquo;Eh, ini menarik juga.&rdquo;
+          </div>
+          <p className="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed">
+            Karena kalau mantan saja bisa bikin orang kepo berhari-hari, masa tulisanmu nggak bisa bikin 500 orang penasaran?
+          </p>
+          <div className="pt-3 border-t border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <span className="text-base sm:text-lg font-black text-red-500 uppercase tracking-wider flex items-center gap-1.5">
+              <Flame className="w-4 h-4" />
+              <span>Tulis. Kirim. Bikin ramai.</span>
+            </span>
+            <span className="text-xs sm:text-sm text-zinc-400 font-medium">
+              Siapa tahu tulisanmu berikutnya yang tembus{" "}
+              <strong className="text-white font-bold">500 pembaca dalam 3 hari.</strong>
+            </span>
+          </div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-red-600 text-white text-center font-bold text-xs sm:text-sm leading-relaxed">
-          Jadi, jangan menulis hanya karena ingin dibayar. Tapi kalau bisa{" "}
-          <span className="underline decoration-white decoration-2 font-black">
-            dibayar sambil tetap ngomongin sesuatu yang penting
-          </span>
-          , kenapa tidak?
+        {/* Section Mekanisme Pemilihan Reward */}
+        <div className="pt-8 border-t border-zinc-200 space-y-6">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 border border-zinc-300 text-zinc-800 text-xs font-black uppercase tracking-widest">
+              <Award className="w-3.5 h-3.5 text-red-600" />
+              <span>Mekanisme Reward</span>
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-black text-black uppercase tracking-tight">
+              Mekanisme Pemilihan Reward
+            </h3>
+            <p className="text-sm sm:text-base text-zinc-700 font-normal leading-relaxed">
+              Setiap tulisan Warga Belokan yang berhasil mencapai{" "}
+              <strong className="text-black font-black">
+                500 pembaca dalam waktu 3 hari sejak dipublikasikan
+              </strong>{" "}
+              berhak mendapatkan <strong className="text-red-600 font-black">1 (satu) reward</strong>.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-2.5">
+            <h4 className="text-base font-black text-black uppercase tracking-tight flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-red-600" />
+              <span>Pilih Hadiahmu</span>
+            </h4>
+            <p className="text-sm text-zinc-700 leading-relaxed font-normal">
+              Warga Belokan yang berhasil mencapai target dapat{" "}
+              <strong className="text-black font-bold">memilih sendiri satu jenis reward</strong> yang diinginkan:
+            </p>
+            <div className="flex flex-wrap gap-2.5 pt-1">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-zinc-200 text-xs font-bold text-zinc-800 shadow-2xs">
+                📚 Buku
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-zinc-200 text-xs font-bold text-zinc-800 shadow-2xs">
+                🥤 Tumbler
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-zinc-200 text-xs font-bold text-zinc-800 shadow-2xs">
+                👕 Kaos Belokiri
+              </span>
+            </div>
+            <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed font-normal pt-2">
+              Pilihan reward dilakukan setelah tulisan dinyatakan memenuhi target oleh meja redaksi.
+            </p>
+          </div>
+
+          {/* Catatan Ketentuan */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-black text-zinc-900 uppercase tracking-widest flex items-center gap-2">
+              <Clock className="w-4 h-4 text-zinc-500" />
+              <span>Catatan:</span>
+            </h4>
+            <ul className="space-y-2.5">
+              {REWARD_RULES.map((rule, idx) => (
+                <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-zinc-700 font-normal leading-relaxed">
+                  <CheckCircle2 className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+                  <span>{rule.text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Closing Punchline Banner */}
+          <div className="p-5 rounded-2xl bg-gradient-to-r from-red-600 to-red-700 text-white text-center shadow-sm">
+            <p className="text-base sm:text-lg font-black tracking-tight">
+              &ldquo;Tulisannya ramai, hadiahnya menyusul.&rdquo; 😎
+            </p>
+          </div>
         </div>
       </section>
 
