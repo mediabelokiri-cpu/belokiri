@@ -61,7 +61,7 @@ export default async function RekrutmenPage() {
           {isOpen ? (
             <div className="p-6 sm:p-8 rounded-2xl bg-black text-white text-center space-y-4 shadow-lg border-t-4 border-red-600">
               <span className="text-xs font-black uppercase tracking-widest text-emerald-400">
-                Pendaftaran Sedang Dibuka
+                Daftar Jadi Agen Belokan
               </span>
               <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
                 Siap Menjadi Agen Belokan?
