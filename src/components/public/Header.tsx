@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Search, Menu, X, PenSquare, UserCircle } from "lucide-react";
+import { Search, Menu, X, PenSquare, UserCircle, HeartHandshake } from "lucide-react";
 import { MOCK_RUBRIKS } from "@/lib/data/mock-articles";
 
 export default function Header() {
@@ -66,7 +66,15 @@ export default function Header() {
             </div>
 
             {/* Right: Actions */}
-            <div className="flex items-center justify-end gap-1 sm:gap-3">
+            <div className="flex items-center justify-end gap-1 sm:gap-2.5">
+              <Link
+                href="/donasi"
+                className="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 text-xs font-black uppercase tracking-wider transition-all transform active:scale-95"
+              >
+                <HeartHandshake className="w-3.5 h-3.5 text-red-600" />
+                <span>Patungan Warga</span>
+              </Link>
+
               <Link
                 href="/kirim-tulisan"
                 className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider shadow-sm transition-all transform active:scale-95"
@@ -191,6 +199,13 @@ export default function Header() {
                   className="block py-2 hover:text-red-600"
                 >
                   Agen Belokan & Kontak
+                </Link>
+                <Link
+                  href="/donasi"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-2 text-red-600 font-black hover:underline"
+                >
+                  Patungan Warga (Donasi) 💖
                 </Link>
               </div>
             </div>

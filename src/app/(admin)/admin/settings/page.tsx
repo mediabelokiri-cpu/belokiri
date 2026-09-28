@@ -23,6 +23,7 @@ import {
   Loader2,
   AlertCircle,
   RefreshCw,
+  HeartHandshake,
 } from "lucide-react";
 import {
   FullSiteSettings,
@@ -71,7 +72,16 @@ export default function AdminSettingsPage() {
         if (res.success) {
           if (res.settings.identity) setIdentity(res.settings.identity);
           if (res.settings.sections) setSections(res.settings.sections);
-          if (res.settings.cta) setCta(res.settings.cta);
+          if (res.settings.cta) {
+            setCta({
+              ...defaultSiteSettings.cta,
+              ...res.settings.cta,
+              donasiBanner: {
+                ...defaultSiteSettings.cta.donasiBanner!,
+                ...(res.settings.cta.donasiBanner || {}),
+              },
+            });
+          }
           if (res.settings.social) setSocial(res.settings.social);
           if (res.kabinet && res.kabinet.length > 0) setKabinet(res.kabinet);
         }
@@ -852,6 +862,169 @@ export default function AdminSettingsPage() {
                     setCta({
                       ...cta,
                       rekrutmenBanner: { ...cta.rekrutmenBanner, buttonUrl: e.target.value },
+                    })
+                  }
+                  className="w-full px-3 py-2 rounded-xl border border-zinc-300 text-xs font-mono"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Banner CTA Donasi Solidaritas Warga */}
+          <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-200">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-2xl bg-zinc-950 text-red-500">
+                  <HeartHandshake className="w-5 h-5" />
+                </div>
+                <div>
+                  <h2 className="text-base font-black uppercase tracking-tight text-black">
+                    Banner CTA Donasi Solidaritas Warga
+                  </h2>
+                  <p className="text-xs text-zinc-500">
+                    Banner ajakan patungan warga yang tampil di Beranda dan mengarah ke halaman donasi.
+                  </p>
+                </div>
+              </div>
+
+              {/* Toggle Switch */}
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={cta.donasiBanner?.enabled !== false}
+                  onChange={(e) =>
+                    setCta({
+                      ...cta,
+                      donasiBanner: {
+                        ...(cta.donasiBanner || defaultSiteSettings.cta.donasiBanner!),
+                        enabled: e.target.checked,
+                      },
+                    })
+                  }
+                  className="sr-only peer"
+                />
+                <div className="w-11 h-6 bg-zinc-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+                <span className="ml-3 text-xs font-bold uppercase text-zinc-700">
+                  {cta.donasiBanner?.enabled !== false ? "Aktif di Beranda" : "Dinonaktifkan"}
+                </span>
+              </label>
+            </div>
+
+            {/* Live Preview Card */}
+            <div className="p-6 rounded-2xl bg-zinc-950 text-white space-y-4 border-2 border-red-600">
+              <span className="text-[10px] font-black uppercase tracking-widest text-red-500 bg-red-950/80 px-2.5 py-1 rounded-md border border-red-900/60 inline-block">
+                {cta.donasiBanner?.badgeText || "DARI WARGA UNTUK WARGA"}
+              </span>
+              <h3 className="text-xl font-black uppercase tracking-tight text-white">
+                {cta.donasiBanner?.title || "PATUNGAN SOLIDARITAS: JAGA BELOKIRI TETAP MENGUDARA"}
+              </h3>
+              <p className="text-xs text-zinc-300 font-normal leading-relaxed">
+                {cta.donasiBanner?.description ||
+                  "Belokiri tidak disokong cukong dan tidak jualan iklan sampah. Kami hidup dari kemandirian dan sokongan Warga Belokan."}
+              </p>
+              <div className="pt-1">
+                <span className="px-5 py-2.5 rounded-xl bg-red-600 text-white font-black text-xs uppercase shadow-sm inline-block">
+                  {cta.donasiBanner?.buttonText || "DONASI SOLIDARITAS"} →
+                </span>
+              </div>
+            </div>
+
+            {/* Form Fields */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div>
+                <label className="block text-xs font-bold uppercase text-zinc-700 mb-1">
+                  Label Badge Kecil
+                </label>
+                <input
+                  type="text"
+                  value={cta.donasiBanner?.badgeText || ""}
+                  onChange={(e) =>
+                    setCta({
+                      ...cta,
+                      donasiBanner: {
+                        ...(cta.donasiBanner || defaultSiteSettings.cta.donasiBanner!),
+                        badgeText: e.target.value,
+                      },
+                    })
+                  }
+                  className="w-full px-3 py-2 rounded-xl border border-zinc-300 text-xs font-bold"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase text-zinc-700 mb-1">
+                  Judul Banner
+                </label>
+                <input
+                  type="text"
+                  value={cta.donasiBanner?.title || ""}
+                  onChange={(e) =>
+                    setCta({
+                      ...cta,
+                      donasiBanner: {
+                        ...(cta.donasiBanner || defaultSiteSettings.cta.donasiBanner!),
+                        title: e.target.value,
+                      },
+                    })
+                  }
+                  className="w-full px-3 py-2 rounded-xl border border-zinc-300 text-xs font-bold"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-xs font-bold uppercase text-zinc-700 mb-1">
+                  Deskripsi / Pesan Ajakan
+                </label>
+                <textarea
+                  rows={2}
+                  value={cta.donasiBanner?.description || ""}
+                  onChange={(e) =>
+                    setCta({
+                      ...cta,
+                      donasiBanner: {
+                        ...(cta.donasiBanner || defaultSiteSettings.cta.donasiBanner!),
+                        description: e.target.value,
+                      },
+                    })
+                  }
+                  className="w-full px-3 py-2 rounded-xl border border-zinc-300 text-xs font-medium"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase text-zinc-700 mb-1">
+                  Teks Tombol
+                </label>
+                <input
+                  type="text"
+                  value={cta.donasiBanner?.buttonText || ""}
+                  onChange={(e) =>
+                    setCta({
+                      ...cta,
+                      donasiBanner: {
+                        ...(cta.donasiBanner || defaultSiteSettings.cta.donasiBanner!),
+                        buttonText: e.target.value,
+                      },
+                    })
+                  }
+                  className="w-full px-3 py-2 rounded-xl border border-zinc-300 text-xs font-black uppercase"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase text-zinc-700 mb-1">
+                  Tautan Tombol
+                </label>
+                <input
+                  type="text"
+                  value={cta.donasiBanner?.buttonUrl || ""}
+                  onChange={(e) =>
+                    setCta({
+                      ...cta,
+                      donasiBanner: {
+                        ...(cta.donasiBanner || defaultSiteSettings.cta.donasiBanner!),
+                        buttonUrl: e.target.value,
+                      },
                     })
                   }
                   className="w-full px-3 py-2 rounded-xl border border-zinc-300 text-xs font-mono"

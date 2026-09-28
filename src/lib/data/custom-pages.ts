@@ -275,6 +275,59 @@ Belokiri.id adalah media alternatif berbasis kolektif yang bergerak dalam produk
 2. Manipulasi data, pemalsuan narasumber, dan penyebaran hoaks.
 3. Ujaran kebencian berbasis SARA dan diskriminasi kelompok rentan.
 4. Iklan terselubung yang mengkhianati kepercayaan pembaca.`,
+  // DONASI SOLIDARITAS
+  donasi: {
+    slug: "donasi",
+    group: "kanal-gerakan",
+    groupLabel: "KANAL & GERAKAN",
+    name: "Donasi Solidaritas",
+    path: "/donasi",
+    title: "PATUNGAN WARGA: JAGA BELOKIRI TETAP MENGUDARA",
+    subtitle: "“Dari Warga, Oleh Warga, untuk Akal Sehat yang Tak Boleh Dibungkam”",
+    badge: "Solidaritas Warga Belokan",
+    metaTitle: "Donasi Solidaritas: Dari Warga untuk Warga | BELOKIRI",
+    metaDescription:
+      "Sokong jurnalisme warga independen BELOKIRI agar tetap bebas dari pesanan oligarki, tanpa cukong, dan tanpa iklan sampah.",
+    extraData: {
+      qrisImageUrl: "",
+      bankName: "BCA (Bank Central Asia)",
+      bankAccountNumber: "0812-3456-7890",
+      bankAccountName: "Kolektif Media Belokiri",
+      saweriaUrl: "https://saweria.co/belokiri",
+      trakteerUrl: "https://trakteer.id/belokiri",
+      targetText: "Rp 5.000.000 / Bulan (Server, Apresiasi Warga & Riset)",
+    },
+    content: `## Mengapa Kami Membuka Patungan Warga?
+
+Menjaga media tetap jujur, tajam, dan tidak berkompromi dengan kekuasaan itu berisiko — dan jelas butuh amunisi.
+
+Banyak media hari ini terpaksa menjadi perpanjangan tangan korporasi, memoles citra penguasa bermasalah, atau membombardir layar ponsel pembaca dengan iklan judi online dan clickbait sampah hanya agar operasional mereka tetap berjalan.
+
+**BELOKIRI menolak jalan itu.**
+
+Kami memilih jalan sunyi yang merdeka:
+- **Bebas Intervensi Oligarki:** Tulisan dan liputan kami tidak bisa dibeli untuk mengaburkan fakta atau menghapus kritik.
+- **Bebas Polusi Iklan Bodong:** Kami menghargai akal sehat dan kenyamanan baca Anda tanpa disesaki banner clickbait.
+- **Kolektif Akar Rumput:** Menjamin ruang terbuka bagi siapa saja untuk bersuara dan mendapatkan reward apresiasi nyata.
+
+---
+
+## Tiga Pilar Alokasi Dana Solidaritas
+
+Setiap rupiah dan cangkir kopi yang disisihkan oleh Warga Belokan dialokasikan secara transparan untuk tiga pilar utama:
+
+1. **Infrastruktur & Server Digital**  
+   Menjamin platform web BELOKIRI tetap online stabil, cepat diakses dari pelosok daerah, aman dari serangan siber (DDoS), dan menjaga arsip naskah warga tetap abadi.
+
+2. **Apresiasi & Reward Naskah Warga Belokan**  
+   Mendukung penuh program reward (kaos, buku, tumbler, dan uang saku) bagi kontributor warga yang tulisannya berhasil menembus 500 pembaca dalam 3 hari.
+
+3. **Amunisi Riset & Liputan Lapangan**  
+   Mendanai awak Agen Belokan untuk turun langsung ke warkop-warkop, kampung kota, dan gelanggang konflik agraria/sosial demi membongkar cerita yang luput dari media besar.
+
+---
+
+> “Satu cangkir kopi yang kamu sisihkan hari ini adalah amunisi agar kami bisa terus berisik membela akal sehat esok hari. Terima kasih telah menjaga Belokiri tetap bernafas.”`,
   },
 
   // 6. AGEN BELOKAN & KONTAK

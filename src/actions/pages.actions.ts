@@ -211,6 +211,7 @@ export async function saveCustomPageAction(
     const publicPath = def.path || `/${slug}`;
     safeRevalidatePath(publicPath);
     safeRevalidatePath("/kontak");
+    safeRevalidatePath("/donasi");
     safeRevalidatePath("/admin/settings");
     safeRevalidatePath("/admin/pages");
     safeRevalidatePath("/sitemap.xml");

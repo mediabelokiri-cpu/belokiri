@@ -42,6 +42,14 @@ export interface CtaBannerConfig {
     buttonUrl: string;
     bgColor: string;
   };
+  donasiBanner?: {
+    enabled: boolean;
+    badgeText: string;
+    title: string;
+    description: string;
+    buttonText: string;
+    buttonUrl: string;
+  };
 }
 
 export interface SocialMediaConfig {
@@ -144,6 +152,15 @@ export const defaultSiteSettings: FullSiteSettings = {
       buttonText: "ISI FORM AGEN",
       buttonUrl: "/rekrutmen/form",
       bgColor: "bg-red-600",
+    },
+    donasiBanner: {
+      enabled: true,
+      badgeText: "DARI WARGA UNTUK WARGA",
+      title: "PATUNGAN SOLIDARITAS: JAGA BELOKIRI TETAP MENGUDARA",
+      description:
+        "Belokiri tidak disokong cukong dan tidak jualan iklan sampah. Kami hidup dari kemandirian dan sokongan Warga Belokan. Sisihkan secangkir kopi untuk menjaga akal sehat tetap bersuara.",
+      buttonText: "DONASI SOLIDARITAS",
+      buttonUrl: "/donasi",
     },
   },
   social: {

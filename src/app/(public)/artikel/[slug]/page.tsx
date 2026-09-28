@@ -17,6 +17,7 @@ import {
   Flame,
   ArrowRight,
   Sparkles,
+  HeartHandshake,
 } from "lucide-react";
 import { NewsArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { formatArticleContent } from "@/lib/security/sanitize";
@@ -324,6 +325,29 @@ export default async function ArticleDetailPage({
                   {article.author.bio}
                 </p>
               </div>
+            </div>
+
+            {/* Box Donasi Solidaritas di Bawah Setiap Artikel */}
+            <div className="mt-8 p-6 sm:p-8 rounded-2xl bg-zinc-950 text-white border-l-4 border-red-600 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+              <div className="space-y-2 max-w-lg">
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-red-500 bg-red-950/80 px-2.5 py-1 rounded-md border border-red-900/60">
+                  <HeartHandshake className="w-3 h-3" />
+                  <span>DARI WARGA UNTUK WARGA</span>
+                </span>
+                <h4 className="text-lg sm:text-xl font-black uppercase text-white tracking-tight">
+                  Menyukai Tulisan Ini? Dukung BELOKIRI Tetap Mengudara
+                </h4>
+                <p className="text-xs text-zinc-400 font-normal leading-relaxed">
+                  Ruang bicara independen butuh amunisi agar tetap bebas dari sensor kekuasaan dan iklan clickbait. Sisihkan sedikit apresiasi untuk dapur redaksi.
+                </p>
+              </div>
+              <Link
+                href="/donasi"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider shadow transition-all shrink-0 active:scale-95 text-center"
+              >
+                <span>Donasi Solidaritas</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
 
             {/* Related & Recent Articles (Tepat di Bawah Card Profile Penulis) */}

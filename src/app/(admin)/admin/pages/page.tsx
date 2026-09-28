@@ -32,6 +32,7 @@ import {
   Flame,
   Check,
   MapPin,
+  HeartHandshake,
 } from "lucide-react";
 import {
   CustomPageContent,
@@ -598,6 +599,153 @@ export default function AdminPagesManagerPage() {
                         }
                         placeholder="0812-3456-7890"
                         className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Special Extras: Donasi Detail Fields */}
+              {formData.slug === "donasi" && (
+                <div className="p-5 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-4">
+                  <div className="flex items-start gap-2.5 pb-3 border-b border-zinc-200">
+                    <div className="p-2 rounded-lg bg-red-100 text-red-600 mt-0.5 shrink-0">
+                      <HeartHandshake className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-black uppercase text-black">
+                        Data Kanal Donasi &amp; Rekening Solidaritas
+                      </h4>
+                      <p className="text-[11px] text-zinc-500 font-normal">
+                        Data ini tampil langsung pada kotak metode pembayaran (QRIS, Transfer Bank, dan Saweria/Trakteer) di halaman /donasi.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="sm:col-span-2 space-y-1.5">
+                      <label className="text-xs font-bold text-zinc-800 uppercase tracking-wider block">
+                        URL Gambar / Barcode QRIS (Opsional)
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.extraData?.qrisImageUrl || ""}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            extraData: {
+                              ...formData.extraData,
+                              qrisImageUrl: e.target.value,
+                            },
+                          })
+                        }
+                        placeholder="https://... atau /images/qris-belokiri.png"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs font-mono text-zinc-900 focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-zinc-800 uppercase tracking-wider block">
+                        Nama Bank
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.extraData?.bankName || ""}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            extraData: {
+                              ...formData.extraData,
+                              bankName: e.target.value,
+                            },
+                          })
+                        }
+                        placeholder="Contoh: BCA / Bank Mandiri"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-zinc-800 uppercase tracking-wider block">
+                        Nomor Rekening
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.extraData?.bankAccountNumber || ""}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            extraData: {
+                              ...formData.extraData,
+                              bankAccountNumber: e.target.value,
+                            },
+                          })
+                        }
+                        placeholder="Contoh: 123-456-7890"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-sm font-mono text-zinc-900 focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-zinc-800 uppercase tracking-wider block">
+                        Nama Pemilik Rekening
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.extraData?.bankAccountName || ""}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            extraData: {
+                              ...formData.extraData,
+                              bankAccountName: e.target.value,
+                            },
+                          })
+                        }
+                        placeholder="Contoh: Kolektif Belokiri"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-zinc-800 uppercase tracking-wider block">
+                        Tautan Saweria (Opsional)
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.extraData?.saweriaUrl || ""}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            extraData: {
+                              ...formData.extraData,
+                              saweriaUrl: e.target.value,
+                            },
+                          })
+                        }
+                        placeholder="https://saweria.co/belokiri"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs font-mono text-zinc-900 focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-zinc-800 uppercase tracking-wider block">
+                        Tautan Trakteer (Opsional)
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.extraData?.trakteerUrl || ""}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            extraData: {
+                              ...formData.extraData,
+                              trakteerUrl: e.target.value,
+                            },
+                          })
+                        }
+                        placeholder="https://trakteer.id/belokiri"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs font-mono text-zinc-900 focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
                       />
                     </div>
                   </div>

@@ -15,7 +15,9 @@ import HeroArticle from "@/components/public/HeroArticle";
 import ArticleCard from "@/components/public/ArticleCard";
 import EditorsPick from "@/components/public/EditorsPick";
 import MejaWarkopSection from "@/components/public/MejaWarkopSection";
-import { ArrowRight, Clock, Megaphone, PenLine } from "lucide-react";
+import { ArrowRight, Clock, Megaphone, PenLine, HeartHandshake } from "lucide-react";
+import { getSiteSettingsAction } from "@/actions/settings.actions";
+import { defaultSiteSettings } from "@/lib/data/site-settings";
 
 export default async function HomePage() {
   const [
@@ -26,6 +28,7 @@ export default async function HomePage() {
     editorsPicks,
     popularArticles,
     rubriks,
+    siteSettingsRes,
   ] = await Promise.all([
     getHeroArticles(3),
     getLatestArticles(8, 1),
@@ -34,7 +37,10 @@ export default async function HomePage() {
     getEditorsPick(5),
     getPopularArticles(5),
     getAllRubriks(),
+    getSiteSettingsAction(),
   ]);
+
+  const cta = siteSettingsRes?.settings?.cta || defaultSiteSettings.cta;
 
   // Use the remaining articles for secondary focus in Hero
   const secondaryArticles = latestArticles.slice(3, 5);
@@ -284,6 +290,42 @@ export default async function HomePage() {
       </div>
 
       {/* ======================================================== */}
+      {/* 5B. BANNER CTA DONASI: DARI WARGA UNTUK WARGA            */}
+      {/* ======================================================== */}
+      {cta.donasiBanner?.enabled !== false && (
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 my-14">
+          <div className="relative rounded-3xl bg-zinc-950 text-white p-8 sm:p-12 border-2 border-red-600 shadow-2xl overflow-hidden">
+            <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-red-600/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+              <div className="space-y-4 max-w-2xl">
+                <span className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-black uppercase tracking-widest text-red-500 bg-red-950/80 border border-red-800/80 px-3.5 py-1.5 rounded-full">
+                  <HeartHandshake className="w-3.5 h-3.5" />
+                  <span>{cta.donasiBanner?.badgeText || "DARI WARGA UNTUK WARGA"}</span>
+                </span>
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight uppercase leading-tight">
+                  {cta.donasiBanner?.title || "PATUNGAN SOLIDARITAS: JAGA BELOKIRI TETAP MENGUDARA"}
+                </h3>
+                <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-normal">
+                  {cta.donasiBanner?.description ||
+                    "Belokiri tidak disokong cukong dan tidak jualan iklan sampah. Kami hidup dari kemandirian dan sokongan Warga Belokan. Sisihkan secangkir kopi untuk menjaga akal sehat tetap bersuara."}
+                </p>
+              </div>
+
+              <div className="shrink-0 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <Link
+                  href={cta.donasiBanner?.buttonUrl || "/donasi"}
+                  className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform active:scale-95 text-center"
+                >
+                  <span>{cta.donasiBanner?.buttonText || "Donasi Solidaritas"}</span>
+                  <ArrowRight className="w-4 h-4 text-white" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ======================================================== */}
       {/* 6. RUANG WARGA & AGEN BELOKAN (DUA KOLOM DI ATAS FOOTER) */}
       {/* ======================================================== */}
       <section className="w-full bg-red-600 text-white py-16 sm:py-20 border-t-2 border-red-700 shadow-inner">
@@ -296,19 +338,18 @@ export default async function HomePage() {
                   RUANG WARGA BELOKAN
                 </span>
                 <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight uppercase mb-3 leading-tight">
-                  Punya Gagasan atau Cerita yang Perlu Didengar?
+                  {cta.ruangWarga?.title || "Punya Gagasan atau Cerita yang Perlu Didengar?"}
                 </h3>
                 <p className="text-sm text-red-100/90 leading-relaxed mb-8 font-normal">
-                  BELOKIRI membuka ruang seluas-luasnya bagi mahasiswa, pelajar, peneliti,
-                  dan masyarakat umum untuk menyumbangkan tulisan, esai kritis, atau
-                  pandangan nyeleneh yang jujur.
+                  {cta.ruangWarga?.description ||
+                    "BELOKIRI membuka ruang seluas-luasnya bagi mahasiswa, pelajar, peneliti, dan masyarakat umum untuk menyumbangkan tulisan, esai kritis, atau pandangan nyeleneh yang jujur."}
                 </p>
               </div>
               <Link
-                href="/kirim-tulisan"
+                href={cta.ruangWarga?.buttonUrl || "/kirim-tulisan"}
                 className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-white hover:bg-zinc-100 text-red-600 text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform active:scale-95"
               >
-                <span>Kirim Tulisan</span>
+                <span>{cta.ruangWarga?.buttonText || "Kirim Tulisan"}</span>
                 <ArrowRight className="w-4 h-4 text-red-600" />
               </Link>
             </div>
@@ -320,19 +361,18 @@ export default async function HomePage() {
                   RUANG AGEN BELOKAN
                 </span>
                 <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight uppercase mb-3 leading-tight">
-                  Tertarik Menjadi Bagian Awak BELOKIRI?
+                  {cta.ruangAgen?.title || "Tertarik Menjadi Bagian Awak BELOKIRI?"}
                 </h3>
                 <p className="text-sm text-red-100/90 leading-relaxed mb-8 font-normal">
-                  Kami membuka kesempatan bagi jurnalis investigasi, penulis esai, editor,
-                  dan kreator independen yang berani menyusup di antara narasi mapan demi
-                  menyuarakan realitas rakyat.
+                  {cta.ruangAgen?.description ||
+                    "Kami membuka kesempatan bagi jurnalis investigasi, penulis esai, editor, dan kreator independen yang berani menyusup di antara narasi mapan demi menyuarakan realitas rakyat."}
                 </p>
               </div>
               <Link
-                href="/rekrutmen"
+                href={cta.ruangAgen?.buttonUrl || "/rekrutmen"}
                 className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-white hover:bg-zinc-100 text-red-600 text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform active:scale-95"
               >
-                <span>Gabung Jadi Agen</span>
+                <span>{cta.ruangAgen?.buttonText || "Gabung Jadi Agen"}</span>
                 <ArrowRight className="w-4 h-4 text-red-600" />
               </Link>
             </div>

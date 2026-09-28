@@ -163,6 +163,11 @@ export default async function Footer() {
                   AGEN BELOKAN & KONTAK
                 </Link>
               </li>
+              <li>
+                <Link href="/donasi" className="hover:text-red-500 transition-colors text-red-500 font-black">
+                  DONASI SOLIDARITAS
+                </Link>
+              </li>
             </ul>
           </div>
 

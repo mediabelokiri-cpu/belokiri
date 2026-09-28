@@ -132,6 +132,7 @@ export async function saveSiteSettingsAction(
     safeRevalidatePath("/");
     safeRevalidatePath("/kabinet-belokiri");
     safeRevalidatePath("/kontak");
+    safeRevalidatePath("/donasi");
     safeRevalidatePath("/manifesto");
     safeRevalidatePath("/rekrutmen");
     safeRevalidatePath("/admin/settings");
