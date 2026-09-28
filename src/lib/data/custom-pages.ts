@@ -275,6 +275,8 @@ Belokiri.id adalah media alternatif berbasis kolektif yang bergerak dalam produk
 2. Manipulasi data, pemalsuan narasumber, dan penyebaran hoaks.
 3. Ujaran kebencian berbasis SARA dan diskriminasi kelompok rentan.
 4. Iklan terselubung yang mengkhianati kepercayaan pembaca.`,
+  },
+
   // DONASI SOLIDARITAS
   donasi: {
     slug: "donasi",
