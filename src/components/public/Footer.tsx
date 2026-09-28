@@ -134,12 +134,7 @@ export default async function Footer() {
             </h4>
             <ul className="space-y-2.5 text-xs text-zinc-300 font-bold uppercase tracking-wider">
               <li>
-                <Link href="/manifesto" className="hover:text-red-500 transition-colors text-white">
-                  MANIFESTO
-                </Link>
-              </li>
-              <li>
-                <Link href="/kirim-tulisan" className="hover:text-red-500 transition-colors text-white font-black">
+                <Link href="/kirim-tulisan" className="hover:text-red-500 transition-colors">
                   MENULIS DI BELOKIRI
                 </Link>
               </li>
@@ -164,7 +159,7 @@ export default async function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/donasi" className="hover:text-red-500 transition-colors text-red-500 font-black">
+                <Link href="/donasi" className="hover:text-red-500 transition-colors">
                   DONASI SOLIDARITAS
                 </Link>
               </li>
@@ -178,7 +173,12 @@ export default async function Footer() {
             </h4>
             <ul className="space-y-2.5 text-xs text-zinc-300 font-bold uppercase tracking-wider">
               <li>
-                <Link href="/kabinet-belokiri" className="hover:text-red-500 transition-colors text-white">
+                <Link href="/manifesto" className="hover:text-red-500 transition-colors">
+                  MANIFESTO
+                </Link>
+              </li>
+              <li>
+                <Link href="/kabinet-belokiri" className="hover:text-red-500 transition-colors">
                   KABINET BELOKIRI
                 </Link>
               </li>

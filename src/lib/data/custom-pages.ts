@@ -25,8 +25,8 @@ export const DEFAULT_CUSTOM_PAGES: Record<string, CustomPageContent> = {
   // 1. MANIFESTO
   manifesto: {
     slug: "manifesto",
-    group: "kanal-gerakan",
-    groupLabel: "KANAL & GERAKAN",
+    group: "sindikasi-arsip",
+    groupLabel: "SINDIKASI & ARSIP",
     name: "Manifesto",
     path: "/manifesto",
     title: "Manifesto Belokiri",
