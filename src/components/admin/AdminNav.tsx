@@ -16,6 +16,7 @@ import {
   ChevronRight,
   UserCog,
   UserPlus,
+  Compass,
 } from "lucide-react";
 
 interface AdminNavProps {
@@ -73,6 +74,12 @@ export default function AdminNav({ reviewCount = 0 }: AdminNavProps) {
       href: "/admin/rekrutmen",
       icon: UserPlus,
       active: pathname.startsWith("/admin/rekrutmen"),
+    },
+    {
+      name: "Kelola Halaman",
+      href: "/admin/pages",
+      icon: Compass,
+      active: pathname.startsWith("/admin/pages"),
     },
     {
       name: "Kelola Website",

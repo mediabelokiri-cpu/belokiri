@@ -1,104 +1,63 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Flame, Sparkles, BookOpen } from "lucide-react";
+import { ArrowRight, Flame } from "lucide-react";
+import { getCustomPageAction } from "@/actions/pages.actions";
+import { formatArticleContent } from "@/lib/security/sanitize";
 
-export const metadata: Metadata = {
-  title: "Manifesto BELOKIRI: Liar Seperlunya, Jenaka Secukupnya",
-  description:
-    "Manifesto Belokiri.id: Di tengah dunia yang terlalu berisik, kami memilih menyusup di antara narasi yang sudah terlalu mapan.",
-};
+export const revalidate = 60;
 
-export default function ManifestoPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const { page } = await getCustomPageAction("manifesto");
+  return {
+    title: page.metaTitle || `${page.title} | BELOKIRI`,
+    description: page.metaDescription,
+  };
+}
+
+export default async function ManifestoPage() {
+  const { page } = await getCustomPageAction("manifesto");
+
   return (
     <article className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-12 font-sans">
       {/* Top Badge & Title */}
       <header className="text-center space-y-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-50 border border-red-200 text-red-600 text-xs font-black uppercase tracking-widest">
           <Flame className="w-3.5 h-3.5" />
-          <span>Sikap Editorial Belokiri.id</span>
+          <span>{page.badge || "Sikap Editorial Belokiri.id"}</span>
         </div>
 
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-black tracking-tight uppercase leading-tight">
-          Manifesto Belokiri
+          {page.title}
         </h1>
 
-        <p className="text-lg sm:text-2xl font-black text-red-600 uppercase tracking-wide">
-          “Liar Seperlunya, Jenaka Secukupnya”
-        </p>
+        {page.subtitle && (
+          <p className="text-lg sm:text-2xl font-black text-red-600 uppercase tracking-wide">
+            {page.subtitle}
+          </p>
+        )}
 
         <div className="w-24 h-1 bg-black mx-auto mt-4" />
       </header>
 
-      {/* Main Manifesto Prose */}
+      {/* Main Content */}
       <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-12 shadow-xs space-y-10 text-zinc-900 leading-relaxed">
-        {/* Section 1 */}
-        <section className="space-y-4">
-          <h2 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight border-l-4 border-red-600 pl-4 py-0.5">
-            Menyusup di Antara Narasi
-          </h2>
-          <div className="space-y-4 text-base sm:text-lg text-zinc-700 leading-relaxed font-normal">
-            <p>
-              Di tengah derasnya arus informasi hari ini, media kerap hadir bukan lagi sebagai penyampai kebenaran, melainkan sebagai perancang kenyamanan. Realitas dipoles, konflik dipermak, dan kegelisahan publik sering kali diredam dalam kemasan yang lebih “ramah konsumsi”. Di titik inilah <strong>Belokiri.id</strong> mengambil posisi — bukan untuk ikut meramaikan, tetapi untuk menyusup di antara narasi yang sudah terlalu mapan.
-            </p>
-            <p>
-              Belokiri.id lahir dari kesadaran bahwa tidak semua hal layak ditenangkan. Ada realitas yang justru harus diguncang, dipertanyakan, bahkan ditertawakan. Dalam konteks sosial, ekonomi, dan politik yang penuh paradoks, pendekatan yang lurus dan datar sering kali gagal menjangkau esensi persoalan. Karena itu, Belokiri.id memilih jalan yang berbeda: <em>liar dalam kesunyian dan berani untuk tidak selalu terdengar “baik-baik saja”.</em>
-            </p>
-          </div>
-        </section>
-
-        {/* Pull Quote */}
-        <div className="my-8 p-6 sm:p-8 rounded-2xl bg-zinc-50 border-l-4 border-black text-black font-black text-lg sm:text-xl leading-snug">
-          “Independensi bagi kami bukan berarti netral tanpa arah, melainkan kebebasan untuk berpihak tanpa tekanan. Ketika ketidakadilan terjadi, diam bukanlah pilihan.”
-        </div>
-
-        {/* Section 2 */}
-        <section className="space-y-4">
-          <h2 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight border-l-4 border-red-600 pl-4 py-0.5">
-            Liar Sebagai Sikap
-          </h2>
-          <div className="space-y-4 text-base sm:text-lg text-zinc-700 leading-relaxed font-normal">
-            <p>
-              Liar bagi kami bukan sekadar gaya, melainkan sikap. Ia adalah cara untuk membuka lapisan kemunafikan tanpa harus berkhotbah. Dalam dunia yang semakin penuh kepura-puraan, liar menjadi bahasa yang justru terasa paling jujur. Belokiri.id percaya bahwa tawa yang getir sering kali lebih membekas daripada seribu kalimat yang terlalu hati-hati.
-            </p>
-            <p>
-              Namun, di balik nada yang tajam, terdapat sikap yang jelas: <strong>keberpihakan</strong>. Belokiri.id tidak berdiri di ruang hampa. Kami berpijak pada realitas rakyat, pada mereka yang suaranya kerap tenggelam di tengah hiruk pikuk kepentingan. Independensi bagi kami bukan berarti netral tanpa arah, melainkan kebebasan untuk berpihak tanpa tekanan. Ketika ketidakadilan terjadi, diam bukanlah pilihan, dan netralitas sering kali hanya menjadi topeng bagi ketakutan.
-            </p>
-          </div>
-        </section>
-
-        {/* Section 3 */}
-        <section className="space-y-4">
-          <h2 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight border-l-4 border-red-600 pl-4 py-0.5">
-            Sebab Kesadaran, Perubahan Menemukan Jalannya
-          </h2>
-          <div className="space-y-4 text-base sm:text-lg text-zinc-700 leading-relaxed font-normal">
-            <p>
-              Sebagai media, Belokiri.id tidak melihat tulisan sebagai sekadar produk. Tulisan adalah alat. Ia bisa menjadi ruang refleksi, tetapi juga bisa menjadi bentuk perlawanan. Setiap narasi yang kami hadirkan adalah upaya untuk membongkar, bukan menenangkan; untuk memantik kesadaran, bukan sekadar mengisi waktu luang.
-            </p>
-            <p>
-              Tentu, pendekatan ini bukan tanpa risiko. Belokiri.id sadar bahwa tidak semua orang akan merasa nyaman. Namun, sejak awal, kenyamanan memang bukan tujuan. Kami lebih percaya pada pentingnya kegelisahan yang jujur daripada ketenangan yang semu. Sebab dari kegelisahan itulah kesadaran lahir, dan dari kesadaran, perubahan menemukan jalannya.
-            </p>
-          </div>
-        </section>
-
-        {/* Section 4 */}
-        <section className="space-y-4">
-          <h2 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight border-l-4 border-red-600 pl-4 py-0.5">
-            Ruang Bagi Mereka yang Sama Liarnya
-          </h2>
-          <div className="space-y-4 text-base sm:text-lg text-zinc-700 leading-relaxed font-normal">
-            <p>
-              Pada akhirnya, Belokiri.id bukan sekadar media yang ingin dibaca. Ia adalah ruang bagi mereka yang masih mau berpikir, yang tidak puas dengan jawaban sederhana, dan yang percaya bahwa narasi bisa, dan harus diperebutkan. Dalam dunia yang semakin bising oleh suara yang seragam, Belokiri.id memilih untuk tetap berbeda: <strong>menyusup, mengganggu, dan jika perlu, membongkar</strong>.
-            </p>
-            <p className="font-bold text-black text-lg sm:text-xl pt-2">
-              Karena ketika narasi dikuasai, satu-satunya cara untuk melawan adalah dengan masuk ke dalamnya, diam-diam, tajam, dan tak terduga.
-            </p>
-          </div>
-        </section>
+        <div
+          className="prose prose-zinc max-w-none text-zinc-800 leading-relaxed text-base sm:text-lg
+            [&_h2]:text-xl sm:[&_h2]:text-2xl [&_h2]:font-black [&_h2]:text-black [&_h2]:uppercase [&_h2]:tracking-tight [&_h2]:border-l-4 [&_h2]:border-red-600 [&_h2]:pl-4 [&_h2]:py-0.5 [&_h2]:mt-10 [&_h2]:mb-4
+            [&_h3]:text-lg sm:[&_h3]:text-xl [&_h3]:font-black [&_h3]:text-black [&_h3]:uppercase [&_h3]:tracking-tight [&_h3]:mt-8 [&_h3]:mb-3
+            [&_p]:mb-5 [&_p]:leading-relaxed [&_p]:font-normal
+            [&_blockquote]:my-8 [&_blockquote]:p-6 sm:[&_blockquote]:p-8 [&_blockquote]:rounded-2xl [&_blockquote]:bg-zinc-50 [&_blockquote]:border-l-4 [&_blockquote]:border-black [&_blockquote]:text-black [&_blockquote]:font-black [&_blockquote]:text-lg sm:[&_blockquote]:text-xl [&_blockquote]:leading-snug
+            [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2 [&_ul]:mb-6
+            [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:space-y-2 [&_ol]:mb-6
+            [&_hr]:my-10 [&_hr]:border-zinc-200"
+          dangerouslySetInnerHTML={{
+            __html: formatArticleContent(page.content),
+          }}
+        />
       </div>
 
       {/* CTA Box */}
-      <div className="p-8 sm:p-10 rounded-3xl bg-black text-white text-center space-y-4 border-t-4 border-red-600">
+      <div className="p-8 sm:p-10 rounded-3xl bg-black text-white text-center space-y-4 border-t-4 border-red-600 shadow-xl">
         <span className="text-xs font-black uppercase tracking-widest text-red-500">
           Meja Terbuka
         </span>

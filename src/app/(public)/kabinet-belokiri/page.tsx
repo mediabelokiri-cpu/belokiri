@@ -18,15 +18,19 @@ import {
   UserCheck,
 } from "lucide-react";
 import { getSiteSettingsAction } from "@/actions/settings.actions";
+import { getCustomPageAction } from "@/actions/pages.actions";
 import { defaultKabinetMembers } from "@/lib/data/site-settings";
+import { formatArticleContent } from "@/lib/security/sanitize";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: "Kabinet Belokiri | Struktur Dewan & Agen Belokan",
-  description:
-    "Susunan struktur organisasi dan dewan agen BELOKIRI: Ketua RT, Bendahara RT, Pimpinan Redaksi, Agen Agitasi & Propaganda, Agen Program, hingga Agen Penjaga 8 Rubrik lengkap dengan foto profil.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { page } = await getCustomPageAction("kabinet-belokiri");
+  return {
+    title: page.metaTitle || `${page.title} | BELOKIRI`,
+    description: page.metaDescription,
+  };
+}
 
 function getPimpinanMeta(role: string) {
   const r = role.toLowerCase();
@@ -62,9 +66,18 @@ function getRubrikIcon(rubrik?: string) {
 }
 
 export default async function KabinetBelokiriPage() {
-  const res = await getSiteSettingsAction();
+  const [resSettings, resPage] = await Promise.all([
+    getSiteSettingsAction(),
+    getCustomPageAction("kabinet-belokiri"),
+  ]);
+
   const allMembers =
-    res.kabinet && res.kabinet.length > 0 ? res.kabinet : defaultKabinetMembers;
+    resSettings.kabinet && resSettings.kabinet.length > 0
+      ? resSettings.kabinet
+      : defaultKabinetMembers;
+
+  const page = resPage.page;
+  const isCustom = resPage.isCustom;
 
   const activeMembers = allMembers.filter((m) => m.status === "AKTIF");
   const pimpinan = activeMembers.filter((m) => m.category === "PIMPINAN");
@@ -75,17 +88,32 @@ export default async function KabinetBelokiriPage() {
       {/* Header */}
       <header className="space-y-4 text-center max-w-3xl mx-auto">
         <span className="inline-block text-[11px] font-black uppercase tracking-widest text-red-600 bg-red-50 border border-red-200 px-3.5 py-1 rounded-full">
-          STRUKTUR DEWAN & AGEN BELOKAN
+          {page.badge || "STRUKTUR DEWAN & AGEN BELOKAN"}
         </span>
         <h1 className="text-3xl sm:text-5xl font-black text-black tracking-tight uppercase leading-tight">
-          KABINET BELOKIRI
+          {page.title}
         </h1>
-        <p className="text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
-          Di BELOKIRI, kami tidak mengenal hierarki feodal kantor media komersial. Kami bekerja
-          layaknya rukun tetangga independen: tempat gagasan diuji, kas dipertanggungjawabkan,
-          dan setiap agen memegang tanggung jawab penuh atas rubriknya.
-        </p>
+        {page.subtitle && (
+          <p className="text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
+            {page.subtitle}
+          </p>
+        )}
       </header>
+
+      {/* Custom Content Intro (If customized via Admin) */}
+      {isCustom && page.content && (
+        <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-10 shadow-xs">
+          <div
+            className="prose prose-zinc max-w-none text-zinc-800 leading-relaxed text-sm sm:text-base
+              [&_h2]:text-lg sm:[&_h2]:text-xl [&_h2]:font-black [&_h2]:text-black [&_h2]:uppercase [&_h2]:tracking-tight [&_h2]:mb-3
+              [&_p]:mb-3 [&_p]:leading-relaxed
+              [&_blockquote]:border-l-4 [&_blockquote]:border-red-600 [&_blockquote]:bg-zinc-50 [&_blockquote]:p-4 [&_blockquote]:rounded-r-xl [&_blockquote]:font-bold [&_blockquote]:text-black [&_blockquote]:my-4"
+            dangerouslySetInnerHTML={{
+              __html: formatArticleContent(page.content),
+            }}
+          />
+        </div>
+      )}
 
       {/* 1. Jajaran Inti Pimpinan RT & Komando Redaksi */}
       <section className="space-y-6">

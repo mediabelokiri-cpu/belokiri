@@ -2,32 +2,46 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { Mail, MapPin, Send, ArrowRight, ShieldCheck, MessageCircle } from "lucide-react";
 import { getSiteSettingsAction } from "@/actions/settings.actions";
+import { getCustomPageAction } from "@/actions/pages.actions";
 import { defaultSiteSettings } from "@/lib/data/site-settings";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: "Kontak & Agen Belokan | BELOKIRI",
-  description: "Hubungi Agen Belokan BELOKIRI, kirim siaran pers, atau panduan naskah tulisan bagi Warga Belokan.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { page } = await getCustomPageAction("kontak");
+  return {
+    title: page.metaTitle || `${page.title} | BELOKIRI`,
+    description: page.metaDescription,
+  };
+}
 
 export default async function KontakPage() {
-  const res = await getSiteSettingsAction();
-  const social = res.settings?.social || defaultSiteSettings.social;
+  const [resSettings, resPage] = await Promise.all([
+    getSiteSettingsAction(),
+    getCustomPageAction("kontak"),
+  ]);
+
+  const social = resSettings.settings?.social || defaultSiteSettings.social;
+  const page = resPage.page;
+
+  const address = page.extraData?.address || social.address || "Gedung Media Nusantara Lt. 4, Jl. Kebon Sirih No. 45, Jakarta Pusat 10340";
+  const email = page.extraData?.email || social.email || "redaksi@belokiri.id";
+  const whatsapp = page.extraData?.whatsapp || social.whatsapp;
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-12">
       <div className="text-center space-y-3">
         <span className="text-xs font-black uppercase tracking-[0.2em] text-red-600">
-          Hubungi Kami
+          {page.badge || "Hubungi Kami"}
         </span>
         <h1 className="text-3xl sm:text-5xl font-black text-black tracking-tight uppercase">
-          AGEN BELOKAN & KERJA SAMA BELOKIRI
+          {page.title}
         </h1>
-        <p className="text-sm text-zinc-600 max-w-md mx-auto font-normal">
-          Punya tips liputan, pengaduan berita, siaran pers, atau ingin berkolaborasi?
-          Tim Agen Belokan siap mendengar dari Anda.
-        </p>
+        {page.subtitle && (
+          <p className="text-sm text-zinc-600 max-w-md mx-auto font-normal">
+            {page.subtitle}
+          </p>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -44,7 +58,7 @@ export default async function KontakPage() {
               </div>
               <div>
                 <strong className="text-black font-bold block mb-0.5">Kantor Agen Belokan BELOKIRI:</strong>
-                <p className="font-normal">{social.address || "Gedung Media Nusantara Lt. 4, Jl. Kebon Sirih No. 45, Jakarta Pusat 10340"}</p>
+                <p className="font-normal">{address}</p>
               </div>
             </div>
 
@@ -54,11 +68,11 @@ export default async function KontakPage() {
               </div>
               <div>
                 <strong className="text-black font-bold block mb-0.5">Surel Agen Belokan & Liputan:</strong>
-                <p className="font-normal">{social.email || "redaksi@belokiri.id"}</p>
+                <p className="font-normal">{email}</p>
               </div>
             </div>
 
-            {social.whatsapp && (
+            {whatsapp && (
               <div className="flex items-start gap-3">
                 <div className="p-2 rounded-lg bg-red-50 text-red-600 shrink-0 mt-0.5">
                   <MessageCircle className="w-4 h-4" />
@@ -66,12 +80,12 @@ export default async function KontakPage() {
                 <div>
                   <strong className="text-black font-bold block mb-0.5">WhatsApp Hotline Redaksi:</strong>
                   <a
-                    href={social.whatsapp}
+                    href={whatsapp.startsWith("http") ? whatsapp : `https://wa.me/${whatsapp.replace(/[^0-9]/g, "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-normal text-red-600 hover:underline"
                   >
-                    Hubungi via WhatsApp
+                    {whatsapp}
                   </a>
                 </div>
               </div>
@@ -83,7 +97,7 @@ export default async function KontakPage() {
               </div>
               <div>
                 <strong className="text-black font-bold block mb-0.5">Siaran Pers & Kemitraan:</strong>
-                <p className="font-normal">{social.email || "kerjasama@belokiri.id"}</p>
+                <p className="font-normal">{email}</p>
               </div>
             </div>
           </div>

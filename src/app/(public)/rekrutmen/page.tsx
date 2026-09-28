@@ -1,126 +1,100 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Users, Send, CheckCircle2, ArrowRight } from "lucide-react";
+import { Users, Send, ArrowRight, Clock, AlertCircle } from "lucide-react";
+import { getCustomPageAction } from "@/actions/pages.actions";
+import { formatArticleContent } from "@/lib/security/sanitize";
 
-export const metadata: Metadata = {
-  title: "Rekrutmen Anggota & Penulis | BELOKIRI",
-  description:
-    "Belokiri.id membuka ruang bagi mahasiswa dan anak muda yang merasa dunia hari ini terlalu ramai oleh kepalsuan, tetapi terlalu sepi oleh keberanian.",
-};
+export const revalidate = 60;
 
-export default function RekrutmenPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const { page } = await getCustomPageAction("rekrutmen");
+  return {
+    title: page.metaTitle || `${page.title} | BELOKIRI`,
+    description: page.metaDescription,
+  };
+}
+
+export default async function RekrutmenPage() {
+  const { page } = await getCustomPageAction("rekrutmen");
+  const isOpen = page.extraData?.isOpen !== false;
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-12 font-sans">
       {/* Top Header */}
       <header className="text-center space-y-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-50 border border-red-200 text-red-600 text-xs font-black uppercase tracking-widest">
           <Users className="w-3.5 h-3.5" />
-          <span>Panggilan Terbuka</span>
+          <span>{page.badge || "Panggilan Terbuka"}</span>
         </div>
 
         <h1 className="text-3xl sm:text-5xl font-black text-black tracking-tight uppercase leading-tight">
-          Rekrutmen Belokiri
+          {page.title}
         </h1>
 
-        <p className="text-base sm:text-lg font-bold text-zinc-600 max-w-xl mx-auto">
-          Membangun ruang belajar, ruang berpikir, dan ruang bertumbuh bagi mereka yang mau mempertanyakan keadaan.
-        </p>
+        {page.subtitle && (
+          <p className="text-base sm:text-lg font-bold text-zinc-600 max-w-xl mx-auto">
+            {page.subtitle}
+          </p>
+        )}
 
         <div className="w-20 h-1 bg-red-600 mx-auto mt-4" />
       </header>
 
       {/* Main Narrative Content */}
       <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-12 shadow-xs space-y-8 text-zinc-900 leading-relaxed">
-        <div className="space-y-5 text-base sm:text-lg text-zinc-700 font-normal leading-relaxed">
-          <p className="text-xl sm:text-2xl font-black text-black border-l-4 border-red-600 pl-4 py-1 leading-snug">
-            Belokiri.id membuka ruang bagi mahasiswa dan anak muda yang merasa dunia hari ini terlalu ramai oleh kepalsuan, tetapi terlalu sepi oleh keberanian.
-          </p>
-          <p>
-            Kami mencari mereka yang masih punya kegelisahan, yang tidak mudah puas dengan narasi resmi, dan yang percaya bahwa tulisan bisa menjadi lebih dari sekadar konten. Di tengah budaya media yang makin sibuk mengejar algoritma dan sensasi instan, Belokiri.id justru ingin membangun ruang belajar, ruang berpikir, dan ruang bertumbuh bagi orang-orang yang mau mempertanyakan keadaan.
-          </p>
-          <p>
-            Rekrutmen ini bukan ajang mencari penulis yang paling rapi atau paling akademis. Kami lebih tertarik pada cara seseorang memandang realitas: apakah ia cukup peka melihat ketimpangan di sekitarnya, cukup kritis membaca kepentingan di balik informasi, dan cukup jujur untuk menulis tanpa terus-menerus menyenangkan semua orang. Sebab bagi kami, tulisan yang hidup lahir dari keberanian berpikir, bukan dari kalimat yang aman. Belokiri.id percaya bahwa anak muda tidak seharusnya hanya menjadi konsumen narasi, tetapi juga pembuat arah percakapan.
-          </p>
-        </div>
+        <div
+          className="prose prose-zinc max-w-none text-zinc-800 leading-relaxed text-base sm:text-lg
+            [&_h2]:text-xl sm:[&_h2]:text-2xl [&_h2]:font-black [&_h2]:text-black [&_h2]:uppercase [&_h2]:tracking-tight [&_h2]:border-l-4 [&_h2]:border-red-600 [&_h2]:pl-4 [&_h2]:py-0.5 [&_h2]:mt-10 [&_h2]:mb-4
+            [&_h3]:text-base sm:[&_h3]:text-lg [&_h3]:font-black [&_h3]:text-black [&_h3]:uppercase [&_h3]:mt-6 [&_h3]:mb-2
+            [&_p]:mb-4 [&_p]:leading-relaxed [&_p]:font-normal
+            [&_blockquote]:my-6 [&_blockquote]:p-5 sm:[&_blockquote]:p-6 [&_blockquote]:rounded-2xl [&_blockquote]:bg-zinc-50 [&_blockquote]:border-l-4 [&_blockquote]:border-black [&_blockquote]:text-black [&_blockquote]:font-bold [&_blockquote]:text-base sm:[&_blockquote]:text-lg
+            [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2 [&_ul]:mb-6
+            [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:space-y-2 [&_ol]:mb-6
+            [&_hr]:my-8 [&_hr]:border-zinc-200"
+          dangerouslySetInnerHTML={{
+            __html: formatArticleContent(page.content),
+          }}
+        />
 
-        {/* Highlight Card: Laboratorium Kegelisahan */}
-        <div className="p-6 sm:p-8 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-4">
-          <h2 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-600" />
-            <span>Laboratorium Kegelisahan & Produksi Narasi</span>
-          </h2>
-          <div className="space-y-4 text-sm sm:text-base text-zinc-700 font-normal leading-relaxed">
-            <p>
-              Sebagai bagian dari Belokiri.id, anggota tidak hanya akan belajar menulis, tetapi juga belajar membedah isu, memahami framing media, melakukan riset, hingga mengolah kegelisahan menjadi karya yang punya posisi. Kami ingin membangun ekosistem yang cair namun bertanggung jawab: tempat ide bisa diperdebatkan, tulisan bisa dipatahkan lalu dibangun ulang, dan kritik tidak dianggap ancaman. Karena media alternatif tidak lahir dari kenyamanan, melainkan dari keberanian untuk tetap berpikir ketika banyak orang memilih diam.
-            </p>
-            <p>
-              Belokiri.id adalah ruang bagi mereka yang sama liarnya, liar dalam cara melihat dunia, tetapi tetap sadar bahwa setiap tulisan membawa konsekuensi. Jika kamu merasa terlalu sering gelisah melihat keadaan, terlalu sering mempertanyakan hal-hal yang dianggap normal, atau terlalu sering merasa “tidak cocok” dengan cara media bekerja hari ini, mungkin kamu memang sedang mencari ruang yang sama. Di sini, kita tidak sedang membangun tempat yang sempurna. Kita hanya sedang mencoba memastikan bahwa narasi tidak sepenuhnya dimiliki mereka yang berkuasa.
-            </p>
-          </div>
-        </div>
-
-        {/* Nilai Yang Dicari */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-zinc-200">
-          <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
-            <div className="flex items-center gap-2 font-black text-sm text-black uppercase mb-1">
-              <CheckCircle2 className="w-4 h-4 text-red-600" />
-              <span>Sensitivitas Realitas</span>
+        {/* Dynamic Registration Status Banner & CTA */}
+        <div className="pt-6 border-t border-zinc-200">
+          {isOpen ? (
+            <div className="p-6 sm:p-8 rounded-2xl bg-black text-white text-center space-y-4 shadow-lg border-t-4 border-red-600">
+              <span className="text-xs font-black uppercase tracking-widest text-emerald-400">
+                Pendaftaran Sedang Dibuka
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
+                Siap Menjadi Agen Belokan?
+              </h3>
+              <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto">
+                Isi formulir pendaftaran, lampirkan gagasan tulisan, dan bergabunglah bersama redaksi Belokiri.
+              </p>
+              <div className="pt-2">
+                <Link
+                  href="/rekrutmen/form"
+                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-red-600 text-white text-xs sm:text-sm font-black uppercase tracking-wider hover:bg-red-700 transition-all shadow-md active:scale-95 group cursor-pointer"
+                >
+                  <Send className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  <span>Isi Formulir Pendaftaran Agen</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
             </div>
-            <p className="text-xs text-zinc-600 font-normal">Peka menangkap isu rakyat, ketimpangan sosial, dan kegaduhan yang nyata.</p>
-          </div>
-          <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
-            <div className="flex items-center gap-2 font-black text-sm text-black uppercase mb-1">
-              <CheckCircle2 className="w-4 h-4 text-red-600" />
-              <span>Keberanian Posisi</span>
+          ) : (
+            <div className="p-6 sm:p-8 rounded-2xl bg-zinc-100 border border-zinc-300 text-center space-y-3">
+              <div className="w-10 h-10 mx-auto rounded-full bg-zinc-200 flex items-center justify-center text-zinc-600">
+                <Clock className="w-5 h-5" />
+              </div>
+              <h3 className="text-lg font-black text-black uppercase tracking-tight">
+                Pendaftaran Sedang Ditutup
+              </h3>
+              <p className="text-xs sm:text-sm text-zinc-600 max-w-md mx-auto">
+                Pendaftaran calon agen saat ini belum dibuka kembali. Pantau terus akun media sosial resmi BELOKIRI untuk pengumuman batch berikutnya.
+              </p>
             </div>
-            <p className="text-xs text-zinc-600 font-normal">Menulis dengan sikap dan keberpihakan, bukan sekadar kalimat aman pencitraan.</p>
-          </div>
-          <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
-            <div className="flex items-center gap-2 font-black text-sm text-black uppercase mb-1">
-              <CheckCircle2 className="w-4 h-4 text-red-600" />
-              <span>Keterbukaan Belajar</span>
-            </div>
-            <p className="text-xs text-zinc-600 font-normal">Siap berdiskusi, dibedah gagasannya, dan mengasah ketajaman analisis bersama.</p>
-          </div>
+          )}
         </div>
       </div>
-
-      {/* Cara Mendaftar & Kontak (Red Theme CTA) */}
-      <section className="bg-red-600 text-white rounded-3xl p-8 sm:p-12 border-t-4 border-red-700 shadow-xl space-y-8">
-        <div className="space-y-3 text-center sm:text-left">
-          <span className="inline-block text-[11px] font-black uppercase tracking-widest text-red-100 bg-red-700/80 px-3.5 py-1 rounded-full">
-            RUANG AGEN BELOKAN
-          </span>
-          <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-white leading-tight">
-            Bagaimana Cara Bergabung?
-          </h2>
-          <p className="text-sm sm:text-base text-red-100/90 font-normal max-w-2xl leading-relaxed">
-            Belokiri.id membuka ruang bagi mahasiswa dan anak muda yang merasa dunia hari ini terlalu ramai oleh kepalsuan, tetapi terlalu sepi oleh keberanian. Kami mencari mereka yang masih punya kegelisahan, yang tidak mudah puas dengan narasi resmi, dan yang percaya bahwa tulisan bisa menjadi lebih dari sekadar konten.
-          </p>
-        </div>
-
-        {/* Primary CTA: Tombol Putih "ISI FORM AGEN" */}
-        <div className="p-6 sm:p-8 rounded-2xl bg-red-700/60 border border-red-500/60 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="space-y-1.5 text-center sm:text-left">
-            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-red-200">
-              Liar Seperlunya, Jenaka Secukupnya
-            </span>
-            <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
-              Formulir Pendaftaran Agen Belokan
-            </h3>
-            <p className="text-xs sm:text-sm text-red-100 font-normal max-w-md">
-              Isi pertanyaan dalam keadaan sadar & tidak dalam pengaruh minuman keras.
-            </p>
-          </div>
-          <Link
-            href="/rekrutmen/form"
-            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-white hover:bg-zinc-100 text-red-600 text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform active:scale-95 shrink-0"
-          >
-            <span>Isi Form Agen</span>
-            <ArrowRight className="w-4 h-4 text-red-600" />
-          </Link>
-        </div>
-      </section>
     </div>
   );
 }
