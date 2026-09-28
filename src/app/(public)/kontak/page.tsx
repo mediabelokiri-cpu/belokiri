@@ -111,8 +111,8 @@ export default async function KontakPage() {
           <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-zinc-600 flex items-start gap-3">
             <ShieldCheck className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
             <p className="font-normal">
-              Seluruh jurnalis & Agen Belokan BELOKIRI dibekali identitas resmi dan dilarang
-              menerima imbalan dalam bentuk apa pun terkait pemberitaan.
+              Belokiri adalah ruang bersama,ruang kolektif berbagi tulisan: opini, gagasan, cerita, dll.
+              Belokiri dikelola oleh Agen Belokan.
             </p>
           </div>
         </div>
