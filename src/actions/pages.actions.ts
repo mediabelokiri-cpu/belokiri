@@ -42,6 +42,10 @@ export async function getCustomPageAction(slug: string): Promise<{
         page: {
           ...defaultPage,
           ...dbData,
+          extraData: {
+            ...defaultPage.extraData,
+            ...dbData.extraData,
+          },
           slug,
           updatedAt: row.updatedAt?.toISOString() || new Date().toISOString(),
         },
@@ -75,30 +79,54 @@ export async function getAllCustomPagesAction(): Promise<{
   try {
     const rows = await prisma.siteSetting.findMany({
       where: {
-        key: {
-          startsWith: "page_",
-        },
+        OR: [
+          { key: { startsWith: "page_" } },
+          { key: "site_settings" },
+        ],
       },
     });
 
+    const siteSettingsRow = rows.find((r) => r.key === "site_settings");
+    const siteSocial = (siteSettingsRow?.value as any)?.social;
+
     const dbMap = new Map<string, { value: Partial<CustomPageContent>; updatedAt: string }>();
     rows.forEach((r) => {
-      const slug = r.key.replace(/^page_/, "");
-      dbMap.set(slug, {
-        value: r.value as unknown as Partial<CustomPageContent>,
-        updatedAt: r.updatedAt.toISOString(),
-      });
+      if (r.key.startsWith("page_")) {
+        const slug = r.key.replace(/^page_/, "");
+        dbMap.set(slug, {
+          value: r.value as unknown as Partial<CustomPageContent>,
+          updatedAt: r.updatedAt.toISOString(),
+        });
+      }
     });
 
     const customSlugs: string[] = [];
     const pages: CustomPageContent[] = Object.keys(DEFAULT_CUSTOM_PAGES).map((slug) => {
-      const def = DEFAULT_CUSTOM_PAGES[slug];
+      let def = DEFAULT_CUSTOM_PAGES[slug];
+
+      // If kontak, merge fallback address/email from site_settings social
+      if (slug === "kontak" && siteSocial) {
+        def = {
+          ...def,
+          extraData: {
+            ...def.extraData,
+            address: siteSocial.address || def.extraData?.address,
+            email: siteSocial.email || def.extraData?.email,
+            whatsapp: siteSocial.whatsapp || def.extraData?.whatsapp,
+          },
+        };
+      }
+
       const custom = dbMap.get(slug);
       if (custom) {
         customSlugs.push(slug);
         return {
           ...def,
           ...custom.value,
+          extraData: {
+            ...def.extraData,
+            ...custom.value.extraData,
+          },
           slug,
           updatedAt: custom.updatedAt,
         };
@@ -136,6 +164,10 @@ export async function saveCustomPageAction(
     const mergedPayload: CustomPageContent = {
       ...def,
       ...data,
+      extraData: {
+        ...def.extraData,
+        ...data.extraData,
+      },
       slug,
       updatedAt: new Date().toISOString(),
     };
@@ -151,7 +183,7 @@ export async function saveCustomPageAction(
       },
     });
 
-    // If saving 'kontak', sync address/email to main site_settings as well for consistency
+    // If saving 'kontak', sync address/email/whatsapp to main site_settings as well for consistency
     if (slug === "kontak" && data.extraData) {
       try {
         const currentSettings = await prisma.siteSetting.findUnique({
@@ -159,9 +191,12 @@ export async function saveCustomPageAction(
         });
         if (currentSettings && currentSettings.value) {
           const val = currentSettings.value as any;
-          if (data.extraData.address) val.social = { ...val.social, address: data.extraData.address };
-          if (data.extraData.email) val.social = { ...val.social, email: data.extraData.email };
-          if (data.extraData.whatsapp) val.social = { ...val.social, whatsapp: data.extraData.whatsapp };
+          val.social = {
+            ...val.social,
+            ...(data.extraData.address !== undefined ? { address: data.extraData.address } : {}),
+            ...(data.extraData.email !== undefined ? { email: data.extraData.email } : {}),
+            ...(data.extraData.whatsapp !== undefined ? { whatsapp: data.extraData.whatsapp } : {}),
+          };
           await prisma.siteSetting.update({
             where: { key: "site_settings" },
             data: { value: val },
@@ -172,9 +207,12 @@ export async function saveCustomPageAction(
       }
     }
 
-    // Trigger on-demand revalidation for the public page
+    // Trigger on-demand revalidation for the public page & admin
     const publicPath = def.path || `/${slug}`;
     safeRevalidatePath(publicPath);
+    safeRevalidatePath("/kontak");
+    safeRevalidatePath("/admin/settings");
+    safeRevalidatePath("/admin/pages");
     safeRevalidatePath("/sitemap.xml");
 
     return {

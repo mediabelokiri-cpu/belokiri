@@ -31,6 +31,7 @@ import {
   HelpCircle,
   Flame,
   Check,
+  MapPin,
 } from "lucide-react";
 import {
   CustomPageContent,
@@ -69,7 +70,7 @@ export default function AdminPagesManagerPage() {
           setPages(res.pages);
           setCustomSlugs(res.customSlugs);
           const first = res.pages.find((p) => p.slug === selectedSlug) || res.pages[0];
-          if (first) setFormData({ ...first });
+          if (first) setFormData({ ...first, extraData: first.extraData ? { ...first.extraData } : {} });
         }
       } catch (err) {
         console.error("Gagal memuat daftar halaman:", err);
@@ -85,7 +86,7 @@ export default function AdminPagesManagerPage() {
     setSelectedSlug(slug);
     const target = pages.find((p) => p.slug === slug);
     if (target) {
-      setFormData({ ...target });
+      setFormData({ ...target, extraData: target.extraData ? { ...target.extraData } : {} });
       setActiveTab("edit");
       setStatusMessage(null);
     }
@@ -516,6 +517,90 @@ export default function AdminPagesManagerPage() {
                     />
                     <div className="w-11 h-6 bg-zinc-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
                   </label>
+                </div>
+              )}
+
+              {/* Special Extras: Kontak Detail Fields */}
+              {formData.slug === "kontak" && (
+                <div className="p-5 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-4">
+                  <div className="flex items-start gap-2.5 pb-3 border-b border-zinc-200">
+                    <div className="p-2 rounded-lg bg-red-100 text-red-600 mt-0.5 shrink-0">
+                      <MapPin className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-black uppercase text-black">
+                        Data Kartu Kontak & Saluran Resmi
+                      </h4>
+                      <p className="text-[11px] text-zinc-500 font-normal">
+                        Data ini tampil langsung pada kartu info &quot;Alamat &amp; Saluran Resmi&quot; di halaman publik dan otomatis tersinkronisasi dua arah dengan menu Kelola Website (Tab Media Sosial &amp; Kontak).
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="sm:col-span-2 space-y-1.5">
+                      <label className="text-xs font-bold text-zinc-800 uppercase tracking-wider block">
+                        Alamat Lengkap Kantor Redaksi
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.extraData?.address || ""}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            extraData: {
+                              ...formData.extraData,
+                              address: e.target.value,
+                            },
+                          })
+                        }
+                        placeholder="Contoh: Jl. Warkop Tuya No. 45, Jakarta"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-sm text-zinc-900 font-medium focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-zinc-800 uppercase tracking-wider block">
+                        Surel / Email Resmi Redaksi
+                      </label>
+                      <input
+                        type="email"
+                        value={formData.extraData?.email || ""}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            extraData: {
+                              ...formData.extraData,
+                              email: e.target.value,
+                            },
+                          })
+                        }
+                        placeholder="redaksi@belokiri.id"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-zinc-800 uppercase tracking-wider block">
+                        Nomor WhatsApp Hotline Layanan
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.extraData?.whatsapp || ""}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            extraData: {
+                              ...formData.extraData,
+                              whatsapp: e.target.value,
+                            },
+                          })
+                        }
+                        placeholder="0812-3456-7890"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
+                      />
+                    </div>
+                  </div>
                 </div>
               )}
 

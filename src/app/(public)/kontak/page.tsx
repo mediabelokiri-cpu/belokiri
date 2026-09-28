@@ -4,6 +4,7 @@ import { Mail, MapPin, Send, ArrowRight, ShieldCheck, MessageCircle } from "luci
 import { getSiteSettingsAction } from "@/actions/settings.actions";
 import { getCustomPageAction } from "@/actions/pages.actions";
 import { defaultSiteSettings } from "@/lib/data/site-settings";
+import { formatArticleContent } from "@/lib/security/sanitize";
 
 export const revalidate = 60;
 
@@ -24,9 +25,14 @@ export default async function KontakPage() {
   const social = resSettings.settings?.social || defaultSiteSettings.social;
   const page = resPage.page;
 
-  const address = page.extraData?.address || social.address || "Gedung Media Nusantara Lt. 4, Jl. Kebon Sirih No. 45, Jakarta Pusat 10340";
-  const email = page.extraData?.email || social.email || "redaksi@belokiri.id";
-  const whatsapp = page.extraData?.whatsapp || social.whatsapp;
+  const address =
+    page.extraData?.address ||
+    social.address ||
+    "Jl. Warkop Tuya No. 45, Jakarta";
+  const email =
+    page.extraData?.email || social.email || "redaksi@belokiri.id";
+  const whatsapp =
+    page.extraData?.whatsapp || social.whatsapp;
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-12">
@@ -143,6 +149,24 @@ export default async function KontakPage() {
           </div>
         </div>
       </div>
+
+      {/* Additional Markdown Content */}
+      {page.content && page.content.trim().length > 0 && (
+        <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-10 shadow-xs space-y-6">
+          <div
+            className="prose prose-zinc max-w-none text-zinc-800 leading-relaxed text-sm sm:text-base
+              [&_h2]:text-lg sm:[&_h2]:text-xl [&_h2]:font-black [&_h2]:text-black [&_h2]:uppercase [&_h2]:tracking-tight [&_h2]:border-l-4 [&_h2]:border-red-600 [&_h2]:pl-3 [&_h2]:py-0.5 [&_h2]:mt-6 [&_h2]:mb-3
+              [&_h3]:text-sm sm:[&_h3]:text-base [&_h3]:font-black [&_h3]:text-black [&_h3]:uppercase [&_h3]:mt-5 [&_h3]:mb-2
+              [&_p]:mb-3 [&_p]:leading-relaxed [&_p]:font-normal
+              [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_ul]:mb-4
+              [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1.5 [&_ol]:mb-4
+              [&_hr]:my-6 [&_hr]:border-zinc-200"
+            dangerouslySetInnerHTML={{
+              __html: formatArticleContent(page.content),
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }

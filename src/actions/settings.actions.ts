@@ -100,6 +100,32 @@ export async function saveSiteSettingsAction(
       );
     }
 
+    // Sync address, email, whatsapp to page_kontak for seamless bidirectional consistency
+    if (settings.social) {
+      try {
+        const kontakRow = await prisma.siteSetting.findUnique({
+          where: { key: "page_kontak" },
+        });
+        if (kontakRow && kontakRow.value) {
+          const pageVal = kontakRow.value as any;
+          pageVal.extraData = {
+            ...pageVal.extraData,
+            ...(settings.social.address !== undefined ? { address: settings.social.address } : {}),
+            ...(settings.social.email !== undefined ? { email: settings.social.email } : {}),
+            ...(settings.social.whatsapp !== undefined ? { whatsapp: settings.social.whatsapp } : {}),
+          };
+          operations.push(
+            prisma.siteSetting.update({
+              where: { key: "page_kontak" },
+              data: { value: pageVal as Prisma.InputJsonValue },
+            })
+          );
+        }
+      } catch (err) {
+        console.warn("Could not sync page_kontak with site_settings:", err);
+      }
+    }
+
     await prisma.$transaction(operations);
 
     // Revalidate public and admin pages
@@ -109,6 +135,7 @@ export async function saveSiteSettingsAction(
     safeRevalidatePath("/manifesto");
     safeRevalidatePath("/rekrutmen");
     safeRevalidatePath("/admin/settings");
+    safeRevalidatePath("/admin/pages");
 
     return { success: true };
   } catch (error) {

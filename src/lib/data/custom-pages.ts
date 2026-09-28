@@ -293,7 +293,7 @@ Belokiri.id adalah media alternatif berbasis kolektif yang bergerak dalam produk
       "Hubungi Agen Belokan BELOKIRI, kirim siaran pers, atau panduan naskah tulisan bagi Warga Belokan.",
     extraData: {
       office: "Gedung Media Belokiri, Meja Redaksi Lantai 2",
-      address: "Jl. Warkop Pembebasan No. 45, Jakarta",
+      address: "Jl. Warkop Tuya No. 45, Jakarta",
       email: "redaksi@belokiri.id",
       whatsapp: "0812-3456-7890",
       hours: "Senin – Jumat: 09.00 – 21.00 WIB",
@@ -304,7 +304,7 @@ BELOKIRI terbuka untuk segala bentuk korespondensi, kritik, pers release, pengad
 
 ### Alamat & Markas Redaksi
 Meja Agen Belokan berpusat di ruang diskusi kolektif:
-- **Alamat:** Gedung Media Belokiri Lt. 2, Jl. Warkop Pembebasan No. 45, Jakarta
+- **Alamat:** Gedung Media Belokiri Lt. 2, Jl. Warkop Tuya No. 45, Jakarta
 - **Surel Utama:** \`redaksi@belokiri.id\`
 - **Surel Bisnis & Kerja Sama:** \`kerjasama@belokiri.id\`
 - **WhatsApp Layanan Warga:** 0812-3456-7890

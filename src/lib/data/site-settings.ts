@@ -152,7 +152,7 @@ export const defaultSiteSettings: FullSiteSettings = {
     instagram: "https://instagram.com/belokiri.id",
     tiktok: "https://tiktok.com/@belokiri.id",
     email: "redaksi@belokiri.id",
-    address: "Gedung Media Nusantara Lt. 4, Jl. Kebon Sirih No. 45, Jakarta Pusat 10340",
+    address: "Jl. Warkop Tuya No. 45, Jakarta",
   },
 };
 
