@@ -118,7 +118,7 @@ export default async function DonasiPage() {
         </div>
       </section>
 
-      {/* 3. Kotak Pembayaran Interaktif (QRIS, Bank, Saweria) */}
+      {/* 3. Kotak Pembayaran Interaktif (QRIS, Bank, DANA) */}
       <section>
         <DonasiPaymentSection
           extraData={page.extraData}

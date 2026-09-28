@@ -295,8 +295,8 @@ Belokiri.id adalah media alternatif berbasis kolektif yang bergerak dalam produk
       bankName: "BCA (Bank Central Asia)",
       bankAccountNumber: "0812-3456-7890",
       bankAccountName: "Kolektif Media Belokiri",
-      saweriaUrl: "https://saweria.co/belokiri",
-      trakteerUrl: "https://trakteer.id/belokiri",
+      danaNumber: "0812-3456-7890",
+      danaName: "Kolektif Media Belokiri",
       targetText: "Rp 5.000.000 / Bulan (Server, Apresiasi Warga & Riset)",
     },
     content: `## Mengapa Kami Membuka Patungan Warga?

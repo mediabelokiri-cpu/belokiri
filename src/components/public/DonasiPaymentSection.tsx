@@ -5,10 +5,9 @@ import Image from "next/image";
 import {
   QrCode,
   CreditCard,
-  ExternalLink,
+  Wallet,
   Copy,
   Check,
-  Coffee,
   Heart,
   MessageCircle,
   ShieldCheck,
@@ -20,8 +19,8 @@ interface DonasiPaymentSectionProps {
     bankName?: string;
     bankAccountNumber?: string;
     bankAccountName?: string;
-    saweriaUrl?: string;
-    trakteerUrl?: string;
+    danaNumber?: string;
+    danaName?: string;
     targetText?: string;
   };
   whatsappHotline?: string;
@@ -31,21 +30,30 @@ export default function DonasiPaymentSection({
   extraData,
   whatsappHotline = "0812-3456-7890",
 }: DonasiPaymentSectionProps) {
-  const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState<"qris" | "bank" | "saweria">("qris");
+  const [copiedBank, setCopiedBank] = useState(false);
+  const [copiedDana, setCopiedDana] = useState(false);
+  const [activeTab, setActiveTab] = useState<"qris" | "bank" | "dana">("qris");
 
   const bankName = extraData?.bankName || "BCA (Bank Central Asia)";
   const bankAccountNumber = extraData?.bankAccountNumber || "0812-3456-7890";
   const bankAccountName = extraData?.bankAccountName || "Kolektif Media Belokiri";
-  const saweriaUrl = extraData?.saweriaUrl || "https://saweria.co/belokiri";
-  const trakteerUrl = extraData?.trakteerUrl || "https://trakteer.id/belokiri";
+  const danaNumber = extraData?.danaNumber || "0812-3456-7890";
+  const danaName = extraData?.danaName || "Kolektif Media Belokiri";
   const qrisImage = extraData?.qrisImageUrl || "";
 
-  const handleCopy = () => {
+  const handleCopyBank = () => {
     if (navigator?.clipboard) {
       navigator.clipboard.writeText(bankAccountNumber);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
+      setCopiedBank(true);
+      setTimeout(() => setCopiedBank(false), 2500);
+    }
+  };
+
+  const handleCopyDana = () => {
+    if (navigator?.clipboard) {
+      navigator.clipboard.writeText(danaNumber);
+      setCopiedDana(true);
+      setTimeout(() => setCopiedDana(false), 2500);
     }
   };
 
@@ -101,15 +109,15 @@ export default function DonasiPaymentSection({
           </button>
           <button
             type="button"
-            onClick={() => setActiveTab("saweria")}
+            onClick={() => setActiveTab("dana")}
             className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer ${
-              activeTab === "saweria"
+              activeTab === "dana"
                 ? "bg-red-600 text-white shadow-sm"
                 : "text-zinc-400 hover:text-white"
             }`}
           >
-            <Coffee className="w-3.5 h-3.5" />
-            <span>Saweria / Web</span>
+            <Wallet className="w-3.5 h-3.5" />
+            <span>Transfer DANA</span>
           </button>
         </div>
       </div>
@@ -192,10 +200,10 @@ export default function DonasiPaymentSection({
                 </span>
                 <button
                   type="button"
-                  onClick={handleCopy}
+                  onClick={handleCopyBank}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-colors cursor-pointer"
                 >
-                  {copied ? (
+                  {copiedBank ? (
                     <>
                       <Check className="w-3.5 h-3.5" />
                       <span>Tersalin</span>
@@ -245,53 +253,81 @@ export default function DonasiPaymentSection({
         </div>
       )}
 
-      {/* Tab 3: Saweria & Trakteer */}
-      {activeTab === "saweria" && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-4 flex flex-col justify-between">
-            <div className="space-y-2">
-              <span className="text-[10px] font-black uppercase tracking-wider text-amber-500 bg-amber-950/60 px-2.5 py-1 rounded-md inline-block">
-                SAWERIA
+      {/* Tab 3: Transfer DANA */}
+      {activeTab === "dana" && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
+              <span className="text-xs font-black uppercase tracking-wider text-sky-400 flex items-center gap-1.5">
+                <Wallet className="w-3.5 h-3.5" />
+                <span>Akun Resmi DANA</span>
               </span>
-              <h4 className="text-lg font-black text-white uppercase">
-                Traktir Kopi via Saweria
-              </h4>
-              <p className="text-xs text-zinc-400 leading-relaxed font-normal">
-                Bisa pakai saldo Gopay, OVO, Dana, LinkAja, atau QRIS dengan pesan apresiasi yang bisa kami baca langsung.
-              </p>
+              <span className="text-[10px] font-black uppercase tracking-wider text-sky-300 bg-sky-950/70 border border-sky-800/60 px-2.5 py-0.5 rounded">
+                E-Wallet
+              </span>
             </div>
-            <a
-              href={saweriaUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-black text-xs font-black uppercase tracking-wider shadow transition-colors"
-            >
-              <span>Buka Saweria Belokiri</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+
+            <div>
+              <span className="text-[11px] text-zinc-400 uppercase font-bold block mb-1">
+                Nomor Akun / Telepon DANA:
+              </span>
+              <div className="flex items-center justify-between bg-black p-3.5 rounded-xl border border-zinc-800">
+                <span className="text-lg sm:text-xl font-mono font-black text-white tracking-wider">
+                  {danaNumber}
+                </span>
+                <button
+                  type="button"
+                  onClick={handleCopyDana}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-black uppercase tracking-wider transition-colors cursor-pointer"
+                >
+                  {copiedDana ? (
+                    <>
+                      <Check className="w-3.5 h-3.5" />
+                      <span>Tersalin</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>Salin</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <span className="text-[11px] text-zinc-400 uppercase font-bold block mb-0.5">
+                Atas Nama Pemilik Akun:
+              </span>
+              <span className="text-sm font-bold text-white block">
+                {danaName}
+              </span>
+            </div>
           </div>
 
-          <div className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-4 flex flex-col justify-between">
-            <div className="space-y-2">
-              <span className="text-[10px] font-black uppercase tracking-wider text-red-500 bg-red-950/60 px-2.5 py-1 rounded-md inline-block">
-                TRAKTEER
-              </span>
-              <h4 className="text-lg font-black text-white uppercase">
-                Langganan Karya via Trakteer
-              </h4>
-              <p className="text-xs text-zinc-400 leading-relaxed font-normal">
-                Dukung Belokiri per bulan atau per karya untuk mendukung kerja investigasi dan apresiasi naskah warga.
-              </p>
+          <div className="space-y-4 text-xs text-zinc-300">
+            <h4 className="text-base font-black uppercase text-white">
+              Petunjuk Transfer Saldo DANA
+            </h4>
+            <ol className="font-normal leading-relaxed space-y-2 list-decimal pl-4">
+              <li>Buka aplikasi <strong>DANA</strong> di smartphone Anda.</li>
+              <li>Pilih menu <strong>Kirim (Send)</strong> di halaman utama aplikasi.</li>
+              <li>Pilih <strong>Kirim ke Nomor Telepon / Teman</strong>.</li>
+              <li>Masukkan nomor DANA di samping: <strong className="text-white font-mono">{danaNumber}</strong>.</li>
+              <li>Masukkan nominal dukungan dan pastikan nama penerima tertera <strong>{danaName}</strong>.</li>
+              <li>Konfirmasi PIN DANA untuk menuntaskan penyaluran dukungan.</li>
+            </ol>
+            <div className="pt-2">
+              <a
+                href={waUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-sky-500 text-zinc-300 hover:text-white text-xs font-black uppercase tracking-wider transition-all"
+              >
+                <MessageCircle className="w-4 h-4 text-emerald-500" />
+                <span>Konfirmasi Bukti Transfer via WhatsApp ↗</span>
+              </a>
             </div>
-            <a
-              href={trakteerUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider shadow transition-colors"
-            >
-              <span>Buka Trakteer Belokiri</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
           </div>
         </div>
       )}

@@ -687,7 +687,7 @@ export default function AdminPagesManagerPage() {
                         Data Kanal Donasi &amp; Rekening Solidaritas
                       </h4>
                       <p className="text-[11px] text-zinc-500 font-normal">
-                        Data ini tampil langsung pada kotak metode pembayaran (QRIS, Transfer Bank, dan Saweria/Trakteer) di halaman /donasi.
+                        Data ini tampil langsung pada kotak metode pembayaran (QRIS, Transfer Bank, dan Transfer DANA) di halaman /donasi.
                       </p>
                     </div>
                   </div>
@@ -862,43 +862,43 @@ export default function AdminPagesManagerPage() {
 
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold text-zinc-800 uppercase tracking-wider block">
-                        Tautan Saweria (Opsional)
+                        Nomor Akun / HP DANA
                       </label>
                       <input
                         type="text"
-                        value={formData.extraData?.saweriaUrl || ""}
+                        value={formData.extraData?.danaNumber || ""}
                         onChange={(e) =>
                           setFormData({
                             ...formData,
                             extraData: {
                               ...formData.extraData,
-                              saweriaUrl: e.target.value,
+                              danaNumber: e.target.value,
                             },
                           })
                         }
-                        placeholder="https://saweria.co/belokiri"
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs font-mono text-zinc-900 focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
+                        placeholder="Contoh: 0812-3456-7890"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-sm font-mono text-zinc-900 focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
                       />
                     </div>
 
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold text-zinc-800 uppercase tracking-wider block">
-                        Tautan Trakteer (Opsional)
+                        Nama Pemilik Akun DANA
                       </label>
                       <input
                         type="text"
-                        value={formData.extraData?.trakteerUrl || ""}
+                        value={formData.extraData?.danaName || ""}
                         onChange={(e) =>
                           setFormData({
                             ...formData,
                             extraData: {
                               ...formData.extraData,
-                              trakteerUrl: e.target.value,
+                              danaName: e.target.value,
                             },
                           })
                         }
-                        placeholder="https://trakteer.id/belokiri"
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs font-mono text-zinc-900 focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
+                        placeholder="Contoh: Kolektif Media Belokiri"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
                       />
                     </div>
                   </div>
