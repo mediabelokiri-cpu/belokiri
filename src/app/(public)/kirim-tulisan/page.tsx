@@ -34,23 +34,40 @@ const WRITING_TOPICS = [
   { title: "Isu Lain yang Mengganjal", desc: "Segala hal yang menurutmu layak dibicarakan." },
 ];
 
+function TumblerIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M12 2v3" />
+      <rect x="6" y="5" width="12" height="2.5" rx="1" />
+      <path d="M7 7.5L8.5 20.2c.1.9.9 1.8 1.9 1.8h3.2c1 0 1.8-.9 1.9-1.8L17 7.5" />
+      <line x1="8" y1="12" x2="16" y2="12" />
+      <line x1="8.3" y1="15" x2="15.7" y2="15" />
+    </svg>
+  );
+}
+
 const REWARD_ITEMS = [
   {
-    emoji: "📚",
     title: "Buku",
     subtitle: "Buku Pilihan Redaksi",
     desc: "Buku bermutu pilihan redaksi yang memperkaya perspektif dan wawasan membaca.",
     icon: BookOpen,
   },
   {
-    emoji: "🥤",
     title: "Tumbler",
     subtitle: "Merchandise Eksklusif",
     desc: "Tumbler eksklusif Belokiri untuk menemani ngopi, nulis, dan diskusi harianmu.",
-    icon: CupSoda,
+    icon: TumblerIcon,
   },
   {
-    emoji: "👕",
     title: "Kaos Belokiri",
     subtitle: "Kaos Warga Belokan",
     desc: "Kaos sablon orisinal edisi Warga Belokan yang berkarakter dan berani bersikap.",
@@ -318,27 +335,48 @@ export default function KirimTulisanPage() {
 
         {/* Reward Items Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {REWARD_ITEMS.map((item, i) => (
-            <div
-              key={i}
-              className="p-6 rounded-2xl bg-zinc-50 border-2 border-zinc-200/80 hover:border-red-600 hover:bg-white hover:shadow-md transition-all text-center space-y-3 group"
-            >
-              <div className="w-16 h-16 mx-auto rounded-2xl bg-red-100 text-red-600 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
-                <span>{item.emoji}</span>
+          {REWARD_ITEMS.map((item, i) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={i}
+                className="p-6 rounded-2xl bg-zinc-50 border border-zinc-200 hover:border-black hover:bg-white hover:shadow-lg transition-all space-y-4 group relative flex flex-col justify-between"
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono font-black text-red-600 bg-red-50 border border-red-200 px-2 py-0.5 rounded uppercase tracking-wider">
+                      Opsi 0{i + 1}
+                    </span>
+                    <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
+                      Klaim 1 Reward
+                    </span>
+                  </div>
+
+                  <div className="w-14 h-14 mx-auto rounded-2xl bg-white border-2 border-zinc-200 text-zinc-900 flex items-center justify-center group-hover:border-red-600 group-hover:bg-red-600 group-hover:text-white transition-all shadow-xs">
+                    <Icon className="w-7 h-7 stroke-[1.8]" />
+                  </div>
+
+                  <div className="space-y-1 text-center">
+                    <h4 className="text-lg font-black text-black uppercase tracking-tight">
+                      {item.title}
+                    </h4>
+                    <p className="text-xs font-black text-red-600 uppercase tracking-wider">
+                      {item.subtitle}
+                    </p>
+                    <p className="text-xs text-zinc-600 font-normal leading-relaxed pt-2">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-zinc-200/60 text-center">
+                  <span className="text-[11px] font-bold text-zinc-400 group-hover:text-black transition-colors">
+                    Tersedia untuk Warga Belokan
+                  </span>
+                </div>
               </div>
-              <div className="space-y-1">
-                <h4 className="text-lg font-black text-black uppercase tracking-tight">
-                  {item.title}
-                </h4>
-                <p className="text-xs font-bold text-red-600 uppercase tracking-wider">
-                  {item.subtitle}
-                </p>
-                <p className="text-xs text-zinc-600 font-normal leading-relaxed pt-1">
-                  {item.desc}
-                </p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Motivational Humorous Callout */}
@@ -396,14 +434,17 @@ export default function KirimTulisanPage() {
               <strong className="text-black font-bold">memilih sendiri satu jenis reward</strong> yang diinginkan:
             </p>
             <div className="flex flex-wrap gap-2.5 pt-1">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-zinc-200 text-xs font-bold text-zinc-800 shadow-2xs">
-                📚 Buku
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-zinc-200 text-xs font-bold text-zinc-900 shadow-2xs">
+                <BookOpen className="w-3.5 h-3.5 text-red-600" />
+                <span>Buku Pilihan</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-zinc-200 text-xs font-bold text-zinc-800 shadow-2xs">
-                🥤 Tumbler
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-zinc-200 text-xs font-bold text-zinc-900 shadow-2xs">
+                <TumblerIcon className="w-3.5 h-3.5 text-red-600" />
+                <span>Tumbler Eksklusif</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-zinc-200 text-xs font-bold text-zinc-800 shadow-2xs">
-                👕 Kaos Belokiri
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-zinc-200 text-xs font-bold text-zinc-900 shadow-2xs">
+                <Shirt className="w-3.5 h-3.5 text-red-600" />
+                <span>Kaos Belokiri</span>
               </span>
             </div>
             <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed font-normal pt-2">
