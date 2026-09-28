@@ -139,6 +139,11 @@ export default async function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/kirim-tulisan" className="hover:text-red-500 transition-colors text-white font-black">
+                  MENULIS DI BELOKIRI
+                </Link>
+              </li>
+              <li>
                 <Link href="/rekrutmen" className="hover:text-red-500 transition-colors">
                   REKRUTMEN ANGGOTA
                 </Link>

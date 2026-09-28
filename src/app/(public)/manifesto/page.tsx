@@ -111,7 +111,7 @@ export default function ManifestoPage() {
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <Link
-            href="/login"
+            href="/kirim-tulisan"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-red-600 text-white text-xs font-black uppercase tracking-wider hover:bg-red-700 transition-colors shadow-sm"
           >
             <span>Kirim Tulisan</span>

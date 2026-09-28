@@ -68,7 +68,7 @@ export default function Header() {
             {/* Right: Actions */}
             <div className="flex items-center justify-end gap-1 sm:gap-3">
               <Link
-                href="/login"
+                href="/kirim-tulisan"
                 className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider shadow-sm transition-all transform active:scale-95"
               >
                 <PenSquare className="w-4 h-4 text-white" />
@@ -198,12 +198,12 @@ export default function Header() {
             {/* Bottom Button */}
             <div className="pt-6 border-t border-zinc-200">
               <Link
-                href="/login"
+                href="/kirim-tulisan"
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black tracking-wider uppercase shadow"
               >
                 <PenSquare className="w-4 h-4" />
-                <span>Masuk & Tulis Artikel</span>
+                <span>Panduan & Kirim Tulisan</span>
               </Link>
             </div>
           </div>

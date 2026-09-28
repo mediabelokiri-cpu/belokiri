@@ -256,7 +256,7 @@ export default function ArticleReactions({
         </div>
 
         <Link
-          href="/dashboard/artikel/buat"
+          href="/kirim-tulisan"
           className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-black hover:bg-red-600 text-white text-xs font-black uppercase tracking-wider transition-colors shrink-0 shadow-xs"
         >
           <PenSquare className="w-3.5 h-3.5" />

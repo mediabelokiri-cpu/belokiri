@@ -266,7 +266,7 @@ export default async function HomePage() {
               </p>
               <div className="pt-4">
                 <Link
-                  href="/login"
+                  href="/kirim-tulisan"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-colors shadow-xs"
                 >
                   <span>Kirim Tulisan Pertama</span>
@@ -305,7 +305,7 @@ export default async function HomePage() {
                 </p>
               </div>
               <Link
-                href="/login"
+                href="/kirim-tulisan"
                 className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-white hover:bg-zinc-100 text-red-600 text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform active:scale-95"
               >
                 <span>Kirim Tulisan</span>

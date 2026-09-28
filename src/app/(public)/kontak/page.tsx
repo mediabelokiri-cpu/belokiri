@@ -120,10 +120,10 @@ export default async function KontakPage() {
 
           <div className="pt-6 mt-6 border-t border-zinc-800">
             <Link
-              href="/login"
+              href="/kirim-tulisan"
               className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider shadow transition-colors"
             >
-              <span>Buka Meja Warga Belokan</span>
+              <span>Panduan & Kirim Tulisan</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

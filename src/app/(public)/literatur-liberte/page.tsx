@@ -360,7 +360,7 @@ export default function LiteraturLibertePage() {
             <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
-            href="/login"
+            href="/kirim-tulisan"
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-zinc-800 text-white text-xs font-black uppercase tracking-wider hover:bg-zinc-700 transition-colors"
           >
             <span>Kirim Naskah ke Agen Belokan</span>
