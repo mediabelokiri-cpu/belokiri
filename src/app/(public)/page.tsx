@@ -190,7 +190,7 @@ export default async function HomePage() {
                   Pilihan Rubrik Khusus
                 </h4>
                 <Link
-                  href="/kategori"
+                  href="/berita"
                   className="text-[11px] font-bold text-red-600 hover:underline"
                 >
                   Semua Rubrik
