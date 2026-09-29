@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +11,9 @@ import {
   CheckCircle2,
   AlertTriangle,
   ExternalLink,
+  Upload,
+  Loader2,
+  Trash2,
 } from "lucide-react";
 
 interface ContributorProfileFormProps {
@@ -28,10 +31,69 @@ export default function ContributorProfileForm({
   const [bio, setBio] = useState(initialUser.bio || "");
   const [avatarUrl, setAvatarUrl] = useState(initialUser.avatarUrl || "");
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+
   const [statusMessage, setStatusMessage] = useState<{
     type: "success" | "error";
     text: string;
   } | null>(null);
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      setStatusMessage({
+        type: "error",
+        text: "Hanya file gambar (JPG, PNG, WebP) yang diperbolehkan.",
+      });
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setStatusMessage({
+        type: "error",
+        text: "Ukuran berkas gambar maksimal 5MB.",
+      });
+      return;
+    }
+
+    setUploading(true);
+    setStatusMessage(null);
+
+    try {
+      const uploadData = new FormData();
+      uploadData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: uploadData,
+      });
+
+      const json = await res.json();
+      if (res.ok && json.success && json.url) {
+        setAvatarUrl(json.url);
+        setStatusMessage({
+          type: "success",
+          text: "Foto profil berhasil diunggah! Jangan lupa klik 'Simpan Perubahan' di bawah.",
+        });
+      } else {
+        setStatusMessage({
+          type: "error",
+          text: json.message || "Gagal mengunggah foto profil.",
+        });
+      }
+    } catch (err: any) {
+      setStatusMessage({
+        type: "error",
+        text: err?.message || "Terjadi kesalahan saat mengunggah foto.",
+      });
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -118,17 +180,85 @@ export default function ContributorProfileForm({
             />
           </div>
 
-          <div>
-            <label className="block text-xs font-black uppercase tracking-wider text-zinc-700 mb-1">
-              URL Foto Profil / Avatar
-            </label>
-            <input
-              type="url"
-              value={avatarUrl}
-              onChange={(e) => setAvatarUrl(e.target.value)}
-              placeholder="https://images.unsplash.com/..."
-              className="w-full px-4 py-2.5 text-xs rounded-xl border border-zinc-200 focus:outline-none focus:border-red-600 bg-zinc-50/50"
-            />
+          {/* Foto Profil with Direct Upload */}
+          <div className="space-y-3 p-4 rounded-2xl bg-zinc-50 border border-zinc-200">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <label className="block text-xs font-black uppercase tracking-wider text-zinc-800">
+                  Foto Profil / Avatar
+                </label>
+                <p className="text-[11px] text-zinc-500 font-normal">
+                  Unggah langsung dari galeri HP atau file laptop Anda (Maks 5MB).
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handlePhotoUpload}
+                  accept="image/*"
+                  className="hidden"
+                />
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-all shadow-xs cursor-pointer active:scale-95 disabled:opacity-50"
+                >
+                  {uploading ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <span>Mengunggah...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="w-3.5 h-3.5" />
+                      <span>Unggah Foto Profil</span>
+                    </>
+                  )}
+                </button>
+
+                {avatarUrl && (
+                  <button
+                    type="button"
+                    onClick={() => setAvatarUrl("")}
+                    className="p-2 rounded-xl border border-zinc-200 hover:bg-red-50 hover:text-red-600 text-zinc-500 transition-colors cursor-pointer bg-white"
+                    title="Hapus Foto"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Thumbnail Preview & URL input */}
+            <div className="flex items-center gap-3 pt-1">
+              <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-red-600 bg-white shrink-0 shadow-xs flex items-center justify-center">
+                {avatarUrl ? (
+                  <Image
+                    src={avatarUrl}
+                    alt="Preview Avatar"
+                    fill
+                    className="object-cover"
+                    unoptimized
+                  />
+                ) : (
+                  <span className="font-black text-sm text-zinc-400">
+                    {(penName || name || "U").charAt(0).toUpperCase()}
+                  </span>
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <input
+                  type="text"
+                  value={avatarUrl}
+                  onChange={(e) => setAvatarUrl(e.target.value)}
+                  placeholder="Atau tulis/tempel tautan gambar manual..."
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-zinc-200 focus:outline-none focus:border-red-600 bg-white font-mono text-zinc-700 truncate"
+                />
+              </div>
+            </div>
           </div>
 
           <div>
