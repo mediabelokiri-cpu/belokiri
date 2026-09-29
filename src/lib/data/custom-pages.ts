@@ -379,11 +379,11 @@ Jika Anda memiliki data investigasi, dokumen kebijakan bermasalah, atau informas
     path: "/kabinet-belokiri",
     title: "KABINET BELOKIRI",
     subtitle:
-      "Susunan struktur organisasi dan dewan agen BELOKIRI: Ketua RT, Bendahara RT, Pimpinan Redaksi, hingga Penjaga 8 Rubrik.",
-    badge: "Struktur Dewan & Redaksi",
-    metaTitle: "Kabinet Belokiri | Struktur Dewan & Agen Belokan",
+      "Susunan Kabinet dan agen Belokiri.",
+    badge: "Kabinet & Agen Belokan",
+    metaTitle: "Kabinet Belokiri | Kabinet & Agen Belokan",
     metaDescription:
-      "Susunan struktur organisasi dan dewan agen BELOKIRI: Ketua RT, Bendahara RT, Pimpinan Redaksi, Agen Agitasi & Propaganda, hingga Penjaga 8 Rubrik.",
+      "Susunan Kabinet dan agen Belokiri.",
     content: `## Dewan Pengurus & Meja Kerja Agen Belokan
 
 Kabinet Belokiri adalah kolektif kerja yang menggerakkan operasional harian media, kurasi naskah warga, pengorganisasian program literasi, hingga perumusan arah agitasi dan propaganda editorial.
