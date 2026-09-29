@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import {
   Sliders,
@@ -24,6 +24,7 @@ import {
   AlertCircle,
   RefreshCw,
   HeartHandshake,
+  Upload,
 } from "lucide-react";
 import {
   FullSiteSettings,
@@ -60,8 +61,54 @@ export default function AdminSettingsPage() {
 
   // Kabinet Members State
   const [kabinet, setKabinet] = useState<KabinetMember[]>(defaultKabinetMembers);
-
   const [editingMember, setEditingMember] = useState<KabinetMember | null>(null);
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+  const photoFileInputRef = useRef<HTMLInputElement>(null);
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !editingMember) return;
+
+    if (!file.type.startsWith("image/")) {
+      alert("Hanya file gambar (JPG, PNG, WebP) yang diperbolehkan.");
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Ukuran gambar maksimal 5MB.");
+      return;
+    }
+
+    setUploadingPhoto(true);
+    try {
+      const uploadData = new FormData();
+      uploadData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: uploadData,
+      });
+
+      const json = await res.json();
+      if (res.ok && json.success && json.url) {
+        setEditingMember({ ...editingMember, photo: json.url });
+      } else {
+        alert(json.message || "Gagal mengunggah foto.");
+      }
+    } catch (err: any) {
+      alert(err?.message || "Terjadi kesalahan saat mengunggah foto.");
+    } finally {
+      setUploadingPhoto(false);
+      if (photoFileInputRef.current) photoFileInputRef.current.value = "";
+    }
+  };
+
+  const handleResetDummy = () => {
+    if (confirm("Reset susunan kabinet kembali ke 1 dummy card default sesuai desain?")) {
+      setKabinet(defaultKabinetMembers);
+      handleSave(defaultKabinetMembers);
+    }
+  };
 
   // Load from Supabase on mount
   useEffect(() => {
@@ -124,13 +171,10 @@ export default function AdminSettingsPage() {
     const newMember: KabinetMember = {
       id: `kab-${Date.now()}`,
       name: "",
-      alias: "",
       role: "",
-      title: "",
-      category: "PIMPINAN",
       desc: "",
       photo:
-        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
       status: "AKTIF",
     };
     setEditingMember(newMember);
@@ -1140,30 +1184,49 @@ export default function AdminSettingsPage() {
                   <span>Daftar Personil Kabinet Belokiri</span>
                 </h2>
                 <p className="text-xs text-zinc-500 font-normal">
-                  Kelola pimpinan RT, bendahara, pemred, dan kurator masing-masing rubrik
+                  Kelola nama, jabatan, foto, dan deskripsi singkat personil kabinet yang tampil pada grid card di /kabinet-belokiri
                 </p>
               </div>
 
-              <button
-                onClick={handleAddMember}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900 hover:bg-black text-white text-xs font-bold uppercase tracking-wider cursor-pointer"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span>Tambah Personil</span>
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleResetDummy}
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-zinc-200 hover:bg-zinc-100 text-zinc-700 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                  title="Kembalikan susunan ke 1 dummy card default"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  <span>Reset Dummy</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleAddMember}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider cursor-pointer shadow-xs transition-colors"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>Tambah Personil</span>
+                </button>
+              </div>
             </div>
 
             {/* Editing Modal / Form */}
             {editingMember && (
-              <div className="p-6 rounded-2xl bg-red-50/50 border-2 border-red-600 space-y-4">
-                <h3 className="text-xs font-black uppercase tracking-wider text-red-600">
-                  Edit Personil: {editingMember.name} ({editingMember.role})
-                </h3>
+              <div className="p-6 rounded-2xl bg-zinc-50 border-2 border-red-600 space-y-5">
+                <div className="flex items-center justify-between pb-3 border-b border-zinc-200">
+                  <h3 className="text-xs font-black uppercase tracking-wider text-red-600">
+                    {editingMember.id.startsWith("kab-") && !editingMember.name
+                      ? "Tambah Personil Baru"
+                      : `Edit Personil: ${editingMember.name || "Tanpa Nama"}`}
+                  </h3>
+                  <span className="text-[10px] text-zinc-400 font-mono">
+                    ID: {editingMember.id}
+                  </span>
+                </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-[11px] font-bold uppercase text-zinc-700 mb-1">
-                      Nama Asli
+                      Nama Personil (Huruf Besar / Kapital)
                     </label>
                     <input
                       type="text"
@@ -1171,27 +1234,14 @@ export default function AdminSettingsPage() {
                       onChange={(e) =>
                         setEditingMember({ ...editingMember, name: e.target.value })
                       }
+                      placeholder="Contoh: ANINDITTA WIJAYA"
                       className="w-full px-3 py-2 rounded-xl bg-white border border-zinc-300 text-xs font-bold"
                     />
                   </div>
 
                   <div>
                     <label className="block text-[11px] font-bold uppercase text-zinc-700 mb-1">
-                      Nama Alias / Samaran
-                    </label>
-                    <input
-                      type="text"
-                      value={editingMember.alias}
-                      onChange={(e) =>
-                        setEditingMember({ ...editingMember, alias: e.target.value })
-                      }
-                      className="w-full px-3 py-2 rounded-xl bg-white border border-zinc-300 text-xs font-bold"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-bold uppercase text-zinc-700 mb-1">
-                      Jabatan / Peran
+                      Jabatan / Posisi
                     </label>
                     <input
                       type="text"
@@ -1199,67 +1249,127 @@ export default function AdminSettingsPage() {
                       onChange={(e) =>
                         setEditingMember({ ...editingMember, role: e.target.value })
                       }
+                      placeholder="Contoh: Pemimpin Redaksi"
                       className="w-full px-3 py-2 rounded-xl bg-white border border-zinc-300 text-xs font-bold"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-[11px] font-bold uppercase text-zinc-700 mb-1">
-                      Foto Profil URL
-                    </label>
-                    <input
-                      type="text"
-                      value={editingMember.photo}
-                      onChange={(e) =>
-                        setEditingMember({ ...editingMember, photo: e.target.value })
-                      }
-                      className="w-full px-3 py-2 rounded-xl bg-white border border-zinc-300 text-xs font-mono"
-                    />
+                {/* Foto Personil with Upload Button */}
+                <div className="p-4 rounded-xl bg-white border border-zinc-200 space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                      <label className="block text-[11px] font-bold uppercase text-zinc-800">
+                        Foto Profil Personil
+                      </label>
+                      <p className="text-[11px] text-zinc-500 font-normal">
+                        Unggah foto dari HP / laptop atau tempel tautan URL gambar.
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-2 shrink-0">
+                      <input
+                        type="file"
+                        ref={photoFileInputRef}
+                        onChange={handlePhotoUpload}
+                        accept="image/*"
+                        className="hidden"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => photoFileInputRef.current?.click()}
+                        disabled={uploadingPhoto}
+                        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer disabled:opacity-50"
+                      >
+                        {uploadingPhoto ? (
+                          <>
+                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                            <span>Mengunggah...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Upload className="w-3.5 h-3.5" />
+                            <span>Unggah Foto</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
                   </div>
 
-                  <div>
-                    <label className="block text-[11px] font-bold uppercase text-zinc-700 mb-1">
-                      Gelar / Tugas Singkat
-                    </label>
-                    <input
-                      type="text"
-                      value={editingMember.title}
-                      onChange={(e) =>
-                        setEditingMember({ ...editingMember, title: e.target.value })
-                      }
-                      className="w-full px-3 py-2 rounded-xl bg-white border border-zinc-300 text-xs font-medium"
-                    />
+                  <div className="flex items-center gap-4">
+                    <div className="relative w-16 h-16 rounded-xl overflow-hidden border border-zinc-200 shrink-0 bg-zinc-100 flex items-center justify-center">
+                      {editingMember.photo ? (
+                        <Image
+                          src={editingMember.photo}
+                          alt="Preview Foto"
+                          fill
+                          sizes="64px"
+                          className="object-cover"
+                        />
+                      ) : (
+                        <Users className="w-6 h-6 text-zinc-400" />
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <input
+                        type="text"
+                        value={editingMember.photo}
+                        onChange={(e) =>
+                          setEditingMember({ ...editingMember, photo: e.target.value })
+                        }
+                        placeholder="https://... atau /images/..."
+                        className="w-full px-3 py-2 rounded-xl bg-zinc-50 border border-zinc-300 text-xs font-mono text-zinc-800"
+                      />
+                    </div>
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-[11px] font-bold uppercase text-zinc-700 mb-1">
-                    Deskripsi Tugas
+                    Deskripsi Singkat Profil
                   </label>
                   <textarea
-                    rows={2}
+                    rows={3}
                     value={editingMember.desc}
                     onChange={(e) =>
                       setEditingMember({ ...editingMember, desc: e.target.value })
                     }
-                    className="w-full px-3 py-2 rounded-xl bg-white border border-zinc-300 text-xs font-medium"
+                    placeholder="Tuliskan deskripsi singkat mengenai personil ini..."
+                    className="w-full px-3 py-2 rounded-xl bg-white border border-zinc-300 text-xs font-normal leading-relaxed"
                   />
                 </div>
 
-                <div className="flex gap-2 justify-end pt-2">
+                <div>
+                  <label className="block text-[11px] font-bold uppercase text-zinc-700 mb-1">
+                    Status Personil
+                  </label>
+                  <select
+                    value={editingMember.status}
+                    onChange={(e) =>
+                      setEditingMember({
+                        ...editingMember,
+                        status: e.target.value as "AKTIF" | "NONAKTIF",
+                      })
+                    }
+                    className="w-full sm:w-60 px-3 py-2 rounded-xl bg-white border border-zinc-300 text-xs font-bold"
+                  >
+                    <option value="AKTIF">AKTIF (Tampil di Website)</option>
+                    <option value="NONAKTIF">NONAKTIF (Disembunyikan)</option>
+                  </select>
+                </div>
+
+                <div className="flex gap-2 justify-end pt-3 border-t border-zinc-200">
                   <button
                     type="button"
                     onClick={() => setEditingMember(null)}
-                    className="px-4 py-2 rounded-xl bg-zinc-200 text-zinc-800 text-xs font-bold uppercase"
+                    className="px-4 py-2 rounded-xl bg-zinc-200 hover:bg-zinc-300 text-zinc-800 text-xs font-bold uppercase cursor-pointer"
                   >
                     Batal
                   </button>
                   <button
                     type="button"
                     onClick={() => handleSaveMember(editingMember)}
-                    className="px-5 py-2 rounded-xl bg-red-600 text-white text-xs font-bold uppercase shadow-sm"
+                    className="px-5 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase shadow-sm cursor-pointer"
                   >
                     Simpan Personil
                   </button>
@@ -1272,9 +1382,9 @@ export default function AdminSettingsPage() {
               <table className="w-full text-left text-xs">
                 <thead>
                   <tr className="border-b border-zinc-200 text-zinc-400 font-black uppercase tracking-wider">
-                    <th className="py-3 px-4">Foto & Personil</th>
+                    <th className="py-3 px-4">Foto & Nama</th>
                     <th className="py-3 px-4">Jabatan</th>
-                    <th className="py-3 px-4">Kategori</th>
+                    <th className="py-3 px-4">Deskripsi</th>
                     <th className="py-3 px-4">Status</th>
                     <th className="py-3 px-4 text-right">Aksi</th>
                   </tr>
@@ -1284,48 +1394,63 @@ export default function AdminSettingsPage() {
                     <tr key={m.id} className="hover:bg-zinc-50 transition-colors">
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-3">
-                          <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-zinc-200 shrink-0">
+                          <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-zinc-200 shrink-0 bg-zinc-100">
                             <Image
-                              src={m.photo}
+                              src={
+                                m.photo ||
+                                "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
+                              }
                               alt={m.name}
                               fill
-                              sizes="40px"
+                              sizes="48px"
                               className="object-cover"
                             />
                           </div>
                           <div>
-                            <p className="font-black text-black uppercase">{m.name}</p>
-                            <p className="text-[11px] text-zinc-400 font-bold">&ldquo;{m.alias}&rdquo;</p>
+                            <p className="font-black text-black uppercase tracking-tight text-sm">
+                              {m.name || "Tanpa Nama"}
+                            </p>
                           </div>
                         </div>
                       </td>
                       <td className="py-3 px-4">
-                        <span className="font-bold text-zinc-800 block">{m.role}</span>
-                        <span className="text-[11px] text-zinc-500">{m.title}</span>
+                        <span className="font-bold text-zinc-900 block">{m.role}</span>
+                      </td>
+                      <td className="py-3 px-4 max-w-xs">
+                        <p className="text-zinc-600 font-normal line-clamp-2 leading-relaxed">
+                          {m.desc || "-"}
+                        </p>
                       </td>
                       <td className="py-3 px-4">
-                        <span className="px-2 py-0.5 rounded bg-zinc-100 font-bold text-[10px] text-zinc-700">
-                          {m.category}
-                        </span>
-                      </td>
-                      <td className="py-3 px-4">
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                        <span
+                          className={`inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full ${
+                            m.status === "AKTIF"
+                              ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                              : "bg-zinc-100 text-zinc-500"
+                          }`}
+                        >
+                          <span
+                            className={`w-1.5 h-1.5 rounded-full ${
+                              m.status === "AKTIF" ? "bg-emerald-600" : "bg-zinc-400"
+                            }`}
+                          />
                           {m.status}
                         </span>
                       </td>
                       <td className="py-3 px-4 text-right">
                         <div className="flex items-center justify-end gap-2">
                           <button
+                            type="button"
                             onClick={() => setEditingMember(m)}
-                            className="p-1.5 rounded-lg text-zinc-600 hover:text-red-600 hover:bg-zinc-100 transition-colors"
+                            className="p-2 rounded-lg text-zinc-600 hover:text-red-600 hover:bg-zinc-100 transition-colors cursor-pointer"
                             title="Edit Personil"
                           >
                             <Edit2 className="w-4 h-4" />
                           </button>
                           <button
+                            type="button"
                             onClick={() => handleDeleteMember(m.id)}
-                            className="p-1.5 rounded-lg text-zinc-400 hover:text-red-600 hover:bg-zinc-100 transition-colors"
+                            className="p-2 rounded-lg text-zinc-400 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
                             title="Hapus Personil"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -1334,6 +1459,13 @@ export default function AdminSettingsPage() {
                       </td>
                     </tr>
                   ))}
+                  {kabinet.length === 0 && (
+                    <tr>
+                      <td colSpan={5} className="py-8 text-center text-zinc-400 font-medium">
+                        Belum ada personil kabinet. Klik tombol &ldquo;Tambah Personil&rdquo; di atas.
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

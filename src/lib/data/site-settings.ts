@@ -73,15 +73,15 @@ export interface SuratKalengItem {
 export interface KabinetMember {
   id: string;
   name: string;
-  alias: string;
   role: string;
-  title: string;
-  category: "PIMPINAN" | "AGEN_RUBRIK";
-  rubrik?: string;
-  focus?: string;
   desc: string;
   photo: string;
   status: "AKTIF" | "NONAKTIF";
+  alias?: string;
+  title?: string;
+  category?: "PIMPINAN" | "AGEN_RUBRIK";
+  rubrik?: string;
+  focus?: string;
 }
 
 export interface FullSiteSettings {
@@ -208,161 +208,10 @@ let suratKalengStore: SuratKalengItem[] = [
 export const defaultKabinetMembers: KabinetMember[] = [
   {
     id: "kab-1",
-    name: "Mbah Broto",
-    alias: "Pak RT Warkop",
-    role: "Ketua RT Belokan",
-    title: "Pamong Warga & Kepala Lingkungan Gagasan",
-    category: "PIMPINAN",
-    desc: "Menjaga keharmonisan pertikaian intelektual warga belokan, mengesahkan maklumat darurat, dan memastikan ronda malam akal sehat tetap berjalan.",
-    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
-    status: "AKTIF",
-  },
-  {
-    id: "kab-2",
-    name: "Ibu Ratna Susanti",
-    alias: "Juru Kunci Dapur",
-    role: "Bendahara RT Belokan",
-    title: "Juru Kunci Kas & Logistik Kopi",
-    category: "PIMPINAN",
-    desc: "Mengelola iuran sukarela, subsidi kopi warkop sachet, transparansi kas recehan, dan menjamin dapur redaksi tidak pernah kehabisan gula.",
-    photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
-    status: "AKTIF",
-  },
-  {
-    id: "kab-3",
-    name: "Arya Wicaksono",
-    alias: "Pena Belokan",
-    role: "Pimpinan Redaksi",
-    title: "Kurator Utama & Penjaga Ketajaman",
-    category: "PIMPINAN",
-    desc: "Menentukan arah kurasi naskah, mencoret kalimat basa-basi birokratis, menolak intervensi kepentingan kekuasaan, dan bertanggung jawab penuh.",
-    photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
-    status: "AKTIF",
-  },
-  {
-    id: "kab-4",
-    name: "Gilang Perkasa",
-    alias: "Si Pamflet",
-    role: "Agen Agitasi & Propaganda",
-    title: "Pemicu Percakapan & Pamflet Digital",
-    category: "PIMPINAN",
-    desc: "Mengemas narasi perlawanan menjadi visual jenaka nan tajam, mengguncang kenyamanan linimasa, dan membakar semangat pembangkangan kritis warga.",
-    photo: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80",
-    status: "AKTIF",
-  },
-  {
-    id: "kab-5",
-    name: "Dian Paramita",
-    alias: "Mbak Lapangan",
-    role: "Agen Program",
-    title: "Penggerak Meja Warkop & Aksi Warga",
-    category: "PIMPINAN",
-    desc: "Mengorganisir lapak baca mandiri Literatur Liberte, bedah opini akar rumput di warung kopi pinggiran, serta menjalin aliansi antar-komunitas.",
-    photo: "https://images.unsplash.com/photo-1534751516642-a171ed28a0e5?auto=format&fit=crop&w=400&q=80",
-    status: "AKTIF",
-  },
-  {
-    id: "kab-6",
-    name: "Fajar Nugroho",
-    alias: "Penggedor Pintu",
-    role: "Agen Rubrik BERISIK",
-    title: "Kurator Esai Politik & Sosial Kritis",
-    category: "AGEN_RUBRIK",
-    rubrik: "BERISIK",
-    focus: "Esai Populer Politik, Ekonomi & Sosial Kritis",
-    desc: "Menyaring artikel-artikel bervolume tinggi yang membongkar kemunafikan kebijakan dan ketimpangan struktural.",
-    photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
-    status: "AKTIF",
-  },
-  {
-    id: "kab-7",
-    name: "Reza Mahendra",
-    alias: "Juru Seduh",
-    role: "Agen Rubrik MEJA WARKOP",
-    title: "Kurator Kultur & Tongkrongan Warga",
-    category: "AGEN_RUBRIK",
-    rubrik: "MEJA WARKOP",
-    focus: "Analisis Budaya & Percakapan Tongkrongan",
-    desc: "Mencatat dialektika meja warung kopi: obrolan santai, satire pinggir jalan, dan keresahan rakyat sehari-hari.",
-    photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
-    status: "AKTIF",
-  },
-  {
-    id: "kab-8",
-    name: "Bayu Kusuma",
-    alias: "Mata Elang",
-    role: "Agen Rubrik ORDAL",
-    title: "Investigasi Dinamika Kuasa & Elite",
-    category: "AGEN_RUBRIK",
-    rubrik: "ORDAL",
-    focus: "Membongkar Dinamika Kuasa, Kebijakan & Elite",
-    desc: "Mengendus manuver orang dalam, relasi oligarki, dan kroni kekuasaan di balik panggung seremonial.",
-    photo: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=400&q=80",
-    status: "AKTIF",
-  },
-  {
-    id: "kab-9",
-    name: "Hendra Wijaya",
-    alias: "Pencatat Sunyi",
-    role: "Agen Rubrik ARSIP PINGGIRAN",
-    title: "Kurator Sejarah Rakyat & Buruh",
-    category: "AGEN_RUBRIK",
-    rubrik: "ARSIP PINGGIRAN",
-    focus: "Sejarah Rakyat, Kaum Buruh & Marjinal",
-    desc: "Menggali memori kolektif yang sengaja ditenggelamkan historiografi resmi penguasa.",
-    photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
-    status: "AKTIF",
-  },
-  {
-    id: "kab-10",
-    name: "Dr. Danang Prabowo",
-    alias: "Filsuf Kopi",
-    role: "Agen Rubrik SEDIKIT AKADEMIS",
-    title: "Kurator Teori Kritis & Filsafat Populer",
-    category: "AGEN_RUBRIK",
-    rubrik: "SEDIKIT AKADEMIS",
-    focus: "Filsafat & Teori Kritis Tanpa Jargon Rumit",
-    desc: "Membumikan gagasan para filsuf dan pemikir kiri agar bisa dipahami sambil menyeruput kopi hitam.",
-    photo: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80",
-    status: "AKTIF",
-  },
-  {
-    id: "kab-11",
-    name: "Larasati Dewi",
-    alias: "Pena Renjana",
-    role: "Agen Rubrik SISA BAHASA",
-    title: "Kurator Sastra & Bahasa Emosional",
-    category: "AGEN_RUBRIK",
-    rubrik: "SISA BAHASA",
-    focus: "Puisi, Prosa, Fragmen & Sastra Emosional",
-    desc: "Merawat kepekaan rasa dan estetika kata ketika kalimat berita kehilangan daya gugahnya.",
-    photo: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
-    status: "AKTIF",
-  },
-  {
-    id: "kab-12",
-    name: "Anisa Nurul",
-    alias: "Suara Merdeka",
-    role: "Agen Rubrik SETARA",
-    title: "Kurator Keadilan Gender & Hak Sosial",
-    category: "AGEN_RUBRIK",
-    rubrik: "SETARA",
-    focus: "Isu Perempuan, Gender & Keadilan Sosial",
-    desc: "Mengawal ruang aman, keadilan gender, dan perjuangan kelompok rentan yang kerap dikesampingkan.",
-    photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
-    status: "AKTIF",
-  },
-  {
-    id: "kab-13",
-    name: "Joko Parodi",
-    alias: "Pawang Satir",
-    role: "Agen Rubrik SERIAL ANABEL",
-    title: "Kurator Serial Fiksi & Cerita Parodi",
-    category: "AGEN_RUBRIK",
-    rubrik: "SERIAL ANABEL",
-    focus: "Serial Fiksi Satir & Parodi Mingguan",
-    desc: "Menertawakan realitas politik yang lebih absurd daripada fiksi melalui serial cerita berkala.",
-    photo: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80",
+    name: "ANINDITTA WIJAYA",
+    role: "Pemimpin Redaksi",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.",
+    photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
     status: "AKTIF",
   },
 ];

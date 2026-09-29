@@ -1,22 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  Users,
-  ShieldCheck,
-  Megaphone,
-  Calendar,
-  PenTool,
-  Coffee,
-  Eye,
-  Archive,
-  BookOpen,
-  Feather,
-  Scale,
-  Sparkles,
-  ArrowRight,
-  UserCheck,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { getSiteSettingsAction } from "@/actions/settings.actions";
 import { getCustomPageAction } from "@/actions/pages.actions";
 import { defaultKabinetMembers } from "@/lib/data/site-settings";
@@ -30,39 +15,6 @@ export async function generateMetadata(): Promise<Metadata> {
     title: page.metaTitle || `${page.title} | BELOKIRI`,
     description: page.metaDescription,
   };
-}
-
-function getPimpinanMeta(role: string) {
-  const r = role.toLowerCase();
-  if (r.includes("ketua rt")) {
-    return { icon: UserCheck, color: "bg-red-50 border-red-200 text-red-600" };
-  }
-  if (r.includes("bendahara")) {
-    return { icon: Scale, color: "bg-amber-50 border-amber-200 text-amber-700" };
-  }
-  if (r.includes("pemred") || r.includes("redaksi")) {
-    return { icon: PenTool, color: "bg-zinc-100 border-zinc-300 text-black" };
-  }
-  if (r.includes("propaganda") || r.includes("agitasi")) {
-    return { icon: Megaphone, color: "bg-red-50 border-red-200 text-red-600" };
-  }
-  if (r.includes("program")) {
-    return { icon: Calendar, color: "bg-zinc-100 border-zinc-300 text-zinc-800" };
-  }
-  return { icon: Users, color: "bg-zinc-100 border-zinc-300 text-black" };
-}
-
-function getRubrikIcon(rubrik?: string) {
-  const r = (rubrik || "").toLowerCase();
-  if (r.includes("berisik")) return Megaphone;
-  if (r.includes("warkop")) return Coffee;
-  if (r.includes("ordal")) return Eye;
-  if (r.includes("arsip")) return Archive;
-  if (r.includes("akademis")) return BookOpen;
-  if (r.includes("bahasa")) return Feather;
-  if (r.includes("setara")) return Scale;
-  if (r.includes("anabel")) return Sparkles;
-  return PenTool;
 }
 
 export default async function KabinetBelokiriPage() {
@@ -80,18 +32,16 @@ export default async function KabinetBelokiriPage() {
   const isCustom = resPage.isCustom;
 
   const activeMembers = allMembers.filter((m) => m.status === "AKTIF");
-  const pimpinan = activeMembers.filter((m) => m.category === "PIMPINAN");
-  const rubrikAgents = activeMembers.filter((m) => m.category === "AGEN_RUBRIK");
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-16 font-sans">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-14 font-sans">
       {/* Header */}
       <header className="space-y-4 text-center max-w-3xl mx-auto">
         <span className="inline-block text-[11px] font-black uppercase tracking-widest text-red-600 bg-red-50 border border-red-200 px-3.5 py-1 rounded-full">
-          {page.badge || "STRUKTUR DEWAN & AGEN BELOKAN"}
+          {page.badge || "KABINET BELOKIRI"}
         </span>
         <h1 className="text-3xl sm:text-5xl font-black text-black tracking-tight uppercase leading-tight">
-          {page.title}
+          {page.title || "KABINET BELOKIRI"}
         </h1>
         {page.subtitle && (
           <p className="text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
@@ -115,182 +65,69 @@ export default async function KabinetBelokiriPage() {
         </div>
       )}
 
-      {/* 1. Jajaran Inti Pimpinan RT & Komando Redaksi */}
-      <section className="space-y-6">
-        <div className="flex items-center gap-3 pb-3 border-b-2 border-red-600">
-          <Users className="w-5 h-5 text-red-600" />
-          <h2 className="text-lg sm:text-xl font-black uppercase tracking-tight text-black">
-            1. Struktur Kabinet Belokan
-          </h2>
-        </div>
+      {/* Grid Personil Kabinet (Sesuai Desain Card Mockup) */}
+      <section>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {activeMembers.map((item) => (
+            <div
+              key={item.id}
+              className="rounded-3xl shadow-xl overflow-hidden bg-red-600 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl border border-zinc-100"
+            >
+              {/* 1. Foto Personil */}
+              <div className="relative w-full aspect-4/3 bg-zinc-800 overflow-hidden">
+                <Image
+                  src={item.photo || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80"}
+                  alt={item.name}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover object-top"
+                />
+              </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {pimpinan.map((item) => {
-            const meta = getPimpinanMeta(item.role);
-            const Icon = meta.icon;
-            return (
-              <div
-                key={item.id}
-                className="bg-white border border-zinc-200 rounded-3xl p-6 shadow-xs flex flex-col justify-between hover:border-zinc-400 hover:shadow-md transition-all space-y-5"
-              >
-                <div className="space-y-4">
-                  {/* Photo & Role Header */}
-                  <div className="flex items-start gap-4">
-                    <div className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-2xl overflow-hidden border-2 border-zinc-200 shrink-0 shadow-xs bg-zinc-100">
-                      <Image
-                        src={item.photo}
-                        alt={item.name}
-                        fill
-                        sizes="72px"
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="space-y-1 min-w-0">
-                      <span
-                        className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md border text-[10px] font-black uppercase tracking-wider ${meta.color}`}
-                      >
-                        <Icon className="w-3 h-3 shrink-0" />
-                        <span className="truncate">{item.role}</span>
-                      </span>
-                      <h3 className="text-base font-black uppercase text-black tracking-tight leading-snug">
-                        {item.name}
-                      </h3>
-                      {item.alias && (
-                        <p className="text-[11px] text-zinc-500 font-bold uppercase tracking-tight">
-                          alias &ldquo;{item.alias}&rdquo;
-                        </p>
-                      )}
-                    </div>
-                  </div>
+              {/* 2. Box Merah Solid (Nama, Jabatan, Deskripsi) */}
+              <div className="p-6 sm:p-7 flex flex-col justify-between flex-1 text-white bg-red-600">
+                <div>
+                  {/* Nama */}
+                  <h3 className="text-xl sm:text-2xl font-black uppercase text-white tracking-tight leading-tight">
+                    {item.name}
+                  </h3>
 
-                  {/* Title & Desc */}
-                  <div>
-                    {item.title && (
-                      <h4 className="text-xs font-black uppercase text-zinc-800 tracking-tight">
-                        {item.title}
-                      </h4>
-                    )}
-                    <p className="text-xs text-zinc-600 font-normal leading-relaxed mt-1.5">
+                  {/* Jabatan */}
+                  <p className="text-sm sm:text-base font-semibold text-white/95 mt-1 tracking-normal">
+                    {item.role}
+                  </p>
+
+                  {/* Deskripsi */}
+                  {item.desc && (
+                    <p className="text-xs sm:text-sm text-white/90 font-normal leading-relaxed mt-4">
                       {item.desc}
                     </p>
-                  </div>
-                </div>
-
-                <div className="pt-3 border-t border-zinc-100 flex items-center justify-between text-[11px] font-bold text-zinc-400 uppercase tracking-wider">
-                  <span>Status: Aktif Membina</span>
-                  <span className="text-red-600">Dewan Belokan</span>
+                  )}
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* 2. Agen-Agen Penjaga Setiap Rubrik */}
-      <section className="space-y-6">
-        <div className="flex items-center gap-3 pb-3 border-b-2 border-black">
-          <ShieldCheck className="w-5 h-5 text-red-600" />
-          <div>
-            <h2 className="text-lg sm:text-xl font-black uppercase tracking-tight text-black">
-              2. Agen-Agen Penjaga Setiap Rubrik
-            </h2>
-            <p className="text-xs text-zinc-500 font-normal">
-              Kurator garis depan yang membedah, mengedit, dan menerbitkan naskah warga di masing-masing kanal:
-            </p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {rubrikAgents.map((item) => {
-            const Icon = getRubrikIcon(item.rubrik);
-            const rubrikSlug = item.rubrik
-              ? item.rubrik.toLowerCase().replace(/\s+/g, "-")
-              : "berisik";
-
-            return (
-              <div
-                key={item.id}
-                className="bg-zinc-50 border border-zinc-200 hover:border-red-600 rounded-3xl p-5 transition-all group flex flex-col justify-between space-y-4 hover:shadow-md hover:bg-white"
-              >
-                <div className="space-y-3">
-                  {/* Photo & Badge */}
-                  <div className="flex items-center gap-3">
-                    <div className="relative w-13 h-13 rounded-2xl overflow-hidden border-2 border-zinc-200 group-hover:border-red-600 transition-colors shrink-0 shadow-xs bg-zinc-100">
-                      <Image
-                        src={item.photo}
-                        alt={item.name}
-                        fill
-                        sizes="52px"
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="min-w-0">
-                      <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-zinc-200 text-zinc-800 mb-1">
-                        <Icon className="w-2.5 h-2.5 text-red-600" />
-                        <span>AGEN RUBRIK</span>
-                      </span>
-                      <h3 className="text-xs font-black uppercase text-black group-hover:text-red-600 transition-colors truncate">
-                        {item.name}
-                      </h3>
-                      {item.alias && (
-                        <p className="text-[10px] text-zinc-400 font-bold uppercase truncate">
-                          &ldquo;{item.alias}&rdquo;
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div>
-                    {item.rubrik && (
-                      <h4 className="text-xs font-black uppercase text-zinc-900 tracking-tight group-hover:text-red-600 transition-colors">
-                        Rubrik {item.rubrik}
-                      </h4>
-                    )}
-                    {item.focus && (
-                      <p className="text-[11px] font-semibold text-zinc-500 uppercase tracking-tight mt-0.5 leading-snug">
-                        {item.focus}
-                      </p>
-                    )}
-                  </div>
-
-                  <p className="text-xs text-zinc-600 font-normal leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-
-                <div className="pt-2 border-t border-zinc-200 text-[10px] font-bold uppercase tracking-wider text-red-600 flex items-center justify-between">
-                  <Link
-                    href={`/kategori/${rubrikSlug}`}
-                    className="hover:underline flex items-center gap-1"
-                  >
-                    <span>Jelajahi Rubrik</span>
-                    <ArrowRight className="w-3 h-3" />
-                  </Link>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* 3. Call to Action Rekrutmen */}
-      <section className="bg-red-600 rounded-3xl p-8 sm:p-12 text-white shadow-xl text-center space-y-6">
-        <span className="inline-block text-[10px] font-black uppercase tracking-widest text-red-600 bg-white px-3 py-1 rounded-full">
-          PANGGILAN DINI HARI
+      {/* Call to Action Rekrutmen */}
+      <section className="bg-zinc-950 border border-zinc-800 rounded-3xl p-8 sm:p-12 text-white shadow-xl text-center space-y-6">
+        <span className="inline-block text-[10px] font-black uppercase tracking-widest text-red-500 bg-red-950/60 border border-red-800/60 px-3 py-1 rounded-full">
+          PANGGILAN SOLIDARITAS
         </span>
         <div className="space-y-3 max-w-xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight">
-            Ingin Mengisi Posisi Agen Belokan?
+          <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">
+            Ingin Mengisi Posisi di Kabinet Belokiri?
           </h2>
-          <p className="text-xs sm:text-sm text-red-100 font-normal leading-relaxed">
-            Dewan Belokan selalu membuka pintu bagi agen baru: dari mengurusi rubrik,
-            kampanye propaganda, hingga menulis untuk keabadian.
+          <p className="text-xs sm:text-sm text-zinc-400 font-normal leading-relaxed">
+            Kolektif Belokiri selalu membuka pintu bagi agen baru: dari mengurusi kurasi naskah,
+            kampanye agitasi visual, hingga menulis dan mengorganisir forum warga.
           </p>
         </div>
         <div>
           <Link
-            href="/rekrutmen/form"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-red-600 hover:bg-black hover:text-white text-xs sm:text-sm font-black uppercase tracking-wider shadow-lg transition-all transform active:scale-95"
+            href="/rekrutmen"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm font-black uppercase tracking-wider shadow-lg transition-all transform active:scale-95"
           >
             <span>Isi Form Rekrutmen Agen</span>
             <ArrowRight className="w-4 h-4" />
