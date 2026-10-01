@@ -259,7 +259,9 @@ export default async function ArticleDetailPage({
               className="prose prose-zinc prose-lg max-w-none 
                 leading-relaxed text-zinc-900
                 [&_p]:mb-6 [&_p]:leading-[1.85] [&_p]:text-[17px] sm:[&_p]:text-[18px] [&_p]:font-normal
-                [&_h3]:font-black [&_h3]:text-2xl [&_h3]:mt-10 [&_h3]:mb-4 [&_h3]:text-black [&_h3]:tracking-tight
+                [&_h2]:font-black [&_h2]:text-2xl sm:[&_h2]:text-3xl [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:text-black [&_h2]:tracking-tight [&_h2]:leading-tight
+                [&_h3]:font-black [&_h3]:text-xl sm:[&_h3]:text-2xl [&_h3]:mt-10 [&_h3]:mb-3.5 [&_h3]:text-black [&_h3]:tracking-tight [&_h3]:leading-snug
+                [&_h4]:font-black [&_h4]:text-lg sm:[&_h4]:text-xl [&_h4]:mt-8 [&_h4]:mb-2.5 [&_h4]:text-black [&_h4]:tracking-tight [&_h4]:leading-snug
                 [&_blockquote]:border-l-4 [&_blockquote]:border-red-600 [&_blockquote]:bg-zinc-50 [&_blockquote]:p-5 [&_blockquote]:rounded-r-xl [&_blockquote]:font-bold [&_blockquote]:text-black [&_blockquote]:my-8
                 [&_.lead]:text-xl [&_.lead]:font-bold [&_.lead]:text-black [&_.lead]:leading-relaxed"
               dangerouslySetInnerHTML={{ __html: formatArticleContent(article.content) }}

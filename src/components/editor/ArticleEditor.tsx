@@ -699,9 +699,9 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
             <div
               className="prose prose-zinc prose-base max-w-none text-zinc-900 leading-relaxed
                 [&_p]:mb-4 [&_p]:leading-[1.8] [&_p]:text-[16px]
-                [&_h2]:font-black [&_h2]:text-2xl [&_h2]:mt-6 [&_h2]:mb-3 [&_h2]:text-black
-                [&_h3]:font-black [&_h3]:text-xl [&_h3]:mt-6 [&_h3]:mb-3 [&_h3]:text-black
-                [&_h4]:font-bold [&_h4]:text-lg [&_h4]:mt-4 [&_h4]:mb-2 [&_h4]:text-black
+                [&_h2]:font-black [&_h2]:text-2xl [&_h2]:mt-8 [&_h2]:mb-3 [&_h2]:text-black [&_h2]:tracking-tight
+                [&_h3]:font-black [&_h3]:text-xl [&_h3]:mt-7 [&_h3]:mb-2.5 [&_h3]:text-black [&_h3]:tracking-tight
+                [&_h4]:font-black [&_h4]:text-lg [&_h4]:mt-5 [&_h4]:mb-2 [&_h4]:text-black [&_h4]:tracking-tight
                 [&_blockquote]:border-l-4 [&_blockquote]:border-red-600 [&_blockquote]:bg-zinc-50 [&_blockquote]:p-4 [&_blockquote]:rounded-r-xl [&_blockquote]:font-bold [&_blockquote]:text-black [&_blockquote]:my-6
                 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5"
               dangerouslySetInnerHTML={{ __html: formatArticleContent(content) }}

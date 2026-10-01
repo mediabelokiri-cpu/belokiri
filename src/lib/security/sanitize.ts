@@ -286,26 +286,15 @@ export function formatArticleContent(raw: string): string {
       continue;
     }
 
-    // Headings
-    if (line.startsWith("### ")) {
+    // Headings (supports markdown ##, ###, #### with flexible spacing)
+    const headingMatch = line.match(/^(#{2,6})\s*(.+)$/) || line.match(/^(#)\s+(.+)$/);
+    if (headingMatch) {
       flushBlockquote();
       flushList();
-      const text = parseInlineFormatting(line.slice(4));
-      result.push(`<h4>${text}</h4>`);
-      continue;
-    }
-    if (line.startsWith("## ")) {
-      flushBlockquote();
-      flushList();
-      const text = parseInlineFormatting(line.slice(3));
-      result.push(`<h3>${text}</h3>`);
-      continue;
-    }
-    if (line.startsWith("# ")) {
-      flushBlockquote();
-      flushList();
-      const text = parseInlineFormatting(line.slice(2));
-      result.push(`<h2>${text}</h2>`);
+      const level = headingMatch[1].length;
+      const text = parseInlineFormatting(headingMatch[2]);
+      const tag = level <= 2 ? "h2" : level === 3 ? "h3" : "h4";
+      result.push(`<${tag}>${text}</${tag}>`);
       continue;
     }
 
