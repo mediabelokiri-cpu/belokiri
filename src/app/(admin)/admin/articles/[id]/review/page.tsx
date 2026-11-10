@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata = {
-  title: "Meja Uji Kurasi Agen Belokan | BELOKIRI",
+  title: "Meja Uji Kurasi Redaksi | BAKUBACA",
 };
 
 interface ArticleReviewPageProps {

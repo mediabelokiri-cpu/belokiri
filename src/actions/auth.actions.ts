@@ -59,7 +59,7 @@ export async function loginWithCredentialsAction(
     }
 
     if (user.status === UserStatus.SUSPENDED) {
-      return { error: "Akun Anda sedang ditangguhkan. Hubungi tim redaksi BELOKIRI." };
+      return { error: "Akun Anda sedang ditangguhkan. Hubungi tim redaksi BAKUBACA." };
     }
 
     const sessionData: UserSessionData = {
@@ -98,7 +98,7 @@ export async function loginWithCredentialsAction(
 }
 
 /**
- * Register a new Warga Belokan (Contributor) account.
+ * Register a new Warga (Contributor) account.
  */
 export async function registerUserAction(
   prevState: AuthActionResult | null,

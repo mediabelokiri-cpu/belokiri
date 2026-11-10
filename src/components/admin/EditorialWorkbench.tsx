@@ -159,7 +159,7 @@ export default function EditorialWorkbench({ article }: EditorialWorkbenchProps)
                 type="button"
                 onClick={() => setRevisionModalOpen(true)}
                 disabled={isPending}
-                className="px-4 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-xs font-black uppercase tracking-wider transition-all cursor-pointer disabled:opacity-50"
+                className="px-4 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-black uppercase tracking-wider transition-all cursor-pointer disabled:opacity-50"
               >
                 Minta Revisi
               </button>
@@ -193,7 +193,7 @@ export default function EditorialWorkbench({ article }: EditorialWorkbenchProps)
           className={`p-4 rounded-2xl flex items-center justify-between gap-3 text-xs font-bold animate-in fade-in ${
             feedback.type === "success"
               ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-              : "bg-red-50 text-red-800 border border-red-200"
+              : "bg-rose-50 text-rose-800 border border-rose-200"
           }`}
         >
           <span>{feedback.text}</span>
@@ -304,7 +304,7 @@ export default function EditorialWorkbench({ article }: EditorialWorkbenchProps)
                 {article.authorName}
               </p>
               <p className="text-[11px] text-zinc-500 line-clamp-2 mt-0.5">
-                {article.authorBio || "Warga Belokan resmi BELOKIRI."}
+                {article.authorBio || "Warga resmi BAKUBACA."}
               </p>
             </div>
           </div>
@@ -316,7 +316,7 @@ export default function EditorialWorkbench({ article }: EditorialWorkbenchProps)
             <div className="flex items-center gap-2 pb-3 border-b border-zinc-100">
               <FileCheck2 className="w-5 h-5 text-red-600" />
               <h3 className="text-sm font-black text-black uppercase tracking-tight">
-                Panel Kontrol & Optimasi Agen Belokan
+                Panel Kontrol & Optimasi Redaksi
               </h3>
             </div>
 
@@ -398,10 +398,10 @@ export default function EditorialWorkbench({ article }: EditorialWorkbenchProps)
                   />
                   <div>
                     <span className="block text-xs font-black uppercase tracking-tight text-black">
-                      Tandai Pilihan Agen Belokan
+                      Tandai Pilihan Redaksi
                     </span>
                     <span className="text-[10px] text-zinc-500 font-normal">
-                      Tampil di blok khusus Beranda BELOKIRI
+                      Tampil di blok khusus Beranda BAKUBACA
                     </span>
                   </div>
                 </div>
@@ -430,9 +430,9 @@ export default function EditorialWorkbench({ article }: EditorialWorkbenchProps)
                 type="button"
                 onClick={() => setRevisionModalOpen(true)}
                 disabled={isPending}
-                className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-xs font-black uppercase tracking-wider transition-all cursor-pointer disabled:opacity-50"
+                className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-black uppercase tracking-wider transition-all cursor-pointer disabled:opacity-50"
               >
-                <AlertTriangle className="w-4 h-4 text-red-600" />
+                <AlertTriangle className="w-4 h-4 text-rose-600" />
                 <span>Minta Revisi ke Penulis</span>
               </button>
             </div>
@@ -445,9 +445,9 @@ export default function EditorialWorkbench({ article }: EditorialWorkbenchProps)
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-5 shadow-2xl border border-zinc-200 animate-in fade-in zoom-in-95">
             <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
-              <div className="flex items-center gap-2 text-red-600 font-black text-sm uppercase tracking-wider">
+              <div className="flex items-center gap-2 text-rose-600 font-black text-sm uppercase tracking-wider">
                 <AlertTriangle className="w-5 h-5" />
-                <span>Catatan Kurasi Meja Agen Belokan</span>
+                <span>Catatan Kurasi Meja Redaksi</span>
               </div>
               <button
                 type="button"
@@ -460,7 +460,7 @@ export default function EditorialWorkbench({ article }: EditorialWorkbenchProps)
 
             <div className="space-y-2">
               <p className="text-xs text-zinc-600">
-                Tuliskan instruksi perbaikan yang jelas dan konstruktif untuk Warga Belokan (minimal 10 karakter):
+                Tuliskan instruksi perbaikan yang jelas dan konstruktif untuk Warga (minimal 10 karakter):
               </p>
               <textarea
                 rows={5}
@@ -468,7 +468,7 @@ export default function EditorialWorkbench({ article }: EditorialWorkbenchProps)
                 placeholder="Contoh: Naskah sangat menarik. Mohon tambahkan data perbandingan tahun 2024 vs 2025 di bagian awal, serta pastikan lisensi foto cover tercantum..."
                 value={adminNote}
                 onChange={(e) => setAdminNote(e.target.value)}
-                className="w-full p-3 text-xs leading-relaxed rounded-xl border border-zinc-300 focus:outline-none focus:border-red-600 bg-zinc-50"
+                className="w-full p-3 text-xs leading-relaxed rounded-xl border border-zinc-300 focus:outline-none focus:border-rose-600 bg-zinc-50"
               />
               <span className="text-[10px] text-zinc-400 block text-right">
                 {adminNote.length} karakter
@@ -487,7 +487,7 @@ export default function EditorialWorkbench({ article }: EditorialWorkbenchProps)
                 type="button"
                 onClick={handleRequestRevision}
                 disabled={isPending || adminNote.trim().length < 10}
-                className="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider cursor-pointer disabled:opacity-50 shadow-sm"
+                className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-black uppercase tracking-wider cursor-pointer disabled:opacity-50 shadow-sm"
               >
                 {isPending ? "Mengirim..." : "Kirim Catatan Revisi"}
               </button>

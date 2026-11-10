@@ -146,7 +146,7 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
     if (title.trim().length < 5) {
       setStatusMessage({
         type: "error",
-        text: "Judul artikel minimal 5 karakter sebelum dapat diajukan ke Agen Belokan.",
+        text: "Judul artikel minimal 5 karakter sebelum dapat diajukan ke Tim Redaksi.",
       });
       return;
     }
@@ -154,7 +154,7 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
     if (content.trim().length < 20) {
       setStatusMessage({
         type: "error",
-        text: "Isi artikel minimal 20 karakter sebelum dapat diajukan ke Agen Belokan.",
+        text: "Isi artikel minimal 20 karakter sebelum dapat diajukan ke Tim Redaksi.",
       });
       return;
     }
@@ -189,7 +189,7 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
       if (submitRes.success) {
         setStatusMessage({
           type: "success",
-          text: "Naskah berhasil diajukan ke meja Agen Belokan untuk kurasi!",
+          text: "Naskah berhasil diajukan ke meja Tim Redaksi untuk kurasi!",
         });
         setTimeout(() => {
           router.push("/dashboard/artikel?status=REVIEW");
@@ -277,7 +277,7 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
                 className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-all shadow-sm cursor-pointer disabled:opacity-50 active:scale-95"
               >
                 <Send className="w-3.5 h-3.5" />
-                <span>{status === "REVISION" ? "Ajukan Perbaikan" : "Kirim ke Agen Belokan"}</span>
+                <span>{status === "REVISION" ? "Ajukan Perbaikan" : "Kirim ke Redaksi"}</span>
               </button>
             </>
           )}
@@ -285,7 +285,7 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
           {isLocked && (
             <span className="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-300 px-3 py-2 rounded-xl flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 animate-spin" />
-              <span>Terkunci saat proses kurasi Agen Belokan</span>
+              <span>Terkunci saat proses kurasi Redaksi</span>
             </span>
           )}
         </div>
@@ -297,14 +297,14 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
           className={`p-4 rounded-2xl flex items-center justify-between gap-3 text-xs font-bold animate-in fade-in ${
             statusMessage.type === "success"
               ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-              : "bg-red-50 text-red-800 border border-red-200"
+              : "bg-rose-50 text-rose-800 border border-rose-200"
           }`}
         >
           <div className="flex items-center gap-2">
             {statusMessage.type === "success" ? (
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
             ) : (
-              <AlertTriangle className="w-4 h-4 text-red-600 shrink-0" />
+              <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
             )}
             <span>{statusMessage.text}</span>
           </div>
@@ -320,17 +320,17 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
 
       {/* 2. REVISION NOTE ALERT BANNER (If requested for revision) */}
       {status === "REVISION" && initialData?.adminNote && (
-        <div className="bg-red-50 border-2 border-red-300 rounded-3xl p-6 sm:p-7 space-y-3">
-          <div className="flex items-center gap-2.5 text-red-700 font-black text-sm uppercase tracking-wider">
-            <AlertTriangle className="w-5 h-5 text-red-600 shrink-0" />
-            <span>Catatan Kurasi Meja Agen Belokan BELOKIRI</span>
+        <div className="bg-rose-50 border-2 border-rose-300 rounded-3xl p-6 sm:p-7 space-y-3">
+          <div className="flex items-center gap-2.5 text-rose-700 font-black text-sm uppercase tracking-wider">
+            <AlertTriangle className="w-5 h-5 text-rose-600 shrink-0" />
+            <span>Catatan Kurasi Meja Redaksi BAKUBACA</span>
           </div>
-          <p className="text-xs sm:text-sm text-red-900 leading-relaxed font-medium bg-white/70 p-4 rounded-xl border border-red-200">
+          <p className="text-xs sm:text-sm text-rose-900 leading-relaxed font-medium bg-white/70 p-4 rounded-xl border border-rose-200">
             “{initialData.adminNote}”
           </p>
-          <p className="text-[11px] text-red-700 font-normal">
+          <p className="text-[11px] text-rose-700 font-normal">
             Mohon perbaiki bagian tulisan yang disebutkan di atas. Setelah selesai, klik tombol{" "}
-            <strong>“Ajukan Perbaikan”</strong> agar naskah masuk kembali ke antrean kurasi Agen Belokan.
+            <strong>“Ajukan Perbaikan”</strong> agar naskah masuk kembali ke antrean kurasi Tim Redaksi.
           </p>
         </div>
       )}
@@ -341,9 +341,9 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
           {/* Rubrik Selector */}
           <div>
             <label className="block text-xs font-black uppercase tracking-wider text-zinc-700 mb-2">
-              Pilih Rubrik BELOKIRI <span className="text-red-600">*</span>
+              Pilih Rubrik BAKUBACA <span className="text-rose-600">*</span>
             </label>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
               {MOCK_RUBRIKS.map((rubrik) => {
                 const isSelected = categoryId === rubrik.slug;
                 return (
@@ -378,12 +378,12 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
           <div>
             <div className="flex items-center justify-between mb-1.5">
               <label className="text-xs font-black uppercase tracking-wider text-zinc-700">
-                Judul Artikel / Naskah <span className="text-red-600">*</span>
+                Judul Artikel / Naskah <span className="text-rose-600">*</span>
               </label>
               <span
                 className={`text-[11px] font-bold ${
                   title.length > 150
-                    ? "text-red-600"
+                    ? "text-rose-600"
                     : title.length >= 5
                     ? "text-zinc-400"
                     : "text-amber-600"
@@ -456,7 +456,7 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
           <div>
             <div className="flex items-center justify-between mb-1.5">
               <label className="text-xs font-black uppercase tracking-wider text-zinc-700">
-                Isi Tulisan Naskah <span className="text-red-600">*</span>
+                Isi Tulisan Naskah <span className="text-rose-600">*</span>
               </label>
               <span className="text-[11px] text-zinc-400 font-medium">
                 {wordCount} kata
@@ -605,7 +605,7 @@ export default function ArticleEditor({ initialData }: ArticleEditorProps) {
                     <button
                       type="button"
                       onClick={() => removeTag(idx)}
-                      className="text-zinc-400 hover:text-red-600 cursor-pointer"
+                      className="text-zinc-400 hover:text-rose-600 cursor-pointer"
                     >
                       <X className="w-3.5 h-3.5" />
                     </button>

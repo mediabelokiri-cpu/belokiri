@@ -75,13 +75,13 @@ export default function AdminProfileForm({ admin }: AdminProfileFormProps) {
             className={`p-4 rounded-xl flex items-center gap-2 text-xs font-bold ${
               statusMessage.type === "success"
                 ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-                : "bg-red-50 text-red-800 border border-red-200"
+                : "bg-rose-50 text-rose-800 border border-rose-200"
             }`}
           >
             {statusMessage.type === "success" ? (
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
             ) : (
-              <AlertTriangle className="w-4 h-4 text-red-600 shrink-0" />
+              <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
             )}
             <span>{statusMessage.text}</span>
           </div>
@@ -90,14 +90,14 @@ export default function AdminProfileForm({ admin }: AdminProfileFormProps) {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs font-black uppercase tracking-wider text-zinc-700 mb-1">
-              Nama Admin / Penanggung Jawab <span className="text-red-600">*</span>
+              Nama Admin / Penanggung Jawab <span className="text-rose-600">*</span>
             </label>
             <input
               type="text"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Contoh: Admin Belokiri / Ihsanul Hakim"
+              placeholder="Contoh: Admin Bakubaca / Pemimpin Redaksi"
               className="w-full px-4 py-2.5 text-xs rounded-xl border border-zinc-200 focus:outline-hidden focus:border-red-600 bg-zinc-50/50 text-black font-medium"
             />
           </div>
@@ -110,7 +110,7 @@ export default function AdminProfileForm({ admin }: AdminProfileFormProps) {
               type="text"
               value={penName}
               onChange={(e) => setPenName(e.target.value)}
-              placeholder="Contoh: Dewan Agen Belokan / Pemimpin Redaksi"
+              placeholder="Contoh: Dewan Redaksi / Editor Utama"
               className="w-full px-4 py-2.5 text-xs rounded-xl border border-zinc-200 focus:outline-hidden focus:border-red-600 bg-zinc-50/50 text-black font-medium"
             />
           </div>
@@ -144,7 +144,7 @@ export default function AdminProfileForm({ admin }: AdminProfileFormProps) {
               rows={4}
               value={bio}
               onChange={(e) => setBio(e.target.value.slice(0, 1000))}
-              placeholder="Tuliskan catatan singkat peran Anda di redaksi BELOKIRI..."
+              placeholder="Tuliskan catatan singkat peran Anda di redaksi BAKUBACA..."
               className="w-full p-3 text-xs rounded-xl border border-zinc-200 focus:outline-hidden focus:border-red-600 bg-zinc-50/50 leading-relaxed text-black font-medium"
             />
           </div>
@@ -193,15 +193,15 @@ export default function AdminProfileForm({ admin }: AdminProfileFormProps) {
               <p className="text-[11px] text-zinc-400 font-medium">({name})</p>
             )}
             <div className="mt-2 flex items-center justify-center gap-1.5">
-              <span className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-white bg-black px-2.5 py-0.5 rounded-full">
-                <ShieldCheck className="w-3 h-3 text-red-500" />
-                <span>Agen Belokan (Admin)</span>
+              <span className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-white bg-[#1f1f1f] px-2.5 py-0.5 rounded-full">
+                <ShieldCheck className="w-3 h-3 text-[#ffc22f]" />
+                <span>Tim Redaksi (Admin)</span>
               </span>
             </div>
           </div>
 
           <p className="text-xs text-zinc-600 leading-relaxed font-normal italic">
-            “{bio || "Administrator Utama Meja Agen Belokan BELOKIRI."}”
+            “{bio || "Administrator Utama Meja Redaksi BAKUBACA."}”
           </p>
 
           <div className="pt-4 border-t border-zinc-100 flex items-center justify-around text-xs">

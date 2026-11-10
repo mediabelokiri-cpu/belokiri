@@ -2,15 +2,15 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "BELOKIRI — Liar Seperlunya, Jenaka Secukupnya",
-    short_name: "BELOKIRI",
+    name: "BAKUBACA — Setiap Pikiran Punya Ruang.",
+    short_name: "BAKUBACA",
     description:
-      "Media esai populer, opini tajam, analisis warkop, dan arsip kebudayaan. Liar Seperlunya, Jenaka Secukupnya.",
+      "Bakubaca adalah media esai populer, refleksi gagasan, dokumentasi sosial, kebudayaan, dan ekspresi kreatif. Setiap Pikiran Punya Ruang.",
     start_url: "/",
     id: "/",
     display: "standalone",
-    background_color: "#ffffff",
-    theme_color: "#dc2626",
+    background_color: "#fbfaf8",
+    theme_color: "#4c13ff",
     orientation: "portrait-primary",
     icons: [
       {

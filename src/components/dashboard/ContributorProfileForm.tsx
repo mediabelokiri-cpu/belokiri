@@ -140,13 +140,13 @@ export default function ContributorProfileForm({
             className={`p-4 rounded-xl flex items-center gap-2 text-xs font-bold ${
               statusMessage.type === "success"
                 ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-                : "bg-red-50 text-red-800 border border-red-200"
+                : "bg-rose-50 text-rose-800 border border-rose-200"
             }`}
           >
             {statusMessage.type === "success" ? (
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
             ) : (
-              <AlertTriangle className="w-4 h-4 text-red-600 shrink-0" />
+              <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
             )}
             <span>{statusMessage.text}</span>
           </div>
@@ -155,7 +155,7 @@ export default function ContributorProfileForm({
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs font-black uppercase tracking-wider text-zinc-700 mb-1">
-              Nama Lengkap Asli <span className="text-red-600">*</span>
+              Nama Lengkap Asli <span className="text-rose-600">*</span>
             </label>
             <input
               type="text"
@@ -223,7 +223,7 @@ export default function ContributorProfileForm({
                   <button
                     type="button"
                     onClick={() => setAvatarUrl("")}
-                    className="p-2 rounded-xl border border-zinc-200 hover:bg-red-50 hover:text-red-600 text-zinc-500 transition-colors cursor-pointer bg-white"
+                    className="p-2 rounded-xl border border-zinc-200 hover:bg-rose-50 hover:text-rose-600 text-zinc-500 transition-colors cursor-pointer bg-white"
                     title="Hapus Foto"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -334,7 +334,7 @@ export default function ContributorProfileForm({
               <p className="text-[11px] text-zinc-400 font-medium">({name})</p>
             )}
             <span className="inline-block mt-1 text-[10px] font-black uppercase tracking-widest text-red-600 bg-red-50 border border-red-200 px-2.5 py-0.5 rounded-full">
-              Warga Belokan BELOKIRI
+              Warga Bakubaca
             </span>
           </div>
 
@@ -344,9 +344,9 @@ export default function ContributorProfileForm({
 
           <div className="pt-4 border-t border-zinc-100 flex items-center justify-around text-xs">
             <div>
-              <span className="block text-base font-black text-black">BELOKIRI</span>
+              <span className="block text-base font-black text-black">BAKUBACA</span>
               <span className="text-[10px] text-zinc-400 font-bold uppercase">
-                Portal
+                Media
               </span>
             </div>
             <div className="w-[1px] h-6 bg-zinc-200" />

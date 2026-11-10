@@ -58,19 +58,19 @@ export default function AdminNav({ reviewCount = 0 }: AdminNavProps) {
           !pathname.includes("/edit")),
     },
     {
-      name: "8 Rubrik",
+      name: "5 Rubrik",
       href: "/admin/categories",
       icon: FolderTree,
       active: pathname === "/admin/categories",
     },
     {
-      name: "Warga Belokan",
+      name: "Daftar Warga",
       href: "/admin/users",
       icon: Users,
       active: pathname === "/admin/users",
     },
     {
-      name: "Pendaftaran Agen",
+      name: "Pendaftaran Redaksi",
       href: "/admin/rekrutmen",
       icon: UserPlus,
       active: pathname.startsWith("/admin/rekrutmen"),
@@ -112,17 +112,17 @@ export default function AdminNav({ reviewCount = 0 }: AdminNavProps) {
       {/* Sidebar Header Badge */}
       <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-[#4c13ff] animate-pulse" />
           <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">
-            Navigasi Meja Agen
+            Navigasi Redaksi
           </span>
         </div>
         <span className="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-zinc-100 text-zinc-600">
-          CMS BELOKIRI
+          CMS BAKUBACA
         </span>
       </div>
 
-      {/* Menu Tabs with Red Background Box Styling */}
+      {/* Menu Tabs */}
       <div className="flex flex-col space-y-1.5">
         {links.map((link) => {
           const Icon = link.icon;
@@ -132,18 +132,19 @@ export default function AdminNav({ reviewCount = 0 }: AdminNavProps) {
             <Link
               key={link.href}
               href={link.href}
+              aria-current={isActive ? "page" : undefined}
               className={`flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer group ${
                 isActive
-                  ? "bg-red-600 text-white shadow-md ring-1 ring-red-700"
-                  : "bg-red-50/70 text-zinc-800 hover:bg-red-600 hover:text-white border border-red-100/80 hover:border-red-600 shadow-2xs"
+                  ? "bg-[#4c13ff] text-white shadow-md ring-1 ring-[#3d0dd9]"
+                  : "bg-[#4c13ff]/5 text-[#1f1f1f] hover:bg-[#4c13ff] hover:text-white border border-[#4c13ff]/15 hover:border-[#4c13ff] shadow-2xs"
               }`}
             >
               <div className="flex items-center gap-2.5 min-w-0">
                 <Icon
                   className={`w-4 h-4 shrink-0 transition-colors ${
                     isActive
-                      ? "text-white"
-                      : "text-red-600 group-hover:text-white"
+                      ? "text-[#ffc22f]"
+                      : "text-[#4c13ff] group-hover:text-[#ffc22f]"
                   }`}
                 />
                 <span className="truncate">{link.name}</span>
@@ -153,8 +154,8 @@ export default function AdminNav({ reviewCount = 0 }: AdminNavProps) {
                 <span
                   className={`ml-2 px-2 py-0.5 rounded-full text-[10px] font-black shrink-0 transition-colors ${
                     isActive
-                      ? "bg-black text-white"
-                      : "bg-red-600 text-white group-hover:bg-white group-hover:text-red-600"
+                      ? "bg-[#ffc22f] text-[#1f1f1f]"
+                      : "bg-[#4c13ff] text-white group-hover:bg-[#ffc22f] group-hover:text-[#1f1f1f]"
                   }`}
                 >
                   {link.badge}
@@ -162,7 +163,7 @@ export default function AdminNav({ reviewCount = 0 }: AdminNavProps) {
               ) : (
                 <ChevronRight
                   className={`w-3.5 h-3.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity ${
-                    isActive ? "opacity-100 text-red-200" : "text-white"
+                    isActive ? "opacity-100 text-[#ffc22f]" : "text-white"
                   }`}
                 />
               )}
@@ -174,7 +175,7 @@ export default function AdminNav({ reviewCount = 0 }: AdminNavProps) {
       {/* Sidebar Footer info */}
       <div className="pt-3 border-t border-zinc-100 text-center">
         <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">
-          Agen Belokan V2.0 • Online
+          Redaksi BAKUBACA V2.0 • Online
         </p>
       </div>
     </nav>

@@ -36,9 +36,9 @@ export default function DonasiPaymentSection({
 
   const bankName = extraData?.bankName || "BCA (Bank Central Asia)";
   const bankAccountNumber = extraData?.bankAccountNumber || "0812-3456-7890";
-  const bankAccountName = extraData?.bankAccountName || "Kolektif Media Belokiri";
+  const bankAccountName = extraData?.bankAccountName || "Kolektif Media Bakubaca";
   const danaNumber = extraData?.danaNumber || "0812-3456-7890";
-  const danaName = extraData?.danaName || "Kolektif Media Belokiri";
+  const danaName = extraData?.danaName || "Kolektif Media Bakubaca";
   const qrisImage = extraData?.qrisImageUrl || "";
 
   const handleCopyBank = () => {
@@ -61,15 +61,15 @@ export default function DonasiPaymentSection({
   const waUrl = whatsappHotline.startsWith("http")
     ? whatsappHotline
     : `https://wa.me/${cleanWaNumber.startsWith("0") ? "62" + cleanWaNumber.slice(1) : cleanWaNumber}?text=${encodeURIComponent(
-        "Halo Redaksi Belokiri, saya telah menyalurkan donasi solidaritas warga. Tetap semangat mengudara!"
+        "Halo Redaksi Bakubaca, saya telah menyalurkan Patungan Warga. Tetap semangat mengudara!"
       )}`;
 
   return (
-    <div className="rounded-3xl bg-zinc-950 text-white border-2 border-red-600 shadow-2xl p-6 sm:p-10 space-y-8">
+    <div className="rounded-3xl bg-[#1f1f1f] text-white border-2 border-[#4c13ff] shadow-2xl p-6 sm:p-10 space-y-8">
       {/* Header Tabs */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-zinc-800">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-600/20 text-red-500 border border-red-800 text-[10px] sm:text-xs font-black uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#4c13ff]/25 text-[#ffc22f] border border-[#4c13ff]/50 text-[10px] sm:text-xs font-black uppercase tracking-wider mb-2">
             <Heart className="w-3.5 h-3.5 fill-current" />
             <span>Kanal Solidaritas Warga</span>
           </div>
@@ -131,7 +131,7 @@ export default function DonasiPaymentSection({
                 <div className="relative w-56 h-56 sm:w-64 sm:h-64">
                   <Image
                     src={qrisImage}
-                    alt="QRIS Donasi Belokiri"
+                    alt="QRIS Patungan Warga BAKUBACA"
                     fill
                     className="object-contain"
                   />
@@ -149,7 +149,7 @@ export default function DonasiPaymentSection({
               )}
               <div className="mt-3 text-center border-t border-zinc-200 pt-2">
                 <span className="text-[10px] font-black tracking-widest text-zinc-600 uppercase block">
-                  NMID: BELOKIRI KOLEKTIF
+                  NMID: BAKUBACA KOLEKTIF
                 </span>
               </div>
             </div>
@@ -167,10 +167,10 @@ export default function DonasiPaymentSection({
               <li>Konfirmasi pembayaran dan kirimkan doa/amunisi bagi akal sehat.</li>
             </ol>
 
-            <div className="p-4 rounded-xl bg-zinc-900 border border-zinc-800 flex items-start gap-3 text-xs text-zinc-400">
-              <ShieldCheck className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+            <div className="p-4 rounded-xl bg-zinc-900 border border-zinc-800 flex items-start gap-3 text-xs text-zinc-300">
+              <ShieldCheck className="w-4 h-4 text-[#ffc22f] shrink-0 mt-0.5" />
               <span>
-                100% donasi masuk langsung ke pos operasional media dan reward penulis warga tanpa potongan perantara komersial.
+                100% patungan masuk langsung ke pos operasional media dan apresiasi penulis Warga tanpa potongan perantara komersial.
               </span>
             </div>
           </div>
@@ -182,7 +182,7 @@ export default function DonasiPaymentSection({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
-              <span className="text-xs font-black uppercase tracking-wider text-red-500">
+              <span className="text-xs font-black uppercase tracking-wider text-[#ffc22f]">
                 Rekening Resmi Kolektif
               </span>
               <span className="text-[10px] font-bold uppercase text-zinc-400">
@@ -236,7 +236,7 @@ export default function DonasiPaymentSection({
               Anda dapat melakukan transfer dari bank mana saja melalui ATM, Mobile Banking, atau Internet Banking.
             </p>
             <p className="font-normal leading-relaxed">
-              Beri catatan transfer: <strong className="text-white">“Solidaritas Belokiri”</strong> agar memudahkan kami dalam pembukuan transparansi publik.
+              Beri catatan transfer: <strong className="text-white">“Patungan Warga Bakubaca”</strong> agar memudahkan kami dalam pembukuan transparansi publik.
             </p>
             <div className="pt-2">
               <a

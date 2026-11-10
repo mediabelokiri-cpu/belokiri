@@ -40,7 +40,7 @@ export default function PwaInstallPrompt() {
     setIsIos(isIosDevice);
 
     // 4. Check if dismissed recently (session-based)
-    const hasDismissed = sessionStorage.getItem("belokiri_pwa_dismissed");
+    const hasDismissed = sessionStorage.getItem("bakubaca_pwa_dismissed");
 
     // 5. Handle Android / Chrome beforeinstallprompt
     const handleBeforeInstallPrompt = (e: Event) => {
@@ -106,7 +106,7 @@ export default function PwaInstallPrompt() {
   const handleDismiss = () => {
     setShowPrompt(false);
     setShowIosGuide(false);
-    sessionStorage.setItem("belokiri_pwa_dismissed", "true");
+    sessionStorage.setItem("bakubaca_pwa_dismissed", "true");
   };
 
   if (isInstalled || !showPrompt) return null;
@@ -115,28 +115,28 @@ export default function PwaInstallPrompt() {
     <>
       {/* FLOATING INSTALL RECOMMENDATION POPUP */}
       <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-md z-50 animate-in slide-in-from-bottom-5 duration-300">
-        <div className="bg-white border-2 border-red-600 rounded-3xl p-4 sm:p-5 shadow-2xl relative overflow-hidden backdrop-blur-xl">
-          {/* Subtle Top Red Accent */}
-          <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-red-600 via-red-500 to-black" />
+        <div className="bg-white border-2 border-[#4c13ff] rounded-3xl p-4 sm:p-5 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+          {/* Brand Top Accent Strip */}
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#4c13ff] via-[#ffc22f] to-[#1f1f1f]" />
 
           {/* Close Button */}
           <button
             onClick={handleDismiss}
             aria-label="Tutup rekomendasi"
-            className="absolute top-3 right-3 p-1.5 rounded-full text-zinc-400 hover:text-black hover:bg-zinc-100 transition-colors"
+            className="absolute top-3 right-3 p-1.5 rounded-full text-zinc-400 hover:text-[#1f1f1f] hover:bg-zinc-100 transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
 
           <div className="flex items-start gap-3.5 pr-6">
             {/* App Icon */}
-            <div className="relative w-14 h-14 shrink-0 rounded-2xl overflow-hidden border border-zinc-200 shadow-md bg-white p-1">
+            <div className="relative w-14 h-14 shrink-0 rounded-2xl overflow-hidden border border-[#4c13ff]/20 shadow-md bg-[#4c13ff]">
               <Image
-                src="/icons/icon-192x192.png"
-                alt="BELOKIRI App Icon"
+                src="/images/logoiconinstallmobilebakubaca.png"
+                alt="Ikon Aplikasi BAKUBACA"
                 width={56}
                 height={56}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-cover"
                 priority
               />
             </div>
@@ -144,18 +144,18 @@ export default function PwaInstallPrompt() {
             {/* Content */}
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 mb-0.5">
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-red-100 text-red-700">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-[#f3efff] text-[#4c13ff]">
                   <Smartphone className="w-2.5 h-2.5" />
                   Aplikasi Mobile
                 </span>
-                <span className="text-[10px] text-zinc-400 font-bold">• Ringan & Cepat</span>
+                <span className="text-[10px] text-zinc-500 font-bold">• Ringan & Cepat</span>
               </div>
 
-              <h4 className="text-sm font-black text-black leading-tight">
-                Pasang Aplikasi BELOKIRI
+              <h4 className="text-sm font-black text-[#1f1f1f] leading-tight">
+                Pasang Aplikasi BAKUBACA
               </h4>
-              <p className="text-[11px] text-zinc-500 mt-1 leading-snug">
-                Baca naskah & esai lebih nyaman langsung dari layar utama HP Anda tanpa harus membuka browser.
+              <p className="text-[11px] text-zinc-600 mt-1 leading-snug">
+                Baca naskah & esai Warga lebih nyaman langsung dari layar utama HP tanpa harus membuka browser.
               </p>
             </div>
           </div>
@@ -164,7 +164,7 @@ export default function PwaInstallPrompt() {
           <div className="mt-3.5 pt-3 border-t border-zinc-100 flex items-center gap-2">
             <button
               onClick={handleInstallClick}
-              className="flex-1 py-2.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white text-xs font-black uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+              className="flex-1 py-2.5 px-4 rounded-xl bg-[#4c13ff] hover:bg-[#3d0dd9] active:scale-[0.98] text-white text-xs font-black uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Install di HP Sekarang</span>
@@ -186,65 +186,65 @@ export default function PwaInstallPrompt() {
           <div className="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl relative border border-zinc-200">
             <button
               onClick={() => setShowIosGuide(false)}
-              className="absolute top-4 right-4 p-1.5 rounded-full text-zinc-400 hover:text-black hover:bg-zinc-100 transition-colors"
+              className="absolute top-4 right-4 p-1.5 rounded-full text-zinc-400 hover:text-[#1f1f1f] hover:bg-zinc-100 transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
 
-            <div className="w-16 h-16 mx-auto rounded-2xl overflow-hidden border border-zinc-200 shadow-md bg-white p-1">
+            <div className="w-16 h-16 mx-auto rounded-2xl overflow-hidden border border-[#4c13ff]/20 shadow-md bg-[#4c13ff]">
               <Image
-                src="/icons/icon-192x192.png"
-                alt="BELOKIRI"
+                src="/images/logoiconinstallmobilebakubaca.png"
+                alt="BAKUBACA"
                 width={64}
                 height={64}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-cover"
               />
             </div>
 
             <div className="space-y-1">
-              <h3 className="text-base font-black text-black">
+              <h3 className="text-base font-black text-[#1f1f1f]">
                 Pasang di Layar Utama HP
               </h3>
-              <p className="text-xs text-zinc-500">
-                Ikuti langkah mudah ini untuk menambahkan BELOKIRI ke layar ponsel Anda:
+              <p className="text-xs text-zinc-600">
+                Ikuti langkah mudah ini untuk menambahkan Bakubaca ke layar ponsel Anda:
               </p>
             </div>
 
-            <div className="bg-zinc-50 rounded-2xl p-4 text-left space-y-3 border border-zinc-200 text-xs text-zinc-700">
+            <div className="bg-[#fbfaf8] rounded-2xl p-4 text-left space-y-3 border border-zinc-200 text-xs text-zinc-700">
               <div className="flex items-start gap-2.5">
-                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-red-600 text-white font-black text-[10px] shrink-0 mt-0.5">
+                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#4c13ff] text-white font-black text-[10px] shrink-0 mt-0.5">
                   1
                 </span>
                 <div>
-                  Ketuk tombol <strong className="text-black">Bagikan (Share)</strong>{" "}
-                  <Share2 className="w-3.5 h-3.5 inline text-blue-600 mx-0.5" /> di bilah navigasi browser Anda.
+                  Ketuk tombol <strong className="text-[#1f1f1f]">Bagikan (Share)</strong>{" "}
+                  <Share2 className="w-3.5 h-3.5 inline text-[#4c13ff] mx-0.5" /> di bilah navigasi browser Anda.
                 </div>
               </div>
 
               <div className="flex items-start gap-2.5">
-                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-red-600 text-white font-black text-[10px] shrink-0 mt-0.5">
+                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#4c13ff] text-white font-black text-[10px] shrink-0 mt-0.5">
                   2
                 </span>
                 <div>
                   Gulir ke bawah dan pilih{" "}
-                  <strong className="text-black">&ldquo;Tambahkan ke Layar Utama&rdquo; (Add to Home Screen)</strong>{" "}
+                  <strong className="text-[#1f1f1f]">&ldquo;Tambahkan ke Layar Utama&rdquo; (Add to Home Screen)</strong>{" "}
                   <PlusSquare className="w-3.5 h-3.5 inline text-zinc-800 mx-0.5" />.
                 </div>
               </div>
 
               <div className="flex items-start gap-2.5">
-                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-red-600 text-white font-black text-[10px] shrink-0 mt-0.5">
+                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#4c13ff] text-white font-black text-[10px] shrink-0 mt-0.5">
                   3
                 </span>
                 <div>
-                  Ketuk <strong className="text-black">&ldquo;Tambah&rdquo; (Add)</strong> di pojok kanan atas. Selesai!
+                  Ketuk <strong className="text-[#1f1f1f]">&ldquo;Tambah&rdquo; (Add)</strong> di pojok kanan atas. Selesai!
                 </div>
               </div>
             </div>
 
             <button
               onClick={() => setShowIosGuide(false)}
-              className="w-full py-2.5 rounded-xl bg-black hover:bg-zinc-800 text-white text-xs font-black uppercase tracking-wider transition-all"
+              className="w-full py-2.5 rounded-xl bg-[#1f1f1f] hover:bg-zinc-800 text-white text-xs font-black uppercase tracking-wider transition-all"
             >
               Mengerti
             </button>

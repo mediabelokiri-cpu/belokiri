@@ -20,9 +20,9 @@ export const DEMO_CONTRIBUTOR: UserSessionData = {
 export const DEMO_ADMIN: UserSessionData = {
   id: "cmuf74mql0008uft8108jhxex",
   email: "admin@belokiri.id",
-  name: "Agen Belokan",
-  penName: "Agen Belokan",
-  slug: "agen-belokan",
+  name: "Redaksi Bakubaca",
+  penName: "Tim Redaksi",
+  slug: "redaksi-bakubaca",
   avatarUrl:
     "https://vdvwjosnilunsubnttjj.supabase.co/storage/v1/object/sign/PRPFILE%20AVATAR/logourlbar.png?token=eyJraWQiOiI1ODA3Y2RjZC0xZGE5LTQ0NjEtYWQ4Ny0yYWEwZWM1YTY2NmEiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJQUlBGSUxFIEFWQVRBUi9sb2dvdXJsYmFyLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTAyMzY1MzYsImV4cCI6MjEwNTU5NjUzNn0.WYSa0aSREFHV5bb2U85kCQvNwm0qOoEe0t5WmKkgmgCegMqHEGyZDdgLbRrbsWXxURFp-i0sZhqSO1drnUvMXA",
   role: "ADMIN",

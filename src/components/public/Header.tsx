@@ -13,7 +13,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 shadow-xs bg-white border-b border-zinc-200">
+      <header className="sticky top-0 z-40 shadow-sm bg-[#4c13ff] border-b border-[#3d0dd9]">
         {/* 1. Main Masthead Bar (Logo, Search, Kirim Tulisan) */}
         <div>
           <div className="max-w-6xl mx-auto px-3 sm:px-6 py-3 sm:py-4.5 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
@@ -21,7 +21,7 @@ export default function Header() {
             <div className="flex items-center justify-start gap-1 sm:gap-2.5">
               <button
                 onClick={() => setMobileMenuOpen(true)}
-                className="p-2 -ml-1 rounded-xl text-zinc-800 hover:bg-zinc-100 md:hidden cursor-pointer transition-colors"
+                className="p-2 -ml-1 rounded-xl text-white hover:bg-white/15 md:hidden cursor-pointer transition-colors"
                 aria-label="Buka Menu"
               >
                 <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -29,17 +29,17 @@ export default function Header() {
 
               <Link
                 href="/cari"
-                className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200/80 border border-zinc-200 text-zinc-700 transition-colors"
+                className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white hover:bg-zinc-100 text-[#1f1f1f] shadow-sm transition-all transform active:scale-95 focus-visible:outline-3 focus-visible:outline-[#ffc22f] focus-visible:outline-offset-2 forced-colors:border forced-colors:border-[LinkText]"
               >
-                <Search className="w-4 h-4 text-zinc-500" />
-                <span className="text-xs font-semibold text-zinc-600">
-                  Cari berita & analisis...
+                <Search className="w-4 h-4 text-[#4c13ff] shrink-0" aria-hidden="true" />
+                <span className="text-xs font-bold text-[#1f1f1f]">
+                  Cari naskah & gagasan...
                 </span>
               </Link>
 
               <Link
                 href="/cari"
-                className="p-2 rounded-xl text-zinc-800 hover:bg-zinc-100 sm:hidden transition-colors"
+                className="p-2 rounded-xl text-white hover:bg-white/15 sm:hidden transition-colors"
                 aria-label="Cari"
               >
                 <Search className="w-5 h-5" />
@@ -51,16 +51,16 @@ export default function Header() {
               <Link href="/" className="group flex flex-col items-center text-center">
                 <div className="relative flex items-center justify-center">
                   <Image
-                    src="/images/logo-belokiri-red.png"
-                    alt="BELOKIRI"
+                    src="/images/logoheaderbakubaca.png"
+                    alt="BAKUBACA"
                     width={240}
                     height={46}
                     priority
                     className="h-7 sm:h-9 md:h-11 w-auto object-contain transition-transform group-hover:scale-102"
                   />
                 </div>
-                <span className="text-[8px] xs:text-[9px] sm:text-[10px] md:text-[11px] tracking-[0.14em] sm:tracking-[0.20em] uppercase font-black text-zinc-600 mt-1 sm:mt-1.5 text-center leading-none select-none group-hover:text-red-600 transition-colors whitespace-nowrap">
-                  Liar Seperlunya, Jenaka Secukupnya
+                <span className="text-[8px] xs:text-[9px] sm:text-[10px] md:text-[11px] tracking-[0.14em] sm:tracking-[0.20em] uppercase font-black text-[#ffc22f] mt-1 sm:mt-1.5 text-center leading-none select-none group-hover:text-white transition-colors whitespace-nowrap">
+                  Setiap Pikiran Punya Ruang.
                 </span>
               </Link>
             </div>
@@ -69,41 +69,45 @@ export default function Header() {
             <div className="flex items-center justify-end gap-1 sm:gap-2.5">
               <Link
                 href="/donasi"
-                className="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 text-xs font-black uppercase tracking-wider transition-all transform active:scale-95"
+                className="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white hover:bg-zinc-100 text-[#1f1f1f] text-xs font-black uppercase tracking-wider shadow-sm transition-all transform active:scale-95 focus-visible:outline-3 focus-visible:outline-[#ffc22f] focus-visible:outline-offset-2 forced-colors:border forced-colors:border-[LinkText]"
               >
-                <HeartHandshake className="w-3.5 h-3.5 text-red-600" />
+                <HeartHandshake className="w-3.5 h-3.5 text-[#4c13ff] shrink-0" aria-hidden="true" />
                 <span>Patungan Warga</span>
               </Link>
 
               <Link
                 href="/kirim-tulisan"
-                className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider shadow-sm transition-all transform active:scale-95"
+                className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#ffc22f] hover:bg-amber-300 text-[#1f1f1f] text-xs font-black uppercase tracking-wider shadow-sm transition-all transform active:scale-95"
               >
-                <PenSquare className="w-4 h-4 text-white" />
+                <PenSquare className="w-4 h-4 text-[#1f1f1f]" />
                 <span>Kirim Tulisan</span>
               </Link>
 
               <Link
                 href="/login"
-                className="p-2 rounded-xl text-zinc-800 hover:text-red-600 hover:bg-zinc-100 sm:hidden transition-colors"
+                className="p-2 rounded-xl text-white hover:bg-white/15 sm:hidden transition-colors"
                 aria-label="Masuk Akun"
               >
-                <UserCircle className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-700" />
+                <UserCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </Link>
             </div>
           </div>
         </div>
 
-        {/* 2. Rubrik Navigation Bar (White Background, Red Menu Text) */}
-        <div className="bg-white border-t border-zinc-200">
+        {/* 2. Rubrik Navigation Bar */}
+        <div className="bg-[#fbfaf8] border-t border-white/15 border-b border-zinc-200">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <nav className="flex items-center justify-center gap-1 sm:gap-1.5 md:gap-2 overflow-x-auto scrollbar-none py-1 text-xs font-black uppercase tracking-wider">
+            <nav
+              aria-label="Navigasi Rubrik Bakubaca"
+              className="flex items-center justify-center gap-1 sm:gap-1.5 md:gap-2 overflow-x-auto scrollbar-none py-1 text-xs font-black uppercase tracking-wider"
+            >
               <Link
                 href="/berita"
-                className={`py-2 px-2 sm:px-3 border-b-2 transition-all shrink-0 rounded-t-sm ${
+                aria-current={pathname === "/berita" ? "page" : undefined}
+                className={`py-2 px-2.5 sm:px-3 border-b-[3px] transition-all shrink-0 rounded-t-sm ${
                   pathname === "/berita"
-                    ? "border-red-600 text-red-700 bg-red-50/80 font-black"
-                    : "border-transparent text-red-600 hover:text-red-700 hover:bg-red-50/50"
+                    ? "border-[#4c13ff] text-[#4c13ff] bg-[#f3efff] font-black"
+                    : "border-transparent text-[#1f1f1f] hover:text-[#4c13ff] hover:bg-[#f3efff]/60"
                 }`}
               >
                 ⚡ TERKINI
@@ -114,10 +118,11 @@ export default function Header() {
                   <Link
                     key={rubrik.slug}
                     href={`/kategori/${rubrik.slug}`}
-                    className={`py-2 px-2 sm:px-3 border-b-2 transition-all shrink-0 rounded-t-sm ${
+                    aria-current={isActive ? "page" : undefined}
+                    className={`py-2 px-2.5 sm:px-3 border-b-[3px] transition-all shrink-0 rounded-t-sm ${
                       isActive
-                        ? "border-red-600 text-red-700 bg-red-50/80 font-black"
-                        : "border-transparent text-red-600 hover:text-red-700 hover:bg-red-50/50"
+                        ? "border-[#4c13ff] text-[#4c13ff] bg-[#f3efff] font-black"
+                        : "border-transparent text-[#1f1f1f] hover:text-[#4c13ff] hover:bg-[#f3efff]/60"
                     }`}
                   >
                     {rubrik.name}
@@ -129,25 +134,28 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Mobile Drawer (Clean White, Red Accents, Black Typography) */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 md:hidden flex">
           <div
-            className="fixed inset-0 bg-black/70 backdrop-blur-xs transition-opacity"
+            className="fixed inset-0 bg-[#1f1f1f]/70 backdrop-blur-xs transition-opacity"
             onClick={() => setMobileMenuOpen(false)}
           />
 
           <div className="relative w-4/5 max-w-sm bg-white h-full shadow-2xl flex flex-col justify-between p-6 z-10 animate-in slide-in-from-left duration-200">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-zinc-200">
-                <div className="flex items-center">
+                <div className="flex items-center gap-2.5">
                   <Image
-                    src="/images/logo-belokiri-red.png"
-                    alt="BELOKIRI"
-                    width={140}
-                    height={27}
-                    className="h-7 w-auto object-contain"
+                    src="/images/logourlbarbakubaca.png"
+                    alt="BAKUBACA"
+                    width={32}
+                    height={32}
+                    className="h-7 w-7 object-contain"
                   />
+                  <span className="text-base font-black tracking-tight text-[#1f1f1f] uppercase">
+                    BAKUBACA
+                  </span>
                 </div>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
@@ -160,27 +168,40 @@ export default function Header() {
 
               {/* Rubrik Grid */}
               <div className="py-6">
-                <p className="text-[11px] font-black uppercase tracking-wider text-red-600 mb-3">
-                  8 Rubrik Karakter
+                <p className="text-[11px] font-black uppercase tracking-wider text-[#4c13ff] mb-3">
+                  5 Rubrik Bakubaca
                 </p>
                 <div className="grid grid-cols-2 gap-2">
                   <Link
                     href="/berita"
+                    aria-current={pathname === "/berita" ? "page" : undefined}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="p-3 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-xs font-black uppercase text-black"
+                    className={`p-3 rounded-lg border text-xs font-black uppercase transition-colors ${
+                      pathname === "/berita"
+                        ? "bg-[#f3efff] border-[#4c13ff] text-[#4c13ff]"
+                        : "bg-zinc-100 border-transparent hover:bg-zinc-200 text-[#1f1f1f]"
+                    }`}
                   >
                     ⚡ TERKINI
                   </Link>
-                  {MOCK_RUBRIKS.map((r) => (
-                    <Link
-                      key={r.slug}
-                      href={`/kategori/${r.slug}`}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="p-3 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-xs font-black uppercase text-black hover:text-red-600 transition-colors"
-                    >
-                      {r.name}
-                    </Link>
-                  ))}
+                  {MOCK_RUBRIKS.map((r) => {
+                    const isActive = pathname === `/kategori/${r.slug}`;
+                    return (
+                      <Link
+                        key={r.slug}
+                        href={`/kategori/${r.slug}`}
+                        aria-current={isActive ? "page" : undefined}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`p-3 rounded-lg border text-xs font-black uppercase transition-colors ${
+                          isActive
+                            ? "bg-[#f3efff] border-[#4c13ff] text-[#4c13ff]"
+                            : "bg-zinc-100 border-transparent hover:bg-zinc-200 text-[#1f1f1f] hover:text-[#4c13ff]"
+                        }`}
+                      >
+                        {r.name}
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -189,21 +210,21 @@ export default function Header() {
                 <Link
                   href="/manifesto"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 hover:text-red-600"
+                  className="block py-2 hover:text-[#4c13ff]"
                 >
-                  Manifesto BELOKIRI
+                  Manifesto BAKUBACA
                 </Link>
                 <Link
                   href="/kontak"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 hover:text-red-600"
+                  className="block py-2 hover:text-[#4c13ff]"
                 >
-                  Agen Belokan & Kontak
+                  Redaksi & Kontak
                 </Link>
                 <Link
                   href="/donasi"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 text-red-600 font-black hover:underline"
+                  className="block py-2 text-[#4c13ff] font-black hover:underline"
                 >
                   Patungan Warga (Donasi) 💖
                 </Link>
@@ -215,7 +236,7 @@ export default function Header() {
               <Link
                 href="/kirim-tulisan"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black tracking-wider uppercase shadow"
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#4c13ff] hover:bg-[#3d0dd9] text-white text-xs font-black tracking-wider uppercase shadow"
               >
                 <PenSquare className="w-4 h-4" />
                 <span>Panduan & Kirim Tulisan</span>

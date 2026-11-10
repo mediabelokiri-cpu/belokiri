@@ -11,7 +11,7 @@ export const revalidate = 60;
 export async function generateMetadata(): Promise<Metadata> {
   const { page } = await getCustomPageAction("kontak");
   return {
-    title: page.metaTitle || `${page.title} | BELOKIRI`,
+    title: page.metaTitle || `${page.title} | BAKUBACA`,
     description: page.metaDescription,
   };
 }
@@ -28,7 +28,7 @@ export default async function KontakPage() {
   const address =
     page.extraData?.address ||
     social.address ||
-    "Jl. Warkop Tuya No. 45, Jakarta";
+    "Jl. Kemakmuran, Lingk. Lembang, Kel. Lembang, Kec. Banggae Timur, Kab. Majene, Sulawesi Barat";
   const email =
     page.extraData?.email || social.email || "redaksi@belokiri.id";
   const whatsapp =
@@ -63,7 +63,7 @@ export default async function KontakPage() {
                 <MapPin className="w-4 h-4" />
               </div>
               <div>
-                <strong className="text-black font-bold block mb-0.5">Kantor Agen Belokan BELOKIRI:</strong>
+                <strong className="text-black font-bold block mb-0.5">Meja Redaksi BAKUBACA:</strong>
                 <p className="font-normal">{address}</p>
               </div>
             </div>
@@ -73,7 +73,7 @@ export default async function KontakPage() {
                 <Mail className="w-4 h-4" />
               </div>
               <div>
-                <strong className="text-black font-bold block mb-0.5">Surel Agen Belokan & Liputan:</strong>
+                <strong className="text-black font-bold block mb-0.5">Surel Redaksi & Liputan:</strong>
                 <p className="font-normal">{email}</p>
               </div>
             </div>
@@ -111,37 +111,36 @@ export default async function KontakPage() {
           <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 text-xs text-zinc-600 flex items-start gap-3">
             <ShieldCheck className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
             <p className="font-normal">
-              Belokiri adalah ruang bersama,ruang kolektif berbagi tulisan: opini, gagasan, cerita, dll.
-              Belokiri dikelola oleh Agen Belokan.
+              BAKUBACA adalah ruang bersama bagi Warga untuk berbagi tulisan: opini, kritik sosial, sejarah, refleksi gagasan, kebudayaan, hingga karya kreatif. Platform ini dikelola secara kolektif oleh Tim Redaksi BAKUBACA.
             </p>
           </div>
         </div>
 
-        {/* Warga Belokan Card */}
-        <div className="rounded-3xl bg-black text-white border-t-4 border-t-red-600 p-8 flex flex-col justify-between shadow-lg">
+        {/* Warga Bakubaca Card */}
+        <div className="rounded-3xl bg-[#1f1f1f] text-white border-t-4 border-t-[#4c13ff] p-8 flex flex-col justify-between shadow-lg">
           <div className="space-y-4">
-            <span className="text-[10px] font-black uppercase tracking-wider text-white bg-red-600 px-3 py-1 rounded-sm inline-block shadow-xs">
-              Panduan Warga Belokan
+            <span className="text-[10px] font-black uppercase tracking-wider text-white bg-[#4c13ff] px-3 py-1 rounded-sm inline-block shadow-xs">
+              Panduan Warga
             </span>
             <h3 className="text-2xl font-black uppercase tracking-tight text-white">
               Ingin Mengirimkan Tulisan?
             </h3>
             <p className="text-xs text-zinc-300 leading-relaxed font-normal">
               Anda tidak perlu mengirimkan naskah dalam lampiran email manual.
-              Platform BELOKIRI menyediakan meja penulisan terintegrasi bagi Warga Belokan:
+              Platform BAKUBACA menyediakan meja penulisan terintegrasi bagi Warga:
             </p>
             <ul className="text-xs text-zinc-300 space-y-2 list-disc pl-4 font-normal">
-              <li>Login dengan akun Google.</li>
-              <li>Tulis langsung naskah di editor BELOKIRI.</li>
-              <li>Pilih rubrik yang sesuai (Berisik, Meja Warkop, Ordal, Arsip Pinggiran, Sedikit Akademis, Sisa Bahasa, Setara, Serial Anabel).</li>
-              <li>Kirim ke Agen Belokan dan pantau catatan kurasi atau revisi secara transparan.</li>
+              <li>Login dengan akun Google atau akun Warga.</li>
+              <li>Tulis langsung naskah di editor BAKUBACA.</li>
+              <li>Pilih rubrik yang sesuai (Bising, Jejak, Teras, Gurat, Fragmen).</li>
+              <li>Kirim ke Tim Redaksi dan pantau catatan kurasi atau revisi secara transparan.</li>
             </ul>
           </div>
 
           <div className="pt-6 mt-6 border-t border-zinc-800">
             <Link
               href="/kirim-tulisan"
-              className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider shadow transition-colors"
+              className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-lg bg-[#ffc22f] hover:bg-amber-300 text-[#1f1f1f] text-xs font-black uppercase tracking-wider shadow transition-colors"
             >
               <span>Panduan & Kirim Tulisan</span>
               <ArrowRight className="w-4 h-4" />

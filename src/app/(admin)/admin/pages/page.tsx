@@ -284,7 +284,7 @@ export default function AdminPagesManagerPage() {
             Kelola 11 Halaman Website
           </h1>
           <p className="text-xs sm:text-sm text-zinc-500 font-normal mt-1">
-            Sunting teks judul, subjudul/slogan, isi naskah, dan regulasi untuk seluruh halaman navigasi footer BELOKIRI.
+            Sunting teks judul, subjudul/slogan, isi naskah, dan regulasi untuk seluruh halaman navigasi footer BAKUBACA.
           </p>
         </div>
 
@@ -318,13 +318,13 @@ export default function AdminPagesManagerPage() {
           className={`p-4 rounded-xl flex items-start gap-3 text-xs sm:text-sm font-medium border ${
             statusMessage.type === "success"
               ? "bg-emerald-50 border-emerald-200 text-emerald-900"
-              : "bg-red-50 border-red-200 text-red-900"
+              : "bg-rose-50 border-rose-200 text-rose-900"
           }`}
         >
           {statusMessage.type === "success" ? (
             <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
           ) : (
-            <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+            <AlertCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
           )}
           <div className="flex-1">{statusMessage.text}</div>
         </div>
@@ -476,7 +476,7 @@ export default function AdminPagesManagerPage() {
                     <button
                       onClick={handleReset}
                       disabled={saving}
-                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-red-200 bg-red-50 text-red-700 text-xs font-bold hover:bg-red-100 transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-rose-200 bg-rose-50 text-rose-700 text-xs font-bold hover:bg-rose-100 transition-colors cursor-pointer"
                     >
                       <RotateCcw className="w-3.5 h-3.5" />
                       <span>Reset ke Bawaan</span>
@@ -565,7 +565,7 @@ export default function AdminPagesManagerPage() {
                 <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 flex items-center justify-between gap-4">
                   <div>
                     <h4 className="text-xs font-black uppercase text-black">
-                      Status Pendaftaran Calon Agen Belokan
+                      Status Pendaftaran Tim Redaksi
                     </h4>
                     <p className="text-[11px] text-zinc-500">
                       Bila ditutup, tombol ajakan daftar akan otomatis menampilkan status tutup.
@@ -625,7 +625,7 @@ export default function AdminPagesManagerPage() {
                             },
                           })
                         }
-                        placeholder="Contoh: Jl. Warkop Tuya No. 45, Jakarta"
+                        placeholder="Contoh: Majene, Sulawesi Barat"
                         className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-sm text-zinc-900 font-medium focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
                       />
                     </div>
@@ -744,7 +744,7 @@ export default function AdminPagesManagerPage() {
                                   },
                                 })
                               }
-                              className="p-2.5 rounded-xl border border-zinc-200 hover:bg-red-50 hover:text-red-600 text-zinc-500 transition-colors cursor-pointer"
+                              className="p-2.5 rounded-xl border border-zinc-200 hover:bg-rose-50 hover:text-rose-600 text-zinc-500 transition-colors cursor-pointer"
                               title="Hapus Gambar QRIS"
                             >
                               <Trash2 className="w-4 h-4" />
@@ -855,7 +855,7 @@ export default function AdminPagesManagerPage() {
                             },
                           })
                         }
-                        placeholder="Contoh: Kolektif Belokiri"
+                        placeholder="Contoh: Kolektif Bakubaca"
                         className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
                       />
                     </div>
@@ -897,7 +897,7 @@ export default function AdminPagesManagerPage() {
                             },
                           })
                         }
-                        placeholder="Contoh: Kolektif Media Belokiri"
+                        placeholder="Contoh: Kolektif Media Bakubaca"
                         className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-red-600/30 bg-white"
                       />
                     </div>
@@ -909,10 +909,10 @@ export default function AdminPagesManagerPage() {
               {formData.slug === "kabinet-belokiri" && (
                 <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 space-y-2">
                   <p className="font-bold">
-                    💡 Pengelolaan Foto & Profil Personil Kabinet Belokiri:
+                    💡 Pengelolaan Foto & Profil Personil Kabinet Redaksi:
                   </p>
                   <p>
-                    Daftar anggota Kabinet, foto avatar, jabatan RT, dan kutipan dewan dapat dikelola secara mendalam melalui{" "}
+                    Daftar anggota Kabinet Redaksi, foto avatar, jabatan, dan kutipan dewan dapat dikelola secara mendalam melalui{" "}
                     <Link
                       href="/admin/settings"
                       className="underline font-bold text-black hover:text-red-600"

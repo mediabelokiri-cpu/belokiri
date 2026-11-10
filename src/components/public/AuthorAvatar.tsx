@@ -21,7 +21,7 @@ export default function AuthorAvatar({
   const [hasError, setHasError] = useState(false);
 
   // Compute initials from author name (e.g. "Bara Api" -> "BA")
-  const initials = (alt || "BK")
+  const initials = (alt || "BB")
     .trim()
     .split(/\s+/)
     .slice(0, 2)
@@ -46,7 +46,7 @@ export default function AuthorAvatar({
   if (!src || hasError) {
     return (
       <div
-        className={`flex items-center justify-center font-black tracking-wider text-white bg-zinc-900 rounded-full select-none shrink-0 ${sizeClasses[size]} ${className}`}
+        className={`flex items-center justify-center font-black tracking-wider text-white bg-[#1f1f1f] rounded-full select-none shrink-0 ${sizeClasses[size]} ${className}`}
         title={alt}
       >
         <span>{initials}</span>

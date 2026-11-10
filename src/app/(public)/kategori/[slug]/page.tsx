@@ -1,22 +1,31 @@
 export const revalidate = 60;
 
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import Link from "next/link";
 import { getArticlesByRubrik } from "@/lib/data/articles";
 import ArticleCard from "@/components/public/ArticleCard";
+import { TerasBentoGrid } from "@/components/public/MejaWarkopSection";
 import { ChevronRight, Layers, ArrowLeft } from "lucide-react";
+
+const LEGACY_RUBRIK_REDIRECTS: Record<string, string> = {
+  berisik: "bising",
+  ordal: "bising",
+  setara: "bising",
+  "arsip-pinggiran": "jejak",
+  "sedikit-akademis": "teras",
+  "meja-warkop": "teras",
+  "sisa-bahasa": "fragmen",
+  "serial-anabel": "fragmen",
+};
 
 export function generateStaticParams() {
   return [
-    { slug: "berisik" },
-    { slug: "meja-warkop" },
-    { slug: "ordal" },
-    { slug: "arsip-pinggiran" },
-    { slug: "sedikit-akademis" },
-    { slug: "sisa-bahasa" },
-    { slug: "setara" },
-    { slug: "serial-anabel" },
+    { slug: "bising" },
+    { slug: "jejak" },
+    { slug: "teras" },
+    { slug: "gurat" },
+    { slug: "fragmen" },
   ];
 }
 
@@ -28,20 +37,25 @@ export async function generateMetadata({
   params,
 }: RubrikPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const { rubrik } = await getArticlesByRubrik(slug);
+  const resolvedSlug = LEGACY_RUBRIK_REDIRECTS[slug] || slug;
+  const { rubrik } = await getArticlesByRubrik(resolvedSlug);
 
   if (!rubrik) {
     return { title: "Rubrik Tidak Ditemukan" };
   }
 
   return {
-    title: `Rubrik ${rubrik.name} — ${rubrik.question} | BELOKIRI`,
+    title: `Rubrik ${rubrik.name} — ${rubrik.question} | BAKUBACA`,
     description: rubrik.description,
   };
 }
 
 export default async function RubrikPage({ params }: RubrikPageProps) {
   const { slug } = await params;
+  if (LEGACY_RUBRIK_REDIRECTS[slug]) {
+    permanentRedirect(`/kategori/${LEGACY_RUBRIK_REDIRECTS[slug]}`);
+  }
+
   const { rubrik, articles, total } = await getArticlesByRubrik(slug);
 
   if (!rubrik) {
@@ -66,7 +80,7 @@ export default async function RubrikPage({ params }: RubrikPageProps) {
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-zinc-100 text-zinc-800 text-xs font-black uppercase tracking-wider mb-4 border border-zinc-200">
             <Layers className="w-3.5 h-3.5 text-red-600" />
-            <span>Rubrik Resmi BELOKIRI</span>
+            <span>Rubrik Resmi BAKUBACA</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl font-black text-black tracking-tight uppercase">
@@ -89,11 +103,15 @@ export default async function RubrikPage({ params }: RubrikPageProps) {
 
       {/* Articles Grid */}
       {articles.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {articles.map((article) => (
-            <ArticleCard key={article.id} article={article} />
-          ))}
-        </div>
+        rubrik.slug === "teras" ? (
+          <TerasBentoGrid articles={articles} headingLevel="h2" />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {articles.map((article) => (
+              <ArticleCard key={article.id} article={article} />
+            ))}
+          </div>
+        )
       ) : (
         <div className="p-12 text-center rounded-2xl bg-white border border-zinc-200">
           <p className="text-zinc-500 text-sm font-medium">

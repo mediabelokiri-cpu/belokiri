@@ -1,5 +1,5 @@
 /**
- * HTML Sanitizer Engine for BELOKIRI
+ * HTML Sanitizer Engine for BAKUBACA
  * Strips dangerous tags, scripts, event listeners, and malicious URLs to prevent XSS.
  * Pure TypeScript implementation compatible with Node.js, Server Components, and Edge.
  */

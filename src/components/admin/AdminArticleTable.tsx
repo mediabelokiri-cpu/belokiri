@@ -76,9 +76,9 @@ export default function AdminArticleTable({ initialArticles }: AdminArticleTable
             a.id === articleId ? { ...a, isEditorPick: res.data!.isEditorPick } : a
           )
         );
-        setFeedback({ type: "success", text: res.message || "Status Pilihan Agen Belokan diperbarui" });
+        setFeedback({ type: "success", text: res.message || "Status Pilihan Redaksi diperbarui" });
       } else {
-        setFeedback({ type: "error", text: res.message || "Gagal memperbarui status Pilihan Agen Belokan" });
+        setFeedback({ type: "error", text: res.message || "Gagal memperbarui status Pilihan Redaksi" });
       }
     });
   };
@@ -135,14 +135,14 @@ export default function AdminArticleTable({ initialArticles }: AdminArticleTable
           className={`p-4 rounded-2xl flex items-center justify-between text-xs font-bold border transition-all ${
             feedback.type === "success"
               ? "bg-emerald-50 text-emerald-800 border-emerald-200"
-              : "bg-red-50 text-red-800 border-red-200"
+              : "bg-rose-50 text-rose-800 border-rose-200"
           }`}
         >
           <div className="flex items-center gap-2">
             {feedback.type === "success" ? (
               <CheckCircle2 className="w-4 h-4 text-emerald-600" />
             ) : (
-              <AlertCircle className="w-4 h-4 text-red-600" />
+              <AlertCircle className="w-4 h-4 text-rose-600" />
             )}
             <span>{feedback.text}</span>
           </div>
@@ -228,7 +228,7 @@ export default function AdminArticleTable({ initialArticles }: AdminArticleTable
               onChange={(e) => setRubrikFilter(e.target.value)}
               className="w-full px-3 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-bold text-zinc-700 focus:outline-hidden focus:ring-2 focus:ring-red-600 focus:bg-white transition-all cursor-pointer"
             >
-              <option value="ALL">Semua 8 Rubrik</option>
+              <option value="ALL">Semua 5 Rubrik</option>
               {MOCK_RUBRIKS.map((rubrik) => (
                 <option key={rubrik.slug} value={rubrik.slug}>
                   Rubrik {rubrik.name}
@@ -261,7 +261,7 @@ export default function AdminArticleTable({ initialArticles }: AdminArticleTable
                   <th className="py-3.5 px-4">Penulis</th>
                   <th className="py-3.5 px-4">Status</th>
                   <th className="py-3.5 px-4 text-center">Statistik</th>
-                  <th className="py-3.5 px-5 text-right">Aksi Agen Belokan</th>
+                  <th className="py-3.5 px-5 text-right">Aksi Redaksi</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-100 text-xs">
@@ -296,7 +296,7 @@ export default function AdminArticleTable({ initialArticles }: AdminArticleTable
                               {article.isEditorPick && (
                                 <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 text-[10px] font-black uppercase tracking-wider">
                                   <Star className="w-2.5 h-2.5 fill-amber-500 text-amber-500" />
-                                  <span>Pilihan Agen Belokan</span>
+                                  <span>Pilihan Redaksi</span>
                                 </span>
                               )}
                               <span className="text-[10px] text-zinc-400 font-medium">
@@ -386,7 +386,7 @@ export default function AdminArticleTable({ initialArticles }: AdminArticleTable
                             title={
                               article.status === "REVIEW"
                                 ? "Telaah Naskah"
-                                : "Buka Meja Agen Belokan"
+                                : "Buka Meja Kurasi"
                             }
                           >
                             <FileCheck2 className="w-3.5 h-3.5" />
@@ -416,8 +416,8 @@ export default function AdminArticleTable({ initialArticles }: AdminArticleTable
                               }`}
                               title={
                                 article.isEditorPick
-                                  ? "Cabut Pilihan Agen Belokan"
-                                  : "Jadikan Pilihan Agen Belokan"
+                                  ? "Cabut Pilihan Redaksi"
+                                  : "Jadikan Pilihan Redaksi"
                               }
                             >
                               <Star
@@ -456,7 +456,7 @@ export default function AdminArticleTable({ initialArticles }: AdminArticleTable
                           <button
                             onClick={() => handleDelete(article.id, article.title)}
                             disabled={isPending}
-                            className="p-2 rounded-lg text-zinc-400 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                            className="p-2 rounded-lg text-zinc-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                             title="Hapus Permanen"
                           >
                             <Trash2 className="w-3.5 h-3.5" />

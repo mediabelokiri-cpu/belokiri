@@ -11,7 +11,7 @@ const lato = Lato({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#dc2626",
+  themeColor: "#4c13ff",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -19,30 +19,30 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "BELOKIRI — Liar Seperlunya, Jenaka Secukupnya",
-    template: "%s | BELOKIRI",
+    default: "BAKUBACA — Setiap Pikiran Punya Ruang.",
+    template: "%s | BAKUBACA",
   },
   description:
-    "Media esai populer, opini tajam, analisis warkop, dan arsip kebudayaan. Liar Seperlunya, Jenaka Secukupnya.",
+    "Bakubaca adalah ruang baca dan media gagasan independen. Setiap Pikiran Punya Ruang — menyuarakan realitas, merekam pengalaman, dan membaca kebudayaan.",
   keywords: [
-    "BELOKIRI",
-    "Berisik",
-    "Meja Warkop",
-    "Ordal",
-    "Arsip Pinggiran",
-    "Sedikit Akademis",
-    "Sisa Bahasa",
-    "Setara",
-    "Serial Anabel",
+    "BAKUBACA",
+    "Bakubaca",
+    "Bising",
+    "Jejak",
+    "Teras",
+    "Gurat",
+    "Fragmen",
     "Esai Populer",
+    "Literasi",
+    "Kebudayaan",
   ],
-  authors: [{ name: "Agen Belokan BELOKIRI" }],
-  creator: "BELOKIRI",
+  authors: [{ name: "Tim Redaksi BAKUBACA" }],
+  creator: "BAKUBACA",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "BELOKIRI",
+    title: "BAKUBACA",
   },
   icons: {
     icon: [
@@ -60,10 +60,10 @@ export const metadata: Metadata = {
     type: "website",
     locale: "id_ID",
     url: process.env.NEXT_PUBLIC_APP_URL || "https://www.belokiri.site",
-    siteName: "BELOKIRI",
-    title: "BELOKIRI — Liar Seperlunya, Jenaka Secukupnya",
+    siteName: "BAKUBACA",
+    title: "BAKUBACA — Setiap Pikiran Punya Ruang.",
     description:
-      "Liar Seperlunya, Jenaka Secukupnya. Media esai populer, analisis santai, dan percakapan kritis yang disajikan dengan tajam dan jenaka.",
+      "Setiap Pikiran Punya Ruang. Ruang bersama bagi Warga untuk berbagi esai, kritik, sejarah, filsafat, kebudayaan, dan ekspresi kreatif.",
   },
   robots: {
     index: true,

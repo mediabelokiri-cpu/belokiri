@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "Log Audit Aktivitas Editorial | BELOKIRI",
+  title: "Log Audit Aktivitas Editorial | BAKUBACA",
 };
 
 function getActionBadge(action: ActivityLogItem["action"]) {
@@ -48,7 +48,7 @@ function getActionBadge(action: ActivityLogItem["action"]) {
       return {
         label: "Akun Ditangguhkan",
         icon: UserX,
-        className: "bg-red-100 text-red-800 border-red-200",
+        className: "bg-rose-100 text-rose-800 border-rose-200",
       };
     case "ACTIVATE_USER":
       return {
@@ -83,7 +83,7 @@ export default async function AdminActivityPage() {
             </span>
           </div>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1 font-normal">
-            Catatan kronologis seluruh interaksi naskah, moderasi akun pengguna, dan persetujuan kurasi tim dewan Agen Belokan.
+            Catatan kronologis seluruh interaksi naskah, moderasi akun pengguna, dan persetujuan kurasi Tim Redaksi.
           </p>
         </div>
       </div>
@@ -104,7 +104,7 @@ export default async function AdminActivityPage() {
           logs.map((log) => {
             const badge = getActionBadge(log.action);
             const Icon = badge.icon;
-            const isAgenBelokan = log.userRole === "ADMIN";
+            const isTimRedaksi = log.userRole === "ADMIN";
 
             return (
               <div
@@ -127,7 +127,7 @@ export default async function AdminActivityPage() {
                       </span>
 
                       <div className="flex items-center gap-1 text-xs">
-                        {isAgenBelokan ? (
+                        {isTimRedaksi ? (
                           <span className="inline-flex items-center gap-1 font-black text-black">
                             <Shield className="w-3 h-3 text-red-600" />
                             <span>{log.userName}</span>

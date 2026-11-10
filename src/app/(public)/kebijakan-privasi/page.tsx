@@ -9,7 +9,7 @@ export const revalidate = 60;
 export async function generateMetadata(): Promise<Metadata> {
   const { page } = await getCustomPageAction("kebijakan-privasi");
   return {
-    title: page.metaTitle || `${page.title} | BELOKIRI`,
+    title: page.metaTitle || `${page.title} | BAKUBACA`,
     description: page.metaDescription,
   };
 }

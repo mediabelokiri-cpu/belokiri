@@ -4,7 +4,7 @@ import AdminUserTable from "@/components/admin/AdminUserTable";
 import { Users } from "lucide-react";
 
 export const metadata = {
-  title: "Direktori Warga Belokan & Agen Belokan | Meja Agen Belokan BELOKIRI",
+  title: "Direktori Warga & Redaksi | Meja Redaksi BAKUBACA",
 };
 
 export default async function AdminUsersPage() {
@@ -18,14 +18,14 @@ export default async function AdminUsersPage() {
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-2xl sm:text-3xl font-black text-black uppercase tracking-tight">
-              Direktori Warga Belokan & Agen Belokan
+              Direktori Warga & Tim Redaksi
             </h1>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-black bg-zinc-900 text-white">
               {users.length}
             </span>
           </div>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1 font-normal">
-            Pantau seluruh Warga Belokan terdaftar, status keaktifan akun, serta moderasi akses penulisan naskah.
+            Pantau seluruh Warga terdaftar, status keaktifan akun, serta moderasi akses penulisan naskah.
           </p>
         </div>
       </div>

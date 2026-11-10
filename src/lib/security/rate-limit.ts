@@ -1,5 +1,5 @@
 /**
- * In-Memory Sliding Window Rate Limiter for BELOKIRI
+ * In-Memory Sliding Window Rate Limiter for BAKUBACA
  * Prevents spamming, bot attacks, and resource exhaustion on API endpoints and Server Actions.
  */
 

@@ -64,9 +64,9 @@ export async function generateMetadata({
   const ogImageUrl = `${baseUrl}/api/cover/${article.slug}`;
 
   return {
-    title: `${article.title} | BELOKIRI`,
+    title: `${article.title} | BAKUBACA`,
     description: article.excerpt,
-    keywords: [...article.tags, article.rubrik.name, "BELOKIRI", "Esai", "Analisis"],
+    keywords: [...article.tags, article.rubrik.name, "BAKUBACA", "Esai", "Gagasan"],
     alternates: {
       canonical: canonicalUrl,
     },
@@ -74,7 +74,7 @@ export async function generateMetadata({
       title: article.title,
       description: article.excerpt,
       url: canonicalUrl,
-      siteName: "BELOKIRI",
+      siteName: "BAKUBACA",
       locale: "id_ID",
       type: "article",
       publishedTime: article.publishedAt,
@@ -310,7 +310,7 @@ export default async function ArticleDetailPage({
                 <div className="flex items-center justify-between">
                   <div>
                     <span className="text-[10px] font-black uppercase tracking-wider text-red-600">
-                      Penulis BELOKIRI
+                      Penulis BAKUBACA
                     </span>
                     <h4 className="text-base font-black text-black">
                       {article.author.name}
@@ -329,25 +329,25 @@ export default async function ArticleDetailPage({
               </div>
             </div>
 
-            {/* Box Donasi Solidaritas di Bawah Setiap Artikel */}
-            <div className="mt-8 p-6 sm:p-8 rounded-2xl bg-zinc-950 text-white border-l-4 border-red-600 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            {/* Box Patungan Warga di Bawah Setiap Artikel */}
+            <div className="mt-8 p-6 sm:p-8 rounded-2xl bg-[#1f1f1f] text-white border-l-4 border-[#4c13ff] shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-6">
               <div className="space-y-2 max-w-lg">
-                <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-red-500 bg-red-950/80 px-2.5 py-1 rounded-md border border-red-900/60">
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-[#ffc22f] bg-[#4c13ff]/25 px-2.5 py-1 rounded-md border border-[#4c13ff]/50">
                   <HeartHandshake className="w-3 h-3" />
                   <span>DARI WARGA UNTUK WARGA</span>
                 </span>
                 <h4 className="text-lg sm:text-xl font-black uppercase text-white tracking-tight">
-                  Menyukai Tulisan Ini? Dukung BELOKIRI Tetap Mengudara
+                  Menyukai Tulisan Ini? Dukung BAKUBACA Tetap Mengudara
                 </h4>
-                <p className="text-xs text-zinc-400 font-normal leading-relaxed">
-                  Ruang bicara independen butuh amunisi agar tetap bebas dari sensor kekuasaan dan iklan clickbait. Sisihkan sedikit apresiasi untuk dapur redaksi.
+                <p className="text-xs text-zinc-300 font-normal leading-relaxed">
+                  Ruang bicara independen butuh amunisi agar tetap bebas dari sensor dan algoritma pasar. Sisihkan sedikit apresiasi untuk dapur redaksi Warga.
                 </p>
               </div>
               <Link
                 href="/donasi"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider shadow transition-all shrink-0 active:scale-95 text-center"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#ffc22f] hover:bg-amber-300 text-[#1f1f1f] text-xs font-black uppercase tracking-wider shadow transition-all shrink-0 active:scale-95 text-center"
               >
-                <span>Donasi Solidaritas</span>
+                <span>Patungan Warga</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -365,7 +365,7 @@ export default async function ArticleDetailPage({
                       Tulisan Terkait & Terkini
                     </h3>
                     <p className="text-xs text-zinc-500 mt-0.5 font-normal">
-                      Lanjut membaca esai, analisis warkop, dan perspektif kritis lainnya di BELOKIRI.
+                      Lanjut membaca esai, refleksi gagasan, dan perspektif kritis lainnya di BAKUBACA.
                     </p>
                   </div>
 

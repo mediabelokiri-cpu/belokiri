@@ -196,7 +196,7 @@ export default function AdminSettingsPage() {
   };
 
   const handleDeleteMember = (id: string) => {
-    if (confirm("Hapus personil ini dari struktur Kabinet Belokiri?")) {
+    if (confirm("Hapus personil ini dari struktur Kabinet Redaksi?")) {
       const updatedKabinet = kabinet.filter((k) => k.id !== id);
       setKabinet(updatedKabinet);
       handleSave(updatedKabinet);
@@ -215,7 +215,7 @@ export default function AdminSettingsPage() {
             Kelola Tampilan & Pengaturan Website
           </h1>
           <p className="text-xs sm:text-sm text-zinc-500 font-normal mt-1">
-            Kelola identitas, susunan section beranda, banner CTA, tautan media sosial, hingga struktur Kabinet Belokiri (Tersimpan Permanen di Supabase).
+            Kelola identitas, susunan section beranda, banner CTA, tautan media sosial, hingga susunan Kabinet Redaksi (Tersimpan Permanen di Supabase).
           </p>
         </div>
 
@@ -240,8 +240,8 @@ export default function AdminSettingsPage() {
 
       {/* Error Notification */}
       {errorMsg && (
-        <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 flex items-center gap-3">
-          <AlertCircle className="w-5 h-5 text-red-600 shrink-0" />
+        <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 flex items-center gap-3">
+          <AlertCircle className="w-5 h-5 text-rose-600 shrink-0" />
           <p className="text-xs sm:text-sm font-bold">{errorMsg}</p>
         </div>
       )}
@@ -370,10 +370,10 @@ export default function AdminSettingsPage() {
 
             <div>
               <label className="block text-xs font-bold uppercase text-zinc-700 mb-2">
-                Logo Footer (Gelap / Putih)
+                Logo Footer (#1f1f1f)
               </label>
-              <div className="flex items-center gap-4 p-4 rounded-2xl bg-zinc-900 border border-zinc-800 text-white">
-                <div className="p-2 bg-black rounded-lg border border-zinc-800">
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#1f1f1f] border border-zinc-800 text-white">
+                <div className="p-2 bg-[#4c13ff] rounded-lg border border-white/10">
                   <Image
                     src={identity.logoWhiteUrl}
                     alt="Logo Putih"
@@ -419,8 +419,8 @@ export default function AdminSettingsPage() {
                       <Megaphone className="w-5 h-5" />
                     </span>
                     <div>
-                      <h3 className="text-sm font-black uppercase text-black">Section 1: BERISIK</h3>
-                      <p className="text-xs text-zinc-500">1 Naskah Banner Gambar + List Naskah Judul Saja</p>
+                      <h3 className="text-sm font-black uppercase text-black">Section 1: BISING</h3>
+                      <p className="text-xs text-zinc-500">Menyuarakan Realitas — 1 Banner Gambar + Daftar Naskah Utama</p>
                     </div>
                   </div>
                   <label className="relative inline-flex items-center cursor-pointer">
@@ -475,7 +475,7 @@ export default function AdminSettingsPage() {
                 </div>
               </div>
 
-              {/* 2. PILIHAN AGEN BELOKAN */}
+              {/* 2. PILIHAN REDAKSI */}
               <div className="p-5 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -483,7 +483,7 @@ export default function AdminSettingsPage() {
                       <Star className="w-5 h-5" />
                     </span>
                     <div>
-                      <h3 className="text-sm font-black uppercase text-black">Section 2: PILIHAN AGEN BELOKAN</h3>
+                      <h3 className="text-sm font-black uppercase text-black">Section 2: PILIHAN REDAKSI</h3>
                       <p className="text-xs text-zinc-500">1 Naskah Display Gambar Besar + List Samping</p>
                     </div>
                   </div>
@@ -539,7 +539,7 @@ export default function AdminSettingsPage() {
                 </div>
               </div>
 
-              {/* 3. MEJA WARKOP */}
+              {/* 3. TERAS */}
               <div className="p-5 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -547,8 +547,8 @@ export default function AdminSettingsPage() {
                       <Coffee className="w-5 h-5" />
                     </span>
                     <div>
-                      <h3 className="text-sm font-black uppercase text-black">Section 3: MEJA WARKOP</h3>
-                      <p className="text-xs text-zinc-500">Kultur Warkop, 1 Display Card + List Samping</p>
+                      <h3 className="text-sm font-black uppercase text-black">Section 3: TERAS</h3>
+                      <p className="text-xs text-zinc-500">Ruang Temu Gagasan — 1 Display Card + List Samping</p>
                     </div>
                   </div>
                   <label className="relative inline-flex items-center cursor-pointer">
@@ -683,7 +683,7 @@ export default function AdminSettingsPage() {
             </h2>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Kolom 1: Ruang Warga Belokan */}
+              {/* Kolom 1: Ruang Warga */}
               <div className="p-6 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-4">
                 <span className="text-[10px] font-black uppercase tracking-widest text-zinc-500 bg-white px-2.5 py-1 rounded-md border border-zinc-200">
                   KOLOM 1 (KIRIM TULISAN)
@@ -759,10 +759,10 @@ export default function AdminSettingsPage() {
                 </div>
               </div>
 
-              {/* Kolom 2: Ruang Agen Belokan */}
+              {/* Kolom 2: Ruang Redaksi */}
               <div className="p-6 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-4">
                 <span className="text-[10px] font-black uppercase tracking-widest text-zinc-500 bg-white px-2.5 py-1 rounded-md border border-zinc-200">
-                  KOLOM 2 (REKRUTMEN AGEN)
+                  KOLOM 2 (REKRUTMEN REDAKSI)
                 </span>
 
                 <div>
@@ -837,24 +837,24 @@ export default function AdminSettingsPage() {
             </div>
           </div>
 
-          {/* Banner Rekrutmen Solid Red */}
+          {/* Banner Rekrutmen Solid Brand Accent */}
           <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xs">
             <h2 className="text-base font-black uppercase tracking-tight text-black border-b border-zinc-200 pb-3">
               Banner CTA Halaman Rekrutmen (/rekrutmen)
             </h2>
 
-            <div className="p-6 rounded-2xl bg-red-600 text-white space-y-4">
-              <span className="text-[10px] font-black uppercase tracking-widest text-red-600 bg-white px-2.5 py-1 rounded-md">
+            <div className="p-6 rounded-2xl bg-[#4c13ff] text-white space-y-4">
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#1f1f1f] bg-[#ffc22f] px-2.5 py-1 rounded-md">
                 {cta.rekrutmenBanner.badgeText}
               </span>
               <h3 className="text-xl font-black uppercase tracking-tight text-white">
                 {cta.rekrutmenBanner.title}
               </h3>
-              <p className="text-xs text-red-100 font-normal">
+              <p className="text-xs text-white/85 font-normal">
                 {cta.rekrutmenBanner.description}
               </p>
               <div className="pt-2">
-                <span className="px-5 py-2.5 rounded-xl bg-white text-red-600 font-black text-xs uppercase shadow-sm inline-block">
+                <span className="px-5 py-2.5 rounded-xl bg-[#ffc22f] text-[#1f1f1f] font-black text-xs uppercase shadow-sm inline-block">
                   {cta.rekrutmenBanner.buttonText}
                 </span>
               </div>
@@ -914,19 +914,19 @@ export default function AdminSettingsPage() {
             </div>
           </div>
 
-          {/* Banner CTA Donasi Solidaritas Warga */}
+          {/* Banner CTA Patungan Warga */}
           <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xs">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-200">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-2xl bg-zinc-950 text-red-500">
+                <div className="p-2.5 rounded-2xl bg-[#1f1f1f] text-[#ffc22f]">
                   <HeartHandshake className="w-5 h-5" />
                 </div>
                 <div>
                   <h2 className="text-base font-black uppercase tracking-tight text-black">
-                    Banner CTA Donasi Solidaritas Warga
+                    Banner CTA Patungan Warga
                   </h2>
                   <p className="text-xs text-zinc-500">
-                    Banner ajakan patungan warga yang tampil di Beranda dan mengarah ke halaman donasi.
+                    Banner ajakan patungan Warga yang tampil di Beranda dan mengarah ke halaman donasi.
                   </p>
                 </div>
               </div>
@@ -955,20 +955,20 @@ export default function AdminSettingsPage() {
             </div>
 
             {/* Live Preview Card */}
-            <div className="p-6 rounded-2xl bg-zinc-950 text-white space-y-4 border-2 border-red-600">
-              <span className="text-[10px] font-black uppercase tracking-widest text-red-500 bg-red-950/80 px-2.5 py-1 rounded-md border border-red-900/60 inline-block">
+            <div className="p-6 rounded-2xl bg-[#1f1f1f] text-white space-y-4 border-2 border-[#4c13ff]">
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#ffc22f] bg-[#4c13ff]/25 px-2.5 py-1 rounded-md border border-[#4c13ff]/50 inline-block">
                 {cta.donasiBanner?.badgeText || "DARI WARGA UNTUK WARGA"}
               </span>
               <h3 className="text-xl font-black uppercase tracking-tight text-white">
-                {cta.donasiBanner?.title || "PATUNGAN SOLIDARITAS: JAGA BELOKIRI TETAP MENGUDARA"}
+                {cta.donasiBanner?.title || "PATUNGAN WARGA: JAGA BAKUBACA TETAP MENGUDARA"}
               </h3>
               <p className="text-xs text-zinc-300 font-normal leading-relaxed">
                 {cta.donasiBanner?.description ||
-                  "Belokiri tidak disokong cukong dan tidak jualan iklan sampah. Kami hidup dari kemandirian dan sokongan Warga Belokan."}
+                  "Bakubaca hadir tanpa cukong dan tanpa iklan mengganggu. Kami hidup dari kemandirian dan sokongan Warga. Sisihkan secangkir kopi agar ruang baca dan gagasan bersama tetap menyala."}
               </p>
               <div className="pt-1">
-                <span className="px-5 py-2.5 rounded-xl bg-red-600 text-white font-black text-xs uppercase shadow-sm inline-block">
-                  {cta.donasiBanner?.buttonText || "DONASI SOLIDARITAS"} →
+                <span className="px-5 py-2.5 rounded-xl bg-[#ffc22f] text-[#1f1f1f] font-black text-xs uppercase shadow-sm inline-block">
+                  {cta.donasiBanner?.buttonText || "Patungan Warga"} →
                 </span>
               </div>
             </div>
@@ -1163,7 +1163,7 @@ export default function AdminSettingsPage() {
                 type="text"
                 value={social.address}
                 onChange={(e) => setSocial({ ...social, address: e.target.value })}
-                placeholder="Gedung Media Nusantara..."
+                placeholder="Majene, Sulawesi Barat..."
                 className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none text-sm font-medium"
               />
             </div>
@@ -1172,7 +1172,7 @@ export default function AdminSettingsPage() {
       )}
 
       {/* =========================================================================
-          TAB 5: SUSUNAN KABINET BELOKIRI
+          TAB 5: SUSUNAN KABINET
       ========================================================================= */}
       {activeTab === "kabinet" && (
         <div className="space-y-6">
@@ -1181,7 +1181,7 @@ export default function AdminSettingsPage() {
               <div>
                 <h2 className="text-base font-black uppercase tracking-tight text-black flex items-center gap-2">
                   <Users className="w-4 h-4 text-red-600" />
-                  <span>Daftar Personil Kabinet Belokiri</span>
+                  <span>Daftar Personil Kabinet Redaksi</span>
                 </h2>
                 <p className="text-xs text-zinc-500 font-normal">
                   Kelola nama, jabatan, foto, dan deskripsi singkat personil kabinet yang tampil pada grid card di /kabinet-belokiri
@@ -1450,7 +1450,7 @@ export default function AdminSettingsPage() {
                           <button
                             type="button"
                             onClick={() => handleDeleteMember(m.id)}
-                            className="p-2 rounded-lg text-zinc-400 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                            className="p-2 rounded-lg text-zinc-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                             title="Hapus Personil"
                           >
                             <Trash2 className="w-4 h-4" />

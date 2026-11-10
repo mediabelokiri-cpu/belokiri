@@ -3,82 +3,64 @@ import { hashPassword } from "../src/lib/security/password";
 
 const prisma = new PrismaClient();
 
-// 1. 8 Rubrik Resmi BELOKIRI
+// 1. 5 Rubrik Resmi BAKUBACA
 const RUBRIKS = [
   {
-    name: "BERISIK",
-    slug: "berisik",
+    name: "BISING",
+    slug: "bising",
     description:
-      "Ruang untuk esai populer yang membicarakan politik, ekonomi, sosial, budaya, isu aktual, dan segala kegaduhan yang sedang beredar. Berisik tidak punya kewajiban untuk selalu tenang, netral, atau terdengar akademis. Di sini, gagasan boleh tajam, pendapat boleh nyeleneh, dan keresahan boleh disuarakan tanpa harus mengenakan jas intelektual. Sebab dunia memang sudah terlalu berisik untuk ditanggapi dengan bisik-bisik.",
+      "Menyuarakan Realitas. Ruang untuk kritik, opini, keresahan sosial, politik, demokrasi, dan berbagai persoalan publik.",
   },
   {
-    name: "MEJA WARKOP",
-    slug: "meja-warkop",
+    name: "JEJAK",
+    slug: "jejak",
     description:
-      "Semua orang punya teori setelah dua gelas kopi. Meja Warkop adalah ruang untuk analisis, percakapan liar, pembacaan fenomena, dan segala macam kesimpulan yang lahir dari tongkrongan. Tidak selalu benar, tidak selalu serius, tetapi selalu berusaha melihat sesuatu dari sudut yang jarang dilirik. Karena kadang, pembicaraan paling ngawur justru membuka pertanyaan yang paling masuk akal.",
+      "Merekam Pengalaman. Ruang untuk sejarah, perjalanan, pengalaman personal, dokumentasi sosial, dan ingatan kolektif.",
   },
   {
-    name: "ORDAL",
-    slug: "ordal",
+    name: "TERAS",
+    slug: "teras",
     description:
-      "Politik punya banyak pintu, dan sebagian di antaranya cuma bisa dibuka dari dalam. Ordal membicarakan gosip politik, pemerintahan, kekuasaan, elite, birokrasi, dan segala cerita yang beredar di balik meja-meja resmi. Bukan sekadar mencari siapa dekat dengan siapa, tetapi membaca bagaimana kekuasaan bekerja melalui hubungan, kepentingan, dan bisik-bisik yang jarang masuk konferensi pers. Sedikit gosip, sedikit curiga, sisanya kita bongkar.",
+      "Ruang Temu Gagasan. Ruang untuk filsafat, pendidikan, pengetahuan, literasi, refleksi, dan gagasan intelektual.",
   },
   {
-    name: "ARSIP PINGGIRAN",
-    slug: "arsip-pinggiran",
+    name: "GURAT",
+    slug: "gurat",
     description:
-      "Sejarah tidak selalu tinggal di buku pelajaran. Arsip Pinggiran menyimpan cerita tentang sejarah, gerakan rakyat, kehidupan urban dan pedesaan, komunitas, serta mereka yang sering hanya menjadi catatan kaki dalam cerita besar. Di sini, pinggiran bukan sekadar tempat, melainkan sudut pandang. Sebab sebuah bangsa tidak hanya dibentuk oleh mereka yang berdiri di podium, tetapi juga oleh mereka yang berdiri di jalan.",
+      "Membaca Kebudayaan. Ruang untuk seni, budaya, film, musik, buku, dan berbagai fenomena kebudayaan.",
   },
   {
-    name: "SEDIKIT AKADEMIS",
-    slug: "sedikit-akademis",
+    name: "FRAGMEN",
+    slug: "fragmen",
     description:
-      "Teori, filsafat, buku, dan gagasan-gagasan serius—tetapi tidak harus dibungkus bahasa yang membuat orang ingin tidur. Sedikit Akademis mencoba membawa pemikiran besar keluar dari ruang seminar dan menaruhnya di meja yang lebih dekat dengan kehidupan sehari-hari. Kami tidak berjanji selalu pintar, hanya berusaha agar berpikir tidak berhenti sebagai hobi orang yang punya rak buku terlalu banyak.",
-  },
-  {
-    name: "SISA BAHASA",
-    slug: "sisa-bahasa",
-    description:
-      "Ada hal-hal yang terlalu rumit untuk dijelaskan lewat berita dan terlalu manusiawi untuk diselesaikan dengan teori. Sisa Bahasa adalah ruang untuk puisi, cerpen, prosa, fragmen, dan segala bentuk sastra yang lahir dari sisa-sisa pengalaman manusia. Tentang cinta, kehilangan, kemarahan, kesepian, kota, tubuh, dan kekacauan kecil yang sering tidak punya nama. Sebab setelah semua teori selesai bicara, kadang yang tersisa hanyalah bahasa.",
-  },
-  {
-    name: "SETARA",
-    slug: "setara",
-    description:
-      "Perempuan bukan catatan kaki, dan kesetaraan bukan hadiah dari mereka yang berkuasa. Setara adalah ruang untuk membicarakan perempuan, feminisme, tubuh, gender, patriarki, dan berbagai bentuk perjuangan melawan ketimpangan. Dari gerakan kolektif sampai pengalaman sehari-hari, dari politik tubuh sampai perkara yang dianggap “sepele”. Karena dunia yang adil bukan dunia tempat semua orang dibuat sama, melainkan tempat tidak ada yang dipaksa merasa lebih rendah.",
-  },
-  {
-    name: "SERIAL ANABEL",
-    slug: "serial-anabel",
-    description:
-      "Anwar dan Bella adalah dua orang yang kebetulan sering berada di tempat yang sama ketika dunia sedang berulah. Serial Anabel adalah kumpulan cerpen dan prosa yang terbit setiap minggu, mengangkat isu, kejadian, dan keresahan aktual melalui percakapan, pertemuan, dan kekacauan kecil dua tokohnya. Setiap cerita berdiri sendiri dan tidak bersambung, tetapi Anwar dan Bella tetap menjadi dua orang yang membawa pembaca melihat dunia dari meja warkop, jalanan, kampus, sampai sudut-sudut kehidupan yang sering luput dari perhatian.",
+      "Merayakan Ekspresi. Ruang untuk puisi, cerpen, prosa, catatan personal, dan berbagai bentuk ekspresi kreatif.",
   },
 ];
 
-// 2. Akun Inti: Dewan Agen Belokan & Warga Belokan
+// 2. Akun Inti: Dewan Redaksi & Warga
 const DEFAULT_PASSWORD_HASH = hashPassword("Brip@l007");
 
 const USERS = [
   {
     email: "admin@belokiri.id",
-    name: "Admin Belokiri",
+    name: "Admin Bakubaca",
     penName: "Admin Utama",
-    slug: "admin-belokiri",
+    slug: "admin-bakubaca",
     avatarUrl:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80",
-    bio: "Administrator Utama BELOKIRI. Memegang kendali penuh atas manajemen konten, kurasi naskah, dan tata kelola platform.",
+    bio: "Administrator Utama BAKUBACA. Memegang kendali penuh atas manajemen konten, kurasi naskah Warga, dan tata kelola platform.",
     role: Role.ADMIN,
     status: UserStatus.ACTIVE,
     passwordHash: DEFAULT_PASSWORD_HASH,
   },
   {
     email: "agen@belokiri.id",
-    name: "Agen Belokan BELOKIRI",
-    penName: "Dewan Agen Belokan",
-    slug: "agen-belokan-belokiri",
+    name: "Tim Redaksi BAKUBACA",
+    penName: "Dewan Redaksi",
+    slug: "tim-redaksi-bakubaca",
     avatarUrl:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80",
-    bio: "Dewan Agen Belokan dan Tim Kurasi Naskah BELOKIRI. Memastikan setiap tulisan liar seperlunya, jenaka secukupnya.",
+    bio: "Dewan Redaksi dan Tim Kurasi Naskah BAKUBACA. Memastikan setiap gagasan Warga mendapat ruang yang jernih dan bermakna.",
     role: Role.ADMIN,
     status: UserStatus.ACTIVE,
     passwordHash: DEFAULT_PASSWORD_HASH,
@@ -90,7 +72,7 @@ const USERS = [
     slug: "budi-santoso",
     avatarUrl:
       "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80",
-    bio: "Warga Belokan aktif, penikmat kopi tubruk warkop, dan pemerhati dinamika sosial jalanan serta kebijakan publik.",
+    bio: "Warga Bakubaca aktif, pemerhati dinamika sosial jalanan, literasi lokal, dan kebijakan publik.",
     role: Role.USER,
     status: UserStatus.ACTIVE,
     passwordHash: DEFAULT_PASSWORD_HASH,
@@ -169,7 +151,7 @@ const TAGS = [
   "Investigasi",
 ];
 
-// 4. Starter Articles untuk 8 Rubrik
+// 4. Starter Articles untuk 5 Rubrik BAKUBACA
 const ARTICLES = [
   {
     title:
@@ -197,8 +179,8 @@ const ARTICLES = [
     featuredImageCaption:
       "Ratusan penumpang bersiap menaiki kereta komuter di stasiun transit saat jam sibuk pagi.",
     photoSource: "Unsplash / Transportasi Dokumenter",
-    source: "Liputan Lapangan Tim Agen Belokan BELOKIRI",
-    categorySlug: "berisik",
+    source: "Liputan Lapangan Tim Redaksi BAKUBACA",
+    categorySlug: "bising",
     authorEmail: "arya@belokiri.id",
     tags: ["Transportasi", "Kebijakan Publik", "Perkotaan"],
     views: 4820,
@@ -229,8 +211,8 @@ const ARTICLES = [
     featuredImageCaption:
       "Secangkir kopi panas dan percakapan lepas di warkop pinggir jalan.",
     photoSource: "Unsplash / Tongkrongan Urban",
-    source: "Observasi Lepas Warga Belokan",
-    categorySlug: "meja-warkop",
+    source: "Observasi Lepas Warga Bakubaca",
+    categorySlug: "teras",
     authorEmail: "warga@belokiri.id",
     tags: ["Warkop", "Kebijakan Publik", "Generasi Z"],
     views: 5210,
@@ -253,15 +235,15 @@ const ARTICLES = [
       </blockquote>
 
       <h3>Membongkar yang Tersembunyi</h3>
-      <p>Belokiri menolak memandang politik hanya dari apa yang diucapkan di mikrofon. Kami melacak jejak audit anggaran, afiliasi kepemilikan perseroan, dan irisan keluarga yang saling menyambung dalam pusaran APBD dan APBN.</p>
+      <p>Bakubaca menolak memandang politik hanya dari apa yang diucapkan di mikrofon. Kami melacak jejak audit anggaran, afiliasi kepemilikan perseroan, dan irisan keluarga yang saling menyambung dalam pusaran APBD dan APBN.</p>
     `,
     featuredImage:
       "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
     featuredImageCaption:
       "Gedung pencakar langit ibu kota tempat berlangsungnya lobi dan kesepakatan tertutup.",
     photoSource: "Unsplash / Gedung Pusat",
-    source: "Investigasi Meja Agen Belokan BELOKIRI",
-    categorySlug: "ordal",
+    source: "Investigasi Meja Redaksi BAKUBACA",
+    categorySlug: "bising",
     authorEmail: "agen@belokiri.id",
     tags: ["Birokrasi", "Kekuasaan", "Investigasi"],
     views: 7420,
@@ -288,8 +270,8 @@ const ARTICLES = [
     featuredImageCaption:
       "Aktivitas dermaga logistik dan kontainer peti kemas pelabuhan.",
     photoSource: "Unsplash / Arsip Dokumentasi",
-    source: "Riset Arsip Sejarah Lisan BELOKIRI",
-    categorySlug: "arsip-pinggiran",
+    source: "Riset Arsip Sejarah Lisan BAKUBACA",
+    categorySlug: "jejak",
     authorEmail: "reza@belokiri.id",
     tags: ["Sejarah Rakyat", "Arsip", "Kebijakan Publik"],
     views: 3890,
@@ -307,15 +289,15 @@ const ARTICLES = [
       <h3>Konsensus yang Diproduksi Secara Halus</h3>
       <p>Hegemoni bukan pemaksaan dengan laras senapan. Hegemoni adalah ketika kita secara sukarela mengamini bahwa kemiskinan kita adalah kesalahan pribadi karena kurang 'mindset berkembang', bukan karena upah murah dan perampasan ruang hidup.</p>
       
-      <p>Sedikit Akademis mengajak kita menertawakan istilah-istilah rumit jurnal internasional dan menerapkannya langsung pada cara kerja iklan baliho, sinetron prime time, dan pidato pejabat yang selalu menyuruh rakyat bersabar.</p>
+      <p>Teras Bakubaca mengajak kita menertawakan istilah-istilah rumit jurnal internasional dan menerapkannya langsung pada cara kerja iklan baliho, sinetron prime time, dan pidato pejabat yang selalu menyuruh rakyat bersabar.</p>
     `,
     featuredImage:
       "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80",
     featuredImageCaption:
       "Tumpukan buku-buku pemikiran kritis di ruang baca alternatif.",
     photoSource: "Unsplash / Buku Studi",
-    source: "Kajian Sedikit Akademis BELOKIRI",
-    categorySlug: "sedikit-akademis",
+    source: "Kajian Teras BAKUBACA",
+    categorySlug: "teras",
     authorEmail: "dian@belokiri.id",
     tags: ["Filsafat", "Teori", "Pendidikan"],
     views: 4120,
@@ -341,8 +323,8 @@ const ARTICLES = [
     featuredImageCaption:
       "Hujan sore hari di sudut jalan perkotaan yang remang.",
     photoSource: "Unsplash / Fotografi Urban",
-    source: "Karya Sastra Warga Belokan",
-    categorySlug: "sisa-bahasa",
+    source: "Karya Sastra Warga Bakubaca",
+    categorySlug: "fragmen",
     authorEmail: "reza@belokiri.id",
     tags: ["Sastra", "Puisi"],
     views: 2980,
@@ -369,8 +351,8 @@ const ARTICLES = [
     featuredImageCaption:
       "Perempuan pekerja mandiri berdiskusi dalam forum komunitas.",
     photoSource: "Unsplash / Potret Perempuan",
-    source: "Kolaborasi Rubrik Setara BELOKIRI",
-    categorySlug: "setara",
+    source: "Rubrik Bising BAKUBACA",
+    categorySlug: "bising",
     authorEmail: "nadia@belokiri.id",
     tags: ["Gender", "Feminisme", "Kebijakan Publik"],
     views: 5670,
@@ -399,8 +381,8 @@ const ARTICLES = [
     featuredImageCaption:
       "Suasana santap malam di kedai makan pinggir jalan kota.",
     photoSource: "Unsplash / Kehidupan Kota",
-    source: "Cerita Lepas Serial Anabel BELOKIRI",
-    categorySlug: "serial-anabel",
+    source: "Cerita Lepas Fragmen BAKUBACA",
+    categorySlug: "fragmen",
     authorEmail: "warga@belokiri.id",
     tags: ["Serial Anabel", "Warkop", "Generasi Z"],
     views: 6890,
@@ -410,12 +392,12 @@ const ARTICLES = [
 
 async function main() {
   console.log("🌱 ========================================================");
-  console.log("🌱 MEMULAI SEEDING DATABASE BELOKIRI.ID");
-  console.log("🌱 Tagline: Liar Seperlunya, Jenaka Secukupnya");
+  console.log("🌱 MEMULAI SEEDING DATABASE BAKUBACA");
+  console.log("🌱 Tagline: Setiap Pikiran Punya Ruang.");
   console.log("🌱 ========================================================");
 
-  // 1. Seed 8 Rubrik
-  console.log("\n📁 [1/4] Mendaftarkan 8 Rubrik Resmi BELOKIRI...");
+  // 1. Seed 5 Rubrik
+  console.log("\n📁 [1/4] Mendaftarkan 5 Rubrik Resmi BAKUBACA...");
   const categoryMap = new Map<string, string>();
 
   for (const rubrik of RUBRIKS) {
@@ -438,7 +420,7 @@ async function main() {
   }
 
   // 2. Seed Users
-  console.log("\n👥 [2/4] Mendaftarkan Akun Dewan Agen Belokan & Warga Belokan...");
+  console.log("\n👥 [2/4] Mendaftarkan Akun Dewan Redaksi & Warga...");
   const userMap = new Map<string, string>();
 
   for (const user of USERS) {
@@ -488,7 +470,7 @@ async function main() {
   console.log(`   ✅ Total ${TAGS.length} tags topik terdaftar.`);
 
   // 4. Seed Starter Articles
-  console.log("\n📰 [4/4] Mendaftarkan Naskah Starter untuk 8 Rubrik...");
+  console.log("\n📰 [4/4] Mendaftarkan Naskah Starter untuk 5 Rubrik...");
   for (const article of ARTICLES) {
     const categoryId = categoryMap.get(article.categorySlug);
     const authorId = userMap.get(article.authorEmail);
@@ -561,8 +543,8 @@ async function main() {
   }
 
   console.log("\n✨ ========================================================");
-  console.log("✨ SEEDING BELOKIRI.ID SELESAI DENGAN SUKSES!");
-  console.log("✨ 8 Rubrik, 6 Akun, dan 8 Artikel Siap Digunakan di Database.");
+  console.log("✨ SEEDING BAKUBACA SELESAI DENGAN SUKSES!");
+  console.log("✨ 5 Rubrik, 7 Akun, dan 8 Artikel Siap Digunakan di Database.");
   console.log("✨ ========================================================\n");
 }
 

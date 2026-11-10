@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "8 Rubrik & Pedoman Agen Belokan | BELOKIRI",
+  title: "5 Rubrik & Pedoman Redaksi | BAKUBACA",
 };
 
 export default async function AdminCategoriesPage() {
@@ -40,14 +40,14 @@ export default async function AdminCategoriesPage() {
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-2xl sm:text-3xl font-black text-black uppercase tracking-tight">
-              8 Rubrik Resmi BELOKIRI
+              5 Rubrik Resmi BAKUBACA
             </h1>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-black bg-red-600 text-white">
-              8 Rubrik
+              5 Rubrik
             </span>
           </div>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1 font-normal">
-            Struktur taksonomi editorial BELOKIRI. Setiap rubrik dipandu oleh satu karakter dan pertanyaan filosofis yang khas.
+            Struktur taksonomi editorial BAKUBACA. Setiap rubrik menjadi ruang gagasan dengan karakter dan panduan kurasi yang khas.
           </p>
         </div>
 
@@ -63,7 +63,7 @@ export default async function AdminCategoriesPage() {
       </div>
 
       {/* Rubriks Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {rubrikCounts.map((rubrik, idx) => (
           <div
             key={rubrik.slug}
@@ -120,7 +120,7 @@ export default async function AdminCategoriesPage() {
                 </Link>
 
                 <Link
-                  href={`/rubrik/${rubrik.slug}`}
+                  href={`/kategori/${rubrik.slug}`}
                   target="_blank"
                   className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-zinc-200 hover:border-black text-zinc-700 hover:text-black text-[11px] font-black uppercase tracking-wider transition-colors"
                 >
@@ -141,10 +141,10 @@ export default async function AdminCategoriesPage() {
           </div>
           <div>
             <h2 className="text-lg font-black text-black uppercase tracking-tight">
-              Panduan Kurasi 8 Rubrik BELOKIRI
+              Panduan Kurasi 5 Rubrik BAKUBACA
             </h2>
             <p className="text-xs text-zinc-500 font-normal">
-              Standar baku dewan Agen Belokan saat menempatkan atau menyetujui naskah kiriman Warga Belokan.
+              Standar baku Tim Redaksi saat menempatkan atau menyetujui naskah kiriman Warga.
             </p>
           </div>
         </div>
@@ -156,7 +156,7 @@ export default async function AdminCategoriesPage() {
               <span>Kesesuaian Pertanyaan Filosofis</span>
             </div>
             <p className="text-zinc-600 leading-relaxed font-normal">
-              Pastikan inti naskah menjawab pertanyaan utama rubrik bersangkutan. Hindari artikel opini di rubrik KABAR, atau investigasi faktual di rubrik SUARA.
+              Pastikan inti naskah menjawab karakter utama rubrik bersangkutan. Hindari catatan arsip personal tanpa konteks di rubrik BISING, atau kritik kebijakan praktis di rubrik FRAGMEN.
             </p>
           </div>
 

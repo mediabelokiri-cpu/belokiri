@@ -47,7 +47,7 @@ export interface RekrutmenItem {
 }
 
 /**
- * Public action: submit a new recruitment application for Agen Belokan.
+ * Public action: submit a new recruitment application for Tim Redaksi.
  */
 export async function submitRekrutmenAction(
   data: RekrutmenSubmissionInput
@@ -69,7 +69,7 @@ export async function submitRekrutmenAction(
       return { success: false, error: "Alasan bergabung wajib diisi." };
     }
     if (!data.fokusBidang || data.fokusBidang.length === 0) {
-      return { success: false, error: "Pilih minimal satu Fokus Bidang Agen!" };
+      return { success: false, error: "Pilih minimal satu Fokus Bidang Redaksi!" };
     }
 
     await prisma.rekrutmenAgen.create({
@@ -93,10 +93,10 @@ export async function submitRekrutmenAction(
 
     return {
       success: true,
-      message: "Formulir pendaftaran calon agen berhasil terkirim ke Dewan Belokan.",
+      message: "Formulir pendaftaran calon anggota berhasil terkirim ke Tim Redaksi.",
     };
   } catch (error) {
-    console.error("Error submitting Rekrutmen Agen:", error);
+    console.error("Error submitting Rekrutmen:", error);
     return {
       success: false,
       error:
@@ -161,7 +161,7 @@ export async function getRekrutmenListAction(
       error:
         error instanceof Error
           ? error.message
-          : "Gagal mengambil daftar pendaftaran agen.",
+          : "Gagal mengambil daftar pendaftaran redaksi.",
     };
   }
 }

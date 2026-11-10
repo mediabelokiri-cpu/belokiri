@@ -15,29 +15,33 @@ import HeroArticle from "@/components/public/HeroArticle";
 import ArticleCard from "@/components/public/ArticleCard";
 import EditorsPick from "@/components/public/EditorsPick";
 import MejaWarkopSection from "@/components/public/MejaWarkopSection";
+import SuratKalengSection from "@/components/public/SuratKalengSection";
 import { ArrowRight, Clock, Megaphone, PenLine, HeartHandshake } from "lucide-react";
 import { getSiteSettingsAction } from "@/actions/settings.actions";
 import { defaultSiteSettings } from "@/lib/data/site-settings";
+import { getPublicSuratKaleng } from "@/lib/data/surat-kaleng";
 
 export default async function HomePage() {
   const [
     heroArticles,
     { articles: latestArticles },
-    { articles: berisikArticles },
-    { articles: warkopArticles },
+    { articles: bisingArticles },
+    { articles: terasArticles },
     editorsPicks,
     popularArticles,
     rubriks,
     siteSettingsRes,
+    initialSuratKaleng,
   ] = await Promise.all([
     getHeroArticles(3),
     getLatestArticles(8, 1),
-    getArticlesByRubrik("berisik", 6),
-    getArticlesByRubrik("meja-warkop", 5),
+    getArticlesByRubrik("bising", 6),
+    getArticlesByRubrik("teras", 4),
     getEditorsPick(5),
     getPopularArticles(5),
     getAllRubriks(),
     getSiteSettingsAction(),
+    getPublicSuratKaleng(30),
   ]);
 
   const cta = siteSettingsRes?.settings?.cta || defaultSiteSettings.cta;
@@ -45,8 +49,8 @@ export default async function HomePage() {
   // Use the remaining articles for secondary focus in Hero
   const secondaryArticles = latestArticles.slice(3, 5);
 
-  const featuredBerisik = berisikArticles[0];
-  const otherBerisik = berisikArticles.slice(1, 5);
+  const featuredBising = bisingArticles[0];
+  const otherBising = bisingArticles.slice(1, 5);
 
   return (
     <div className="w-full">
@@ -66,32 +70,32 @@ export default async function HomePage() {
       )}
 
       {/* ======================================================== */}
-      {/* MAIN CONTAINER: BERISIK, AGEN BELOKAN, 8 RUBRIK          */}
+      {/* MAIN CONTAINER: BISING, REDAKSI, 5 RUBRIK                */}
       {/* ======================================================== */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-12 sm:space-y-16">
-        {/* 2. Main Content: BERISIK (1 image card + title list) + Rubrik Focus */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 pb-6 sm:pb-8 space-y-12 sm:space-y-16">
+        {/* 2. Main Content: BISING (1 image card + title list) + Rubrik Focus */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
-          {/* BERISIK Section */}
+          {/* BISING Section */}
           <div className="lg:col-span-8 space-y-6">
-            <div className="flex items-center justify-between pb-3 border-b-2 border-black">
+            <div className="flex items-center justify-between pb-3 border-b-2 border-[#1f1f1f]">
               <div className="flex items-center gap-2.5">
-                <div className="p-1.5 rounded-sm bg-red-600 text-white">
+                <div className="p-1.5 rounded-sm bg-[#4c13ff] text-white">
                   <Megaphone className="w-4 h-4 fill-white" />
                 </div>
-                <h2 className="text-xl font-black uppercase tracking-tight text-black">
-                  BERISIK
+                <h2 className="text-xl font-black uppercase tracking-tight text-[#1f1f1f]">
+                  BISING
                 </h2>
               </div>
               <Link
-                href="/kategori/berisik"
-                className="text-xs font-black uppercase text-zinc-600 hover:text-red-600 flex items-center gap-1 transition-colors"
+                href="/kategori/bising"
+                className="text-xs font-black uppercase text-zinc-600 hover:text-[#4c13ff] flex items-center gap-1 transition-colors"
               >
-                <span>Semua Berisik</span>
+                <span>Semua Bising</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
 
-            {featuredBerisik ? (
+            {featuredBising ? (
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
                 {/* 1 Display Artikel dengan Gambar */}
                 <div className="md:col-span-7 flex flex-col">
@@ -100,29 +104,29 @@ export default async function HomePage() {
                       {/* Card Image */}
                       <div className="relative aspect-16/10 w-full overflow-hidden bg-zinc-200">
                         <Image
-                          src={featuredBerisik.featuredImage}
-                          alt={featuredBerisik.title}
+                          src={featuredBising.featuredImage}
+                          alt={featuredBising.title}
                           fill
                           priority
                           sizes="(max-width: 768px) 100vw, 50vw"
                           className="object-cover group-hover:scale-105 transition-transform duration-400"
                         />
                         <div className="absolute top-3 left-3">
-                          <span className="px-2.5 py-1 rounded-sm text-[10px] font-black uppercase tracking-wider bg-red-600 text-white shadow-xs">
-                            {featuredBerisik.rubrik.name}
+                          <span className="px-2.5 py-1 rounded-sm text-[10px] font-black uppercase tracking-wider bg-[#4c13ff] text-white shadow-xs">
+                            {featuredBising.rubrik.name}
                           </span>
                         </div>
                       </div>
 
                       {/* Card Body */}
                       <div className="p-5">
-                        <Link href={`/artikel/${featuredBerisik.slug}`}>
-                          <h3 className="text-lg sm:text-xl font-black text-black leading-snug line-clamp-3 group-hover:text-red-600 transition-colors tracking-tight">
-                            {featuredBerisik.title}
+                        <Link href={`/artikel/${featuredBising.slug}`}>
+                          <h3 className="text-lg sm:text-xl font-black text-black leading-snug line-clamp-3 group-hover:text-[#4c13ff] transition-colors tracking-tight">
+                            {featuredBising.title}
                           </h3>
                         </Link>
                         <p className="mt-2.5 text-xs sm:text-sm text-zinc-600 leading-relaxed line-clamp-3 font-normal">
-                          {featuredBerisik.excerpt}
+                          {featuredBising.excerpt}
                         </p>
                       </div>
                     </div>
@@ -130,14 +134,14 @@ export default async function HomePage() {
                     {/* Footer Meta */}
                     <div className="px-5 pb-5 pt-3 border-t border-zinc-100 flex items-center justify-between text-[11px] text-zinc-500">
                       <Link
-                        href={`/penulis/${featuredBerisik.author.slug}`}
-                        className="font-bold text-zinc-800 hover:text-red-600 transition-colors"
+                        href={`/penulis/${featuredBising.author.slug}`}
+                        className="font-bold text-zinc-800 hover:text-[#4c13ff] transition-colors"
                       >
-                        {featuredBerisik.author.name}
+                        {featuredBising.author.name}
                       </Link>
                       <div className="flex items-center gap-1 font-medium">
                         <Clock className="w-3 h-3 text-zinc-400" />
-                        <span>{formatDate(featuredBerisik.publishedAt)}</span>
+                        <span>{formatDate(featuredBising.publishedAt)}</span>
                       </div>
                     </div>
                   </article>
@@ -146,13 +150,13 @@ export default async function HomePage() {
                 {/* Artikel Lainnya Hanya Judul */}
                 <div className="md:col-span-5 flex flex-col justify-between rounded-2xl bg-white border border-zinc-200 p-5 shadow-xs">
                   <div className="divide-y divide-zinc-100 flex-1 flex flex-col justify-between">
-                    {otherBerisik.map((article, idx) => (
+                    {otherBising.map((article, idx) => (
                       <article
                         key={article.id}
                         className="group py-3.5 first:pt-0 last:pb-0"
                       >
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="text-[10px] font-mono font-bold text-red-600">
+                          <span className="text-[10px] font-mono font-bold text-[#4c13ff]">
                             0{idx + 2}
                           </span>
                           <span className="text-[10px] font-medium text-zinc-400">
@@ -160,7 +164,7 @@ export default async function HomePage() {
                           </span>
                         </div>
                         <Link href={`/artikel/${article.slug}`}>
-                          <h4 className="text-sm font-bold text-zinc-900 leading-snug group-hover:text-red-600 transition-colors line-clamp-2">
+                          <h4 className="text-sm font-bold text-zinc-900 leading-snug group-hover:text-[#4c13ff] transition-colors line-clamp-2">
                             {article.title}
                           </h4>
                         </Link>
@@ -168,7 +172,7 @@ export default async function HomePage() {
                           <span>Oleh</span>
                           <Link
                             href={`/penulis/${article.author.slug}`}
-                            className="text-zinc-600 font-semibold hover:text-red-600 transition-colors"
+                            className="text-zinc-600 font-semibold hover:text-[#4c13ff] transition-colors"
                           >
                             {article.author.name}
                           </Link>
@@ -181,17 +185,17 @@ export default async function HomePage() {
             ) : null}
           </div>
 
-          {/* Editorial Sidebar: Rubrik Focus (Prinsip Editorial card removed) */}
+          {/* Editorial Sidebar: 5 Rubrik BAKUBACA */}
           <div className="lg:col-span-4">
             {/* Rubrik Spotlight Box */}
             <div className="rounded-2xl bg-white border border-zinc-200 p-6 shadow-xs sticky top-24">
               <div className="flex items-center justify-between mb-4 pb-2 border-b border-zinc-100">
                 <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400">
-                  Pilihan Rubrik Khusus
+                  5 Ruang Gagasan Bakubaca
                 </h4>
                 <Link
                   href="/berita"
-                  className="text-[11px] font-bold text-red-600 hover:underline"
+                  className="text-[11px] font-bold text-[#4c13ff] hover:underline"
                 >
                   Semua Rubrik
                 </Link>
@@ -201,13 +205,13 @@ export default async function HomePage() {
                   <Link
                     key={r.slug}
                     href={`/kategori/${r.slug}`}
-                    className="block p-3 rounded-xl bg-zinc-50 hover:bg-zinc-100 border border-zinc-200/70 transition-all group"
+                    className="block p-3 rounded-xl bg-zinc-50 hover:bg-[#f3efff] border border-zinc-200/70 hover:border-[#4c13ff]/30 transition-all group"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-black uppercase text-black group-hover:text-red-600 transition-colors">
+                      <span className="text-xs font-black uppercase text-[#1f1f1f] group-hover:text-[#4c13ff] transition-colors">
                         {r.name}
                       </span>
-                      <ArrowRight className="w-3.5 h-3.5 text-zinc-400 group-hover:translate-x-1 group-hover:text-red-600 transition-all" />
+                      <ArrowRight className="w-3.5 h-3.5 text-zinc-400 group-hover:translate-x-1 group-hover:text-[#4c13ff] transition-all" />
                     </div>
                     <p className="text-[11px] text-zinc-500 mt-1 italic line-clamp-1 font-medium">
                       “{r.question}”
@@ -219,15 +223,15 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* 3. Editor's Pick Curated Banner (Solid Black & Red) */}
+        {/* 3. Editor's Pick Curated Banner */}
         <section>
           <EditorsPick articles={editorsPicks} />
         </section>
 
-        {/* 4. MEJA WARKOP Rubrik Section (Distinct Horizontal Lead + 3-Column Strip) */}
-        {warkopArticles.length > 0 && (
+        {/* 4. TERAS Rubrik Section */}
+        {terasArticles.length > 0 && (
           <section className="pt-4">
-            <MejaWarkopSection articles={warkopArticles} />
+            <MejaWarkopSection articles={terasArticles} />
           </section>
         )}
 
@@ -235,25 +239,25 @@ export default async function HomePage() {
         <section className="pt-8 border-t border-zinc-200">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
             <div>
-              <span className="text-xs font-black uppercase tracking-widest text-red-600 block mb-1.5">
+              <span className="text-xs font-black uppercase tracking-widest text-[#4c13ff] block mb-1.5">
                 PUBLIKASI TERKINI
               </span>
               <div className="flex items-center gap-2.5">
-                <div className="p-1.5 rounded-sm bg-red-600 text-white">
+                <div className="p-1.5 rounded-sm bg-[#4c13ff] text-white">
                   <PenLine className="w-4 h-4" />
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-black text-black tracking-tight uppercase">
+                <h2 className="text-2xl sm:text-3xl font-black text-[#1f1f1f] tracking-tight uppercase">
                   TULISAN TERBARU
                 </h2>
               </div>
             </div>
             <div className="flex items-center gap-4">
               <p className="text-xs text-zinc-500 max-w-sm font-medium hidden sm:block">
-                Arsip esai, laporan analisis, dan percakapan kritis paling mutakhir dari seluruh rubrik BELOKIRI.
+                Arsip esai, laporan, refleksi, dan karya kreatif paling mutakhir dari seluruh rubrik BAKUBACA.
               </p>
               <Link
                 href="/berita"
-                className="text-xs font-black uppercase text-zinc-600 hover:text-red-600 flex items-center gap-1 transition-colors shrink-0"
+                className="text-xs font-black uppercase text-zinc-600 hover:text-[#4c13ff] flex items-center gap-1 transition-colors shrink-0"
               >
                 <span>Semua Tulisan</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -268,12 +272,12 @@ export default async function HomePage() {
                 Belum Ada Naskah yang Diterbitkan
               </h3>
               <p className="text-xs text-zinc-500 max-w-sm mx-auto mt-1">
-                Redaksi BELOKIRI siap menerima dan menerbitkan tulisan-tulisan orisinal pertama dari Warga dan Agen Belokan.
+                Redaksi BAKUBACA siap menerima dan menerbitkan tulisan-tulisan orisinal pertama dari Warga.
               </p>
               <div className="pt-4">
                 <Link
                   href="/kirim-tulisan"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-colors shadow-xs"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#4c13ff] hover:bg-[#3d0dd9] text-white text-xs font-black uppercase tracking-wider transition-colors shadow-xs"
                 >
                   <span>Kirim Tulisan Pertama</span>
                 </Link>
@@ -290,34 +294,39 @@ export default async function HomePage() {
       </div>
 
       {/* ======================================================== */}
-      {/* 5B. BANNER CTA DONASI: DARI WARGA UNTUK WARGA            */}
+      {/* 5A. SURAT KALENG WARGA (REAL-TIME)                       */}
+      {/* ======================================================== */}
+      <SuratKalengSection initialMessages={initialSuratKaleng} />
+
+      {/* ======================================================== */}
+      {/* 5B. BANNER CTA PATUNGAN: DARI WARGA UNTUK WARGA          */}
       {/* ======================================================== */}
       {cta.donasiBanner?.enabled !== false && (
         <section className="max-w-6xl mx-auto px-4 sm:px-6 my-14">
-          <div className="relative rounded-3xl bg-zinc-950 text-white p-8 sm:p-12 border-2 border-red-600 shadow-2xl overflow-hidden">
-            <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-red-600/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative rounded-3xl bg-[#1f1f1f] text-white p-8 sm:p-12 border-2 border-[#4c13ff] shadow-2xl overflow-hidden">
+            <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-[#4c13ff]/20 rounded-full blur-3xl pointer-events-none" />
             <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
               <div className="space-y-4 max-w-2xl">
-                <span className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-black uppercase tracking-widest text-red-500 bg-red-950/80 border border-red-800/80 px-3.5 py-1.5 rounded-full">
+                <span className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-black uppercase tracking-widest text-[#ffc22f] bg-[#4c13ff]/25 border border-[#4c13ff]/50 px-3.5 py-1.5 rounded-full">
                   <HeartHandshake className="w-3.5 h-3.5" />
                   <span>{cta.donasiBanner?.badgeText || "DARI WARGA UNTUK WARGA"}</span>
                 </span>
                 <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight uppercase leading-tight">
-                  {cta.donasiBanner?.title || "PATUNGAN SOLIDARITAS: JAGA BELOKIRI TETAP MENGUDARA"}
+                  {cta.donasiBanner?.title || "PATUNGAN WARGA: JAGA BAKUBACA TETAP MENGUDARA"}
                 </h3>
                 <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-normal">
                   {cta.donasiBanner?.description ||
-                    "Belokiri tidak disokong cukong dan tidak jualan iklan sampah. Kami hidup dari kemandirian dan sokongan Warga Belokan. Sisihkan secangkir kopi untuk menjaga akal sehat tetap bersuara."}
+                    "Bakubaca hadir tanpa cukong dan tanpa iklan mengganggu. Kami hidup dari kemandirian dan sokongan Warga. Sisihkan secangkir kopi agar ruang baca dan gagasan bersama tetap menyala."}
                 </p>
               </div>
 
               <div className="shrink-0 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <Link
                   href={cta.donasiBanner?.buttonUrl || "/donasi"}
-                  className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform active:scale-95 text-center"
+                  className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-[#ffc22f] hover:bg-amber-300 text-[#1f1f1f] text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform active:scale-95 text-center"
                 >
-                  <span>{cta.donasiBanner?.buttonText || "Donasi Solidaritas"}</span>
-                  <ArrowRight className="w-4 h-4 text-white" />
+                  <span>{cta.donasiBanner?.buttonText || "Patungan Warga"}</span>
+                  <ArrowRight className="w-4 h-4 text-[#1f1f1f]" />
                 </Link>
               </div>
             </div>
@@ -326,54 +335,54 @@ export default async function HomePage() {
       )}
 
       {/* ======================================================== */}
-      {/* 6. RUANG WARGA & AGEN BELOKAN (DUA KOLOM DI ATAS FOOTER) */}
+      {/* 6. RUANG WARGA & REDAKSI (DUA KOLOM DI ATAS FOOTER)      */}
       {/* ======================================================== */}
-      <section className="w-full bg-red-600 text-white py-16 sm:py-20 border-t-2 border-red-700 shadow-inner">
+      <section className="w-full bg-[#4c13ff] text-white py-16 sm:py-20 border-t-2 border-[#3d0dd9] shadow-inner">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 md:divide-x md:divide-red-500/50">
-            {/* Kolom 1: RUANG WARGA BELOKAN (Kirim Tulisan) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 md:divide-x md:divide-white/20">
+            {/* Kolom 1: RUANG WARGA (Kirim Tulisan) */}
             <div className="flex flex-col justify-between items-start text-left md:pr-8">
               <div>
-                <span className="inline-block text-[11px] font-black uppercase tracking-widest text-red-100 bg-red-700/70 border border-red-500/50 px-3.5 py-1 rounded-full mb-4">
-                  RUANG WARGA BELOKAN
+                <span className="inline-block text-[11px] font-black uppercase tracking-widest text-[#1f1f1f] bg-[#ffc22f] px-3.5 py-1 rounded-full mb-4">
+                  RUANG WARGA
                 </span>
                 <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight uppercase mb-3 leading-tight">
                   {cta.ruangWarga?.title || "Punya Gagasan atau Cerita yang Perlu Didengar?"}
                 </h3>
-                <p className="text-sm text-red-100/90 leading-relaxed mb-8 font-normal">
+                <p className="text-sm text-white/90 leading-relaxed mb-8 font-normal">
                   {cta.ruangWarga?.description ||
-                    "BELOKIRI membuka ruang seluas-luasnya bagi mahasiswa, pelajar, peneliti, dan masyarakat umum untuk menyumbangkan tulisan, esai kritis, atau pandangan nyeleneh yang jujur."}
+                    "BAKUBACA membuka ruang seluas-luasnya bagi mahasiswa, pelajar, peneliti, pegiat budaya, dan masyarakat umum untuk menyumbangkan esai, kritik sosial, catatan pengalaman, maupun karya kreatif yang jujur."}
                 </p>
               </div>
               <Link
                 href={cta.ruangWarga?.buttonUrl || "/kirim-tulisan"}
-                className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-white hover:bg-zinc-100 text-red-600 text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform active:scale-95"
+                className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-white hover:bg-[#ffc22f] text-[#1f1f1f] text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform active:scale-95"
               >
                 <span>{cta.ruangWarga?.buttonText || "Kirim Tulisan"}</span>
-                <ArrowRight className="w-4 h-4 text-red-600" />
+                <ArrowRight className="w-4 h-4 text-[#4c13ff]" />
               </Link>
             </div>
 
-            {/* Kolom 2: RUANG AGEN BELOKAN (Rekrutmen Belokiri) */}
-            <div className="flex flex-col justify-between items-start text-left pt-8 md:pt-0 md:pl-8 border-t md:border-t-0 border-red-500/50">
+            {/* Kolom 2: RUANG REDAKSI (Rekrutmen) */}
+            <div className="flex flex-col justify-between items-start text-left pt-8 md:pt-0 md:pl-8 border-t md:border-t-0 border-white/20">
               <div>
-                <span className="inline-block text-[11px] font-black uppercase tracking-widest text-red-100 bg-red-700/70 border border-red-500/50 px-3.5 py-1 rounded-full mb-4">
-                  RUANG AGEN BELOKAN
+                <span className="inline-block text-[11px] font-black uppercase tracking-widest text-[#ffc22f] bg-[#1f1f1f]/40 border border-white/25 px-3.5 py-1 rounded-full mb-4">
+                  RUANG REDAKSI
                 </span>
                 <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight uppercase mb-3 leading-tight">
-                  {cta.ruangAgen?.title || "Tertarik Menjadi Bagian Awak BELOKIRI?"}
+                  {cta.ruangAgen?.title || "Tertarik Bergabung di Tim Redaksi BAKUBACA?"}
                 </h3>
-                <p className="text-sm text-red-100/90 leading-relaxed mb-8 font-normal">
+                <p className="text-sm text-white/90 leading-relaxed mb-8 font-normal">
                   {cta.ruangAgen?.description ||
-                    "Kami membuka kesempatan bagi jurnalis investigasi, penulis esai, editor, dan kreator independen yang berani menyusup di antara narasi mapan demi menyuarakan realitas rakyat."}
+                    "Kami membuka ruang kolaborasi bagi penulis esai, editor, periset data, dan kreator independen untuk merawat keberagaman suara, literasi kritis, dan kebudayaan publik."}
                 </p>
               </div>
               <Link
                 href={cta.ruangAgen?.buttonUrl || "/rekrutmen"}
-                className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-white hover:bg-zinc-100 text-red-600 text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform active:scale-95"
+                className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-[#ffc22f] hover:bg-amber-300 text-[#1f1f1f] text-xs sm:text-sm font-black uppercase tracking-wider shadow-xl transition-all transform active:scale-95"
               >
-                <span>{cta.ruangAgen?.buttonText || "Gabung Jadi Agen"}</span>
-                <ArrowRight className="w-4 h-4 text-red-600" />
+                <span>{cta.ruangAgen?.buttonText || "Gabung Redaksi"}</span>
+                <ArrowRight className="w-4 h-4 text-[#1f1f1f]" />
               </Link>
             </div>
           </div>

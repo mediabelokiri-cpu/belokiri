@@ -46,13 +46,13 @@ export function NewsArticleJsonLd({
     ],
     publisher: {
       "@type": "NewsMediaOrganization",
-      name: "BELOKIRI",
+      name: "BAKUBACA",
       url: "https://www.belokiri.site",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.belokiri.site/images/logo-belokiri-red.png",
-        width: 512,
-        height: 97,
+        url: "https://www.belokiri.site/images/logourlbarbakubaca.png",
+        width: 600,
+        height: 600,
       },
     },
     articleSection: sectionName,
@@ -101,13 +101,13 @@ export function OrganizationJsonLd() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "NewsMediaOrganization",
-    name: "BELOKIRI",
-    alternateName: "BELOKIRI Media",
+    name: "BAKUBACA",
+    alternateName: "Bakubaca",
     url: "https://www.belokiri.site",
-    logo: "https://www.belokiri.site/images/logo-belokiri-red.png",
-    slogan: "Liar Seperlunya, Jenaka Secukupnya",
+    logo: "https://www.belokiri.site/images/logourlbarbakubaca.png",
+    slogan: "Setiap Pikiran Punya Ruang.",
     description:
-      "Media esai populer, analisis santai, arsip sejarah rakyat, dan percakapan kritis yang disajikan dengan tajam dan jenaka.",
+      "Ruang baca dan media gagasan independen bagi Warga untuk menyuarakan realitas, merekam pengalaman, bertukar gagasan, membaca kebudayaan, dan merayakan ekspresi.",
     sameAs: [
       "https://twitter.com/belokiri_id",
       "https://instagram.com/belokiri_id",

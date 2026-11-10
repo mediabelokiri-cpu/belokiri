@@ -119,7 +119,7 @@ export default function ContributorArticleList({
       </div>
 
       {deleteError && (
-        <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 font-medium">
+        <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 font-medium">
           {deleteError}
         </div>
       )}
@@ -190,10 +190,10 @@ export default function ContributorArticleList({
                     <button
                       type="button"
                       onClick={() => setSelectedNote(article.adminNote)}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 border border-red-200 px-3 py-1 rounded-md transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-700 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 border border-rose-200 px-3 py-1 rounded-md transition-colors cursor-pointer"
                     >
                       <AlertTriangle className="w-3.5 h-3.5" />
-                      <span>Lihat Catatan Agen Belokan</span>
+                      <span>Lihat Catatan Redaksi</span>
                     </button>
                   </div>
                 )}
@@ -214,7 +214,7 @@ export default function ContributorArticleList({
                       type="button"
                       onClick={() => handleDelete(article.id, article.title)}
                       disabled={isPending}
-                      className="p-2 rounded-lg text-zinc-400 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                      className="p-2 rounded-lg text-zinc-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                       title="Hapus Draf"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -239,7 +239,7 @@ export default function ContributorArticleList({
                 {article.status === "REVISION" && (
                   <Link
                     href={`/dashboard/artikel/${article.id}/edit`}
-                    className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-colors inline-flex items-center gap-1.5 shadow-xs"
+                    className="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-black uppercase tracking-wider transition-colors inline-flex items-center gap-1.5 shadow-xs"
                   >
                     <PenSquare className="w-3.5 h-3.5" />
                     <span>Perbaiki Naskah</span>
@@ -267,9 +267,9 @@ export default function ContributorArticleList({
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-4 shadow-2xl border border-zinc-200 animate-in fade-in zoom-in-95">
             <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
-              <div className="flex items-center gap-2 text-red-600 font-black text-sm uppercase tracking-wider">
+              <div className="flex items-center gap-2 text-rose-600 font-black text-sm uppercase tracking-wider">
                 <AlertTriangle className="w-5 h-5" />
-                <span>Catatan Kurasi Meja Agen Belokan</span>
+                <span>Catatan Kurasi Meja Redaksi</span>
               </div>
               <button
                 type="button"
@@ -280,12 +280,12 @@ export default function ContributorArticleList({
               </button>
             </div>
 
-            <div className="p-4 bg-red-50 rounded-2xl border border-red-200 text-xs sm:text-sm text-red-900 leading-relaxed font-medium">
+            <div className="p-4 bg-rose-50 rounded-2xl border border-rose-200 text-xs sm:text-sm text-rose-900 leading-relaxed font-medium">
               {selectedNote}
             </div>
 
             <div className="text-[11px] text-zinc-500 font-normal">
-              Silakan sesuaikan isi naskah Anda berdasarkan masukan Agen Belokan di atas, lalu ajukan kembali (*resubmit*) naskah Anda.
+              Silakan sesuaikan isi naskah Anda berdasarkan masukan Tim Redaksi di atas, lalu ajukan kembali (*resubmit*) naskah Anda.
             </div>
 
             <div className="pt-2 flex justify-end">

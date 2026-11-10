@@ -13,8 +13,8 @@ export async function generateMetadata({
 }: SearchPageProps): Promise<Metadata> {
   const { q } = await searchParams;
   return {
-    title: q ? `Pencarian: "${q}" | BELOKIRI` : "Pencarian Tulisan & Analisis | BELOKIRI",
-    description: "Cari artikel, esai, dan perspektif mendalam di BELOKIRI.",
+    title: q ? `Pencarian: "${q}" | BAKUBACA` : "Pencarian Tulisan & Gagasan | BAKUBACA",
+    description: "Cari artikel, esai, dan perspektif mendalam di BAKUBACA.",
   };
 }
 

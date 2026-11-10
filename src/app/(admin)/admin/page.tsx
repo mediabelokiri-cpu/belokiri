@@ -36,13 +36,13 @@ export default async function AdminDashboardPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 sm:p-8 rounded-2xl border border-zinc-200 shadow-xs">
         <div>
           <span className="text-[10px] font-black uppercase tracking-widest text-red-600 bg-red-50 border border-red-200 px-2.5 py-0.5 rounded-full inline-block mb-2">
-            Peran: Dewan Agen Belokan / Admin
+            Peran: Tim Redaksi / Admin
           </span>
           <h1 className="text-2xl sm:text-3xl font-black text-black uppercase tracking-tight">
-            Meja Agen Belokan BELOKIRI
+            Meja Redaksi BAKUBACA
           </h1>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1 max-w-xl font-normal">
-            Selamat bekerja, {admin.name}. Tulis esai tajam, kurasi naskah masuk dengan presisi, dan pastikan setiap tulisan liar seperlunya, jenaka secukupnya.
+            Selamat bekerja, {admin.name}. Susun tulisan tajam, kurasi naskah Warga dengan presisi, dan jaga ruang gagasan tetap kritis serta merdeka.
           </p>
         </div>
 
@@ -122,24 +122,24 @@ export default async function AdminDashboardPage() {
         {/* Perlu Revisi */}
         <Link
           href="/admin/articles?status=REVISION"
-          className="p-5 rounded-2xl bg-white border border-zinc-200 hover:border-amber-400 transition-all shadow-xs group"
+          className="p-5 rounded-2xl bg-white border border-zinc-200 hover:border-rose-400 transition-all shadow-xs group"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-black uppercase tracking-wider text-amber-700">
+            <span className="text-xs font-black uppercase tracking-wider text-rose-700">
               Perlu Revisi
             </span>
-            <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600 group-hover:scale-105 transition-transform">
+            <div className="w-8 h-8 rounded-lg bg-rose-50 flex items-center justify-center text-rose-600 group-hover:scale-105 transition-transform">
               <AlertTriangle className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-4 flex items-baseline gap-2">
-            <span className="text-3xl font-black text-amber-600">
+            <span className="text-3xl font-black text-rose-600">
               {stats.revisionCount}
             </span>
             <span className="text-xs text-zinc-400 font-medium">naskah</span>
           </div>
           <p className="text-[11px] text-zinc-500 mt-2">
-            Di meja Warga Belokan
+            Di meja Warga
           </p>
         </Link>
 
@@ -199,7 +199,7 @@ export default async function AdminDashboardPage() {
                 Antrean Naskah Masuk Menunggu Tindakan
               </h2>
               <p className="text-xs text-zinc-500 mt-0.5 font-normal">
-                Naskah yang diajukan Warga Belokan dan siap diperiksa serta diputuskan
+                Naskah yang diajukan Warga dan siap diperiksa serta diputuskan
               </p>
             </div>
           </div>
@@ -220,7 +220,7 @@ export default async function AdminDashboardPage() {
               Semua Naskah Masuk Sudah Ditinjau!
             </h3>
             <p className="text-xs text-zinc-400 max-w-sm mx-auto">
-              Tidak ada naskah yang mengantre saat ini. Warga Belokan sedang mengerjakan draf dan revisi mereka.
+              Tidak ada naskah yang mengantre saat ini. Warga sedang mengerjakan draf dan revisi mereka.
             </p>
           </div>
         ) : (
@@ -307,7 +307,7 @@ export default async function AdminDashboardPage() {
                     <span className="text-emerald-700 font-black">menerbitkan</span>
                   )}
                   {log.action === "REQUEST_REVISION" && (
-                    <span className="text-red-600 font-black">meminta revisi</span>
+                    <span className="text-rose-600 font-black">meminta revisi</span>
                   )}
                   {log.action === "SUBMIT_ARTICLE" && (
                     <span className="text-amber-700 font-black">mengajukan naskah</span>

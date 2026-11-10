@@ -9,7 +9,7 @@ export const revalidate = 60;
 export async function generateMetadata(): Promise<Metadata> {
   const { page } = await getCustomPageAction("manifesto");
   return {
-    title: page.metaTitle || `${page.title} | BELOKIRI`,
+    title: page.metaTitle || `${page.title} | BAKUBACA`,
     description: page.metaDescription,
   };
 }
@@ -23,7 +23,7 @@ export default async function ManifestoPage() {
       <header className="text-center space-y-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-50 border border-red-200 text-red-600 text-xs font-black uppercase tracking-widest">
           <Flame className="w-3.5 h-3.5" />
-          <span>{page.badge || "Sikap Editorial Belokiri.id"}</span>
+          <span>{page.badge || "Sikap Editorial BAKUBACA"}</span>
         </div>
 
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-black tracking-tight uppercase leading-tight">
@@ -57,21 +57,21 @@ export default async function ManifestoPage() {
       </div>
 
       {/* CTA Box */}
-      <div className="p-8 sm:p-10 rounded-3xl bg-black text-white text-center space-y-4 border-t-4 border-red-600 shadow-xl">
-        <span className="text-xs font-black uppercase tracking-widest text-red-500">
+      <div className="p-8 sm:p-10 rounded-3xl bg-[#1f1f1f] text-white text-center space-y-4 border-t-4 border-[#4c13ff] shadow-xl">
+        <span className="text-xs font-black uppercase tracking-widest text-[#ffc22f]">
           Meja Terbuka
         </span>
         <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
           Punya Kegelisahan yang Sama?
         </h3>
-        <p className="text-xs sm:text-sm text-zinc-400 max-w-lg mx-auto font-normal leading-relaxed">
-          Kirimkan tulisan, esai tajam, atau liputan warkopmu ke Agen Belokan BELOKIRI.
-          Atau bergabunglah bersama kami melalui program Rekrutmen Anggota.
+        <p className="text-xs sm:text-sm text-zinc-300 max-w-lg mx-auto font-normal leading-relaxed">
+          Kirimkan tulisan, esai, catatan budaya, atau pengalamanmu ke meja redaksi BAKUBACA.
+          Atau bergabunglah bersama kami melalui program Rekrutmen Redaksi.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <Link
             href="/kirim-tulisan"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-red-600 text-white text-xs font-black uppercase tracking-wider hover:bg-red-700 transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#ffc22f] text-[#1f1f1f] text-xs font-black uppercase tracking-wider hover:bg-amber-300 transition-colors shadow-sm"
           >
             <span>Kirim Tulisan</span>
             <ArrowRight className="w-4 h-4" />

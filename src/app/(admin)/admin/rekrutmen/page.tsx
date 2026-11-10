@@ -48,7 +48,7 @@ export default function AdminRekrutmenPage() {
       if (res.success) {
         setApplications(res.data);
       } else {
-        setErrorMsg(res.error || "Gagal memuat data pendaftaran calon agen.");
+        setErrorMsg(res.error || "Gagal memuat data pendaftaran anggota baru.");
       }
     } catch (err) {
       setErrorMsg(
@@ -87,7 +87,7 @@ export default function AdminRekrutmenPage() {
   };
 
   const handleDelete = async (id: string, name: string) => {
-    if (!confirm(`Hapus berkas pendaftaran calon agen "${name}" secara permanen?`)) {
+    if (!confirm(`Hapus berkas pendaftaran calon redaksi "${name}" secara permanen?`)) {
       return;
     }
 
@@ -145,13 +145,13 @@ export default function AdminRekrutmenPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-zinc-200">
         <div>
           <span className="text-xs font-black uppercase tracking-widest text-red-600 bg-red-50 border border-red-200 px-3 py-1 rounded-full">
-            SELEKSI AWAK BELOKIRI
+            SELEKSI REDAKSI BAKUBACA
           </span>
           <h1 className="text-2xl sm:text-3xl font-black text-black tracking-tight uppercase mt-2">
-            Pendaftaran Rekrutmen Agen Belokan
+            Pendaftaran Rekrutmen Redaksi
           </h1>
           <p className="text-xs sm:text-sm text-zinc-500 font-normal mt-1">
-            Tinjau berkas lamaran, jawaban kuesioner kritis, dan putuskan siapa yang layak bergabung dengan Dewan Belokan.
+            Tinjau berkas lamaran, jawaban kuesioner kritis, dan putuskan siapa yang layak bergabung bersama Tim Redaksi.
           </p>
         </div>
 
@@ -191,8 +191,8 @@ export default function AdminRekrutmenPage() {
       </div>
 
       {errorMsg && (
-        <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 flex items-center gap-3">
-          <AlertCircle className="w-5 h-5 shrink-0 text-red-600" />
+        <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 flex items-center gap-3">
+          <AlertCircle className="w-5 h-5 shrink-0 text-rose-600" />
           <p className="text-xs sm:text-sm font-bold">{errorMsg}</p>
         </div>
       )}
@@ -249,7 +249,7 @@ export default function AdminRekrutmenPage() {
             </h3>
             <p className="text-xs text-zinc-400">
               {totalCount === 0
-                ? "Belum ada calon agen yang mengisi formulir rekrutmen."
+                ? "Belum ada pendaftar yang mengisi formulir rekrutmen."
                 : "Tidak ada pendaftar yang cocok dengan filter atau kata kunci saat ini."}
             </p>
           </div>
@@ -294,7 +294,7 @@ export default function AdminRekrutmenPage() {
                       {app.status === "DITERIMA" && (
                         <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-700 text-[10px] font-black uppercase tracking-wider">
                           <CheckCircle2 className="w-3 h-3" />
-                          <span>Diterima Jadi Agen</span>
+                          <span>Diterima Bergabung</span>
                         </span>
                       )}
                       {app.status === "DITOLAK" && (
@@ -323,7 +323,7 @@ export default function AdminRekrutmenPage() {
                       <button
                         onClick={() => handleUpdateStatus(app.id, "DITERIMA")}
                         className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider shadow-xs cursor-pointer transition-colors"
-                        title="Terima Calon Agen"
+                        title="Terima Pendaftar"
                       >
                         <CheckCircle2 className="w-3.5 h-3.5" />
                         <span>Terima</span>
@@ -334,7 +334,7 @@ export default function AdminRekrutmenPage() {
                       <button
                         onClick={() => handleUpdateStatus(app.id, "DITOLAK")}
                         className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold uppercase tracking-wider border border-zinc-300 cursor-pointer transition-colors"
-                        title="Tolak Calon Agen"
+                        title="Tolak Pendaftar"
                       >
                         <XCircle className="w-3.5 h-3.5" />
                         <span>Tolak</span>
@@ -354,7 +354,7 @@ export default function AdminRekrutmenPage() {
 
                     <button
                       onClick={() => handleDelete(app.id, app.namaLengkap)}
-                      className="p-2 rounded-xl text-zinc-400 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                      className="p-2 rounded-xl text-zinc-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                       title="Hapus Berkas Pendaftar"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -423,7 +423,7 @@ export default function AdminRekrutmenPage() {
                 {/* Fokus Bidang Badges */}
                 <div className="space-y-1.5">
                   <span className="text-[10px] font-black uppercase tracking-wider text-zinc-400">
-                    Fokus Bidang Agen yang Diminati:
+                    Fokus Bidang yang Diminati:
                   </span>
                   <div className="flex flex-wrap gap-2">
                     {app.fokusBidang.map((fokus) => (
@@ -471,7 +471,7 @@ export default function AdminRekrutmenPage() {
                   {/* Alasan Bergabung */}
                   <div className="p-4 sm:p-5 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-1.5">
                     <span className="text-[10px] font-black uppercase tracking-wider text-zinc-400 block">
-                      Alasan Ingin Bergabung dengan Dewan Belokan:
+                      Alasan Ingin Bergabung dengan Tim Redaksi:
                     </span>
                     <p className="text-xs sm:text-sm text-zinc-800 leading-relaxed font-normal whitespace-pre-wrap">
                       &ldquo;{app.alasanBergabung}&rdquo;

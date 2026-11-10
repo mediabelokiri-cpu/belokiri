@@ -38,7 +38,7 @@ export default function ReadingProgressBar() {
       aria-valuemax={100}
     >
       <div
-        className="h-full bg-red-600 transition-[width] duration-150 ease-out shadow-[0_0_8px_rgba(204,0,1,0.6)]"
+        className="h-full bg-[#4c13ff] transition-[width] duration-150 ease-out shadow-[0_0_8px_rgba(76,19,255,0.5)]"
         style={{ width: `${progress}%` }}
       />
     </div>

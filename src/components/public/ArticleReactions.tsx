@@ -250,14 +250,14 @@ export default function ArticleReactions({
               Punya Sudut Pandang Berbeda atau Narasi Tandingan?
             </p>
             <p className="text-[11px] text-zinc-500 font-normal">
-              Jangan cuma diam. Tuliskan analisis atau opinimu di Meja Warga Belokan.
+              Jangan cuma diam. Tuliskan analisis atau opinimu di Meja Warga Bakubaca.
             </p>
           </div>
         </div>
 
         <Link
           href="/kirim-tulisan"
-          className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-black hover:bg-red-600 text-white text-xs font-black uppercase tracking-wider transition-colors shrink-0 shadow-xs"
+          className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[#1f1f1f] hover:bg-[#4c13ff] text-white text-xs font-black uppercase tracking-wider transition-colors shrink-0 shadow-xs"
         >
           <PenSquare className="w-3.5 h-3.5" />
           <span>Tulis Naskah</span>

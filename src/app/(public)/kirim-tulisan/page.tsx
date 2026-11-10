@@ -23,7 +23,7 @@ export const revalidate = 60;
 export async function generateMetadata(): Promise<Metadata> {
   const { page } = await getCustomPageAction("kirim-tulisan");
   return {
-    title: page.metaTitle || `${page.title} | BELOKIRI`,
+    title: page.metaTitle || `${page.title} | BAKUBACA`,
     description: page.metaDescription,
   };
 }
@@ -70,13 +70,13 @@ const REWARD_ITEMS = [
   {
     title: "Tumbler",
     subtitle: "Merchandise Eksklusif",
-    desc: "Tumbler eksklusif Belokiri untuk menemani ngopi, nulis, dan diskusi harianmu.",
+    desc: "Tumbler eksklusif Bakubaca untuk menemani ngopi, nulis, dan diskusi harianmu.",
     icon: TumblerIcon,
   },
   {
-    title: "Kaos Belokiri",
-    subtitle: "Kaos Warga Belokan",
-    desc: "Kaos sablon orisinal edisi Warga Belokan yang berkarakter dan berani bersikap.",
+    title: "Kaos Bakubaca",
+    subtitle: "Kaos Warga Bakubaca",
+    desc: "Kaos sablon orisinal edisi Warga Bakubaca yang berkarakter dan merawat ruang gagasan.",
     icon: Shirt,
   },
 ];
@@ -94,7 +94,7 @@ const REWARD_RULES = [
     text: (
       <>
         Jumlah pembaca mengacu pada{" "}
-        <strong className="text-black font-black">data pembaca yang tercatat pada sistem Belokiri</strong>.
+        <strong className="text-black font-black">data pembaca yang tercatat pada sistem BAKUBACA</strong>.
       </>
     ),
   },
@@ -110,7 +110,7 @@ const REWARD_RULES = [
     text: (
       <>
         Reward diberikan kepada{" "}
-        <strong className="text-black font-black">penulis yang terdaftar sebagai Warga Belokan</strong> dan mengirimkan tulisan tersebut.
+        <strong className="text-black font-black">penulis yang terdaftar sebagai Warga</strong> dan mengirimkan tulisan tersebut.
       </>
     ),
   },
@@ -125,7 +125,7 @@ const REWARD_RULES = [
   {
     text: (
       <>
-        Jika reward pilihan sedang tidak tersedia, Warga Belokan dapat memilih reward lain yang tersedia.
+        Jika reward pilihan sedang tidak tersedia, Warga dapat memilih reward lain yang tersedia.
       </>
     ),
   },
@@ -182,7 +182,7 @@ const PROHIBITIONS = [
   {
     number: "09",
     title: "Tanpa Hak Publikasi",
-    desc: "Pastikan kamu adalah pemilik orisinal dari naskah tersebut atau memiliki hak resmi untuk mengirimkannya ke Belokiri.",
+    desc: "Pastikan kamu adalah pemilik orisinal dari naskah tersebut atau memiliki hak resmi untuk mengirimkannya ke BAKUBACA.",
   },
 ];
 
@@ -195,7 +195,7 @@ export default async function KirimTulisanPage() {
       <BreadcrumbJsonLd
         items={[
           { name: "Beranda", url: baseUrl },
-          { name: "Menulis di Belokiri", url: `${baseUrl}/kirim-tulisan` },
+          { name: "Menulis di BAKUBACA", url: `${baseUrl}/kirim-tulisan` },
         ]}
       />
 
@@ -203,7 +203,7 @@ export default async function KirimTulisanPage() {
       <header className="text-center space-y-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-50 border border-red-200 text-red-600 text-xs font-black uppercase tracking-widest">
           <PenSquare className="w-3.5 h-3.5" />
-          <span>{page.badge || "Ruang Kontributor • Warga Belokan"}</span>
+          <span>{page.badge || "Ruang Kontributor • Warga Bakubaca"}</span>
         </div>
 
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-black tracking-tight uppercase leading-tight">
@@ -249,22 +249,22 @@ export default async function KirimTulisanPage() {
         </div>
 
         {/* Callout: Tulis Saja */}
-        <div className="p-6 sm:p-8 rounded-2xl bg-zinc-900 text-white space-y-2 border-l-4 border-red-600 shadow-xs">
-          <span className="text-xs font-black uppercase tracking-widest text-red-500">
+        <div className="p-6 sm:p-8 rounded-2xl bg-[#1f1f1f] text-white space-y-2 border-l-4 border-[#4c13ff] shadow-xs">
+          <span className="text-xs font-black uppercase tracking-widest text-[#ffc22f]">
             Sikap Kami
           </span>
           <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">
             Tulis Saja.
           </h2>
           <p className="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed">
-            Belokiri membuka ruang bagi siapa saja yang ingin berbagi gagasan, cerita, pengamatan, keresahan, kritik, atau sekadar sudut pandang yang mungkin belum banyak dibicarakan.
+            BAKUBACA membuka ruang bagi siapa saja yang ingin berbagi gagasan, cerita, pengamatan, keresahan, kritik, atau ekspresi kreatif yang selama ini belum mendapat tempat.
           </p>
         </div>
 
         <div className="space-y-4 text-base sm:text-lg text-zinc-700 leading-relaxed font-normal">
           <p>
             Kami tidak mencari tulisan yang sok pintar. Kami mencari tulisan yang{" "}
-            <strong className="text-black font-black bg-yellow-100 px-1.5 py-0.5 rounded">
+            <strong className="text-black font-black bg-[#ffc22f]/35 px-1.5 py-0.5 rounded">
               punya sesuatu untuk dikatakan.
             </strong>
           </p>
@@ -272,7 +272,7 @@ export default async function KirimTulisanPage() {
             Kamu tidak harus menjadi wartawan. Tidak harus mahasiswa. Tidak harus punya gelar yang panjangnya mengalahkan judul skripsi. Yang penting, kamu punya cara melihat sesuatu dan keberanian untuk menuangkannya menjadi tulisan.
           </p>
           <p>
-            Di Belokiri, para kontributor disebut <strong>Warga Belokan</strong>. Mereka datang dari berbagai latar, membawa cerita dan kegelisahan masing-masing. Sebab kami percaya, percakapan yang menarik tidak selalu lahir dari ruang redaksi. Kadang ia lahir dari teras rumah, bangku warkop, perjalanan pulang, ruang kelas, pasar, sekretariat, atau dari seseorang yang tiba-tiba berpikir:
+            Di BAKUBACA, para penulis dan pembaca sama-sama disebut <strong>Warga</strong>. Mereka datang dari berbagai latar, membawa cerita dan kegelisahan masing-masing. Sebab kami percaya, percakapan yang hidup tidak selalu lahir dari meja resmi; ia tumbuh dari teras rumah, bangku warung kopi, ruang kelas, perjalanan pulang, atau dari seseorang yang tiba-tiba bertanya:
           </p>
         </div>
 
@@ -320,23 +320,23 @@ export default async function KirimTulisanPage() {
 
         <div className="p-5 rounded-2xl bg-zinc-100 border border-zinc-200 text-center space-y-1">
           <p className="text-xs sm:text-sm text-zinc-700 font-normal">
-            Tidak harus selalu berat. Belokiri juga percaya bahwa sesuatu yang serius tidak harus ditulis dengan muka serius.
+            Tidak harus selalu kaku. BAKUBACA percaya setiap kegelisahan maupun perayaan ekspresi berhak menemukan bentuknya sendiri.
           </p>
           <p className="text-xs sm:text-sm font-black text-black uppercase tracking-wider">
-            Liar seperlunya. Jenaka secukupnya.
+            Setiap Pikiran Punya Ruang.
           </p>
         </div>
       </section>
 
-      {/* Section 2: Reward Bagi Warga Belokan */}
+      {/* Section 2: Reward Bagi Warga */}
       <section className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-10 shadow-xs space-y-10">
         <div className="space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200 text-red-600 text-xs font-black uppercase tracking-widest">
             <Gift className="w-3.5 h-3.5" />
-            <span>Apresiasi Warga Belokan</span>
+            <span>Apresiasi Warga</span>
           </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-black uppercase tracking-tight">
-            Reward Bagi Warga Belokan
+            Reward Bagi Warga
           </h2>
           <h3 className="text-lg sm:text-xl font-black text-red-600 tracking-tight">
             Tulisanmu dibaca 500 orang dalam 3 hari? Ada hadiahnya.
@@ -348,13 +348,13 @@ export default async function KirimTulisanPage() {
             Kami tahu, menulis itu kadang lebih melelahkan daripada membaca komentar orang yang tidak membaca tulisan kita.
           </p>
           <p>
-            Makanya, Belokiri ingin memberi apresiasi buat{" "}
-            <strong className="text-black font-black">Warga Belokan</strong> yang tulisannya berhasil mengundang banyak pembaca.
+            Makanya, BAKUBACA ingin memberi apresiasi buat{" "}
+            <strong className="text-black font-black">Warga</strong> yang tulisannya berhasil mengundang banyak pembaca.
           </p>
           <p>
             Jika tulisanmu mencapai{" "}
-            <strong className="text-black font-black bg-yellow-100 px-2 py-0.5 rounded">
-              500 pembaca dalam waktu 3 hari sejak dipublikasikan di Belokiri
+            <strong className="text-black font-black bg-[#ffc22f]/35 px-2 py-0.5 rounded">
+              500 pembaca dalam waktu 3 hari sejak dipublikasikan di BAKUBACA
             </strong>
             , kamu berhak mendapatkan reward berupa:
           </p>
@@ -398,7 +398,7 @@ export default async function KirimTulisanPage() {
 
                 <div className="pt-3 border-t border-zinc-200/60 text-center">
                   <span className="text-[11px] font-bold text-zinc-400 group-hover:text-black transition-colors">
-                    Tersedia untuk Warga Belokan
+                    Tersedia untuk Warga Bakubaca
                   </span>
                 </div>
               </div>
@@ -407,21 +407,21 @@ export default async function KirimTulisanPage() {
         </div>
 
         {/* Motivational Humorous Callout */}
-        <div className="p-6 sm:p-8 rounded-2xl bg-zinc-900 text-white space-y-4 border-l-4 border-yellow-400">
+        <div className="p-6 sm:p-8 rounded-2xl bg-[#1f1f1f] text-white space-y-4 border-l-4 border-[#ffc22f]">
           <p className="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed">
             Tidak perlu jadi penulis terkenal. Tidak perlu punya ribuan followers.
           </p>
           <p className="text-sm sm:text-base text-zinc-200 font-normal leading-relaxed">
             Cukup bikin tulisan yang membuat orang berhenti scroll, lalu berpikir:
           </p>
-          <div className="text-2xl sm:text-3xl font-black text-yellow-400 tracking-tight italic">
+          <div className="text-2xl sm:text-3xl font-black text-[#ffc22f] tracking-tight italic">
             &ldquo;Eh, ini menarik juga.&rdquo;
           </div>
           <p className="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed">
-            Karena kalau mantan saja bisa bikin orang kepo berhari-hari, masa tulisanmu nggak bisa bikin 500 orang penasaran?
+            Karena setiap pikiran yang jernih dan jujur selalu menemukan pembacanya sendiri.
           </p>
           <div className="pt-3 border-t border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <span className="text-base sm:text-lg font-black text-red-500 uppercase tracking-wider flex items-center gap-1.5">
+            <span className="text-base sm:text-lg font-black text-[#ffc22f] uppercase tracking-wider flex items-center gap-1.5">
               <Flame className="w-4 h-4" />
               <span>Tulis. Kirim. Bikin ramai.</span>
             </span>
@@ -443,7 +443,7 @@ export default async function KirimTulisanPage() {
               Mekanisme Pemilihan Reward
             </h3>
             <p className="text-sm sm:text-base text-zinc-700 font-normal leading-relaxed">
-              Setiap tulisan Warga Belokan yang berhasil mencapai{" "}
+              Setiap tulisan Warga yang berhasil mencapai{" "}
               <strong className="text-black font-black">
                 500 pembaca dalam waktu 3 hari sejak dipublikasikan
               </strong>{" "}
@@ -457,7 +457,7 @@ export default async function KirimTulisanPage() {
               <span>Pilih Hadiahmu</span>
             </h4>
             <p className="text-sm text-zinc-700 leading-relaxed font-normal">
-              Warga Belokan yang berhasil mencapai target dapat{" "}
+              Warga yang berhasil mencapai target dapat{" "}
               <strong className="text-black font-bold">memilih sendiri satu jenis reward</strong> yang diinginkan:
             </p>
             <div className="flex flex-wrap gap-2.5 pt-1">
@@ -471,7 +471,7 @@ export default async function KirimTulisanPage() {
               </span>
               <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-zinc-200 text-xs font-bold text-zinc-900 shadow-2xs">
                 <Shirt className="w-3.5 h-3.5 text-red-600" />
-                <span>Kaos Belokiri</span>
+                <span>Kaos Bakubaca</span>
               </span>
             </div>
             <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed font-normal pt-2">
@@ -496,7 +496,7 @@ export default async function KirimTulisanPage() {
           </div>
 
           {/* Closing Punchline Banner */}
-          <div className="p-5 rounded-2xl bg-gradient-to-r from-red-600 to-red-700 text-white text-center shadow-sm">
+          <div className="p-5 rounded-2xl bg-gradient-to-r from-[#4c13ff] to-[#3d0dd9] text-white text-center shadow-sm">
             <p className="text-base sm:text-lg font-black tracking-tight">
               &ldquo;Tulisannya ramai, hadiahnya menyusul.&rdquo; 😎
             </p>
@@ -505,20 +505,20 @@ export default async function KirimTulisanPage() {
       </section>
 
       {/* Section 3: Hal-Hal yang Dilarang */}
-      <section className="bg-white border-2 border-red-600/30 rounded-3xl p-6 sm:p-10 shadow-xs space-y-8">
+      <section className="bg-white border-2 border-rose-500/30 rounded-3xl p-6 sm:p-10 shadow-xs space-y-8">
         <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center shrink-0 mt-0.5">
+          <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0 mt-0.5">
             <ShieldAlert className="w-5 h-5" />
           </div>
           <div>
-            <span className="text-xs font-black uppercase tracking-widest text-red-600">
+            <span className="text-xs font-black uppercase tracking-widest text-rose-700">
               Integritas & Etika
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-black uppercase tracking-tight">
               Hal-Hal yang Dilarang
             </h2>
             <p className="text-xs sm:text-sm text-zinc-600 mt-1 font-normal leading-relaxed">
-              Kebebasan menulis bukan berarti bebas menulis apa saja tanpa konsekuensi. Belokiri terbuka terhadap kritik, perbedaan pendapat, satire, bahkan tulisan yang bikin meja redaksi sedikit panas. Tapi ada beberapa hal yang <strong>tidak kami terima</strong>:
+              Kebebasan menulis bukan berarti bebas menulis apa saja tanpa konsekuensi. BAKUBACA terbuka terhadap kritik, perbedaan pendapat, refleksi, hingga eksperimen bahasa. Tapi ada beberapa hal yang <strong>tidak kami terima</strong>:
             </p>
           </div>
         </div>
@@ -530,7 +530,7 @@ export default async function KirimTulisanPage() {
               className="p-4 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-2"
             >
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono font-black text-red-600 bg-red-50 px-2 py-0.5 rounded-md border border-red-200">
+                <span className="text-[11px] font-mono font-black text-rose-700 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200">
                   {item.number}
                 </span>
                 <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">
@@ -548,16 +548,16 @@ export default async function KirimTulisanPage() {
         </div>
 
         <div className="p-4 rounded-2xl bg-zinc-100 border border-zinc-200 text-xs text-zinc-600 font-normal leading-relaxed">
-          Pada akhirnya, redaksi berhak menolak, menyunting, atau meminta perbaikan terhadap tulisan yang tidak sesuai dengan standar editorial Belokiri. Karena menjadi <strong>Warga Belokan</strong> bukan cuma soal punya tulisan, tapi juga soal bertanggung jawab atas apa yang kita tuliskan.
+          Pada akhirnya, redaksi berhak menolak, menyunting, atau meminta perbaikan terhadap tulisan yang tidak sesuai dengan standar editorial BAKUBACA. Karena menjadi <strong>Warga</strong> bukan cuma soal punya tulisan, tapi juga soal bertanggung jawab atas apa yang kita tuliskan.
         </div>
       </section>
         </>
       )}
 
       {/* Section 4: Final CTA */}
-      <section className="p-8 sm:p-12 rounded-3xl bg-black text-white text-center space-y-6 border-t-4 border-red-600 shadow-xl">
+      <section className="p-8 sm:p-12 rounded-3xl bg-[#1f1f1f] text-white text-center space-y-6 border-t-4 border-[#4c13ff] shadow-xl">
         <div className="space-y-2">
-          <span className="text-xs font-black uppercase tracking-widest text-red-500">
+          <span className="text-xs font-black uppercase tracking-widest text-[#ffc22f]">
             Meja Naskah Terbuka
           </span>
           <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
@@ -566,25 +566,25 @@ export default async function KirimTulisanPage() {
         </div>
 
         <p className="text-xs sm:text-sm text-zinc-300 max-w-xl mx-auto font-normal leading-relaxed">
-          Kirimkan. Tulisanmu akan dibaca dan dipertimbangkan oleh redaksi Belokiri. Tidak semua tulisan akan diterbitkan, tetapi setiap tulisan punya kesempatan untuk menjadi bagian dari percakapan.
+          Kirimkan. Tulisanmu akan dibaca dan dipertimbangkan oleh redaksi BAKUBACA. Tidak semua tulisan akan diterbitkan, tetapi setiap tulisan punya kesempatan untuk menjadi bagian dari percakapan.
         </p>
 
         <p className="text-xs sm:text-sm text-zinc-400 max-w-lg mx-auto italic">
-          Kalau tulisanmu punya gagasan, punya cerita, dan punya alasan untuk dibaca orang lain—barangkali Belokiri adalah tempatnya.
+          Kalau tulisanmu punya gagasan, punya cerita, dan punya alasan untuk dibaca orang lain—barangkali BAKUBACA adalah tempatnya.
         </p>
 
         <div className="pt-2 space-y-4">
-          <p className="text-base sm:text-lg font-black uppercase tracking-wider text-red-500">
-            Jadilah Warga Belokan. Kirim tulisanmu.
+          <p className="text-base sm:text-lg font-black uppercase tracking-wider text-[#ffc22f]">
+            Jadilah Warga Bakubaca. Kirim tulisanmu.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
               href="/login"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-red-600 text-white text-xs sm:text-sm font-black uppercase tracking-wider hover:bg-red-700 transition-all shadow-lg transform active:scale-95 group cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-[#ffc22f] text-[#1f1f1f] text-xs sm:text-sm font-black uppercase tracking-wider hover:bg-amber-300 transition-all shadow-lg transform active:scale-95 group cursor-pointer"
             >
-              <PenSquare className="w-4 h-4 text-white group-hover:rotate-12 transition-transform" />
-              <span>Masuk / Daftar Akun Warga Belokan</span>
+              <PenSquare className="w-4 h-4 text-[#1f1f1f] group-hover:rotate-12 transition-transform" />
+              <span>Masuk / Daftar Akun Warga</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>

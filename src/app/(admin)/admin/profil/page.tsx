@@ -4,8 +4,8 @@ import { prisma } from "@/lib/db/prisma";
 import AdminProfileForm from "@/components/admin/AdminProfileForm";
 
 export const metadata: Metadata = {
-  title: "Profil Admin & Agen Belokan | BELOKIRI",
-  description: "Kelola nama, foto profil, dan kredensial akun Administrator Agen Belokan BELOKIRI.",
+  title: "Profil Admin & Redaksi | BAKUBACA",
+  description: "Kelola nama, foto profil, dan kredensial akun Administrator Redaksi BAKUBACA.",
 };
 
 export default async function AdminProfilePage() {
@@ -26,7 +26,7 @@ export default async function AdminProfilePage() {
           Profil Akun Admin
         </h1>
         <p className="text-xs sm:text-sm text-zinc-500 font-normal">
-          Kelola nama tampilan, identitas redaksi, dan foto profil administrator BELOKIRI.
+          Kelola nama tampilan, identitas redaksi, dan foto profil administrator BAKUBACA.
         </p>
       </div>
 

@@ -1,12 +1,15 @@
-// BELOKIRI Service Worker for Progressive Web App (PWA)
-const CACHE_NAME = "belokiri-v1";
+// BAKUBACA Service Worker for Progressive Web App (PWA)
+const CACHE_NAME = "bakubaca-v1";
 const STATIC_ASSETS = [
   "/",
   "/manifest.json",
   "/icons/icon-192x192.png",
   "/icons/icon-512x512.png",
   "/icons/apple-touch-icon.png",
-  "/images/logo-belokiri-red.png"
+  "/images/logoheaderbakubaca.png",
+  "/images/logourlbarbakubaca.png",
+  "/images/logoiconinstallmobilebakubaca.png",
+  "/images/patternbakubaca.png"
 ];
 
 self.addEventListener("install", (event) => {

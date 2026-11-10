@@ -9,7 +9,7 @@ export const revalidate = 60;
 export async function generateMetadata(): Promise<Metadata> {
   const { page } = await getCustomPageAction("pedoman-media-siber");
   return {
-    title: page.metaTitle || `${page.title} | BELOKIRI`,
+    title: page.metaTitle || `${page.title} | BAKUBACA`,
     description: page.metaDescription,
   };
 }
@@ -63,7 +63,7 @@ export default async function PedomanMediaSiberPage() {
         </p>
         <p>
           Kirimkan surat permohonan hak jawab, klarifikasi, atau laporan pelanggaran kode etik ke:{" "}
-          <strong className="text-red-600">redaksi@belokiri.id</strong> atau via pos ke Meja Redaksi BELOKIRI.
+          <strong className="text-red-600">redaksi@belokiri.id</strong> atau via pos ke Meja Redaksi BAKUBACA.
         </p>
       </div>
     </div>

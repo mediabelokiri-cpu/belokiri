@@ -5,8 +5,8 @@ import { ArrowLeft, AlertCircle } from "lucide-react";
 import AuthForm from "@/components/auth/AuthForm";
 
 export const metadata: Metadata = {
-  title: "Masuk & Registrasi Warga Belokan | BELOKIRI",
-  description: "Masuk ke Meja Warga atau Panel Redaksi Agen Belokan BELOKIRI untuk menulis dan mengelola naskah.",
+  title: "Masuk & Registrasi Warga | BAKUBACA",
+  description: "Masuk ke Meja Warga atau Panel Redaksi BAKUBACA untuk menulis dan mengelola naskah.",
 };
 
 interface LoginPageProps {
@@ -23,50 +23,55 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   const isGoogleNotConfigured = params.error === "google_not_configured";
 
   return (
-    <div className="min-h-screen bg-[#fbfbfb] flex flex-col justify-between p-4 sm:p-6 font-sans">
+    <div className="min-h-screen bg-[#fbfaf8] flex flex-col justify-between p-4 sm:p-6 font-sans">
       {/* Top Bar */}
       <div className="max-w-6xl mx-auto w-full flex items-center justify-between">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-xs font-black uppercase text-zinc-700 hover:text-red-600 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-black uppercase text-zinc-700 hover:text-[#4c13ff] transition-colors"
         >
-          <ArrowLeft className="w-4 h-4 text-red-600" />
+          <ArrowLeft className="w-4 h-4 text-[#4c13ff]" />
           <span>Kembali ke Beranda</span>
         </Link>
-        <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">
-          Portal Autentikasi BELOKIRI
+        <span className="text-xs text-zinc-500 font-bold uppercase tracking-wider">
+          Portal Autentikasi BAKUBACA
         </span>
       </div>
 
       {/* Main Login Card */}
       <div className="max-w-md w-full mx-auto my-8 bg-white border border-zinc-200 rounded-3xl p-6 sm:p-8 shadow-xs text-center space-y-6">
         <div className="flex flex-col items-center">
-          <Image
-            src="/images/logo-belokiri-red.png"
-            alt="BELOKIRI"
-            width={210}
-            height={40}
-            className="h-10 w-auto object-contain"
-            priority
-          />
-          <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500 mt-2">
-            Liar seperlunya, jenaka secukupnya
+          <div className="inline-flex items-center gap-2.5">
+            <Image
+              src="/images/logourlbarbakubaca.png"
+              alt="Logo BAKUBACA"
+              width={40}
+              height={40}
+              className="w-10 h-10 object-contain shrink-0"
+              priority
+            />
+            <span className="text-2xl font-black tracking-tight text-[#1f1f1f]">
+              BAKUBACA
+            </span>
+          </div>
+          <p className="text-[11px] font-black uppercase tracking-widest text-[#4c13ff] mt-2">
+            Setiap Pikiran Punya Ruang.
           </p>
         </div>
 
         <div className="space-y-1">
-          <h1 className="text-xl font-black text-black uppercase tracking-tight">
-            Portal Warga Belokan
+          <h1 className="text-xl font-black text-[#1f1f1f] uppercase tracking-tight">
+            Portal Warga
           </h1>
-          <p className="text-xs text-zinc-500 leading-relaxed font-normal">
-            Masuk ke ruang gagasan warga Belokan & menulislah untuk keabadian.
+          <p className="text-xs text-zinc-600 leading-relaxed font-normal">
+            Masuk ke ruang gagasan Warga Bakubaca &amp; mulai menulis untuk publik.
           </p>
         </div>
 
         {isSuspended && (
-          <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-left flex items-start gap-2 text-xs text-red-700">
-            <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
-            <p>Akun Anda sedang ditangguhkan. Hubungi tim Agen Belokan BELOKIRI untuk informasi lebih lanjut.</p>
+          <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-left flex items-start gap-2 text-xs text-rose-700">
+            <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+            <p>Akun Anda sedang ditangguhkan. Hubungi tim Redaksi BAKUBACA untuk informasi lebih lanjut.</p>
           </div>
         )}
 
@@ -89,8 +94,8 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
       </div>
 
       {/* Bottom Footer */}
-      <div className="max-w-6xl mx-auto w-full text-center text-xs text-zinc-400 font-medium pb-2">
-        © {new Date().getFullYear()} BELOKIRI. Seluruh hak cipta milik Tuhan YME. | Liar Seperlunya, Jenaka Secukupnya
+      <div className="max-w-6xl mx-auto w-full text-center text-xs text-zinc-500 font-medium pb-2">
+        © {new Date().getFullYear()} BAKUBACA. Setiap Pikiran Punya Ruang.
       </div>
     </div>
   );

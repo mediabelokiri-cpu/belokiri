@@ -9,7 +9,7 @@ import { prisma } from "@/lib/db/prisma";
 
 function mapDbToArticle(a: any): MockArticle {
   const roleLabel =
-    a.author.role === "ADMIN" ? "Agen Belokan (Admin)" : "Warga Belokan BELOKIRI";
+    a.author.role === "ADMIN" ? "Tim Redaksi BAKUBACA" : "Warga BAKUBACA";
 
   return {
     id: a.id,
@@ -31,8 +31,8 @@ function mapDbToArticle(a: any): MockArticle {
     rubrik: {
       name: a.category.name,
       slug: a.category.slug,
-      question: a.category.description || "Liar Seperlunya, Jenaka Secukupnya.",
-      badgeColor: "bg-red-600",
+      question: a.category.description || "Setiap Pikiran Punya Ruang.",
+      badgeColor: "bg-[#4c13ff]",
       description: a.category.description || "",
     },
     author: {
@@ -44,7 +44,7 @@ function mapDbToArticle(a: any): MockArticle {
         "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80",
       bio:
         a.author.bio ||
-        "Warga Belokan aktif yang menyuarakan gagasan, opini kritis, dan cerita masyarakat sehari-hari.",
+        "Warga Bakubaca yang berbagi gagasan, opini kritis, refleksi, dan cerita kebudayaan.",
       role: roleLabel,
     },
     tags: a.tags ? a.tags.map((t: any) => t.tag?.name || t.name || t) : [],
@@ -310,7 +310,7 @@ export const getAuthorBySlug = cache(async function getAuthorBySlug(slug: string
 
     if (dbUser) {
       const roleLabel =
-        dbUser.role === "ADMIN" ? "Agen Belokan (Admin)" : "Warga Belokan BELOKIRI";
+        dbUser.role === "ADMIN" ? "Tim Redaksi BAKUBACA" : "Warga BAKUBACA";
 
       const author = {
         id: dbUser.id,
@@ -322,7 +322,7 @@ export const getAuthorBySlug = cache(async function getAuthorBySlug(slug: string
           "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80",
         bio:
           dbUser.bio ||
-          "Warga Belokan aktif yang menyuarakan gagasan, opini kritis, dan cerita masyarakat sehari-hari.",
+          "Warga Bakubaca yang berbagi gagasan, opini kritis, refleksi, dan cerita kebudayaan.",
         role: roleLabel,
       };
 
@@ -343,8 +343,8 @@ export const getAuthorBySlug = cache(async function getAuthorBySlug(slug: string
         rubrik: {
           name: a.category.name,
           slug: a.category.slug,
-          question: a.category.description || "Liar Seperlunya, Jenaka Secukupnya.",
-          badgeColor: "bg-red-600",
+          question: a.category.description || "Setiap Pikiran Punya Ruang.",
+          badgeColor: "bg-[#4c13ff]",
           description: a.category.description || "",
         },
         author: {
@@ -471,8 +471,8 @@ export const getAllRubriks = cache(async function getAllRubriks() {
         id: c.id,
         name: c.name,
         slug: c.slug,
-        question: c.description || "Liar Seperlunya, Jenaka Secukupnya.",
-        badgeColor: "bg-red-600",
+        question: c.description || "Setiap Pikiran Punya Ruang.",
+        badgeColor: "bg-[#4c13ff]",
         description: c.description || "",
       }));
     }

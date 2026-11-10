@@ -67,8 +67,8 @@ function mapDbArticleToContributorItem(a: any): ContributorArticleItem {
     photoSource: a.photoSource,
     source: a.source,
     categoryId: a.categoryId,
-    categoryName: a.category ? a.category.name : "BERISIK",
-    categorySlug: a.category ? a.category.slug : "berisik",
+    categoryName: a.category ? a.category.name : "BISING",
+    categorySlug: a.category ? a.category.slug : "bising",
     status: a.status,
     adminNote: a.adminNote,
     tags: a.tags ? a.tags.map((t: any) => t.tag?.name || t.name || t) : [],
@@ -211,7 +211,7 @@ export async function saveArticleDraft(
     bio?: string | null;
   }
 ): Promise<ContributorArticleItem> {
-  const catSlug = (data.categoryId || "berisik").replace(/^rubrik-/, "");
+  const catSlug = (data.categoryId || "bising").replace(/^rubrik-/, "");
   let dbCategory = null;
   try {
     dbCategory = await prisma.category.findFirst({

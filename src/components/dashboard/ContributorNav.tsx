@@ -44,15 +44,16 @@ export default function ContributorNav() {
               <Link
                 key={link.href}
                 href={link.href}
+                aria-current={link.active ? "page" : undefined}
                 className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap ${
                   link.active
-                    ? "bg-white text-black shadow-xs border border-zinc-200 border-b-2 border-b-red-600"
-                    : "text-zinc-600 hover:text-black hover:bg-zinc-100"
+                    ? "bg-white text-[#1f1f1f] shadow-xs border border-zinc-200 border-b-2 border-b-[#4c13ff]"
+                    : "text-zinc-600 hover:text-[#1f1f1f] hover:bg-zinc-100"
                 }`}
               >
                 <Icon
                   className={`w-4 h-4 ${
-                    link.active ? "text-red-600" : "text-zinc-400"
+                    link.active ? "text-[#4c13ff]" : "text-zinc-400"
                   }`}
                 />
                 <span>{link.name}</span>

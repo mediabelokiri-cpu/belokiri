@@ -24,7 +24,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${data.author.name} — Profil Penulis | BELOKIRI`,
+    title: `${data.author.name} — Profil Penulis | BAKUBACA`,
     description: data.author.bio,
   };
 }

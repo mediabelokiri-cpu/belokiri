@@ -7,8 +7,8 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata = {
-  title: "Meja Agen Belokan & CMS | BELOKIRI",
-  description: "Panel kurasi, publikasi naskah, dan manajemen editorial Agen Belokan BELOKIRI.",
+  title: "Meja Redaksi & CMS | BAKUBACA",
+  description: "Panel kurasi, publikasi naskah, dan manajemen editorial Redaksi BAKUBACA.",
 };
 
 export default async function AdminLayout({
@@ -20,7 +20,7 @@ export default async function AdminLayout({
   const queue = await getReviewQueue();
 
   return (
-    <div className="min-h-screen bg-[#fafaf9] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#fbfaf8] flex flex-col font-sans">
       <AdminHeader user={admin} />
       
       <div className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
@@ -37,7 +37,7 @@ export default async function AdminLayout({
         </div>
       </div>
       <footer className="border-t border-zinc-200 bg-white py-6 text-center text-xs text-zinc-400 font-medium">
-        BELOKIRI Meja Agen Belokan • Liar Seperlunya, Jenaka Secukupnya
+        BAKUBACA • Setiap Pikiran Punya Ruang.
       </footer>
     </div>
   );

@@ -61,7 +61,7 @@ export async function publishArticleAction(
     return {
       success: true,
       data: { id: published.id },
-      message: "Naskah berhasil disetujui dan resmi diterbitkan di BELOKIRI!",
+      message: "Naskah berhasil disetujui dan resmi diterbitkan di BAKUBACA!",
     };
   } catch (error: any) {
     return {
@@ -166,13 +166,13 @@ export async function toggleEditorPickAction(
       success: true,
       data: { isEditorPick },
       message: isEditorPick
-        ? "Artikel ditandai sebagai Pilihan Agen Belokan."
-        : "Label Pilihan Agen Belokan dilepas.",
+        ? "Artikel ditandai sebagai Pilihan Redaksi."
+        : "Label Pilihan Redaksi dilepas.",
     };
   } catch (error: any) {
     return {
       success: false,
-      message: error?.message || "Gagal mengubah status Pilihan Agen Belokan.",
+      message: error?.message || "Gagal mengubah status Pilihan Redaksi.",
     };
   }
 }
@@ -227,8 +227,8 @@ export async function toggleUserStatusAction(
       data: { status: newStatus },
       message:
         newStatus === "SUSPENDED"
-          ? "Akun Warga Belokan berhasil ditangguhkan."
-          : "Akun Warga Belokan berhasil diaktifkan kembali.",
+          ? "Akun Warga berhasil ditangguhkan."
+          : "Akun Warga berhasil diaktifkan kembali.",
     };
   } catch (error: any) {
     return {
@@ -239,7 +239,7 @@ export async function toggleUserStatusAction(
 }
 
 /**
- * Save or Publish article directly by Agen Belokan
+ * Save or Publish article directly by Redaksi
  */
 export async function saveArticleByAdminAction(
   data: {
@@ -313,7 +313,7 @@ export async function saveArticleByAdminAction(
       saved.status === "PUBLISHED"
         ? "Artikel resmi diterbitkan langsung ke publik!"
         : saved.status === "REVIEW"
-        ? "Naskah berhasil dimasukkan ke Antrean Kurasi Agen Belokan."
+        ? "Naskah berhasil dimasukkan ke Antrean Kurasi Redaksi."
         : "Draf naskah berhasil disimpan.";
 
     return {
@@ -324,7 +324,7 @@ export async function saveArticleByAdminAction(
   } catch (error: any) {
     return {
       success: false,
-      message: error?.message || "Gagal menyimpan artikel Agen Belokan.",
+      message: error?.message || "Gagal menyimpan artikel Redaksi.",
     };
   }
 }

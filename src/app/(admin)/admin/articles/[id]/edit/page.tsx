@@ -5,7 +5,7 @@ import AdminArticleEditor from "@/components/admin/AdminArticleEditor";
 import { prisma } from "@/lib/db/prisma";
 
 export const metadata = {
-  title: "Sunting Artikel Agen Belokan | Meja Agen Belokan BELOKIRI",
+  title: "Sunting Artikel | Meja Redaksi BAKUBACA",
 };
 
 interface AdminEditArticlePageProps {

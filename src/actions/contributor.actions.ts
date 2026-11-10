@@ -105,12 +105,12 @@ export async function submitToReviewAction(
     return {
       success: true,
       data: { id: submitted.id },
-      message: "Naskah berhasil diajukan ke meja kurasi Agen Belokan.",
+      message: "Naskah berhasil diajukan ke meja kurasi Redaksi.",
     };
   } catch (error: any) {
     return {
       success: false,
-      message: error?.message || "Gagal mengajukan naskah ke Agen Belokan.",
+      message: error?.message || "Gagal mengajukan naskah ke Redaksi.",
     };
   }
 }

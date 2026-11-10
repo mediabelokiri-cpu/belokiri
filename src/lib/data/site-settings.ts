@@ -70,6 +70,14 @@ export interface SuratKalengItem {
   isStarred: boolean;
 }
 
+export interface PublicSuratKalengItem {
+  id: string;
+  namaSamaran: string;
+  isiSurat: string;
+  createdAt: string;
+  isStarred: boolean;
+}
+
 export interface KabinetMember {
   id: string;
   name: string;
@@ -94,72 +102,72 @@ export interface FullSiteSettings {
 // Initial In-Memory Store & Defaults
 export const defaultSiteSettings: FullSiteSettings = {
   identity: {
-    siteName: "BELOKIRI",
-    tagline: "Liar Seperlunya, Jenaka Secukupnya",
+    siteName: "BAKUBACA",
+    tagline: "Setiap Pikiran Punya Ruang.",
     description:
-      "BELOKIRI adalah media esai populer, analisis santai, arsip sejarah rakyat, dan percakapan kritis yang disajikan dengan tajam dan jenaka. Menanggapi dunia yang berisik tanpa harus kehilangan akal sehat.",
+      "Bakubaca adalah ruang bersama bagi Warga untuk menyuarakan realitas, merekam pengalaman, bertukar gagasan, membaca kebudayaan, dan merayakan ekspresi. Setiap Pikiran Punya Ruang.",
     copyrightText:
-      "© 2026 BELOKIRI. Seluruh hak cipta milik Tuhan YME. | Liar Seperlunya, Jenaka Secukupnya",
-    logoUrl: "/images/logo-belokiri-red.png",
-    logoWhiteUrl: "/images/logo-belokiri-white.png",
+      "© 2026 BAKUBACA. Setiap Pikiran Punya Ruang.",
+    logoUrl: "/images/logourlbarbakubaca.png",
+    logoWhiteUrl: "/images/logoheaderbakubaca.png",
   },
   sections: {
     berisik: {
       enabled: true,
-      title: "BERISIK",
-      subtitle: "Esai Populer, Politik & Sosial Kritis",
+      title: "BISING",
+      subtitle: "Menyuarakan Realitas — Kritik, Opini & Persoalan Publik",
       iconName: "Megaphone",
     },
     editorsPick: {
       enabled: true,
-      title: "PILIHAN AGEN BELOKAN",
-      subtitle: "Kurasi Khusus Naskah Berani & Tajam",
+      title: "PILIHAN REDAKSI",
+      subtitle: "Kurasi Khusus Naskah Bermakna & Tajam",
       iconName: "Star",
     },
     mejaWarkop: {
       enabled: true,
-      title: "MEJA WARKOP",
-      subtitle: "Dialektika Tongkrongan & Kultur Warung Kopi",
+      title: "TERAS",
+      subtitle: "Ruang Temu Gagasan — Filsafat, Literasi & Refleksi",
       iconName: "Coffee",
     },
     latestArticles: {
       enabled: true,
       title: "TULISAN TERBARU",
-      subtitle: "Semua Tulisan Masuk Berdasarkan Waktu Terbit",
+      subtitle: "Setiap Pikiran Terbaru dari Para Warga",
       iconName: "PenLine",
     },
   },
   cta: {
     ruangWarga: {
-      title: "Punya Gagasan atau Cerita yang Perlu Didengar?",
+      title: "Punya Pikiran, Esai, atau Cerita yang Perlu Dibagi?",
       description:
-        "BELOKIRI membuka ruang seluas-luasnya bagi mahasiswa, pelajar, peneliti, dan masyarakat umum untuk menyumbangkan tulisan, esai kritis, atau pandangan nyeleneh yang jujur.",
+        "Bakubaca membuka ruang seluas-luasnya bagi siapa saja untuk hadir sebagai Warga—mengirim esai kritis, catatan perjalanan, refleksi gagasan, ulasan budaya, hingga karya sastra yang jujur.",
       buttonText: "KIRIM TULISAN",
       buttonUrl: "/login",
     },
     ruangAgen: {
-      title: "Tertarik Menjadi Bagian Awak BELOKIRI?",
+      title: "Tertarik Bergabung di Tim Redaksi BAKUBACA?",
       description:
-        "Kami membuka kesempatan bagi jurnalis investigasi, penulis esai, editor, dan kreator independen yang berani menyusup di antara narasi mapan demi menyuarakan realitas rakyat.",
-      buttonText: "GABUNG JADI AGEN",
+        "Kami membuka pintu kolaborasi bagi penulis esai, penyunting, periset, dan penggerak literasi yang ingin merawat ruang pikir terbuka bersama para Warga.",
+      buttonText: "GABUNG REDAKSI",
       buttonUrl: "/rekrutmen",
     },
     rekrutmenBanner: {
-      badgeText: "PANGGILAN AGEN",
-      title: "SIAP BERGABUNG DENGAN DEWAN BELOKAN?",
+      badgeText: "PANGGILAN REDAKSI",
+      title: "SIAP MERAWAT RUANG PIKIRAN BERSAMA BAKUBACA?",
       description:
-        "Kami tidak mencari orang yang patuh, tapi mereka yang punya sudut pandang tajam dan berani bersuara.",
-      buttonText: "ISI FORM AGEN",
+        "Kami tidak mencari suara yang seragam, melainkan mereka yang mau jujur membaca realitas dan tekun merawat gagasan.",
+      buttonText: "ISI FORM REDAKSI",
       buttonUrl: "/rekrutmen/form",
-      bgColor: "bg-red-600",
+      bgColor: "bg-[#4c13ff]",
     },
     donasiBanner: {
       enabled: true,
       badgeText: "DARI WARGA UNTUK WARGA",
-      title: "PATUNGAN SOLIDARITAS: JAGA BELOKIRI TETAP MENGUDARA",
+      title: "PATUNGAN WARGA: JAGA BAKUBACA TETAP MENGUDARA",
       description:
-        "Belokiri tidak disokong cukong dan tidak jualan iklan sampah. Kami hidup dari kemandirian dan sokongan Warga Belokan. Sisihkan secangkir kopi untuk menjaga akal sehat tetap bersuara.",
-      buttonText: "DONASI SOLIDARITAS",
+        "Bakubaca hidup dari kemandirian dan solidaritas para Warga, tanpa kendali pemodal dan tanpa iklan pengganggu. Sisihkan secangkir kopi agar setiap pikiran tetap punya ruang.",
+      buttonText: "PATUNGAN WARGA",
       buttonUrl: "/donasi",
     },
   },
@@ -169,7 +177,7 @@ export const defaultSiteSettings: FullSiteSettings = {
     instagram: "https://instagram.com/belokiri.id",
     tiktok: "https://tiktok.com/@belokiri.id",
     email: "redaksi@belokiri.id",
-    address: "Jl. Warkop Tuya No. 45, Jakarta",
+    address: "Majene, Sulawesi Barat",
   },
 };
 
@@ -178,9 +186,9 @@ let siteSettingsStore: FullSiteSettings = { ...defaultSiteSettings };
 let suratKalengStore: SuratKalengItem[] = [
   {
     id: "sk-1",
-    namaSamaran: "Anonim Senja Warkop",
+    namaSamaran: "Anonim Teras Warkop",
     isiSurat:
-      "Tolong bahas tuntas soal kenaikan pajak rokok linting dan dampaknya ke warung-warung kopi kecil di kampung. Kami makin terjepit.",
+      "Tolong bahas tuntas soal kenaikan biaya hidup di kota kecil dan dampaknya ke usaha-usaha warga. Kami butuh suara yang membumi.",
     createdAt: "2026-09-24T08:30:00Z",
     isRead: false,
     isStarred: true,
@@ -189,16 +197,16 @@ let suratKalengStore: SuratKalengItem[] = [
     id: "sk-2",
     namaSamaran: "Buruh Desain Lepas",
     isiSurat:
-      "Terima kasih rubrik Ordal-nya tajam sekali. Akhirnya ada media yang berani buka-bukaan soal praktik oligarki pengadaan aplikasi pemerintah.",
+      "Terima kasih rubrik Bising-nya tajam sekali. Akhirnya ada ruang publik yang jujur membedah kebijakan lokal secara jernih.",
     createdAt: "2026-09-23T14:15:00Z",
     isRead: true,
     isStarred: false,
   },
   {
     id: "sk-3",
-    namaSamaran: "Warga Pinggiran Rel",
+    namaSamaran: "Warga Pinggiran Kota",
     isiSurat:
-      "Bahas isu penggusuran lahan sempadan rel di kota satelit dong min, jangan cuma ributin pilkada doang!",
+      "Perbanyak juga esai sejarah kampung di rubrik Jejak ya, Min! Banyak memori warga daerah yang layak didokumentasikan.",
     createdAt: "2026-09-22T19:40:00Z",
     isRead: true,
     isStarred: true,

@@ -21,10 +21,10 @@ export const revalidate = 60;
 export async function generateMetadata(): Promise<Metadata> {
   const { page } = await getCustomPageAction("donasi");
   return {
-    title: page.metaTitle || `${page.title} | BELOKIRI`,
+    title: page.metaTitle || `${page.title} | BAKUBACA`,
     description:
       page.metaDescription ||
-      "Sokong jurnalisme warga dan ruang bicara independen BELOKIRI agar tetap mengudara tanpa pesanan kekuasaan.",
+      "Sokong jurnalisme Warga dan ruang bicara independen BAKUBACA agar tetap mengudara tanpa pesanan kekuasaan.",
   };
 }
 
@@ -50,7 +50,7 @@ export default async function DonasiPage() {
         </div>
 
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-black tracking-tight uppercase leading-tight">
-          {page.title || "PATUNGAN WARGA: JAGA BELOKIRI TETAP MENGUDARA"}
+          {page.title || "PATUNGAN WARGA: JAGA BAKUBACA TETAP MENGUDARA"}
         </h1>
 
         {page.subtitle && (
@@ -86,7 +86,7 @@ export default async function DonasiPage() {
               1. Server & Infrastruktur
             </h3>
             <p className="text-xs text-zinc-600 leading-relaxed font-normal">
-              Memastikan website BELOKIRI tetap online 24/7 tanpa gangguan, tahan terhadap serangan siber, dan arsip naskah warga tetap terjaga abadi.
+              Memastikan website BAKUBACA tetap online 24/7 tanpa gangguan, tahan terhadap serangan siber, dan arsip naskah Warga tetap terjaga abadi.
             </p>
           </div>
 
@@ -99,7 +99,7 @@ export default async function DonasiPage() {
               2. Reward Penulis Warga
             </h3>
             <p className="text-xs text-zinc-600 leading-relaxed font-normal">
-              Mendanai reward buku, kaos merchandise, dan uang apresiasi bagi naskah Warga Belokan yang tembus 500 pembaca dalam 3 hari.
+              Mendanai reward buku, tumbler, kaos merchandise, dan uang apresiasi bagi naskah Warga yang tembus 500 pembaca dalam 3 hari.
             </p>
           </div>
 
@@ -160,7 +160,7 @@ export default async function DonasiPage() {
           Dukung dengan Tulisan & Menyebarkan Akal Sehat
         </h3>
         <p className="text-xs sm:text-sm text-zinc-600 max-w-xl mx-auto font-normal leading-relaxed">
-          Kekuatan Belokiri bukan pada saldo rekening, melainkan pada keberanian warga untuk berbicara. Kirimkan gagasanmu, atau bagikan artikel yang kamu sukai ke teman tongkrongan.
+          Kekuatan BAKUBACA bukan pada saldo rekening, melainkan pada keberanian Warga untuk berbicara. Kirimkan gagasanmu, atau bagikan artikel yang kamu sukai ke teman tongkrongan.
         </p>
         <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
           <Link

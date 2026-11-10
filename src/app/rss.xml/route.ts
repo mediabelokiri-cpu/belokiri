@@ -44,9 +44,9 @@ export async function GET() {
   const rssXml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>BELOKIRI - Liar Seperlunya, Jenaka Secukupnya</title>
+    <title>BAKUBACA — Setiap Pikiran Punya Ruang.</title>
     <link>${baseUrl}</link>
-    <description>Media esai populer, analisis santai, arsip sejarah rakyat, dan percakapan kritis yang disajikan dengan tajam dan jenaka.</description>
+    <description>Ruang baca dan media gagasan independen. Setiap Pikiran Punya Ruang — menyuarakan realitas, merekam pengalaman, dan membaca kebudayaan.</description>
     <language>id-ID</language>
     <lastBuildDate>${latestBuildDate}</lastBuildDate>
     <atom:link href="${baseUrl}/rss.xml" rel="self" type="application/rss+xml"/>

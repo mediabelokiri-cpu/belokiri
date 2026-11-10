@@ -18,10 +18,13 @@ import {
 import { submitRekrutmenAction } from "@/actions/rekrutmen.actions";
 
 const FOKUS_OPTIONS = [
-  "Mengurusi Rubrik",
-  "Kampanye & Propaganda",
-  "Menulis untuk Keabadian",
-  "Terserah Nanti Saja",
+  "Rubrik Bising (Opini & Kritik)",
+  "Rubrik Jejak (Sejarah & Dokumentasi)",
+  "Rubrik Teras (Filsafat & Literasi)",
+  "Rubrik Gurat (Seni & Budaya)",
+  "Rubrik Fragmen (Sastra & Ekspresi)",
+  "Penyuntingan & Kurasi Naskah",
+  "Desain Visual & Kampanye",
 ];
 
 export default function FormRekrutmenPage() {
@@ -62,7 +65,7 @@ export default function FormRekrutmenPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.fokusBidang.length === 0) {
-      alert("Pilih minimal satu Fokus Bidang Agen!");
+      setErrorMsg("Pilih minimal satu Fokus Bidang terlebih dahulu.");
       return;
     }
     setLoading(true);
@@ -102,14 +105,14 @@ export default function FormRekrutmenPage() {
               BERKAS TELAH DITERIMA
             </span>
             <h1 className="text-2xl sm:text-3xl font-black text-black tracking-tight uppercase">
-              Formulir Agen Belokan Terkirim!
+              Formulir Pendaftaran Terkirim!
             </h1>
           </div>
 
           <p className="text-sm sm:text-base text-zinc-600 leading-relaxed font-normal">
             Terima kasih, <strong className="text-black font-bold">{formData.namaLengkap}</strong>
             {formData.namaPena ? ` (alias "${formData.namaPena}")` : ""}. Jawaban dan profilmu
-            sudah diamankan oleh Dewan Belokan.
+            sudah diamankan oleh Tim Redaksi BAKUBACA.
           </p>
 
           {/* Submission Recap */}
@@ -201,14 +204,14 @@ export default function FormRekrutmenPage() {
       {/* Header */}
       <header className="space-y-3">
         <span className="inline-block text-[11px] font-black uppercase tracking-widest text-red-600 bg-red-50 border border-red-200 px-3.5 py-1 rounded-full">
-          FORMULIR SELEKSI ANGGOTA
+          FORMULIR SELEKSI TIM REDAKSI
         </span>
         <h1 className="text-3xl sm:text-4xl font-black text-black tracking-tight uppercase leading-tight">
-          Formulir Rekrutmen Agen Belokan
+          Formulir Rekrutmen Redaksi BAKUBACA
         </h1>
         <p className="text-sm sm:text-base text-zinc-600 font-normal leading-relaxed">
           Silakan isi formulir di bawah ini dengan jujur dan apa adanya. Kami lebih menghargai
-          ketajaman sudut pandang dan keberanian bersikap daripada basa-basi birokratis.
+          ketajaman sudut pandang, konsistensi merawat gagasan, dan keberanian bersikap daripada basa-basi birokratis.
         </p>
       </header>
 
@@ -218,26 +221,26 @@ export default function FormRekrutmenPage() {
         className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-10 shadow-xs space-y-10"
       >
         {errorMsg && (
-          <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 flex items-center gap-3">
-            <AlertCircle className="w-5 h-5 text-red-600 shrink-0" />
+          <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 flex items-center gap-3">
+            <AlertCircle className="w-5 h-5 text-rose-600 shrink-0" />
             <p className="text-xs sm:text-sm font-bold">{errorMsg}</p>
           </div>
         )}
         {/* =========================================================================
-            SECTION 1: IDENTITAS CALON AGEN
+            SECTION 1: IDENTITAS CALON ANGGOTA REDAKSI
         ========================================================================= */}
         <div className="space-y-5">
           <div className="flex items-center gap-2.5 pb-3 border-b border-zinc-200">
             <User className="w-5 h-5 text-red-600" />
             <h2 className="text-base sm:text-lg font-black uppercase tracking-tight text-black">
-              Identitas Calon Agen
+              Identitas Calon Tim Redaksi
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-zinc-700 uppercase mb-1.5">
-                Nama Lengkap <span className="text-red-600">*</span>
+                Nama Lengkap <span className="text-rose-600">*</span>
               </label>
               <input
                 type="text"
@@ -266,7 +269,7 @@ export default function FormRekrutmenPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-zinc-700 uppercase mb-1.5">
-                No. What&apos;s App <span className="text-red-600">*</span>
+                No. WhatsApp <span className="text-rose-600">*</span>
               </label>
               <input
                 type="tel"
@@ -280,7 +283,7 @@ export default function FormRekrutmenPage() {
 
             <div>
               <label className="block text-xs font-bold text-zinc-700 uppercase mb-1.5">
-                Alamat Email <span className="text-red-600">*</span>
+                Alamat Email <span className="text-rose-600">*</span>
               </label>
               <input
                 type="email"
@@ -296,28 +299,28 @@ export default function FormRekrutmenPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-zinc-700 uppercase mb-1.5">
-                Domisili <span className="text-red-600">*</span>
+                Domisili <span className="text-rose-600">*</span>
               </label>
               <input
                 type="text"
                 required
                 value={formData.domisili}
                 onChange={(e) => setFormData({ ...formData, domisili: e.target.value })}
-                placeholder="cth. Makassar, Yogyakarta, Jakarta"
+                placeholder="cth. Makassar, Majene, Yogyakarta"
                 className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none text-sm font-medium transition-all"
               />
             </div>
 
             <div>
               <label className="block text-xs font-bold text-zinc-700 uppercase mb-1.5">
-                Kampus / Komunitas / Profesi <span className="text-red-600">*</span>
+                Kampus / Komunitas / Profesi <span className="text-rose-600">*</span>
               </label>
               <input
                 type="text"
                 required
                 value={formData.institusi}
                 onChange={(e) => setFormData({ ...formData, institusi: e.target.value })}
-                placeholder="cth. Mahasiswa Unhas / Buruh Kreatif"
+                placeholder="cth. Mahasiswa / Pegiat Literasi / Pekerja Kreatif"
                 className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none text-sm font-medium transition-all"
               />
             </div>
@@ -338,7 +341,7 @@ export default function FormRekrutmenPage() {
           {/* Q1: Siapa Nama Presidenmu? */}
           <div>
             <label className="block text-xs font-bold text-zinc-700 uppercase mb-1.5">
-              Siapa Nama Presidenmu? <span className="text-red-600">*</span>
+              Siapa Nama Presidenmu? <span className="text-rose-600">*</span>
             </label>
             <input
               type="text"
@@ -353,7 +356,7 @@ export default function FormRekrutmenPage() {
           {/* Q2: Lebih Percaya Mana: Bumi Bulat atau Bumi Datar? */}
           <div>
             <label className="block text-xs font-bold text-zinc-700 uppercase mb-2">
-              Lebih Percaya Mana: Bumi Bulat atau Bumi Datar? <span className="text-red-600">*</span>
+              Lebih Percaya Mana: Bumi Bulat atau Bumi Datar? <span className="text-rose-600">*</span>
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
@@ -399,7 +402,7 @@ export default function FormRekrutmenPage() {
           {/* Q3: Ayam atau Telur yang Ada Lebih Dulu? */}
           <div>
             <label className="block text-xs font-bold text-zinc-700 uppercase mb-2">
-              Ayam atau Telur yang Ada Lebih Dulu? <span className="text-red-600">*</span>
+              Ayam atau Telur yang Ada Lebih Dulu? <span className="text-rose-600">*</span>
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
@@ -445,28 +448,28 @@ export default function FormRekrutmenPage() {
           {/* Q4: Jelaskan dengan Singkat Mengapa Kamu Mau Bergabung */}
           <div>
             <label className="block text-xs font-bold text-zinc-700 uppercase mb-1.5">
-              Jelaskan dengan Singkat Mengapa Kamu Mau Bergabung <span className="text-red-600">*</span>
+              Jelaskan dengan Singkat Mengapa Kamu Mau Bergabung <span className="text-rose-600">*</span>
             </label>
             <textarea
               required
               rows={4}
               value={formData.alasanBergabung}
               onChange={(e) => setFormData({ ...formData, alasanBergabung: e.target.value })}
-              placeholder="Ceritakan alasan, kegelisahan, atau motif di balik niatmu bergabung jadi Agen Belokan..."
+              placeholder="Ceritakan alasan, kegelisahan, atau motif di balik niatmu bergabung bersama Tim Redaksi BAKUBACA..."
               className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none text-sm font-medium transition-all leading-relaxed"
             />
           </div>
         </div>
 
         {/* =========================================================================
-            SECTION 3: FOKUS BIDANG AGEN (pilihan jawaban, centang)
+            SECTION 3: FOKUS BIDANG PILIHAN
         ========================================================================= */}
         <div className="space-y-4 pt-2">
           <div className="flex items-center gap-2.5 pb-3 border-b border-zinc-200">
             <CheckSquare className="w-5 h-5 text-red-600" />
             <div>
               <h2 className="text-base sm:text-lg font-black uppercase tracking-tight text-black">
-                Fokus Bidang Agen
+                Fokus Bidang & Rubrik
               </h2>
               <p className="text-xs text-zinc-500 font-normal">
                 Pilihan jawaban (bisa centang lebih dari satu):
@@ -517,7 +520,7 @@ export default function FormRekrutmenPage() {
             ) : (
               <Send className="w-4 h-4" />
             )}
-            <span>{loading ? "Menyimpan ke Redaksi..." : "Kirim Formulir Agen Belokan"}</span>
+            <span>{loading ? "Menyimpan ke Redaksi..." : "Kirim Formulir Pendaftaran"}</span>
           </button>
         </div>
       </form>

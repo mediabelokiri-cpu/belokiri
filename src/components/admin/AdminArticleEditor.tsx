@@ -84,7 +84,7 @@ export default function AdminArticleEditor({
   const [excerpt, setExcerpt] = useState(initialData?.excerpt || "");
   const [source, setSource] = useState(initialData?.source || "");
   const [tags, setTags] = useState<string[]>(
-    initialData?.tags || ["Liputan Agen Belokan"]
+    initialData?.tags || ["Laporan Redaksi"]
   );
   const [tagInput, setTagInput] = useState("");
   const [isEditorPick, setIsEditorPick] = useState(
@@ -289,7 +289,7 @@ export default function AdminArticleEditor({
           <div>
             <div className="flex items-center gap-2">
               <span className="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-red-600 text-white">
-                Meja Penulisan Agen Belokan
+                Meja Penulisan Redaksi
               </span>
               {initialData && (
                 <ArticleStatusBadge status={initialData.status} size="sm" />
@@ -344,14 +344,14 @@ export default function AdminArticleEditor({
           className={`p-4 rounded-2xl flex items-center justify-between text-xs font-bold border transition-all ${
             feedback.type === "success"
               ? "bg-emerald-50 text-emerald-800 border-emerald-200"
-              : "bg-red-50 text-red-800 border-red-200"
+              : "bg-rose-50 text-rose-800 border-rose-200"
           }`}
         >
           <div className="flex items-center gap-2">
             {feedback.type === "success" ? (
               <CheckCircle2 className="w-4 h-4 text-emerald-600" />
             ) : (
-              <AlertCircle className="w-4 h-4 text-red-600" />
+              <AlertCircle className="w-4 h-4 text-rose-600" />
             )}
             <div>
               <p>{feedback.text}</p>
@@ -385,7 +385,7 @@ export default function AdminArticleEditor({
               {/* Title Card */}
               <div className="bg-white rounded-3xl border border-zinc-200 p-6 sm:p-8 shadow-xs space-y-4">
                 <label className="block text-xs font-black uppercase tracking-wider text-zinc-400">
-                  Judul Artikel Agen Belokan
+                  Judul Artikel Redaksi
                 </label>
                 <textarea
                   value={title}
@@ -474,7 +474,7 @@ export default function AdminArticleEditor({
                     id="admin-article-content"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
-                    placeholder="Mulai tuliskan naskah liputan atau analisis Agen Belokan di sini (Mendukung Markdown)..."
+                    placeholder="Mulai tuliskan naskah liputan atau esai Redaksi di sini (Mendukung Markdown)..."
                     rows={18}
                     className="w-full text-base sm:text-lg text-zinc-900 leading-relaxed placeholder:text-zinc-300 border-0 focus:outline-hidden resize-none font-normal"
                   />
@@ -498,13 +498,13 @@ export default function AdminArticleEditor({
               {/* Investigation / Source Card */}
               <div className="bg-white rounded-3xl border border-zinc-200 p-6 sm:p-7 shadow-xs space-y-3">
                 <label className="block text-xs font-black uppercase tracking-wider text-zinc-400">
-                  Sumber Data & Wawancara Agen Belokan
+                  Sumber Data & Wawancara Redaksi
                 </label>
                 <input
                   type="text"
                   value={source}
                   onChange={(e) => setSource(e.target.value)}
-                  placeholder="Contoh: Tim Investigasi BELOKIRI, Laporan Riset 2025, Wawancara Khusus"
+                  placeholder="Contoh: Tim Redaksi BAKUBACA, Laporan Riset 2025, Wawancara Khusus"
                   className="w-full text-xs text-zinc-800 px-3.5 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-red-600 focus:bg-white transition-all"
                 />
               </div>
@@ -522,7 +522,7 @@ export default function AdminArticleEditor({
                   {isEditorPick && (
                     <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 text-[10px] font-black uppercase tracking-wider">
                       <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
-                      <span>Pilihan Agen Belokan</span>
+                      <span>Pilihan Redaksi</span>
                     </span>
                   )}
                 </div>
@@ -615,11 +615,11 @@ export default function AdminArticleEditor({
               <div className="flex items-center gap-1.5 text-red-600">
                 <Globe className="w-4 h-4" />
                 <h3 className="text-xs font-black uppercase tracking-wider text-red-600">
-                  Pusat Penerbitan Agen Belokan
+                  Pusat Penerbitan Redaksi
                 </h3>
               </div>
               <p className="text-xs text-zinc-500 mt-1 font-normal">
-                Sebagai Dewan Agen Belokan, Anda dapat langsung menerbitkan naskah ke situs publik tanpa menunggu antrean.
+                Sebagai Dewan Redaksi, Anda dapat langsung menerbitkan naskah ke situs publik tanpa menunggu antrean.
               </p>
             </div>
 
@@ -684,7 +684,7 @@ export default function AdminArticleEditor({
             >
               {authorList.map((user) => (
                 <option key={user.id} value={user.id}>
-                  {user.penName || user.name} ({user.role === "ADMIN" ? "Agen Belokan" : user.role === "EDITOR" ? "Editor" : "Penulis"}) — {user.email}
+                  {user.penName || user.name} ({user.role === "ADMIN" ? "Tim Redaksi" : user.role === "EDITOR" ? "Editor" : "Warga"}) — {user.email}
                 </option>
               ))}
             </select>
@@ -715,7 +715,7 @@ export default function AdminArticleEditor({
                   <p className="text-[10px] text-zinc-500 truncate">
                     <span className="font-bold text-red-600">
                       {selectedAuthor.role === "ADMIN"
-                        ? "Dewan Redaksi / Agen Belokan"
+                        ? "Dewan Redaksi"
                         : selectedAuthor.role === "EDITOR"
                         ? "Editor"
                         : "Penulis Warga"}
@@ -731,9 +731,9 @@ export default function AdminArticleEditor({
           <div className="bg-white rounded-3xl border border-zinc-200 p-6 shadow-xs space-y-4">
             <div className="flex items-center justify-between">
               <label className="text-xs font-black uppercase tracking-wider text-black">
-                Pilih Rubrik BELOKIRI
+                Pilih Rubrik BAKUBACA
               </label>
-              <span className="text-[10px] font-bold text-zinc-400">8 Rubrik</span>
+              <span className="text-[10px] font-bold text-zinc-400">5 Rubrik</span>
             </div>
 
             <select
@@ -774,10 +774,10 @@ export default function AdminArticleEditor({
               <div className="space-y-0.5">
                 <div className="flex items-center gap-1.5 text-xs font-black text-black uppercase tracking-tight">
                   <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
-                  <span>Tandai Pilihan Agen Belokan</span>
+                  <span>Tandai Pilihan Redaksi</span>
                 </div>
                 <p className="text-[11px] text-zinc-500 font-normal leading-relaxed">
-                  Sorot artikel ini di beranda publik pada seksi khusus rekomendasi Dewan Agen Belokan.
+                  Sorot artikel ini di beranda publik pada seksi khusus rekomendasi Tim Redaksi.
                 </p>
               </div>
             </label>
@@ -814,7 +814,7 @@ export default function AdminArticleEditor({
                   type="text"
                   value={photoSource}
                   onChange={(e) => setPhotoSource(e.target.value)}
-                  placeholder="Contoh: Dokumentasi Agen Belokan BELOKIRI / Unsplash"
+                  placeholder="Contoh: Dokumentasi Redaksi BAKUBACA / Unsplash"
                   className="w-full text-xs text-zinc-800 px-3 py-2 bg-zinc-50 border border-zinc-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-red-600 focus:bg-white mt-1"
                 />
               </div>
@@ -860,7 +860,7 @@ export default function AdminArticleEditor({
                   <button
                     type="button"
                     onClick={() => removeTag(idx)}
-                    className="text-zinc-400 hover:text-black cursor-pointer"
+                    className="text-zinc-400 hover:text-rose-600 cursor-pointer"
                   >
                     <X className="w-3 h-3" />
                   </button>

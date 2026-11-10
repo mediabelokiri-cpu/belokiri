@@ -61,8 +61,8 @@ export default function AuthForm({ callbackUrl }: AuthFormProps) {
       {mode === "login" && (
         <div className="space-y-4 text-left">
           {loginState?.error && (
-            <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl flex items-start gap-2.5 text-xs text-red-700 animate-in fade-in duration-200">
-              <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+            <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-xl flex items-start gap-2.5 text-xs text-rose-700 animate-in fade-in duration-200">
+              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
               <p className="leading-snug font-medium">{loginState.error}</p>
             </div>
           )}
@@ -185,8 +185,8 @@ export default function AuthForm({ callbackUrl }: AuthFormProps) {
       {mode === "register" && (
         <div className="space-y-4 text-left">
           {registerState?.error && (
-            <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl flex items-start gap-2.5 text-xs text-red-700 animate-in fade-in duration-200">
-              <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+            <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-xl flex items-start gap-2.5 text-xs text-rose-700 animate-in fade-in duration-200">
+              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
               <p className="leading-snug font-medium">{registerState.error}</p>
             </div>
           )}
@@ -268,15 +268,15 @@ export default function AuthForm({ callbackUrl }: AuthFormProps) {
             <button
               type="submit"
               disabled={isRegisterPending}
-              className="w-full mt-2 py-3 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-all shadow-xs cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60"
+              className="w-full mt-2 py-3 px-4 rounded-xl bg-[#4c13ff] hover:bg-[#3d0dd9] text-white text-xs font-black uppercase tracking-wider transition-all shadow-xs cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60"
             >
               {isRegisterPending ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin text-red-200" />
+                  <Loader2 className="w-4 h-4 animate-spin text-white/80" />
                   <span>Mendaftarkan...</span>
                 </>
               ) : (
-                <span>Daftar sebagai Warga Belokan</span>
+                <span>Daftar sebagai Warga</span>
               )}
             </button>
           </form>

@@ -3,8 +3,8 @@ import AdminArticleEditor from "@/components/admin/AdminArticleEditor";
 import { prisma } from "@/lib/db/prisma";
 
 export const metadata = {
-  title: "Tulis Artikel Agen Belokan | Meja Agen Belokan BELOKIRI",
-  description: "Susun esai tajam, analisis mendalam, atau opini resmi Dewan Agen Belokan BELOKIRI.",
+  title: "Tulis Artikel Redaksi | Meja Redaksi BAKUBACA",
+  description: "Susun esai tajam, analisis mendalam, atau catatan resmi Tim Redaksi BAKUBACA.",
 };
 
 export default async function AdminCreateArticlePage() {

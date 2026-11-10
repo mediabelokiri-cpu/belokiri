@@ -1,8 +1,8 @@
 /**
- * Custom Static/Content Pages Data & Types for BELOKIRI
+ * Custom Static/Content Pages Data & Types for BAKUBACA
  * Powers the 11 footer pages:
  * Group 1: KANAL & GERAKAN (Manifesto, Menulis, Rekrutmen, Literatur Liberte, Konstitusi, Kontak)
- * Group 2: SINDIKASI & ARSIP (Kabinet, Pedoman Media Siber, Disclaimer, Kebijakan Privasi, Syarat & Ketentuan)
+ * Group 2: SINDIKASI & ARSIP (Kabinet Redaksi, Pedoman Media Siber, Disclaimer, Kebijakan Privasi, Syarat & Ketentuan)
  */
 
 export interface CustomPageContent {
@@ -29,105 +29,98 @@ export const DEFAULT_CUSTOM_PAGES: Record<string, CustomPageContent> = {
     groupLabel: "SINDIKASI & ARSIP",
     name: "Manifesto",
     path: "/manifesto",
-    title: "Manifesto Belokiri",
-    subtitle: "“Liar Seperlunya, Jenaka Secukupnya”",
-    badge: "Sikap Editorial Belokiri.id",
-    metaTitle: "Manifesto BELOKIRI: Liar Seperlunya, Jenaka Secukupnya",
+    title: "Manifesto Bakubaca",
+    subtitle: "“Setiap Pikiran Punya Ruang.”",
+    badge: "Sikap Editorial BAKUBACA",
+    metaTitle: "Manifesto BAKUBACA: Setiap Pikiran Punya Ruang.",
     metaDescription:
-      "Manifesto Belokiri.id: Di tengah dunia yang terlalu berisik, kami memilih menyusup di antara narasi yang sudah terlalu mapan.",
-    content: `## Menyusup di Antara Narasi
+      "Manifesto Bakubaca: Ruang bersama bagi Warga untuk menyuarakan realitas, merekam pengalaman, bertukar gagasan, membaca kebudayaan, dan merayakan ekspresi.",
+    content: `## Rumah Bersama Bagi Setiap Pikiran
 
-Di tengah derasnya arus informasi hari ini, media kerap hadir bukan lagi sebagai penyampai kebenaran, melainkan sebagai perancang kenyamanan. Realitas dipoles, konflik dipermak, dan kegelisahan publik sering kali diredam dalam kemasan yang lebih “ramah konsumsi”. Di titik inilah **Belokiri.id** mengambil posisi — bukan untuk ikut meramaikan, tetapi untuk menyusup di antara narasi yang sudah terlalu mapan.
+Di tengah derasnya arus informasi yang serba tergesa, banyak gagasan bernas justru tersingkir karena dianggap terlalu panjang, terlalu kritis, atau tidak cocok dengan selera algoritma. Di titik inilah **BAKUBACA** hadir — bukan sekadar portal bacaan, melainkan ruang temu di mana **setiap pikiran punya ruang**.
 
-Belokiri.id lahir dari kesadaran bahwa tidak semua hal layak ditenangkan. Ada realitas yang justru harus diguncang, dipertanyakan, bahkan ditertawakan. Dalam konteks sosial, ekonomi, dan politik yang penuh paradoks, pendekatan yang lurus dan datar sering kali gagal menjangkau esensi persoalan. Karena itu, Belokiri.id memilih jalan yang berbeda: *liar dalam kesunyian dan berani untuk tidak selalu terdengar “baik-baik saja”.*
+**Bakubaca** lahir dari keyakinan sederhana bahwa menulis dan membaca adalah hak setiap **Warga**. Pengetahuan tidak semestinya terkunci di ruang-ruang elitis atau dikemas seragam demi kenyamanan pihak berkuasa. Keresahan atas realitas publik, ingatan tentang sejarah kampung, refleksi filsafat di serambi rumah, pembacaan atas karya budaya, hingga sebait puisi tengah malam — semuanya berhak duduk setara di meja yang sama.
 
-> “Independensi bagi kami bukan berarti netral tanpa arah, melainkan kebebasan untuk berpihak tanpa tekanan. Ketika ketidakadilan terjadi, diam bukanlah pilihan.”
-
----
-
-## Liar Sebagai Sikap
-
-Liar bagi kami bukan sekadar gaya, melainkan sikap. Ia adalah cara untuk membuka lapisan kemunafikan tanpa harus berkhotbah. Dalam dunia yang semakin penuh kepura-puraan, liar menjadi bahasa yang justru terasa paling jujur. Belokiri.id percaya bahwa tawa yang getir sering kali lebih membekas daripada seribu kalimat yang terlalu hati-hati.
-
-Namun, di balik nada yang tajam, terdapat sikap yang jelas: **keberpihakan**. Belokiri.id tidak berdiri di ruang hampa. Kami berpijak pada realitas rakyat, pada mereka yang suaranya kerap tenggelam di tengah hiruk pikuk kepentingan. Independensi bagi kami bukan berarti netral tanpa arah, melainkan kebebasan untuk berpihak tanpa tekanan. Ketika ketidakadilan terjadi, diam bukanlah pilihan, dan netralitas sering kali hanya menjadi topeng bagi ketakutan.
+> “Independensi bagi kami bukan berarti dingin tanpa sikap, melainkan kebebasan setiap Warga untuk berpikir jernih, bersuara jujur, dan membaca kenyataan tanpa tekanan.”
 
 ---
 
-## Sebab Kesadaran, Perubahan Menemukan Jalannya
+## Lima Ruang Penggerak Gagasan
 
-Sebagai media, Belokiri.id tidak melihat tulisan sebagai sekadar produk. Tulisan adalah alat. Ia bisa menjadi ruang refleksi, tetapi juga bisa menjadi bentuk perlawanan. Setiap narasi yang kami hadirkan adalah upaya untuk membongkar, bukan menenangkan; untuk memantik kesadaran, bukan sekadar mengisi waktu luang.
+Agar percakapan tetap tajam sekaligus terbuka, Bakubaca menata rumah pikirannya melalui lima rubrik utama yang saling melengkapi:
 
-Tentu, pendekatan ini bukan tanpa risiko. Belokiri.id sadar bahwa tidak semua orang akan merasa nyaman. Namun, sejak awal, kenyamanan memang bukan tujuan. Kami lebih percaya pada pentingnya kegelisahan yang jujur daripada ketenangan yang semu. Sebab dari kegelisahan itulah kesadaran lahir, dan dari kesadaran, perubahan menemukan jalannya.
+1. **BISING — Menyuarakan Realitas:** Ruang untuk kritik, opini, keresahan sosial, politik, demokrasi, dan berbagai persoalan publik.
+2. **JEJAK — Merekam Pengalaman:** Ruang untuk sejarah, perjalanan, pengalaman personal, dokumentasi sosial, dan ingatan kolektif.
+3. **TERAS — Ruang Temu Gagasan:** Ruang untuk filsafat, pendidikan, pengetahuan, literasi, refleksi, dan gagasan intelektual.
+4. **GURAT — Membaca Kebudayaan:** Ruang untuk seni, budaya, film, musik, buku, dan berbagai fenomena kebudayaan.
+5. **FRAGMEN — Merayakan Ekspresi:** Ruang untuk puisi, cerpen, prosa, catatan personal, dan berbagai bentuk ekspresi kreatif.
 
 ---
 
-## Ruang Bagi Mereka yang Sama Liarnya
+## Warga Adalah Denyut Nadi Bakubaca
 
-Pada akhirnya, Belokiri.id bukan sekadar media yang ingin dibaca. Ia adalah ruang bagi mereka yang masih mau berpikir, yang tidak puas dengan jawaban sederhana, dan yang percaya bahwa narasi bisa, dan harus diperebutkan. Dalam dunia yang semakin bising oleh suara yang seragam, Belokiri.id memilih untuk tetap berbeda: **menyusup, mengganggu, dan jika perlu, membongkar**.
+Di Bakubaca, tidak ada sekat kaku antara pembaca dan penulis. Keduanya kami sapa dengan satu panggilan yang sama: **Warga**. Setiap Warga berhak membaca, merespons, mengkritik, sekaligus menulis gagasan terbaiknya sendiri.
 
-Karena ketika narasi dikuasai, satu-satunya cara untuk melawan adalah dengan masuk ke dalamnya, diam-diam, tajam, dan tak terduga.`,
+Tim **Redaksi** bekerja sebagai fasilitator dan penyunting kolektif — bukan penjaga gerbang yang membungkam suara berbeda, melainkan teman diskusi yang membantu setiap naskah Warga lahir dengan argumen yang kuat, data yang dapat dipertanggungjawabkan, dan bahasa yang enak dibaca.
+
+---
+
+## Sebab Berpikir Bersama Menyalakan Perubahan
+
+Bakubaca percaya bahwa kegelisahan yang dirawat lewat tulisan akan selalu menemukan pembacanya. Dari satu esai Warga ke esai Warga lainnya, dari obrolan di **Teras** hingga catatan di **Fragmen**, kita merawat akal sehat bersama agar publik tetap merdeka dalam berpikir dan berekspresi.`,
   },
 
-  // 2. MENULIS DI BELOKIRI
+  // 2. MENULIS DI BAKUBACA
   "kirim-tulisan": {
     slug: "kirim-tulisan",
     group: "kanal-gerakan",
     groupLabel: "KANAL & GERAKAN",
-    name: "Menulis di Belokiri",
+    name: "Menulis di Bakubaca",
     path: "/kirim-tulisan",
-    title: "Menulis di BELOKIRI",
-    subtitle: "“Karena tidak semua yang mengganjal harus dibicarakan di grup WhatsApp.”",
-    badge: "Ruang Kontributor • Warga Belokan",
-    metaTitle: "Menulis di BELOKIRI: Panduan & Kirim Tulisan Warga Belokan",
+    title: "Menulis di BAKUBACA",
+    subtitle: "“Karena setiap Warga berhak bersuara dan setiap pikiran punya ruang.”",
+    badge: "Ruang Kontributor • Warga Bakubaca",
+    metaTitle: "Menulis di BAKUBACA: Panduan & Kirim Tulisan Warga",
     metaDescription:
-      "Belokiri membuka ruang bagi siapa saja yang ingin berbagi gagasan, cerita, pengamatan, keresahan, atau kritik. Jadilah Warga Belokan, kirimkan tulisanmu.",
-    content: `Ada hal-hal yang kadang terlalu kecil untuk diberitakan, terlalu penting untuk dilupakan, dan terlalu mengganggu kalau cuma disimpan di kepala.
+      "Bakubaca membuka ruang bagi setiap Warga untuk mengirim esai, kritik publik, dokumentasi sejarah, refleksi gagasan, ulasan budaya, hingga karya sastra.",
+    content: `Ada hal-hal yang terlalu penting untuk sekadar lewat di linimasa media sosial, terlalu bermakna untuk menguap di obrolan sesaat, dan terlalu jujur jika hanya disimpan di kepala.
 
-Bisa jadi itu tentang kampungmu. Tentang politik yang bikin geleng-geleng kepala. Tentang sekolah, jalan rusak, kopi di warkop, kebiasaan orang-orang di sekitar kita, budaya, kota yang berubah, atau kejadian sederhana yang ternyata menyimpan cerita lebih besar.
+Entah itu keresahan tentang kebijakan di kotamu (**Bising**), kisah warga dan sejarah lokal yang nyaris dilupakan (**Jejak**), permenungan dari buku dan ruang belajar (**Teras**), pembacaan atas film, musik, atau pameran (**Gurat**), hingga cerpen dan puisi personal (**Fragmen**) — **tulis saja di Bakubaca.**
 
-> **Tulis Saja.** Belokiri membuka ruang bagi siapa saja yang ingin berbagi gagasan, cerita, pengamatan, keresahan, kritik, atau sekadar sudut pandang yang mungkin belum banyak dibicarakan.
+> **Setiap Pikiran Punya Ruang.** Bakubaca mengundang setiap **Warga** dari latar belakang apa pun — pelajar, mahasiswa, pekerja, peneliti, pegiat komunitas, seniman, hingga pembaca setia — untuk meramaikan ruang gagasan bersama.
 
-Kami tidak mencari tulisan yang sok pintar. Kami mencari tulisan yang **punya sesuatu untuk dikatakan.**
-
-Kamu tidak harus menjadi wartawan. Tidak harus mahasiswa. Tidak harus punya gelar yang panjangnya mengalahkan judul skripsi. Yang penting, kamu punya cara melihat sesuatu dan keberanian untuk menuangkannya menjadi tulisan.
-
-Di Belokiri, para kontributor disebut **Warga Belokan**. Mereka datang dari berbagai latar, membawa cerita dan kegelisahan masing-masing. Sebab kami percaya, percakapan yang menarik tidak selalu lahir dari ruang redaksi. Kadang ia lahir dari teras rumah, bangku warkop, perjalanan pulang, ruang kelas, pasar, sekretariat, atau dari seseorang yang tiba-tiba berpikir: *“Kok begini terus, ya?”*
+Kamu tidak harus punya nama besar atau gelar akademik berderet. Yang terpenting adalah ketulusan mengamati realitas, keberanian menyusun argumen, serta kejujuran bertutur.
 
 ---
 
-## REWARD BAGI WARGA BELOKAN
+## APRESIASI UNTUK WARGA
 
-### Tulisanmu dibaca 500 orang dalam 3 hari? Ada hadiahnya.
+### Tulisanmu dibaca 500 Warga dalam 3 hari? Ada apresiasinya.
 
-Kami tahu, menulis itu kadang lebih melelahkan daripada membaca komentar orang yang tidak membaca tulisan kita. Makanya, Belokiri ingin memberi apresiasi buat **Warga Belokan** yang tulisannya berhasil mengundang banyak pembaca.
+Menulis butuh waktu, tenaga, dan keberanian berpikir. Sebagai bentuk terima kasih, **BAKUBACA** menyediakan apresiasi khusus bagi **Warga** yang tulisannya berhasil menjangkau luas pembaca.
 
-Jika tulisanmu mencapai **500 pembaca dalam waktu 3 hari sejak dipublikasikan di Belokiri**, kamu berhak mendapatkan reward berupa:
+Jika naskahmu berhasil mencapai **500 pembaca dalam waktu 3 hari sejak terbit di Bakubaca**, kamu berhak memilih satu apresiasi berikut:
 - 📚 **Buku Pilihan Redaksi**
-- 🥤 **Tumbler Eksklusif Belokiri**
-- 👕 **Kaos Kaos Belokiri**
+- 🥤 **Tumbler Eksklusif Bakubaca**
+- 👕 **Kaos Resmi Bakubaca**
 
-Tidak perlu jadi penulis terkenal. Tidak perlu punya ribuan followers. Cukup bikin tulisan yang membuat orang berhenti scroll, lalu berpikir: *“Eh, ini menarik juga.”*
-
-Karena kalau mantan saja bisa bikin orang kepo berhari-hari, masa tulisanmu nggak bisa bikin 500 orang penasaran? **Tulis. Kirim. Bikin ramai.**
+Cukup hadirkan tulisan yang bernas, menyentuh, atau memantik diskusi sehat antar-Warga hingga membuat orang berhenti menggulir layar dan ikut membacanya sampai tuntas.
 
 ---
 
-## MEKANISME PEMILIHAN REWARD
+## MEKANISME PENERIMAAN APRESIASI
 
-Setiap tulisan Warga Belokan yang berhasil mencapai **500 pembaca dalam waktu 3 hari sejak dipublikasikan** berhak mendapatkan **1 (satu) reward**.
-
-Warga Belokan yang berhasil mencapai target dapat **memilih sendiri satu jenis reward** yang diinginkan (Buku, Tumbler, atau Kaos Belokiri). Pilihan reward dilakukan setelah tulisan dinyatakan memenuhi target oleh meja redaksi.
+Setiap naskah Warga yang mencapai **500 pembaca dalam 3 hari sejak waktu terbit** berhak menerima **1 (satu) bentuk apresiasi** sesuai ketersediaan stok.
 
 **Catatan & Ketentuan:**
-1. 500 pembaca harus tercapai dalam **maksimal 3 × 24 jam** sejak tulisan dipublikasikan.
-2. Jumlah pembaca mengacu pada **data pembaca yang tercatat pada sistem Belokiri**.
-3. Satu tulisan hanya mendapatkan **satu reward**.
-4. Reward diberikan kepada **penulis yang terdaftar sebagai Warga Belokan** dan mengirimkan tulisan tersebut.
-5. Jenis, desain, ukuran, atau pilihan produk reward mengikuti **stok yang tersedia**.
-6. Jika reward pilihan sedang tidak tersedia, Warga Belokan dapat memilih reward lain yang tersedia.
-7. Keputusan redaksi terkait validasi pencapaian pembaca dan pemberian reward bersifat final.
+1. Batas pencapaian 500 pembaca dihitung maksimal **3 × 24 jam** sejak artikel diterbitkan oleh Redaksi.
+2. Jumlah pembaca merujuk pada **statistik resmi sistem BAKUBACA**.
+3. Satu naskah terbit hanya berhak atas **satu apresiasi**.
+4. Apresiasi diberikan kepada **penulis yang terdaftar sebagai Warga Bakubaca** melalui akun penulis masing-masing.
+5. Pilihan buku, warna tumbler, maupun ukuran kaos mengikuti **ketersediaan persediaan Redaksi**.
+6. Validasi akhir pencapaian dilakukan secara transparan oleh meja **Redaksi BAKUBACA**.
 
-> “Tulisannya ramai, hadiahnya menyusul. 😎”`,
+> “Tulis pikiranmu, bagikan perspektifmu, biar Warga lain ikut membaca.”`,
   },
 
   // 3. REKRUTMEN ANGGOTA
@@ -135,36 +128,30 @@ Warga Belokan yang berhasil mencapai target dapat **memilih sendiri satu jenis r
     slug: "rekrutmen",
     group: "kanal-gerakan",
     groupLabel: "KANAL & GERAKAN",
-    name: "Rekrutmen Anggota",
+    name: "Rekrutmen Redaksi",
     path: "/rekrutmen",
-    title: "Rekrutmen Belokiri",
+    title: "Rekrutmen Tim Redaksi Bakubaca",
     subtitle:
-      "Membangun ruang belajar, ruang berpikir, dan ruang bertumbuh bagi mereka yang mau mempertanyakan keadaan.",
-    badge: "Panggilan Terbuka",
-    metaTitle: "Rekrutmen Anggota & Penulis | BELOKIRI",
+      "Membangun ruang belajar, ruang sunting, dan ekosistem literasi kolektif bersama Warga.",
+    badge: "Panggilan Terbuka • Tim Redaksi",
+    metaTitle: "Rekrutmen Tim Redaksi & Penggerak Literasi | BAKUBACA",
     metaDescription:
-      "Belokiri.id membuka ruang bagi mahasiswa dan anak muda yang merasa dunia hari ini terlalu ramai oleh kepalsuan, tetapi terlalu sepi oleh keberanian.",
+      "Bakubaca membuka ruang kolaborasi bagi anak muda, penulis, editor, dan penggerak budaya yang ingin merawat ruang pikir publik yang independen.",
     extraData: {
       isOpen: true,
       formUrl: "/rekrutmen/form",
     },
-    content: `Belokiri.id membuka ruang bagi mahasiswa dan anak muda yang merasa dunia hari ini terlalu ramai oleh kepalsuan, tetapi terlalu sepi oleh keberanian.
+    content: `**BAKUBACA** membuka panggilan terbuka bagi anak muda, mahasiswa, penulis, penyunting, periset, maupun kreator visual yang percaya bahwa pikiran publik perlu dirawat di luar tekanan algoritma instan.
 
-Kami mencari mereka yang masih punya kegelisahan, yang tidak mudah puas dengan narasi resmi, dan yang percaya bahwa tulisan bisa menjadi lebih dari sekadar konten. Di tengah budaya media yang makin sibuk mengejar algoritma dan sensasi instan, Belokiri.id justru ingin membangun ruang belajar, ruang berpikir, dan ruang bertumbuh bagi orang-orang yang mau mempertanyakan keadaan.
-
-Rekrutmen ini bukan ajang mencari penulis yang paling rapi atau paling akademis. Kami lebih tertarik pada cara seseorang memandang realitas: apakah ia cukup peka melihat ketimpangan di sekitarnya, cukup kritis membaca kepentingan di balik informasi, dan cukup jujur untuk menulis tanpa terus-menerus menyenangkan semua orang.
+Rekrutmen ini bukanlah seleksi mencari sosok yang serba tahu atau paling akademis. Kami justru mencari rekan kerja kolektif di **Tim Redaksi** yang peka membaca situasi sekitar, sabar berdiskusi, menghargai keberagaman perspektif **Warga**, dan tekun menjaga kualitas naskah di lima rubrik kami: **Bising**, **Jejak**, **Teras**, **Gurat**, dan **Fragmen**.
 
 ---
 
-## Laboratorium Kegelisahan & Produksi Narasi
+## Ekosistem Kerja & Belajar Kolektif
 
-Sebagai bagian dari Belokiri.id, anggota tidak hanya akan belajar menulis, tetapi juga belajar membedah isu, memahami framing media, melakukan riset, hingga mengolah kegelisahan menjadi karya yang punya posisi.
+Di meja Redaksi Bakubaca, kita tidak hanya menyunting huruf dan ejaan. Bersama-sama kita mendiskusikan isu sosial, melatih ketajaman riset dan wawancara lapangan, merancang tema rubrik, hingga mendampingi Warga baru agar naskah pertamanya terbit dengan penuh percaya diri.
 
-Kami ingin membangun ekosistem yang cair namun bertanggung jawab: tempat ide bisa diperdebatkan, tulisan bisa dipatahkan lalu dibangun ulang, dan kritik tidak dianggap ancaman. Karena media alternatif tidak lahir dari kenyamanan, melainkan dari keberanian untuk tetap berpikir ketika banyak orang memilih diam.
-
-Belokiri.id adalah ruang bagi mereka yang sama liarnya, liar dalam cara melihat dunia, tetapi tetap sadar bahwa setiap tulisan membawa konsekuensi. Jika kamu merasa terlalu sering gelisah melihat keadaan, terlalu sering mempertanyakan hal-hal yang dianggap normal, atau terlalu sering merasa “tidak cocok” dengan cara media bekerja hari ini, mungkin kamu memang sedang mencari ruang yang sama.
-
-> “Di sini, kita tidak sedang membangun tempat yang sempurna. Kita hanya sedang mencoba memastikan bahwa narasi tidak sepenuhnya dimiliki mereka yang berkuasa.”`,
+> “Di Bakubaca, kita tidak mencari suara yang seragam. Kita menjaga agar ruang bagi setiap pikiran tetap terbuka, kritis, dan manusiawi.”`,
   },
 
   // 4. LITERATUR LIBERTE
@@ -176,226 +163,214 @@ Belokiri.id adalah ruang bagi mereka yang sama liarnya, liar dalam cara melihat 
     path: "/literatur-liberte",
     title: "Literatur Liberte",
     subtitle:
-      "Silabus Penempaan Menulis, Riset Data, & Produksi Narasi Kritis Belokiri.id",
-    badge: "Kurikulum & Kaderisasi Intelektual",
-    metaTitle: "Literatur Liberte | BELOKIRI",
+      "Silabus Belajar Menulis, Riset Data, & Produksi Gagasan untuk Warga dan Redaksi Bakubaca",
+    badge: "Kurikulum & Pengembangan Literasi",
+    metaTitle: "Literatur Liberte | BAKUBACA",
     metaDescription:
-      "Silabus penempaan menulis, riset data, dan produksi narasi kritis Belokiri.id: Dari cara pandang, keterampilan, hingga karya nyata.",
-    content: `## Penempaan Narasi Kritis
+      "Silabus pengembangan kemampuan menulis, riset lapangan, pembacaan kebudayaan, dan penyuntingan naskah di BAKUBACA.",
+    content: `## Ruang Belajar Berpikir dan Menulis
 
-Literatur Liberte adalah wadah penempaan dan silabus terstruktur bagi seluruh agen serta penulis Belokiri.id. Kami meyakini bahwa kemampuan menulis yang berani harus ditopang oleh fondasi riset yang kokoh, pembedahan data yang teliti, dan kepekaan sosial yang mendalam.
-
----
-
-### Modul 01 — Literatur Kerakyatan: Suara dari Bawah
-Membentuk perspektif bahwa tulisan bukan sekadar estetika kata-kata, melainkan instrumen keberpihakan kepada mereka yang suaranya dipinggirkan. Membedah narasi kerakyatan, rujukan sastra perjuangan, dan observasi realitas warkop serta kampung.
-
-### Modul 02 — Jurnalisme Perjuangan: Pers sebagai Alat Perlawanan
-Menjadikan media sebagai instrumen kontrol sosial dan pengawas kekuasaan. Membedah jurnalisme advokasi vs ilusi 'netralitas' semu, anatomi framing media oligarki, dan tanggung jawab etis jurnalisme siber alternatif.
-
-### Modul 03 — Riset & Investigasi Data: Keberanian yang Punya Bukti
-Kritik tanpa data hanyalah kebisingan. Modul ini melatih pelacakan anggaran publik, investigasi dokumen kebijakan, pengolahan data terbuka, dan verifikasi silang narasumber.
-
-### Modul 04 — Retorika Satir & Esai Populer: Menembus Kebisingan Timeline
-Menyampaikan hal serius tanpa wajah kaku. Mengembangkan gaya penulisan yang jenaka secukupnya, tajam seperlunya, analogi segar, dan argumen yang memantik refleksi publik.
-
-### Modul 05 — Produksi & Verifikasi Meja Redaksi
-Memahami dapur redaksi Belokiri: proses kurasi naskah, standardisasi fact-checking, penyuntingan bahasa, dan etika hak jawab sesuai Pedoman Pemberitaan Media Siber.
+**Literatur Liberte** adalah modul belajar terbuka bagi tim **Redaksi** maupun para **Warga Bakubaca**. Kami percaya bahwa keberanian bersuara akan jauh lebih berdampak apabila ditopang kebiasaan membaca yang luas, riset yang teliti, dan kemampuan menyusun gagasan dengan jernih.
 
 ---
 
-> “Belajar menulis di Belokiri bukan sekadar merangkai kata, melainkan mengasah nurani dan keberanian untuk mengatakan apa yang sebenarnya terjadi.”`,
+### Modul 01 — Menyuarakan Realitas (BISING)
+Membedah bagaimana kritik publik, opini demokrasi, dan persoalan sosial sehari-hari dirangkai menjadi esai argumentatif yang tajam, berbasis data, namun tetap akrab dibaca Warga lintas kalangan.
+
+### Modul 02 — Merekam Pengalaman (JEJAK)
+Melatih kepekaan dokumentasi sejarah lokal, kisah perjalanan, wawancara lisan, dan catatan komunitas agar pengalaman warga tidak terhapus dari ingatan kolektif.
+
+### Modul 03 — Merawat Ruang Temu Gagasan (TERAS)
+Menurunkan teori filsafat, wacana pendidikan, dan pemikiran intelektual dari menara gading ke percakapan sehari-hari tanpa mengorbankan kedalaman refleksi.
+
+### Modul 04 — Membaca Kebudayaan (GURAT)
+Mengasah pisau analisis terhadap karya film, musik, buku, seni rupa, serta fenomena budaya populer sebagai cermin kondisi zaman.
+
+### Modul 05 — Merayakan Ekspresi & Etika Penyuntingan (FRAGMEN)
+Mengolah puisi, cerpen, prosa, dan catatan personal, sekaligus memahami kerja kurasi meja **Redaksi BAKUBACA** sesuai kaidah verifikasi, sitasi jujur, dan Pedoman Media Siber.
+
+---
+
+> “Menulis di Bakubaca adalah latihan mendengarkan lebih tajam sebelum merangkai kata bagi sesama Warga.”`,
   },
 
-  // 5. KONSTITUSI BELOKIRI
+  // 5. KONSTITUSI BAKUBACA
   konstitusi: {
     slug: "konstitusi",
     group: "kanal-gerakan",
     groupLabel: "KANAL & GERAKAN",
-    name: "Konstitusi Belokiri",
+    name: "Konstitusi Bakubaca",
     path: "/konstitusi",
-    title: "Konstitusi Kecil Belokiri.id",
-    subtitle: "“Liar Seperlunya, Jenaka Secukupnya”",
+    title: "Konstitusi Kecil Bakubaca",
+    subtitle: "“Setiap Pikiran Punya Ruang.”",
     badge: "Statuta & Piagam Kolektif",
-    metaTitle: "Konstitusi Kecil | BELOKIRI",
+    metaTitle: "Konstitusi Kecil | BAKUBACA",
     metaDescription:
-      "Konstitusi Kecil Belokiri.id: Liar Seperlunya, Jenaka Secukupnya. Statuta dasar, kultur internal, etika, dan prinsip kolektif.",
+      "Konstitusi Kecil BAKUBACA: Setiap Pikiran Punya Ruang. Statuta dasar, prinsip kemandirian, kultur Warga, dan etika Redaksi.",
     content: `## Mukadimah
 
-Belokiri.id lahir dari kegelisahan terhadap jagat maya yang semakin bising oleh narasi seragam. Kami percaya bahwa media bukan sekadar alat penyampai informasi, melainkan ruang perebutan makna. Di tengah arus informasi yang dipoles demi kenyamanan, kami memilih berdiri sebagai ruang yang tetap curiga, tetap bertanya, dan tetap berpihak pada realitas yang sering disembunyikan.
+**BAKUBACA** lahir dari keinginan merawat percakapan publik yang sehat, kritis, jujur, dan berpihak pada kemanusiaan. Di tengah arus konten cepat yang gemar memelihara kegaduhan kosong, Bakubaca memilih menyediakan ruang temu bagi tulisan-tulisan yang dipikirkan dengan sungguh-sungguh.
 
-Kami sadar bahwa hari ini semua orang bisa berbicara, tetapi tidak semua orang benar-benar mendengar. Timeline dipenuhi opini cepat, kemarahan instan, dan keberanian yang sering berhenti sebatas kolom komentar. Di situ, Belokiri.id mencoba mengambil jarak dari kebisingan yang serba tergesa.
-
-> **Belokiri.id bukan institusi suci, bukan pula ruang paling benar.** Ia adalah kolektif yang percaya bahwa tulisan bisa menjadi alat untuk membongkar, mengingat, dan melawan lupa. Setiap orang yang masuk ke dalamnya tidak hanya membawa kemampuan menulis, tetapi juga tanggung jawab berpikir.
+> **Bakubaca bukanlah mimbar kebenaran tunggal.** Ia adalah ruang bersama di mana setiap Warga berhak menyumbangkan sudut pandang, menguji gagasan, serta saling belajar tanpa takut direndahkan.
 
 ---
 
-## BAB I — Tentang Belokiri.id
+## BAB I — Tentang BAKUBACA
 
 ### Pasal 1 — Identitas
-Belokiri.id adalah media alternatif berbasis kolektif yang bergerak dalam produksi tulisan, opini, satire, dan narasi sosial-politik dengan keberpihakan pada rakyat dan kelompok yang suaranya kerap dipinggirkan.
+BAKUBACA adalah media gagasan independen berbasis kolektif yang menghadirkan tulisan esai, kritik publik, dokumentasi sejarah, refleksi gagasan, pembacaan kebudayaan, dan karya ekspresi sastra dari serta untuk **Warga**.
 
-### Pasal 2 — Sikap Dasar
-1. Belokiri.id tidak percaya pada netralitas yang pura-pura.
-2. Independensi berarti bebas berpihak tanpa tekanan kekuasaan.
-3. Kritik adalah bentuk kepedulian, bukan kebencian.
-4. Satire adalah alat baca realitas, bukan pelarian dari realitas.
-5. Humor boleh tajam, tetapi tidak boleh malas berpikir.
+### Pasal 2 — Prinsip Dasar
+1. Setiap pikiran yang disampaikan secara jujur dan bertanggung jawab berhak mendapat ruang.
+2. Kemandirian berarti bebas dari intervensi pemodal, penguasa, maupun agenda iklan terselubung.
+3. Kritik ditujukan untuk membenahi keadaan dan menguji gagasan, bukan merendahkan martabat manusia.
+4. Pengalaman Warga biasa sama berharganya dengan analisis para pakar.
 
-### Pasal 3 — Tujuan
-1. Membangun ruang berpikir kritis bagi anak muda.
-2. Menghasilkan tulisan yang punya posisi dan keberanian.
-3. Menjadi ruang belajar kolektif, bukan pabrik konten.
-4. Menjaga narasi tetap hidup di tangan publik.
+### Pasal 3 — Lima Rubrik Utama
+Seluruh terbitan Bakubaca berlabuh pada lima ruang: **Bising**, **Jejak**, **Teras**, **Gurat**, dan **Fragmen**.
 
 ---
 
-## BAB II — Kultur Internal
+## BAB II — Kultur Warga & Redaksi
 
-### Pasal 4 — Cara Kami Berpikir
-1. Tidak semua hal harus disetujui, tetapi semua hal boleh diperdebatkan.
-2. Ide boleh dibantah, manusia tidak perlu direndahkan.
-3. Tidak ada senioritas absolut dalam gagasan.
-4. Yang paling keras bukan berarti paling benar.
-5. Keberanian tanpa riset hanyalah kebisingan.
+### Pasal 4 — Cara Kami Berdiskusi
+1. Pembaca dan penulis adalah sesama **Warga** yang setara dalam hak berpendapat.
+2. Tidak ada senioritas mutlak; argumen diuji lewat kekuatan nalar dan rujukan, bukan status sosial.
+3. Tim **Redaksi** bertindak sebagai kurator dan penyunting yang terbuka terhadap dialog dengan penulis.
 
 ### Pasal 5 — Cara Kami Menulis
-1. Tulisan harus punya posisi.
-2. Gaya boleh santai, satire boleh liar, tetapi argumen harus jelas.
-3. Kami tidak menulis untuk menyenangkan semua orang.
-4. Jangan menyalin ide orang lain tanpa atribusi yang jujur.
-5. Tulisan yang baik adalah tulisan yang selesai dan berani diterbitkan.
+1. Tulisan harus jernih dalam posisi serta menghormati konteks fakta.
+2. Gaya penulisan boleh kritis, reflektif, liris, atau akrab, selama dapat dipertanggungjawabkan.
+3. Sumber data dan kutipan karya orang lain wajib dicantumkan secara jujur.
 
 ---
 
 ## BAB III — Etika & Batasan
 
 ### Pasal 6 — Hal yang Dilarang
-1. Plagiarisme dalam bentuk apa pun.
-2. Manipulasi data, pemalsuan narasumber, dan penyebaran hoaks.
-3. Ujaran kebencian berbasis SARA dan diskriminasi kelompok rentan.
-4. Iklan terselubung yang mengkhianati kepercayaan pembaca.`,
+1. Plagiarisme atau pengakuan karya pihak lain dalam bentuk apa pun.
+2. Pemalsuan fakta, manipulasi kutipan narasumber, dan penyebaran kabar bohong.
+3. Ujaran kebencian berbasis SARA, perundungan, serta pelecehan terhadap kelompok rentan.
+4. Artikel berbayar terselubung yang mengkhianati kepercayaan Warga.`,
   },
 
-  // DONASI SOLIDARITAS
+  // 6. PATUNGAN WARGA / DONASI
   donasi: {
     slug: "donasi",
     group: "kanal-gerakan",
     groupLabel: "KANAL & GERAKAN",
-    name: "Donasi Solidaritas",
+    name: "Patungan Warga",
     path: "/donasi",
-    title: "PATUNGAN WARGA: JAGA BELOKIRI TETAP MENGUDARA",
-    subtitle: "“Dari Warga, Oleh Warga, untuk Akal Sehat yang Tak Boleh Dibungkam”",
-    badge: "Solidaritas Warga Belokan",
-    metaTitle: "Donasi Solidaritas: Dari Warga untuk Warga | BELOKIRI",
+    title: "PATUNGAN WARGA: JAGA BAKUBACA TETAP MENGUDARA",
+    subtitle: "“Dari Warga, Oleh Warga, Agar Setiap Pikiran Tetap Punya Ruang.”",
+    badge: "Solidaritas Warga Bakubaca",
+    metaTitle: "Patungan Warga: Sokong Kemandirian | BAKUBACA",
     metaDescription:
-      "Sokong jurnalisme warga independen BELOKIRI agar tetap bebas dari pesanan oligarki, tanpa cukong, dan tanpa iklan sampah.",
+      "Dukung kemandirian BAKUBACA lewat Patungan Warga agar tetap merdeka dari kendali oligarki dan nyaman dibaca tanpa iklan pengganggu.",
     extraData: {
       qrisImageUrl: "",
       bankName: "BCA (Bank Central Asia)",
       bankAccountNumber: "0812-3456-7890",
-      bankAccountName: "Kolektif Media Belokiri",
+      bankAccountName: "Kolektif Media Bakubaca",
       danaNumber: "0812-3456-7890",
-      danaName: "Kolektif Media Belokiri",
+      danaName: "Kolektif Media Bakubaca",
       targetText: "Rp 5.000.000 / Bulan (Server, Apresiasi Warga & Riset)",
     },
     content: `## Mengapa Kami Membuka Patungan Warga?
 
-Menjaga media tetap jujur, tajam, dan tidak berkompromi dengan kekuasaan itu berisiko — dan jelas butuh amunisi.
+Menjaga ruang baca agar tetap jernih, mandiri, dan jujur bersuara bukanlah kerja yang ringan. Banyak media akhirnya berkompromi dengan kepentingan komersial ekstrem atau menjejali layar pembaca dengan iklan judi daring dan tautan jebakan hanya untuk membiayai server bulanan.
 
-Banyak media hari ini terpaksa menjadi perpanjangan tangan korporasi, memoles citra penguasa bermasalah, atau membombardir layar ponsel pembaca dengan iklan judi online dan clickbait sampah hanya agar operasional mereka tetap berjalan.
+**BAKUBACA memilih jalan berbeda.**
 
-**BELOKIRI menolak jalan itu.**
-
-Kami memilih jalan sunyi yang merdeka:
-- **Bebas Intervensi Oligarki:** Tulisan dan liputan kami tidak bisa dibeli untuk mengaburkan fakta atau menghapus kritik.
-- **Bebas Polusi Iklan Bodong:** Kami menghargai akal sehat dan kenyamanan baca Anda tanpa disesaki banner clickbait.
-- **Kolektif Akar Rumput:** Menjamin ruang terbuka bagi siapa saja untuk bersuara dan mendapatkan reward apresiasi nyata.
+Kami meyakini kemandirian editorial hanya mungkin bertahan bila disokong bersama oleh para **Warga**:
+- **Merdeka dari Tekanan Pemodal:** Redaksi bebas menayangkan kritik sosial dan refleksi Warga tanpa titipan kepentingan.
+- **Nyaman untuk Pembaca:** Situs Bakubaca dijaga tetap bersih dari iklan pop-up yang merusak kenyamanan membaca.
+- **Hidup Bersama Komunitas:** Menopang penghargaan rutin bagi kontributor Warga serta program literasi kolektif.
 
 ---
 
-## Tiga Pilar Alokasi Dana Solidaritas
+## Tiga Pilar Alokasi Patungan Warga
 
-Setiap rupiah dan cangkir kopi yang disisihkan oleh Warga Belokan dialokasikan secara transparan untuk tiga pilar utama:
+Setiap dukungan dari Warga disalurkan secara terbuka untuk menjaga denyut Bakubaca:
 
-1. **Infrastruktur & Server Digital**  
-   Menjamin platform web BELOKIRI tetap online stabil, cepat diakses dari pelosok daerah, aman dari serangan siber (DDoS), dan menjaga arsip naskah warga tetap abadi.
+1. **Infrastruktur Server & Keamanan Digital**  
+   Memastikan situs BAKUBACA tetap cepat, aman, stabil diakses dari daerah mana pun, serta merawat arsip tulisan Warga jangka panjang.
 
-2. **Apresiasi & Reward Naskah Warga Belokan**  
-   Mendukung penuh program reward (kaos, buku, tumbler, dan uang saku) bagi kontributor warga yang tulisannya berhasil menembus 500 pembaca dalam 3 hari.
+2. **Program Apresiasi Naskah Warga**  
+   Mendanai pengiriman buku pilihan Redaksi, kaos, dan tumbler apresiasi bagi para penulis Warga yang karyanya dibaca luas oleh publik.
 
-3. **Amunisi Riset & Liputan Lapangan**  
-   Mendanai awak Agen Belokan untuk turun langsung ke warkop-warkop, kampung kota, dan gelanggang konflik agraria/sosial demi membongkar cerita yang luput dari media besar.
+3. **Riset Lapangan & Kegiatan Literasi Terbuka**  
+   Mendukung liputan sosial di rubrik **Bising** dan **Jejak**, serta diskusi literasi komunitas di rubrik **Teras**, **Gurat**, dan **Fragmen**.
 
 ---
 
-> “Satu cangkir kopi yang kamu sisihkan hari ini adalah amunisi agar kami bisa terus berisik membela akal sehat esok hari. Terima kasih telah menjaga Belokiri tetap bernafas.”`,
+> “Satu cangkir kopi yang kamu sisihkan hari ini ikut menjaga agar besok setiap pikiran masih punya ruang untuk tumbuh dan terbaca.”`,
   },
 
-  // 6. AGEN BELOKAN & KONTAK
+  // 7. REDAKSI & KONTAK
   kontak: {
     slug: "kontak",
     group: "kanal-gerakan",
     groupLabel: "KANAL & GERAKAN",
-    name: "Agen Belokan & Kontak",
+    name: "Redaksi & Kontak",
     path: "/kontak",
-    title: "AGEN BELOKAN & KERJA SAMA BELOKIRI",
+    title: "REDAKSI & KERJA SAMA BAKUBACA",
     subtitle:
-      "Punya tips liputan, pengaduan berita, siaran pers, atau ingin berkolaborasi? Tim Agen Belokan siap mendengar dari Anda.",
-    badge: "Hubungi Kami",
-    metaTitle: "Kontak & Agen Belokan | BELOKIRI",
+      "Punya pertanyaan seputar pengiriman naskah, hak jawab, kolaborasi literasi, atau aduan? Tim Redaksi Bakubaca siap mendengarkan Warga.",
+    badge: "Hubungi Redaksi",
+    metaTitle: "Kontak & Meja Redaksi | BAKUBACA",
     metaDescription:
-      "Hubungi Agen Belokan BELOKIRI, kirim siaran pers, atau panduan naskah tulisan bagi Warga Belokan.",
+      "Hubungi Tim Redaksi BAKUBACA untuk konsultasi naskah Warga, hak jawab, korespondensi, maupun kerja sama literasi.",
     extraData: {
-      office: "Gedung Media Belokiri, Meja Redaksi Lantai 2",
-      address: "Jl. Warkop Tuya No. 45, Jakarta",
+      office: "Ruang Redaksi Bakubaca",
+      address: "Majene, Sulawesi Barat",
       email: "redaksi@belokiri.id",
       whatsapp: "0812-3456-7890",
-      hours: "Senin – Jumat: 09.00 – 21.00 WIB",
+      hours: "Senin – Jumat: 09.00 – 21.00 WITA",
     },
     content: `## Saluran Komunikasi Redaksi
 
-BELOKIRI terbuka untuk segala bentuk korespondensi, kritik, pers release, pengaduan hak jawab, hingga ajakan kolaborasi program dari seluruh lapisan masyarakat.
+**BAKUBACA** terbuka bagi setiap **Warga** untuk berkorespondensi — mulai dari konsultasi naskah, permohonan hak jawab dan ralat, rilis kegiatan budaya/komunitas, hingga kerja sama acara literasi.
 
-### Alamat & Markas Redaksi
-Meja Agen Belokan berpusat di ruang diskusi kolektif:
-- **Alamat:** Gedung Media Belokiri Lt. 2, Jl. Warkop Tuya No. 45, Jakarta
-- **Surel Utama:** \`redaksi@belokiri.id\`
-- **Surel Bisnis & Kerja Sama:** \`kerjasama@belokiri.id\`
+### Meja Redaksi Bakubaca
+Korespondensi resmi dapat diarahkan melalui kanal berikut:
+- **Alamat Redaksi:** Majene, Sulawesi Barat
+- **Surel Utama Redaksi:** \`redaksi@belokiri.id\`
+- **Surel Kerja Sama & Komunitas:** \`kerjasama@belokiri.id\`
 - **WhatsApp Layanan Warga:** 0812-3456-7890
 
 ---
 
-### Tips Liputan & Whistleblower
-Jika Anda memiliki data investigasi, dokumen kebijakan bermasalah, atau informasi lapangan yang layak dibongkar ke ruang publik, kirimkan melalui surel terenkripsi atau formulir Surat Kaleng Warga dengan jaminan kerahasiaan identitas sumber.`,
+### Masukan Anonim & Tips Informasi
+Jika Anda memiliki informasi kepentingan publik atau masukan kritis bagi pengembangan **Bakubaca** yang ingin disampaikan secara tertutup, gunakan fitur **Surat Kaleng Warga** dengan kerahasiaan pengirim yang dijaga penuh oleh Redaksi.`,
   },
 
-  // 7. KABINET BELOKIRI
+  // 8. KABINET REDAKSI (route tetap /kabinet-belokiri pada Fase 1)
   "kabinet-belokiri": {
     slug: "kabinet-belokiri",
     group: "sindikasi-arsip",
     groupLabel: "SINDIKASI & ARSIP",
-    name: "Kabinet Belokiri",
+    name: "Kabinet Redaksi",
     path: "/kabinet-belokiri",
-    title: "KABINET BELOKIRI",
+    title: "KABINET REDAKSI BAKUBACA",
     subtitle:
-      "Susunan Kabinet dan agen Belokiri.",
-    badge: "Kabinet & Agen Belokan",
-    metaTitle: "Kabinet Belokiri | Kabinet & Agen Belokan",
+      "Susunan pengurus, penyunting rubrik, dan penggerak utama di balik meja Redaksi BAKUBACA.",
+    badge: "Struktur & Tim Redaksi",
+    metaTitle: "Kabinet Redaksi | BAKUBACA",
     metaDescription:
-      "Susunan Kabinet dan agen Belokiri.",
-    content: `## Dewan Pengurus & Meja Kerja Agen Belokan
+      "Profil Dewan Redaksi dan penanggung jawab lima rubrik BAKUBACA.",
+    content: `## Dewan Pengurus & Meja Kerja Redaksi
 
-Kabinet Belokiri adalah kolektif kerja yang menggerakkan operasional harian media, kurasi naskah warga, pengorganisasian program literasi, hingga perumusan arah agitasi dan propaganda editorial.
+**Kabinet Redaksi BAKUBACA** merupakan kolektif penggerak yang mengurus penyuntingan naskah Warga, kurasi kelima rubrik (**Bising**, **Jejak**, **Teras**, **Gurat**, **Fragmen**), pengelolaan visual, hingga penguatan komunitas pembaca.
 
-Struktur ini dirancang cair, egaliter, namun tetap berdisiplin tinggi demi menjaga kualitas naskah dan kemandirian pers kerakyatan.
+Struktur ini dibangun secara egaliter dan kolaboratif demi memastikan Bakubaca senantiasa menjadi ruang yang hangat namun tetap kritis.
 
 ---
 
-> Struktur personil, peran spesifik, foto avatar, dan kutipan dewan kabinet dapat dikelola secara interaktif melalui panel admin **Kelola Website > Tab Kabinet**.`,
+> Susunan anggota, peran rubrik, foto profil, dan keterangan tim dapat diperbarui langsung melalui panel admin **Kelola Website > Tab Kabinet**.`,
   },
 
-  // 8. PEDOMAN MEDIA SIBER
+  // 9. PEDOMAN MEDIA SIBER
   "pedoman-media-siber": {
     slug: "pedoman-media-siber",
     group: "sindikasi-arsip",
@@ -404,45 +379,45 @@ Struktur ini dirancang cair, egaliter, namun tetap berdisiplin tinggi demi menja
     path: "/pedoman-media-siber",
     title: "PEDOMAN MEDIA SIBER",
     subtitle:
-      "Sebagai media independen yang bernapas di ruang digital, BELOKIRI menjunjung tinggi prinsip keterbukaan, akuntabilitas publik, dan etika pers yang berpihak pada akal sehat.",
-    badge: "Standar Editorial & Pers Alternatif",
-    metaTitle: "Pedoman Media Siber | BELOKIRI",
+      "Sebagai media gagasan yang tumbuh di ruang digital, BAKUBACA berpegang pada keterbukaan informasi, verifikasi jujur, dan etika jurnalistik yang bertanggung jawab.",
+    badge: "Standar Editorial & Etika Publikasi",
+    metaTitle: "Pedoman Media Siber | BAKUBACA",
     metaDescription:
-      "Pedoman pemberitaan media siber BELOKIRI yang berpegang pada independensi, verifikasi fakta, dan etika pers rakyat.",
+      "Pedoman pemberitaan media siber BAKUBACA yang menjunjung integritas data, hak jawab, dan keterlibatan Warga.",
     content: `## 01. Ruang Lingkup
-Media Siber BELOKIRI adalah media publikasi alternatif daring yang menyajikan esai, jurnalisme warga, arsip sejarah rakyat, dan analisis kritis. Pedoman ini mengikat seluruh pengelola, Dewan Belokan, agen rubrik, dan kontributor.
+Media Siber **BAKUBACA** adalah ruang publikasi independen yang menyajikan esai sosial-politik, arsip sejarah warga, refleksi pengetahuan, tinjauan budaya, dan karya ekspresi sastra. Pedoman ini mengikat seluruh jajaran **Tim Redaksi** maupun kontributor **Warga**.
 
 ---
 
-## 02. Verifikasi dan Keberimbangan Berita
-Setiap informasi yang mengandung tuduhan atau fakta lapangan wajib diverifikasi dengan iktikad baik. Dalam artikel opini dan esai kritis, penulis wajib menyertakan rujukan yang dapat dipertanggungjawabkan serta argumentasi yang berdasar.
+## 02. Verifikasi dan Keberimbangan
+Setiap tulisan yang memuat fakta lapangan, kutipan data, maupun kritik kebijakan wajib disusun dengan iktikad baik, rujukan yang jelas, serta argumentasi yang dapat dipertanggungjawabkan kepada publik.
 
 ---
 
-## 03. Isi Buatan Pengguna (User Generated Content)
-BELOKIRI menyediakan ruang bagi Warga Belokan untuk mengirimkan tulisan dan surat kaleng. Naskah yang dimuat melalui kurasi editorial tidak boleh memuat ujaran kebencian berbasis SARA, pornografi anak, atau fitnah tanpa dasar faktual.
+## 03. Karya Kontributor (User Generated Content)
+**BAKUBACA** membuka ruang kirim naskah dan Surat Kaleng bagi seluruh **Warga**. Melalui proses sunting Redaksi, naskah terbit dilarang memuat fitnah tanpa dasar, ujaran kebencian berbasis SARA, pelanggaran privasi anak di bawah umur, maupun serangan pribadi non-substantif.
 
 ---
 
 ## 04. Ralat, Koreksi, dan Hak Jawab
-Ralat, koreksi, dan hak jawab wajib ditautkan pada berita atau artikel yang diralat. Pihak yang merasa dirugikan oleh tulisan di BELOKIRI berhak mengajukan bantahan dan klarifikasi yang akan dipublikasikan secara setara dan proporsional.
+Ralat, koreksi redaksional, dan hak jawab dari pihak terkait akan ditautkan secara jelas pada artikel bersangkutan secara setara, transparan, dan proporsional.
 
 ---
 
-## 05. Pencabutan Berita
-Artikel yang sudah dipublikasikan tidak dapat dicabut semata-mata karena tekanan pihak luar atau pemilik kuasa, kecuali terkait persoalan SARA mendesak, masa depan anak di bawah umur, atau atas rekomendasi hukum yang sah.
+## 05. Pencabutan Tulisan
+Tulisan yang telah terbit di Bakubaca tidak dapat dicabut akibat tekanan kekuasaan maupun komersial sepihak, kecuali menyangkut pelanggaran berat hukum yang sah, keselamatan individu rentan, atau kesalahan faktual mendasar atas pertimbangan Dewan Redaksi.
 
 ---
 
-## 06. Hak Cipta dan Praktik Sitasi
-BELOKIRI menghargai hak cipta setiap penulis, fotografer, dan ilustrator. Plagiarisme dalam bentuk apa pun adalah pelanggaran berat di BELOKIRI dan berakibat pemutusan hubungan kontributor secara permanen.
+## 06. Hak Cipta & Sitasi
+**BAKUBACA** menghormati hak cipta setiap penulis, fotografer, dan ilustrator. Tindakan plagiarisme berakibat penolakan permanen oleh Tim Redaksi.
 
 ---
 
-> **Pengaduan Etika & Hak Jawab:** Kirimkan surat permohonan hak jawab, klarifikasi, atau laporan kode etik ke: **redaksi@belokiri.id** atau pos Meja Redaksi BELOKIRI.`,
+> **Layanan Etika & Hak Jawab:** Kirimkan permohonan klarifikasi atau koreksi ke **redaksi@belokiri.id**.`,
   },
 
-  // 9. DISCLAIMER
+  // 10. DISCLAIMER
   disclaimer: {
     slug: "disclaimer",
     group: "sindikasi-arsip",
@@ -451,36 +426,36 @@ BELOKIRI menghargai hak cipta setiap penulis, fotografer, dan ilustrator. Plagia
     path: "/disclaimer",
     title: "DISCLAIMER",
     subtitle:
-      "Pernyataan sangkalan dan penegasan status konten yang dipublikasikan di situs BELOKIRI.",
-    badge: "Batasan Tanggung Jawab Hukum",
-    metaTitle: "Disclaimer | BELOKIRI",
+      "Pernyataan sangkalan serta kejelasan status tanggung jawab tulisan yang terbit di situs BAKUBACA.",
+    badge: "Batasan Tanggung Jawab Publikasi",
+    metaTitle: "Disclaimer | BAKUBACA",
     metaDescription:
-      "Pernyataan sangkalan hukum, tanggung jawab tulisan kontributor, dan batasan operasional media BELOKIRI.",
-    content: `## 1. Opini Penulis dan Warga Belokan
-Seluruh artikel, esai, opini, dan karya sastra yang dimuat di BELOKIRI merupakan cerminan dari sudut pandang masing-masing penulis dan kontributor. Gagasan yang tertuang tidak secara otomatis merefleksikan sikap institusional atau keputusan politik resmi BELOKIRI secara keseluruhan.
+      "Penjelasan hukum mengenai tanggung jawab opini Warga, karya fiksi, dan tautan eksternal pada situs BAKUBACA.",
+    content: `## 1. Opini Pribadi Warga
+Seluruh esai, opini, ulasan budaya, dan catatan refleksi yang ditulis oleh kontributor **Warga** di **BAKUBACA** merupakan pandangan pribadi penulisnya masing-masing, dan tidak selalu mewakili posisi resmi kolektif Redaksi secara keseluruhan.
 
 ---
 
-## 2. Karakter Satir dan Karya Fiksi
-Rubrik-rubrik tertentu seperti **SERIAL ANABEL** atau catatan humor di **MEJA WARKOP** dapat mengandung unsur fiksi satir, personifikasi komikal, dan hiperbola artistik. Nama karakter, tempat, atau insiden yang menyerupai kenyataan digunakan untuk tujuan kritik sosial dan refleksi kultural semata.
+## 2. Karya Kreatif & Fiksi
+Naskah di rubrik **FRAGMEN** maupun catatan refleksi personal di rubrik **TERAS** dapat memuat karya fiksi seperti cerpen, puisi, prosa liris, serta metafora sastra. Kesamaan nama tokoh atau situasi dalam karya fiksi bersifat kebetulan artistik.
 
 ---
 
-## 3. Akurasi Informasi & Tautan Pihak Ketiga
-Meskipun redaksi berupaya melakukan verifikasi terhadap data primer, BELOKIRI tidak bertanggung jawab penuh atas segala kerugian materiil maupun non-materiil yang timbul akibat ketergantungan sepihak pada informasi di situs ini atau tautan eksternal pihak ketiga yang disematkan.
+## 3. Akurasi Informasi & Tautan Eksternal
+Meski **Tim Redaksi BAKUBACA** melakukan penyuntingan dan pemeriksaan akurasi secara berkala, Bakubaca tidak bertanggung jawab atas kerugian langsung maupun tidak langsung yang timbul dari penafsiran sepihak atau perubahan konten pada tautan eksternal pihak ketiga.
 
 ---
 
-## 4. Hak Cipta & Pengutipan Karya
-Seluruh materi orisinal yang diterbitkan di BELOKIRI dilindungi oleh undang-undang hak cipta. Pengutipan diperkenankan untuk keperluan pendidikan, kajian akademis, dan ulasan non-komersial dengan wajib mencantumkan nama penulis dan tautan sumber artikel BELOKIRI.
+## 4. Hak Cipta & Kutipan
+Hak cipta naskah tetap melekat pada penulis dengan hak publikasi digital di **BAKUBACA**. Pengutipan untuk studi, diskusi publik, maupun tujuan non-komersial diperkenankan selama mencantumkan nama penulis dan tautan asal artikel Bakubaca.
 
 ---
 
-## 5. Perubahan dan Pembaruan Konten
-Redaksi BELOKIRI berhak memperbarui, memperbaiki kesalahan ketik, menambahkan catatan ralat (errata), atau menyesuaikan format artikel demi kenyamanan pembaca tanpa pemberitahuan sebelumnya.`,
+## 5. Pembaruan & Penyuntingan Naskah
+**Redaksi BAKUBACA** berhak memperbaiki salah tik, merapikan tipografi, atau menambahkan catatan klarifikasi demi kenyamanan baca Warga.`,
   },
 
-  // 10. KEBIJAKAN PRIVASI
+  // 11. KEBIJAKAN PRIVASI
   "kebijakan-privasi": {
     slug: "kebijakan-privasi",
     group: "sindikasi-arsip",
@@ -489,31 +464,31 @@ Redaksi BELOKIRI berhak memperbarui, memperbaiki kesalahan ketik, menambahkan ca
     path: "/kebijakan-privasi",
     title: "KEBIJAKAN PRIVASI",
     subtitle:
-      "Kami menolak pengawasan massal korporat dan menghargai kerahasiaan setiap pembaca serta kontributor BELOKIRI.",
-    badge: "Perlindungan Data Pengguna",
-    metaTitle: "Kebijakan Privasi | BELOKIRI",
+      "Bakubaca menghargai privasi setiap Warga serta menolak praktik pelacakan dan perdagangan data pribadi.",
+    badge: "Perlindungan Data Warga",
+    metaTitle: "Kebijakan Privasi | BAKUBACA",
     metaDescription:
-      "Kebijakan perlindungan data dan privasi pengguna situs BELOKIRI.",
+      "Komitmen BAKUBACA dalam menjaga keamanan akun penulis Warga, kerahasiaan Surat Kaleng, dan data formulir redaksi.",
     content: `## 1. Kerahasiaan Surat Kaleng Warga
-Formulir **Surat Kaleng Warga** dirancang untuk menampung kritik dan masukan tanpa melacak identitas asli pembaca. Kami tidak mencatat alamat IP pribadi atau data geolokasi pengguna untuk tujuan komersial atau pengawasan.
+Fitur **Surat Kaleng Warga** dirancang untuk menampung suara, kritik, dan informasi pembaca tanpa memaksa pencantuman identitas asli. Nama samaran digunakan semata untuk pengarsipan meja Redaksi.
 
 ---
 
-## 2. Data Formulir Rekrutmen & Akun Kontributor
-Informasi kontak yang Anda cantumkan dalam Formulir Rekrutmen Agen Belokan (seperti email dan nomor WhatsApp) hanya digunakan untuk keperluan komunikasi editorial internal dan verifikasi keanggotaan. BELOKIRI tidak akan pernah menjual atau menyewakan data Anda kepada pihak ketiga, broker data, atau entitas pengiklan mana pun.
+## 2. Data Akun Warga & Pendaftaran Redaksi
+Data profil penulis (nama, email, biografi) dan informasi formulir rekrutmen **Tim Redaksi** hanya dimanfaatkan untuk komunikasi penyuntingan naskah serta koordinasi internal. **BAKUBACA** tidak pernah menjual, menyewakan, atau membagikan data Warga kepada broker data maupun pihak ketiga pengiklan.
 
 ---
 
-## 3. Penggunaan Cookie & Analitik Ringan
-BELOKIRI hanya memanfaatkan penyimpanan lokal atau cookie esensial yang diperlukan untuk fungsi login akun dan keamanan sesi pengguna. Kami tidak menyematkan pelacak perilaku lintas situs (third-party tracking pixels) yang mengintai aktivitas penjelajahan Anda.
+## 3. Cookie Sesi & Penyimpanan Lokal
+Situs **BAKUBACA** hanya menyimpan cookie sesi autentikasi akun dan preferensi ringan di browser Anda agar fitur kirim tulisan dan interaksi pembaca bekerja dengan aman tanpa pelacak lintas situs komersial.
 
 ---
 
 ## 4. Hak Penghapusan Data
-Kontributor atau pelamar agen berhak meminta penghapusan riwayat akun dan data pribadinya dari basis data BELOKIRI kapan saja dengan mengirimkan permohonan ke surel resmi kami: **redaksi@belokiri.id**.`,
+Setiap Warga berhak meminta pembaruan atau penghapusan data akun dari basis data **BAKUBACA** dengan menghubungi **redaksi@belokiri.id**.`,
   },
 
-  // 11. SYARAT & KETENTUAN
+  // 12. SYARAT & KETENTUAN
   "syarat-ketentuan": {
     slug: "syarat-ketentuan",
     group: "sindikasi-arsip",
@@ -522,28 +497,28 @@ Kontributor atau pelamar agen berhak meminta penghapusan riwayat akun dan data p
     path: "/syarat-ketentuan",
     title: "SYARAT & KETENTUAN",
     subtitle:
-      "Ketentuan interaksi, pengiriman naskah, dan komitmen etis bagi seluruh Warga Belokan.",
+      "Ketentuan penggunaan platform, pengiriman naskah, dan etika berinteraksi antar-Warga di BAKUBACA.",
     badge: "Ketentuan Penggunaan Situs",
-    metaTitle: "Syarat & Ketentuan | BELOKIRI",
+    metaTitle: "Syarat & Ketentuan | BAKUBACA",
     metaDescription:
-      "Syarat dan ketentuan pemanfaatan situs serta pengiriman tulisan di BELOKIRI.",
-    content: `## 1. Integritas Tulisan & Larangan Plagiarisme
-Setiap naskah yang dikirimkan oleh Warga Belokan harus merupakan karya asli (orisinal) dan bukan hasil plagiasi tulisan orang lain. Kontributor bertanggung jawab secara moral dan hukum atas keaslian pemikiran dan data yang disajikan.
+      "Syarat pengiriman karya Warga, hak penyuntingan Redaksi, dan etika bersama di platform BAKUBACA.",
+    content: `## 1. Keaslian Naskah Warga
+Setiap tulisan yang dikirimkan oleh **Warga** melalui meja penulis **BAKUBACA** harus merupakan karya orisinal dan tidak melanggar hak cipta pihak lain. Penulis bertanggung jawab penuh atas keaslian gagasan serta kutipan rujukan yang digunakan.
 
 ---
 
-## 2. Hak Editorial Dewan Belokan
-Redaksi berhak menyunting judul, tata bahasa, dan memadatkan naskah tanpa mengubah substansi gagasan penulis demi menjaga keterbacaan serta ketajaman artikel. Redaksi juga memiliki hak penuh untuk menolak naskah yang dinilai melanggar prinsip dasar kemanusiaan atau pedoman media siber.
+## 2. Hak Penyuntingan Redaksi
+**Tim Redaksi BAKUBACA** berhak menyunting judul, merapikan EYD/tata bahasa, atau meminta revisi kepada penulis demi menjaga kejelasan argumen tanpa mengubah maksud pokok penulis. Redaksi berhak menolak naskah yang melanggar Pedoman Media Siber maupun Konstitusi Kecil Bakubaca.
 
 ---
 
-## 3. Etika Kolom Komentar & Surat Kaleng
-Kami menyukai kritik pedas dan caci maki jenaka, namun tidak mentolerir pelecehan seksual verbal, ancaman kekerasan fisik terhadap individu rentan, maupun doxxing (penyebaran data pribadi tanpa izin).
+## 3. Etika Ruang Bersama
+Kami merayakan kritik tajam dan perbedaan pemikiran di ruang **Bakubaca**, namun melarang keras ancaman kekerasan, ujaran kebencian berbasis SARA, pelecehan verbal, serta penyebaran informasi pribadi orang lain tanpa izin (doxxing).
 
 ---
 
-## 4. Perubahan Ketentuan
-Syarat dan ketentuan ini dapat disesuaikan sewaktu-waktu seiring dinamika perkembangan komunitas BELOKIRI. Pembaruan akan selalu diumumkan secara terbuka di halaman ini.`,
+## 4. Penyesuaian Ketentuan
+Ketentuan ini dapat diperbarui sewaktu-waktu seiring bertumbuhnya komunitas **BAKUBACA**, dan perubahan akan selalu ditayangkan terbuka pada halaman ini.`,
   },
 };
 
@@ -558,9 +533,9 @@ export function getDefaultCustomPage(slug: string): CustomPageContent {
       path: `/${slug}`,
       title: slug.toUpperCase(),
       subtitle: "",
-      badge: "Halaman Belokiri",
-      metaTitle: `${slug.toUpperCase()} | BELOKIRI`,
-      metaDescription: `Halaman ${slug} resmi BELOKIRI.`,
+      badge: "Halaman Bakubaca",
+      metaTitle: `${slug.toUpperCase()} | BAKUBACA`,
+      metaDescription: `Halaman ${slug} resmi BAKUBACA — Setiap Pikiran Punya Ruang.`,
       content: "",
     };
   }

@@ -34,8 +34,8 @@ export default async function ContributorDashboardPage() {
             Selamat Datang, {user.penName || user.name}!
           </h1>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1 max-w-xl font-normal">
-            Pantau kurasi Agen Belokan, kelola draf naskah, dan terus hadirkan
-            tulisan yang liar seperlunya, jenaka secukupnya.
+            Pantau kurasi Tim Redaksi, kelola draf tulisan, dan terus hadirkan gagasan
+            terbaikmu di ruang publik BAKUBACA.
           </p>
         </div>
 
@@ -94,30 +94,30 @@ export default async function ContributorDashboardPage() {
             <span className="text-xs text-zinc-400 font-medium">naskah</span>
           </div>
           <p className="text-[11px] text-zinc-500 mt-2">
-            Menunggu kurasi meja Agen Belokan
+            Menunggu kurasi Meja Redaksi
           </p>
         </Link>
 
         {/* Perlu Revisi */}
         <Link
           href="/dashboard/artikel?status=REVISION"
-          className="p-5 rounded-2xl bg-white border border-zinc-200 hover:border-red-400 transition-all shadow-xs group"
+          className="p-5 rounded-2xl bg-white border border-zinc-200 hover:border-rose-400 transition-all shadow-xs group"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-black uppercase tracking-wider text-red-600">
+            <span className="text-xs font-black uppercase tracking-wider text-rose-700">
               Perlu Revisi
             </span>
-            <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center text-red-600 group-hover:scale-105 transition-transform">
+            <div className="w-8 h-8 rounded-lg bg-rose-50 flex items-center justify-center text-rose-600 group-hover:scale-105 transition-transform">
               <AlertTriangle className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-4 flex items-baseline gap-2">
-            <span className="text-3xl font-black text-red-600">
+            <span className="text-3xl font-black text-rose-600">
               {stats.revisionCount}
             </span>
             <span className="text-xs text-zinc-400 font-medium">catatan</span>
           </div>
-          <p className="text-[11px] text-red-600 font-bold mt-2">
+          <p className="text-[11px] text-rose-600 font-bold mt-2">
             {stats.revisionCount > 0 ? "Ada catatan dari editor" : "Belum ada revisi"}
           </p>
         </Link>
@@ -150,21 +150,21 @@ export default async function ContributorDashboardPage() {
 
       {/* 3. Action Alert for Revisions if any */}
       {stats.revisionCount > 0 && (
-        <div className="p-4 sm:p-5 bg-red-50 border border-red-200 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="p-4 sm:p-5 bg-rose-50 border border-rose-200 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-start gap-3">
-            <AlertTriangle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+            <AlertTriangle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
             <div>
-              <h3 className="text-sm font-black text-red-800 uppercase tracking-tight">
+              <h3 className="text-sm font-black text-rose-800 uppercase tracking-tight">
                 Anda Memiliki {stats.revisionCount} Naskah yang Membutuhkan Revisi
               </h3>
-              <p className="text-xs text-red-700 mt-0.5">
-                Agen Belokan telah memberikan catatan masukan. Buka naskah terkait untuk melihat detail dan memperbaikinya.
+              <p className="text-xs text-rose-700 mt-0.5">
+                Tim Redaksi telah memberikan catatan masukan. Buka naskah terkait untuk melihat detail dan memperbaikinya.
               </p>
             </div>
           </div>
           <Link
             href="/dashboard/artikel?status=REVISION"
-            className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-black uppercase tracking-wider transition-colors shrink-0"
+            className="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-black uppercase tracking-wider transition-colors shrink-0"
           >
             Buka Naskah Revisi
           </Link>
@@ -199,8 +199,8 @@ export default async function ContributorDashboardPage() {
               Belum Ada Naskah yang Dibuat
             </h3>
             <p className="text-xs text-zinc-400 max-w-sm mx-auto">
-              Mulailah menulis gagasan atau liputan investigasimu sekarang dan
-              ajukan ke meja Agen Belokan BELOKIRI.
+              Mulailah menulis gagasan, catatan, atau karyamu sekarang dan
+              ajukan ke Meja Redaksi BAKUBACA.
             </p>
             <Link
               href="/dashboard/artikel/buat"
@@ -261,7 +261,7 @@ export default async function ContributorDashboardPage() {
                       href={`/dashboard/artikel/${article.id}/edit`}
                       className={`px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-colors ${
                         article.status === "REVISION"
-                          ? "bg-red-600 hover:bg-red-700 text-white"
+                          ? "bg-rose-600 hover:bg-rose-700 text-white"
                           : "border border-zinc-200 bg-white hover:bg-zinc-100 text-zinc-700"
                       }`}
                     >

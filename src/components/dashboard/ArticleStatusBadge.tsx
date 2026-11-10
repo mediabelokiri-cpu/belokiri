@@ -39,9 +39,9 @@ export default function ArticleStatusBadge({
     case "REVISION":
       return (
         <span
-          className={`inline-flex items-center gap-1.5 font-black uppercase tracking-wider rounded-md bg-red-50 text-red-700 border border-red-300 ${sizeClasses}`}
+          className={`inline-flex items-center gap-1.5 font-black uppercase tracking-wider rounded-md bg-rose-50 text-rose-700 border border-rose-300 ${sizeClasses}`}
         >
-          {showIcon && <AlertTriangle className="w-3.5 h-3.5 text-red-600" />}
+          {showIcon && <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />}
           <span>Perlu Revisi</span>
         </span>
       );

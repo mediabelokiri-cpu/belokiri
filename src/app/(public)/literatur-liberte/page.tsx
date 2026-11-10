@@ -18,7 +18,7 @@ export const revalidate = 60;
 export async function generateMetadata(): Promise<Metadata> {
   const { page } = await getCustomPageAction("literatur-liberte");
   return {
-    title: page.metaTitle || `${page.title} | BELOKIRI`,
+    title: page.metaTitle || `${page.title} | BAKUBACA`,
     description: page.metaDescription,
   };
 }
@@ -93,12 +93,12 @@ const SYLLABUS_MODULES = [
   },
   {
     number: "05",
-    tagline: "Dari Draf ke Dampak: Ruang Agen Belokan & Produksi Konten",
+    tagline: "Dari Draf ke Dampak: Ruang Redaksi & Produksi Konten",
     title: "Produksi Konten Media & Editing",
     icon: FileCheck2,
     stage: "PRODUKSI",
     stageColor: "bg-zinc-800 text-white",
-    arah: "Mempersiapkan penulis untuk siap bekerja dalam ritme kerja Agen Belokan profesional.",
+    arah: "Mempersiapkan penulis untuk siap bekerja dalam ritme kerja Tim Redaksi profesional.",
     bahasan: [
       "Workflow media digital: ide awal → penulisan → kurasi & revisi → publikasi",
       "Teknik editing naskah: memotong yang bertele-tele, merapikan kalimat, mempertajam punchline",
@@ -225,17 +225,17 @@ export default async function LiteraturLibertePage() {
       )}
 
       {/* Bottom CTA */}
-      <section className="bg-black text-white rounded-3xl p-8 sm:p-10 text-center space-y-4 border-t-4 border-red-600">
+      <section className="bg-[#1f1f1f] text-white rounded-3xl p-8 sm:p-10 text-center space-y-4 border-t-4 border-[#4c13ff]">
         <h3 className="text-2xl font-black uppercase tracking-tight text-white">
           Siap Mengasah Tulisanmu?
         </h3>
-        <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto font-normal">
-          Daftarkan dirimu dalam proses Rekrutmen Belokiri.id atau langsung kirimkan draf tulisan pertamamu.
+        <p className="text-xs sm:text-sm text-zinc-300 max-w-md mx-auto font-normal">
+          Daftarkan dirimu dalam proses Rekrutmen BAKUBACA atau langsung kirimkan draf tulisan pertamamu.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <Link
             href="/rekrutmen"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-red-600 text-white text-xs font-black uppercase tracking-wider hover:bg-red-700 transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-[#ffc22f] text-[#1f1f1f] text-xs font-black uppercase tracking-wider hover:bg-amber-300 transition-colors shadow-sm"
           >
             <span>Daftar Rekrutmen</span>
             <ArrowRight className="w-4 h-4" />
@@ -244,7 +244,7 @@ export default async function LiteraturLibertePage() {
             href="/kirim-tulisan"
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-zinc-800 text-white text-xs font-black uppercase tracking-wider hover:bg-zinc-700 transition-colors"
           >
-            <span>Kirim Naskah ke Agen Belokan</span>
+            <span>Kirim Naskah ke Redaksi</span>
           </Link>
         </div>
       </section>

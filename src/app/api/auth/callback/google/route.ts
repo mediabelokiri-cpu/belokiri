@@ -119,7 +119,7 @@ export async function GET(request: NextRequest) {
         });
       }
     } else {
-      // Auto-register new Warga Belokan
+      // Auto-register new Warga Bakubaca
       let baseSlug = (name || email.split("@")[0])
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, "-")
@@ -136,7 +136,7 @@ export async function GET(request: NextRequest) {
         data: {
           googleId,
           email: email.toLowerCase(),
-          name: name || "Warga Belokan",
+          name: name || "Warga Bakubaca",
           slug,
           avatarUrl: picture || null,
           role: Role.USER,

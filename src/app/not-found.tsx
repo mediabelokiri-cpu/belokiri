@@ -17,7 +17,7 @@ export default function NotFound() {
       </p>
       <Link
         href="/"
-        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-foreground text-background font-medium hover:opacity-90 transition-opacity text-sm"
+        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#4c13ff] hover:bg-[#3d0dd9] text-white font-bold transition-colors text-sm shadow-xs"
       >
         <ArrowLeft className="w-4 h-4" />
         Kembali ke Beranda

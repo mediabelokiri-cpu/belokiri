@@ -1,5 +1,5 @@
 /**
- * Cryptographic Token Service for BELOKIRI
+ * Cryptographic Token Service for BAKUBACA
  * Uses Web Crypto API (HMAC-SHA256) compatible with both Node.js and Edge Runtime.
  * Prevents session forgery and cookie tampering.
  */

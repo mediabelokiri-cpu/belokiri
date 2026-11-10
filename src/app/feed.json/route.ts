@@ -13,17 +13,17 @@ export async function GET() {
 
   const feedData = {
     version: "https://jsonfeed.org/version/1.1",
-    title: "BELOKIRI - Liar Seperlunya, Jenaka Secukupnya",
+    title: "BAKUBACA — Setiap Pikiran Punya Ruang.",
     home_page_url: baseUrl,
     feed_url: `${baseUrl}/feed.json`,
     description:
-      "Media esai populer, analisis santai, arsip sejarah rakyat, dan percakapan kritis yang disajikan dengan tajam dan jenaka.",
-    icon: `${baseUrl}/images/logo-belokiri-red.png`,
+      "Ruang baca dan media gagasan independen. Setiap Pikiran Punya Ruang — menyuarakan realitas, merekam pengalaman, dan membaca kebudayaan.",
+    icon: `${baseUrl}/images/logourlbarbakubaca.png`,
     favicon: `${baseUrl}/favicon.ico`,
     language: "id-ID",
     authors: [
       {
-        name: "Dewan Agen Belokan BELOKIRI",
+        name: "Tim Redaksi BAKUBACA",
         url: baseUrl,
       },
     ],

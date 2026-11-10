@@ -6,8 +6,8 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata = {
-  title: "Meja Warga Belokan | BELOKIRI",
-  description: "Kelola naskah, draft liputan, dan pantau kurasi Agen Belokan BELOKIRI.",
+  title: "Meja Warga | BAKUBACA",
+  description: "Kelola naskah, draf tulisan, dan pantau kurasi Tim Redaksi BAKUBACA.",
 };
 
 export default async function ContributorLayout({
@@ -18,7 +18,7 @@ export default async function ContributorLayout({
   const user = await requireUser();
 
   return (
-    <div className="min-h-screen bg-[#fafaf9] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#fbfaf8] flex flex-col font-sans">
       <ContributorHeader user={user} />
       <ContributorNav />
       <main className="flex-1 py-8 sm:py-10">
@@ -27,7 +27,7 @@ export default async function ContributorLayout({
         </div>
       </main>
       <footer className="border-t border-zinc-200 bg-white py-6 text-center text-xs text-zinc-400 font-medium">
-        BELOKIRI Meja Warga Belokan • Menjaga Independensi & Kualitas Naskah Publik
+        BAKUBACA Meja Warga • Setiap Pikiran Punya Ruang.
       </footer>
     </div>
   );

@@ -93,7 +93,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // 2. 8 Rubriks
+  // 2. 5 Rubriks
   const rubrikRoutes: MetadataRoute.Sitemap = MOCK_RUBRIKS.map((rubrik) => ({
     url: `${baseUrl}/kategori/${rubrik.slug}`,
     lastModified: new Date(),

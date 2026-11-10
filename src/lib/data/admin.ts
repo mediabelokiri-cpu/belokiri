@@ -71,7 +71,7 @@ async function enrichArticle(article: ContributorArticleItem): Promise<AdminArti
   let authorName = article.authorName || "";
   let authorEmail = "";
   let authorAvatarUrl: string | null = article.authorAvatarUrl || null;
-  let authorBio: string | null = article.authorBio || "Warga Belokan resmi BELOKIRI.";
+  let authorBio: string | null = article.authorBio || "Warga resmi BAKUBACA.";
 
   if (!authorName) {
     try {
@@ -89,7 +89,7 @@ async function enrichArticle(article: ContributorArticleItem): Promise<AdminArti
         authorName = dbUser.penName || dbUser.name;
         authorEmail = dbUser.email;
         authorAvatarUrl = dbUser.avatarUrl || null;
-        authorBio = dbUser.bio || "Warga Belokan resmi BELOKIRI.";
+        authorBio = dbUser.bio || "Warga resmi BAKUBACA.";
       }
     } catch (err) {
       console.error("Error finding user in db for enrichArticle:", err);
@@ -102,12 +102,12 @@ async function enrichArticle(article: ContributorArticleItem): Promise<AdminArti
       authorName = author.penName || author.name;
       authorEmail = author.email;
       authorAvatarUrl = author.avatarUrl;
-      authorBio = author.bio || "Warga Belokan resmi BELOKIRI.";
+      authorBio = author.bio || "Warga resmi BAKUBACA.";
     }
   }
 
   if (!authorName) {
-    authorName = "Warga Belokan";
+    authorName = "Warga Bakubaca";
   }
 
   return {
@@ -197,7 +197,7 @@ export async function getReviewQueue(): Promise<AdminArticleItem[]> {
       authorName: a.author.penName || a.author.name,
       authorEmail: a.author.email,
       authorAvatarUrl: a.author.avatarUrl,
-      authorBio: a.author.bio || "Warga Belokan resmi BELOKIRI.",
+      authorBio: a.author.bio || "Warga resmi BAKUBACA.",
       title: a.title,
       slug: a.slug,
       excerpt: a.excerpt,
@@ -271,7 +271,7 @@ export async function getAllArticlesForAdmin(filters?: {
       authorName: a.author.penName || a.author.name,
       authorEmail: a.author.email,
       authorAvatarUrl: a.author.avatarUrl,
-      authorBio: a.author.bio || "Warga Belokan resmi BELOKIRI.",
+      authorBio: a.author.bio || "Warga resmi BAKUBACA.",
       title: a.title,
       slug: a.slug,
       excerpt: a.excerpt,
@@ -349,7 +349,7 @@ export async function getArticleForReview(articleId: string): Promise<AdminArtic
         authorName: dbArticle.author.penName || dbArticle.author.name,
         authorEmail: dbArticle.author.email,
         authorAvatarUrl: dbArticle.author.avatarUrl,
-        authorBio: dbArticle.author.bio || "Warga Belokan resmi BELOKIRI.",
+        authorBio: dbArticle.author.bio || "Warga resmi BAKUBACA.",
         title: dbArticle.title,
         slug: dbArticle.slug,
         excerpt: dbArticle.excerpt,
@@ -451,7 +451,7 @@ export async function publishArticleByAdmin(
         authorName: updated.author.penName || updated.author.name,
         authorEmail: updated.author.email,
         authorAvatarUrl: updated.author.avatarUrl,
-        authorBio: updated.author.bio || "Warga Belokan resmi BELOKIRI.",
+        authorBio: updated.author.bio || "Warga resmi BAKUBACA.",
         title: updated.title,
         slug: updated.slug,
         excerpt: updated.excerpt,
@@ -519,7 +519,7 @@ export async function publishArticleByAdmin(
 
   // Persist to PostgreSQL if not previously saved in DB
   try {
-    const effectiveCatSlug = (seoData?.categoryId || categorySlug || "berisik").replace(/^rubrik-/, "");
+    const effectiveCatSlug = (seoData?.categoryId || categorySlug || "bising").replace(/^rubrik-/, "");
     let dbCat = await prisma.category.findFirst({
       where: { OR: [{ slug: effectiveCatSlug }, { id: seoData?.categoryId }] },
     });
@@ -596,7 +596,7 @@ export async function publishArticleByAdmin(
         authorName: createdInDb.author.penName || createdInDb.author.name,
         authorEmail: createdInDb.author.email,
         authorAvatarUrl: createdInDb.author.avatarUrl,
-        authorBio: createdInDb.author.bio || "Warga Belokan resmi BELOKIRI.",
+        authorBio: createdInDb.author.bio || "Warga resmi BAKUBACA.",
         title: createdInDb.title,
         slug: createdInDb.slug,
         excerpt: createdInDb.excerpt,
@@ -634,7 +634,7 @@ export async function publishArticleByAdmin(
     targetTitle: updated.title,
     targetId: updated.id,
     note: `Diterbitkan di Rubrik ${updated.categoryName}${
-      (updated as any).isEditorPick ? " • Ditandai Pilihan Agen Belokan" : ""
+      (updated as any).isEditorPick ? " • Ditandai Pilihan Redaksi" : ""
     }`,
     createdAt: now,
   });
@@ -694,7 +694,7 @@ export async function requestRevisionByAdmin(
         authorName: updated.author.penName || updated.author.name,
         authorEmail: updated.author.email,
         authorAvatarUrl: updated.author.avatarUrl,
-        authorBio: updated.author.bio || "Warga Belokan resmi BELOKIRI.",
+        authorBio: updated.author.bio || "Warga resmi BAKUBACA.",
         title: updated.title,
         slug: updated.slug,
         excerpt: updated.excerpt,
@@ -790,7 +790,7 @@ export async function unpublishArticleByAdmin(
         targetType: "ARTICLE",
         targetTitle: updated.title,
         targetId: updated.id,
-        note: "Status ditarik kembali menjadi Draf oleh Agen Belokan",
+        note: "Status ditarik kembali menjadi Draf oleh Redaksi",
         createdAt: now,
       });
 
@@ -800,7 +800,7 @@ export async function unpublishArticleByAdmin(
         authorName: updated.author.penName || updated.author.name,
         authorEmail: updated.author.email,
         authorAvatarUrl: updated.author.avatarUrl,
-        authorBio: updated.author.bio || "Warga Belokan resmi BELOKIRI.",
+        authorBio: updated.author.bio || "Warga resmi BAKUBACA.",
         title: updated.title,
         slug: updated.slug,
         excerpt: updated.excerpt,
@@ -851,7 +851,7 @@ export async function unpublishArticleByAdmin(
     targetType: "ARTICLE",
     targetTitle: updated.title,
     targetId: updated.id,
-    note: "Status ditarik kembali menjadi Draf oleh Agen Belokan",
+    note: "Status ditarik kembali menjadi Draf oleh Redaksi",
     createdAt: now,
   });
 
@@ -914,7 +914,7 @@ export async function deleteArticleByAdmin(
         targetType: "ARTICLE",
         targetTitle: dbArticle.title,
         targetId: dbArticle.id,
-        note: "Artikel dihapus permanen oleh Agen Belokan",
+        note: "Artikel dihapus permanen oleh Redaksi",
         createdAt: new Date().toISOString(),
       });
       return true;
@@ -937,7 +937,7 @@ export async function deleteArticleByAdmin(
     targetType: "ARTICLE",
     targetTitle: deleted.title,
     targetId: deleted.id,
-    note: "Artikel dihapus permanen oleh Agen Belokan",
+    note: "Artikel dihapus permanen oleh Redaksi",
     createdAt: new Date().toISOString(),
   });
 
@@ -1052,7 +1052,7 @@ export async function saveArticleByAdmin(
   },
   articleId?: string
 ): Promise<AdminArticleItem> {
-  const catSlug = (data.categoryId || "berisik").replace(/^rubrik-/, "");
+  const catSlug = (data.categoryId || "bising").replace(/^rubrik-/, "");
   let dbCategory = null;
   try {
     dbCategory = await prisma.category.findFirst({
@@ -1171,8 +1171,8 @@ export async function saveArticleByAdmin(
           targetTitle: updated.title,
           targetId: updated.id,
           note: isPublished
-            ? `Diterbitkan langsung oleh Agen Belokan di Rubrik ${updated.category.name}`
-            : `Naskah diperbarui oleh Agen Belokan (Status: ${data.status})`,
+            ? `Diterbitkan langsung oleh Redaksi di Rubrik ${updated.category.name}`
+            : `Naskah diperbarui oleh Redaksi (Status: ${data.status})`,
           createdAt: now,
         });
 
@@ -1182,7 +1182,7 @@ export async function saveArticleByAdmin(
           authorName: updated.author.penName || updated.author.name,
           authorEmail: updated.author.email,
           authorAvatarUrl: updated.author.avatarUrl,
-          authorBio: updated.author.bio || "Dewan Agen Belokan BELOKIRI.",
+          authorBio: updated.author.bio || "Tim Redaksi BAKUBACA.",
           title: updated.title,
           slug: updated.slug,
           excerpt: updated.excerpt,
@@ -1207,13 +1207,13 @@ export async function saveArticleByAdmin(
         };
       }
     } else {
-      const generatedSlug = `${slugify(data.title || "naskah-agen-belokan")}-${Date.now().toString().slice(-4)}`;
+      const generatedSlug = `${slugify(data.title || "naskah-redaksi")}-${Date.now().toString().slice(-4)}`;
       if (finalCatId && (finalAuthorId || effectiveAdminId)) {
         const created = await prisma.article.create({
           data: {
             authorId: finalAuthorId || effectiveAdminId,
             categoryId: finalCatId,
-            title: data.title || "Naskah Agen Belokan BELOKIRI",
+            title: data.title || "Naskah Redaksi BAKUBACA",
             slug: generatedSlug,
             content: data.content || "",
             excerpt: data.excerpt || null,
@@ -1257,8 +1257,8 @@ export async function saveArticleByAdmin(
           targetTitle: created.title,
           targetId: created.id,
           note: isPublished
-            ? `Artikel baru diterbitkan langsung oleh Agen Belokan di Rubrik ${created.category.name}`
-            : `Draf naskah baru dibuat oleh Agen Belokan (Status: ${data.status})`,
+            ? `Artikel baru diterbitkan langsung oleh Redaksi di Rubrik ${created.category.name}`
+            : `Draf naskah baru dibuat oleh Redaksi (Status: ${data.status})`,
           createdAt: now,
         });
 
@@ -1268,7 +1268,7 @@ export async function saveArticleByAdmin(
           authorName: created.author.penName || created.author.name,
           authorEmail: created.author.email,
           authorAvatarUrl: created.author.avatarUrl,
-          authorBio: created.author.bio || "Dewan Agen Belokan BELOKIRI.",
+          authorBio: created.author.bio || "Tim Redaksi BAKUBACA.",
           title: created.title,
           slug: created.slug,
           excerpt: created.excerpt,
@@ -1354,8 +1354,8 @@ export async function saveArticleByAdmin(
       targetTitle: updated.title,
       targetId: updated.id,
       note: isNowPublished
-        ? `Diterbitkan langsung oleh Agen Belokan di Rubrik ${rubrik.name}`
-        : `Naskah diperbarui oleh Agen Belokan (Status: ${data.status})`,
+        ? `Diterbitkan langsung oleh Redaksi di Rubrik ${rubrik.name}`
+        : `Naskah diperbarui oleh Redaksi (Status: ${data.status})`,
       createdAt: now,
     });
 
@@ -1363,12 +1363,12 @@ export async function saveArticleByAdmin(
   }
 
   const newId = `art-admin-${Date.now()}`;
-  const newSlug = `${slugify(data.title || "naskah-agen-belokan")}-${newId.slice(-4)}`;
+  const newSlug = `${slugify(data.title || "naskah-redaksi")}-${newId.slice(-4)}`;
 
   const newArticle: ContributorArticleItem = {
     id: newId,
     authorId: data.authorId || adminId,
-    title: data.title || "Naskah Agen Belokan BELOKIRI",
+    title: data.title || "Naskah Redaksi BAKUBACA",
     slug: newSlug,
     content: data.content || "",
     excerpt: data.excerpt || null,
@@ -1404,8 +1404,8 @@ export async function saveArticleByAdmin(
     targetTitle: newArticle.title,
     targetId: newArticle.id,
     note: isPublished
-      ? `Artikel baru diterbitkan langsung oleh Agen Belokan di Rubrik ${rubrik.name}`
-      : `Draf naskah baru dibuat oleh Agen Belokan (Status: ${data.status})`,
+      ? `Artikel baru diterbitkan langsung oleh Redaksi di Rubrik ${rubrik.name}`
+      : `Draf naskah baru dibuat oleh Redaksi (Status: ${data.status})`,
     createdAt: now,
   });
 

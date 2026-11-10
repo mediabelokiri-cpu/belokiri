@@ -131,13 +131,13 @@ export default function AdminSuratKalengPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-zinc-200">
         <div>
           <span className="text-xs font-black uppercase tracking-widest text-red-600 bg-red-50 border border-red-200 px-3 py-1 rounded-full">
-            KOTAK SUARA RAKYAT
+            KOTAK SUARA WARGA
           </span>
           <h1 className="text-2xl sm:text-3xl font-black text-black tracking-tight uppercase mt-2">
             Kotak Masuk Surat Kaleng Warga
           </h1>
           <p className="text-xs sm:text-sm text-zinc-500 font-normal mt-1">
-            Kritik, saran, ocehan, dan aspirasi anonim dari warga yang dikirimkan melalui form footer.
+            Kritik, saran, ocehan, dan aspirasi anonim dari Warga yang dikirimkan melalui kanal Surat Kaleng Warga di beranda.
           </p>
         </div>
 
@@ -175,8 +175,8 @@ export default function AdminSuratKalengPage() {
       </div>
 
       {errorMsg && (
-        <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-3">
-          <AlertCircle className="w-5 h-5 shrink-0 text-red-600" />
+        <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-3">
+          <AlertCircle className="w-5 h-5 shrink-0 text-rose-600" />
           <span className="font-semibold">{errorMsg}</span>
         </div>
       )}
@@ -301,7 +301,7 @@ export default function AdminSuratKalengPage() {
 
                   <button
                     onClick={() => deleteLetter(letter.id)}
-                    className="p-2 rounded-xl text-zinc-400 hover:text-red-600 hover:bg-zinc-100 transition-colors cursor-pointer"
+                    className="p-2 rounded-xl text-zinc-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                     title="Hapus Surat"
                   >
                     <Trash2 className="w-4 h-4" />

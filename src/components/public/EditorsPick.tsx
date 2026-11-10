@@ -15,19 +15,19 @@ export default function EditorsPick({ articles }: EditorsPickProps) {
   const sidePicks = articles.slice(1, 5);
 
   return (
-    <section className="rounded-2xl bg-black text-white p-6 sm:p-8 lg:p-10 shadow-xl border border-zinc-800">
+    <section className="rounded-2xl bg-[#1f1f1f] text-white p-6 sm:p-8 lg:p-10 shadow-xl border border-zinc-800">
       {/* Header Section */}
       <div className="flex items-center justify-between pb-5 mb-6 border-b border-zinc-800">
         <div className="flex items-center gap-2.5">
-          <div className="p-1.5 rounded-sm bg-red-600 text-white">
-            <Star className="w-5 h-5 fill-white" />
+          <div className="p-1.5 rounded-sm bg-[#4c13ff] text-white">
+            <Star className="w-5 h-5 text-[#ffc22f] fill-[#ffc22f]" />
           </div>
           <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white">
-            PILIHAN AGEN BELOKAN
+            PILIHAN REDAKSI
           </h2>
         </div>
         <span className="text-xs text-zinc-400 font-medium hidden sm:inline-block">
-          Kurasi artikel analisis & investigasi berbobot minggu ini
+          Kurasi naskah esai, laporan, dan refleksi terpilih minggu ini
         </span>
       </div>
 
@@ -54,14 +54,14 @@ export default function EditorsPick({ articles }: EditorsPickProps) {
               <div className="mb-3">
                 <Link
                   href={`/kategori/${mainPick.rubrik.slug}`}
-                  className="inline-block px-2.5 py-1 rounded-sm text-[10px] font-black uppercase tracking-wider bg-red-600 text-white shadow-md hover:bg-white hover:text-black transition-colors"
+                  className="inline-block px-2.5 py-1 rounded-sm text-[10px] font-black uppercase tracking-wider bg-[#4c13ff] text-white shadow-md hover:bg-[#ffc22f] hover:text-[#1f1f1f] transition-colors"
                 >
                   {mainPick.rubrik.name}
                 </Link>
               </div>
 
               <Link href={`/artikel/${mainPick.slug}`}>
-                <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white leading-snug group-hover:text-red-400 transition-colors tracking-tight line-clamp-3">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white leading-snug group-hover:text-[#ffc22f] transition-colors tracking-tight line-clamp-3">
                   {mainPick.title}
                 </h3>
               </Link>
@@ -82,21 +82,21 @@ export default function EditorsPick({ articles }: EditorsPickProps) {
             {sidePicks.map((pick, idx) => (
               <article key={pick.id} className="group py-3.5 first:pt-0 last:pb-0">
                 <div className="flex items-center gap-2 mb-1.5">
-                  <span className="text-[10px] font-mono font-bold text-red-500">
+                  <span className="text-[10px] font-mono font-bold text-[#ffc22f]">
                     0{idx + 2}
                   </span>
                   <Link
                     href={`/kategori/${pick.rubrik.slug}`}
-                    className="text-[10px] font-black uppercase tracking-wider text-red-500 hover:underline"
+                    className="text-[10px] font-black uppercase tracking-wider text-[#ffc22f] hover:underline"
                   >
                     {pick.rubrik.name}
                   </Link>
-                  <span className="text-[10px] text-zinc-500 font-medium">
+                  <span className="text-[10px] text-zinc-400 font-medium">
                     • {formatDate(pick.publishedAt)}
                   </span>
                 </div>
                 <Link href={`/artikel/${pick.slug}`}>
-                  <h4 className="text-sm sm:text-base font-bold text-white leading-snug group-hover:text-red-400 transition-colors line-clamp-2">
+                  <h4 className="text-sm sm:text-base font-bold text-white leading-snug group-hover:text-[#ffc22f] transition-colors line-clamp-2">
                     {pick.title}
                   </h4>
                 </Link>
@@ -104,7 +104,7 @@ export default function EditorsPick({ articles }: EditorsPickProps) {
                   <span>Oleh</span>
                   <Link
                     href={`/penulis/${pick.author.slug}`}
-                    className="text-zinc-300 font-semibold hover:text-red-400 transition-colors"
+                    className="text-zinc-300 font-semibold hover:text-[#ffc22f] transition-colors"
                   >
                     {pick.author.name}
                   </Link>

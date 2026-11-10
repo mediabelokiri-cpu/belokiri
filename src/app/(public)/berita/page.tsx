@@ -7,8 +7,8 @@ import ArticleCard from "@/components/public/ArticleCard";
 import { Newspaper } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Arsip Berita & Tulisan Terkini | BELOKIRI",
-  description: "Indeks seluruh kabar, analisis, dan perspektif terbaru yang diterbitkan oleh BELOKIRI.",
+  title: "Indeks Berita & Tulisan Terkini | BAKUBACA",
+  description: "Indeks seluruh kabar, esai, dan gagasan terbaru yang diterbitkan oleh BAKUBACA.",
 };
 
 export default async function BeritaPage() {
@@ -30,7 +30,7 @@ export default async function BeritaPage() {
             BERITA & TULISAN TERKINI
           </h1>
           <p className="text-sm text-zinc-600 mt-1 font-normal">
-            Menampilkan seluruh tulisan terverifikasi Agen Belokan secara kronologis.
+            Menampilkan seluruh tulisan terverifikasi Warga dan Redaksi secara kronologis.
           </p>
         </div>
 
@@ -69,7 +69,7 @@ export default async function BeritaPage() {
             Belum Ada Artikel yang Diterbitkan
           </h2>
           <p className="text-xs text-zinc-500 max-w-sm mx-auto mt-1">
-            Redaksi BELOKIRI belum menerbitkan naskah di indeks ini. Jadilah penulis pertama yang berkontribusi!
+            Redaksi BAKUBACA belum menerbitkan naskah di indeks ini. Jadilah Warga pertama yang berkontribusi!
           </p>
           <div className="pt-4">
             <Link

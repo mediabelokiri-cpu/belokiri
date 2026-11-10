@@ -9,7 +9,7 @@ export const revalidate = 60;
 export async function generateMetadata(): Promise<Metadata> {
   const { page } = await getCustomPageAction("rekrutmen");
   return {
-    title: page.metaTitle || `${page.title} | BELOKIRI`,
+    title: page.metaTitle || `${page.title} | BAKUBACA`,
     description: page.metaDescription,
   };
 }
@@ -59,23 +59,23 @@ export default async function RekrutmenPage() {
         {/* Dynamic Registration Status Banner & CTA */}
         <div className="pt-6 border-t border-zinc-200">
           {isOpen ? (
-            <div className="p-6 sm:p-8 rounded-2xl bg-black text-white text-center space-y-4 shadow-lg border-t-4 border-red-600">
-              <span className="text-xs font-black uppercase tracking-widest text-emerald-400">
-                Daftar Jadi Agen Belokan
+            <div className="p-6 sm:p-8 rounded-2xl bg-[#1f1f1f] text-white text-center space-y-4 shadow-lg border-t-4 border-[#4c13ff]">
+              <span className="text-xs font-black uppercase tracking-widest text-[#ffc22f]">
+                Panggilan Kolaborasi Redaksi
               </span>
               <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
-                Siap Menjadi Agen Belokan?
+                Siap Bergabung di Tim Redaksi?
               </h3>
-              <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto">
-                Isi formulir pendaftaran, lampirkan gagasan tulisan, dan bergabunglah bersama redaksi Belokiri.
+              <p className="text-xs sm:text-sm text-zinc-300 max-w-md mx-auto">
+                Isi formulir pendaftaran, lampirkan gagasan tulisan, dan bergabunglah merawat ruang gagasan BAKUBACA.
               </p>
               <div className="pt-2">
                 <Link
                   href="/rekrutmen/form"
-                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-red-600 text-white text-xs sm:text-sm font-black uppercase tracking-wider hover:bg-red-700 transition-all shadow-md active:scale-95 group cursor-pointer"
+                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-[#ffc22f] text-[#1f1f1f] text-xs sm:text-sm font-black uppercase tracking-wider hover:bg-amber-300 transition-all shadow-md active:scale-95 group cursor-pointer"
                 >
                   <Send className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                  <span>Isi Formulir Pendaftaran Agen</span>
+                  <span>Isi Formulir Rekrutmen Redaksi</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
@@ -89,7 +89,7 @@ export default async function RekrutmenPage() {
                 Pendaftaran Sedang Ditutup
               </h3>
               <p className="text-xs sm:text-sm text-zinc-600 max-w-md mx-auto">
-                Pendaftaran calon agen saat ini belum dibuka kembali. Pantau terus akun media sosial resmi BELOKIRI untuk pengumuman batch berikutnya.
+                Pendaftaran calon anggota redaksi saat ini belum dibuka kembali. Pantau terus kanal resmi BAKUBACA untuk pengumuman batch berikutnya.
               </p>
             </div>
           )}
