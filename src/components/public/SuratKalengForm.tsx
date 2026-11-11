@@ -280,7 +280,7 @@ export default function SuratKalengForm({
             }
           }}
           onKeyDown={handleKeyDown}
-          placeholder="Tumpahkan kritik, saran, keresahan, atau gagasanmu di sini..."
+          placeholder="Tumpahkan kritik, saran, keresahan atau sekedar bakusapa"
           className={`w-full min-h-[120px] px-3.5 py-3 rounded-xl bg-white border text-base text-[#1f1f1f] placeholder:text-zinc-500 transition-colors font-medium resize-y leading-relaxed focus-visible:outline-2 focus-visible:outline-[#4c13ff] focus-visible:outline-offset-2 ${
             pesanError
               ? "border-rose-700 bg-rose-50/40"

@@ -326,7 +326,7 @@ export default function SuratKalengSection({
                 id="surat-kaleng-form-heading"
                 className="text-sm font-black uppercase tracking-wider text-[#1f1f1f]"
               >
-                Tulis &amp; Kirim Surat Kaleng
+                Kirim Surat Kaleng atau Bakusapa
               </h3>
               <p className="text-xs text-zinc-600 mt-1">
                 Bisa pakai nama samaran atau tetap tampil sebagai Warga Anonim.
