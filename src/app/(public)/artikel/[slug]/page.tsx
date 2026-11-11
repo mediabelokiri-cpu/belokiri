@@ -298,33 +298,33 @@ export default async function ArticleDetailPage({
             />
 
             {/* Author Profile Card */}
-            <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-zinc-50 border border-zinc-200 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+            <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-zinc-50 border border-zinc-200 flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-center sm:text-left">
               <AuthorAvatar
                 src={article.author.avatarUrl}
                 alt={article.author.name}
                 size="lg"
                 className="ring-2 ring-red-600"
               />
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] font-black uppercase tracking-wider text-red-600">
-                      Penulis BAKUBACA
-                    </span>
-                    <h4 className="text-base font-black text-black">
-                      {article.author.name}
-                    </h4>
-                  </div>
-                  <Link
-                    href={`/penulis/${article.author.slug}`}
-                    className="text-xs font-black text-red-600 hover:text-black transition-colors uppercase tracking-wider"
-                  >
-                    Semua Tulisan →
-                  </Link>
+              <div className="flex-1 min-w-0 w-full grid grid-cols-1 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-x-4">
+                <div>
+                  <span className="block text-[10px] font-black uppercase tracking-wider text-red-600">
+                    Penulis BAKUBACA
+                  </span>
+                  <h4 className="text-base font-black text-black mt-0.5">
+                    {article.author.name}
+                  </h4>
                 </div>
-                <p className="mt-2 text-xs sm:text-sm text-zinc-600 leading-relaxed font-normal">
-                  {article.author.bio}
-                </p>
+                {article.author.bio && (
+                  <p className="mt-2.5 sm:mt-2 sm:col-span-2 sm:row-start-2 max-w-md mx-auto sm:max-w-none sm:mx-0 text-xs sm:text-sm text-zinc-600 leading-relaxed font-normal">
+                    {article.author.bio}
+                  </p>
+                )}
+                <Link
+                  href={`/penulis/${article.author.slug}`}
+                  className="mt-3.5 sm:mt-0 sm:col-start-2 sm:row-start-1 justify-self-center sm:justify-self-end inline-flex items-center justify-center py-1.5 px-2 sm:p-0 text-xs font-black text-red-600 hover:text-black transition-colors uppercase tracking-wider shrink-0"
+                >
+                  Semua Tulisan →
+                </Link>
               </div>
             </div>
 
