@@ -2,11 +2,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { Mail } from "lucide-react";
 import { getSiteSettingsAction } from "@/actions/settings.actions";
-import { defaultSiteSettings } from "@/lib/data/site-settings";
+import { defaultSiteSettings, FullSiteSettings } from "@/lib/data/site-settings";
 
-export default async function Footer() {
-  const res = await getSiteSettingsAction();
-  const settings = res.settings || defaultSiteSettings;
+export default async function Footer({
+  initialSettings,
+}: {
+  initialSettings?: FullSiteSettings;
+} = {}) {
+  const settings =
+    initialSettings || (await getSiteSettingsAction()).settings || defaultSiteSettings;
   const identity = settings.identity || defaultSiteSettings.identity;
   const social = settings.social || defaultSiteSettings.social;
 

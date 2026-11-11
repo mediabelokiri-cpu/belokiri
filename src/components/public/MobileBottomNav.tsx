@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Search, X, ArrowUpRight } from "lucide-react";
 import { MOCK_RUBRIKS } from "@/lib/data/mock-articles";
+import { defaultSiteSettings } from "@/lib/data/site-settings";
 
 function NavHomeIcon() {
   return (
@@ -172,8 +173,14 @@ function isMenuDirectoryPath(pathname: string): boolean {
   );
 }
 
-export default function MobileBottomNav() {
+export default function MobileBottomNav({
+  copyrightText,
+}: {
+  copyrightText?: string;
+}) {
   const pathname = usePathname();
+  const displayCopyright =
+    copyrightText || defaultSiteSettings.identity.copyrightText;
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -586,6 +593,13 @@ export default function MobileBottomNav() {
                 })}
               </div>
             </section>
+
+            {/* Copyright */}
+            <div className="pt-4 border-t border-zinc-100 text-center">
+              <p className="text-[11px] text-zinc-500 font-medium leading-relaxed">
+                {displayCopyright}
+              </p>
+            </div>
           </div>
         </div>
       </dialog>
