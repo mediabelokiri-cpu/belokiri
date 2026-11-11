@@ -555,21 +555,16 @@ export default async function KirimTulisanPage() {
       )}
 
       {/* Section 4: Final CTA */}
-      <section className="p-8 sm:p-12 rounded-3xl bg-[#1f1f1f] text-white text-center space-y-6 border-t-4 border-[#4c13ff] shadow-xl">
-        <div className="space-y-2">
-          <span className="text-xs font-black uppercase tracking-widest text-[#ffc22f]">
-            Meja Naskah Terbuka
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
-            Jadi, Punya Tulisan?
-          </h2>
-        </div>
+      <section className="p-8 sm:p-12 rounded-3xl bg-[#4c13ff] text-white text-center space-y-5 border border-[#3d0dd9] shadow-xl">
+        <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
+          Jadi, Punya Tulisan?
+        </h2>
 
-        <p className="text-xs sm:text-sm text-zinc-300 max-w-xl mx-auto font-normal leading-relaxed">
+        <p className="text-xs sm:text-sm text-white/90 max-w-xl mx-auto font-normal leading-relaxed">
           Kirimkan. Tulisanmu akan dibaca dan dipertimbangkan oleh redaksi BAKUBACA. Tidak semua tulisan akan diterbitkan, tetapi setiap tulisan punya kesempatan untuk menjadi bagian dari percakapan.
         </p>
 
-        <p className="text-xs sm:text-sm text-zinc-400 max-w-lg mx-auto italic">
+        <p className="text-xs sm:text-sm text-white/80 max-w-lg mx-auto italic">
           Kalau tulisanmu punya gagasan, punya cerita, dan punya alasan untuk dibaca orang lain—barangkali BAKUBACA adalah tempatnya.
         </p>
 
@@ -589,7 +584,7 @@ export default async function KirimTulisanPage() {
             </Link>
           </div>
 
-          <p className="text-[11px] text-zinc-400 font-normal">
+          <p className="text-[11px] text-white/80 font-normal">
             Cukup masuk dengan akun Google untuk langsung membuka meja editor draf naskah.
           </p>
         </div>

@@ -117,19 +117,16 @@ export default async function KontakPage() {
         </div>
 
         {/* Warga Bakubaca Card */}
-        <div className="rounded-3xl bg-[#1f1f1f] text-white border-t-4 border-t-[#4c13ff] p-8 flex flex-col justify-between shadow-lg">
+        <div className="rounded-3xl bg-[#4c13ff] text-white border border-[#3d0dd9] p-8 flex flex-col justify-between shadow-xl">
           <div className="space-y-4">
-            <span className="text-[10px] font-black uppercase tracking-wider text-white bg-[#4c13ff] px-3 py-1 rounded-sm inline-block shadow-xs">
-              Panduan Warga
-            </span>
             <h3 className="text-2xl font-black uppercase tracking-tight text-white">
               Ingin Mengirimkan Tulisan?
             </h3>
-            <p className="text-xs text-zinc-300 leading-relaxed font-normal">
+            <p className="text-xs text-white/90 leading-relaxed font-normal">
               Anda tidak perlu mengirimkan naskah dalam lampiran email manual.
               Platform BAKUBACA menyediakan meja penulisan terintegrasi bagi Warga:
             </p>
-            <ul className="text-xs text-zinc-300 space-y-2 list-disc pl-4 font-normal">
+            <ul className="text-xs text-white/90 space-y-2 list-disc pl-4 font-normal">
               <li>Login dengan akun Google atau akun Warga.</li>
               <li>Tulis langsung naskah di editor BAKUBACA.</li>
               <li>Pilih rubrik yang sesuai (Bising, Jejak, Teras, Gurat, Fragmen).</li>
@@ -137,7 +134,7 @@ export default async function KontakPage() {
             </ul>
           </div>
 
-          <div className="pt-6 mt-6 border-t border-zinc-800">
+          <div className="pt-6 mt-6 border-t border-white/20">
             <Link
               href="/kirim-tulisan"
               className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-lg bg-[#ffc22f] hover:bg-amber-300 text-[#1f1f1f] text-xs font-black uppercase tracking-wider shadow transition-colors"

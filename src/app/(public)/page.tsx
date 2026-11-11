@@ -17,7 +17,7 @@ import ArticleCard from "@/components/public/ArticleCard";
 import EditorsPick from "@/components/public/EditorsPick";
 import MejaWarkopSection from "@/components/public/MejaWarkopSection";
 import SuratKalengSection from "@/components/public/SuratKalengSection";
-import { ArrowRight, Clock, Megaphone, PenLine, HeartHandshake } from "lucide-react";
+import { ArrowRight, Clock, Megaphone, PenLine } from "lucide-react";
 import { getSiteSettingsAction } from "@/actions/settings.actions";
 import { defaultSiteSettings } from "@/lib/data/site-settings";
 import { getPublicSuratKaleng } from "@/lib/data/surat-kaleng";
@@ -309,18 +309,13 @@ export default async function HomePage() {
       {/* ======================================================== */}
       {cta.donasiBanner?.enabled !== false && (
         <section className="max-w-6xl mx-auto px-4 sm:px-6 my-14">
-          <div className="relative rounded-3xl bg-[#1f1f1f] text-white p-8 sm:p-12 border-2 border-[#4c13ff] shadow-2xl overflow-hidden">
-            <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-[#4c13ff]/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative rounded-3xl bg-[#4c13ff] text-white p-8 sm:p-12 border border-[#3d0dd9] shadow-xl overflow-hidden">
             <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-              <div className="space-y-4 max-w-2xl">
-                <span className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-black uppercase tracking-widest text-[#ffc22f] bg-[#4c13ff]/25 border border-[#4c13ff]/50 px-3.5 py-1.5 rounded-full">
-                  <HeartHandshake className="w-3.5 h-3.5" />
-                  <span>{cta.donasiBanner?.badgeText || "DARI WARGA UNTUK WARGA"}</span>
-                </span>
+              <div className="space-y-3 max-w-2xl">
                 <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight uppercase leading-tight">
                   {cta.donasiBanner?.title || "PATUNGAN WARGA: JAGA BAKUBACA TETAP MENGUDARA"}
                 </h3>
-                <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-normal">
+                <p className="text-xs sm:text-sm text-white/90 leading-relaxed font-normal">
                   {cta.donasiBanner?.description ||
                     "Bakubaca hadir tanpa cukong dan tanpa iklan mengganggu. Kami hidup dari kemandirian dan sokongan Warga. Sisihkan secangkir kopi agar ruang baca dan gagasan bersama tetap menyala."}
                 </p>

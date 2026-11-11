@@ -955,14 +955,11 @@ export default function AdminSettingsPage() {
             </div>
 
             {/* Live Preview Card */}
-            <div className="p-6 rounded-2xl bg-[#1f1f1f] text-white space-y-4 border-2 border-[#4c13ff]">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#ffc22f] bg-[#4c13ff]/25 px-2.5 py-1 rounded-md border border-[#4c13ff]/50 inline-block">
-                {cta.donasiBanner?.badgeText || "DARI WARGA UNTUK WARGA"}
-              </span>
+            <div className="p-6 rounded-2xl bg-[#4c13ff] text-white space-y-3 border border-[#3d0dd9] shadow-lg">
               <h3 className="text-xl font-black uppercase tracking-tight text-white">
                 {cta.donasiBanner?.title || "PATUNGAN WARGA: JAGA BAKUBACA TETAP MENGUDARA"}
               </h3>
-              <p className="text-xs text-zinc-300 font-normal leading-relaxed">
+              <p className="text-xs text-white/90 font-normal leading-relaxed">
                 {cta.donasiBanner?.description ||
                   "Bakubaca hadir tanpa cukong dan tanpa iklan mengganggu. Kami hidup dari kemandirian dan sokongan Warga. Sisihkan secangkir kopi agar ruang baca dan gagasan bersama tetap menyala."}
               </p>

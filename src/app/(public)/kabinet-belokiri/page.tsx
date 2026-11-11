@@ -111,15 +111,12 @@ export default async function KabinetBelokiriPage() {
       </section>
 
       {/* Call to Action Rekrutmen */}
-      <section className="bg-[#1f1f1f] border-2 border-[#4c13ff] rounded-3xl p-8 sm:p-12 text-white shadow-xl text-center space-y-6">
-        <span className="inline-block text-[10px] font-black uppercase tracking-widest text-[#ffc22f] bg-[#4c13ff]/25 border border-[#4c13ff]/50 px-3 py-1 rounded-full">
-          PANGGILAN SOLIDARITAS
-        </span>
+      <section className="bg-[#4c13ff] border border-[#3d0dd9] rounded-3xl p-8 sm:p-12 text-white shadow-xl text-center space-y-5">
         <div className="space-y-3 max-w-xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">
             Ingin Mengisi Posisi di Redaksi BAKUBACA?
           </h2>
-          <p className="text-xs sm:text-sm text-zinc-300 font-normal leading-relaxed">
+          <p className="text-xs sm:text-sm text-white/90 font-normal leading-relaxed">
             Kolektif BAKUBACA selalu membuka pintu bagi kontributor dan editor baru: dari mengurusi kurasi naskah,
             desain visual & literasi, hingga menulis dan mengorganisir ruang gagasan Warga.
           </p>

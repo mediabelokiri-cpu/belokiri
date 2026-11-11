@@ -57,14 +57,11 @@ export default async function ManifestoPage() {
       </div>
 
       {/* CTA Box */}
-      <div className="p-8 sm:p-10 rounded-3xl bg-[#1f1f1f] text-white text-center space-y-4 border-t-4 border-[#4c13ff] shadow-xl">
-        <span className="text-xs font-black uppercase tracking-widest text-[#ffc22f]">
-          Meja Terbuka
-        </span>
+      <div className="p-8 sm:p-10 rounded-3xl bg-[#4c13ff] text-white text-center space-y-4 border border-[#3d0dd9] shadow-xl">
         <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
           Punya Kegelisahan yang Sama?
         </h3>
-        <p className="text-xs sm:text-sm text-zinc-300 max-w-lg mx-auto font-normal leading-relaxed">
+        <p className="text-xs sm:text-sm text-white/90 max-w-lg mx-auto font-normal leading-relaxed">
           Kirimkan tulisan, esai, catatan budaya, atau pengalamanmu ke meja redaksi BAKUBACA.
           Atau bergabunglah bersama kami melalui program Rekrutmen Redaksi.
         </p>
@@ -78,7 +75,7 @@ export default async function ManifestoPage() {
           </Link>
           <Link
             href="/rekrutmen"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-zinc-800 text-white text-xs font-black uppercase tracking-wider hover:bg-zinc-700 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/15 border border-white/25 text-white text-xs font-black uppercase tracking-wider hover:bg-white/25 transition-colors"
           >
             <span>Buka Halaman Rekrutmen</span>
           </Link>

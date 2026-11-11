@@ -59,14 +59,11 @@ export default async function RekrutmenPage() {
         {/* Dynamic Registration Status Banner & CTA */}
         <div className="pt-6 border-t border-zinc-200">
           {isOpen ? (
-            <div className="p-6 sm:p-8 rounded-2xl bg-[#1f1f1f] text-white text-center space-y-4 shadow-lg border-t-4 border-[#4c13ff]">
-              <span className="text-xs font-black uppercase tracking-widest text-[#ffc22f]">
-                Panggilan Kolaborasi Redaksi
-              </span>
+            <div className="p-6 sm:p-8 rounded-2xl bg-[#4c13ff] text-white text-center space-y-4 shadow-xl border border-[#3d0dd9]">
               <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
                 Siap Bergabung di Tim Redaksi?
               </h3>
-              <p className="text-xs sm:text-sm text-zinc-300 max-w-md mx-auto">
+              <p className="text-xs sm:text-sm text-white/90 max-w-md mx-auto">
                 Isi formulir pendaftaran, lampirkan gagasan tulisan, dan bergabunglah merawat ruang gagasan BAKUBACA.
               </p>
               <div className="pt-2">

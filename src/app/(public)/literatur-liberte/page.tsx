@@ -225,11 +225,11 @@ export default async function LiteraturLibertePage() {
       )}
 
       {/* Bottom CTA */}
-      <section className="bg-[#1f1f1f] text-white rounded-3xl p-8 sm:p-10 text-center space-y-4 border-t-4 border-[#4c13ff]">
+      <section className="bg-[#4c13ff] text-white rounded-3xl p-8 sm:p-10 text-center space-y-4 border border-[#3d0dd9] shadow-xl">
         <h3 className="text-2xl font-black uppercase tracking-tight text-white">
           Siap Mengasah Tulisanmu?
         </h3>
-        <p className="text-xs sm:text-sm text-zinc-300 max-w-md mx-auto font-normal">
+        <p className="text-xs sm:text-sm text-white/90 max-w-md mx-auto font-normal">
           Daftarkan dirimu dalam proses Rekrutmen BAKUBACA atau langsung kirimkan draf tulisan pertamamu.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
@@ -242,7 +242,7 @@ export default async function LiteraturLibertePage() {
           </Link>
           <Link
             href="/kirim-tulisan"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-zinc-800 text-white text-xs font-black uppercase tracking-wider hover:bg-zinc-700 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-white/15 border border-white/25 text-white text-xs font-black uppercase tracking-wider hover:bg-white/25 transition-colors"
           >
             <span>Kirim Naskah ke Redaksi</span>
           </Link>

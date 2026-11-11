@@ -17,7 +17,6 @@ import {
   Flame,
   ArrowRight,
   Sparkles,
-  HeartHandshake,
 } from "lucide-react";
 import { NewsArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { formatArticleContent } from "@/lib/security/sanitize";
@@ -330,16 +329,12 @@ export default async function ArticleDetailPage({
             </div>
 
             {/* Box Patungan Warga di Bawah Setiap Artikel */}
-            <div className="mt-8 p-6 sm:p-8 rounded-2xl bg-[#1f1f1f] text-white border-l-4 border-[#4c13ff] shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <div className="mt-8 p-6 sm:p-8 rounded-2xl bg-[#4c13ff] text-white border border-[#3d0dd9] shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-6">
               <div className="space-y-2 max-w-lg">
-                <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-[#ffc22f] bg-[#4c13ff]/25 px-2.5 py-1 rounded-md border border-[#4c13ff]/50">
-                  <HeartHandshake className="w-3 h-3" />
-                  <span>DARI WARGA UNTUK WARGA</span>
-                </span>
                 <h4 className="text-lg sm:text-xl font-black uppercase text-white tracking-tight">
                   Menyukai Tulisan Ini? Dukung BAKUBACA Tetap Mengudara
                 </h4>
-                <p className="text-xs text-zinc-300 font-normal leading-relaxed">
+                <p className="text-xs text-white/90 font-normal leading-relaxed">
                   Ruang bicara independen butuh amunisi agar tetap bebas dari sensor dan algoritma pasar. Sisihkan sedikit apresiasi untuk dapur redaksi Warga.
                 </p>
               </div>
