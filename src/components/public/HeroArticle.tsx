@@ -64,7 +64,7 @@ export default function HeroArticle({
                   src={activeArticle.featuredImage}
                   alt={activeArticle.title}
                   fill
-                  priority
+                  loading="eager"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover group-hover:scale-104 transition-transform duration-700 ease-out"
                 />
@@ -106,9 +106,9 @@ export default function HeroArticle({
               {/* Bottom: Title & Metadata & Dots */}
               <div className="relative z-10 p-5 sm:p-7 space-y-4">
                 <Link href={`/artikel/${activeArticle.slug}`} className="block">
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight group-hover:text-[#ffc22f] transition-colors tracking-tight drop-shadow-md">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight group-hover:text-[#ffc22f] transition-colors tracking-tight drop-shadow-md">
                     {activeArticle.title}
-                  </h1>
+                  </h2>
                 </Link>
 
                 <div className="pt-4 border-t border-white/20 flex items-center justify-between">

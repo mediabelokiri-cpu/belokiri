@@ -11,6 +11,7 @@ import {
   getAllRubriks,
 } from "@/lib/data/articles";
 import { formatDate } from "@/lib/utils";
+import HeroBanner from "@/components/public/HeroBanner";
 import HeroArticle from "@/components/public/HeroArticle";
 import ArticleCard from "@/components/public/ArticleCard";
 import EditorsPick from "@/components/public/EditorsPick";
@@ -55,10 +56,15 @@ export default async function HomePage() {
   return (
     <div className="w-full">
       {/* ======================================================== */}
+      {/* 0. HERO SECTION: ILUSTRASI DOODLE & TAGLINE BAKUBACA     */}
+      {/* ======================================================== */}
+      <HeroBanner />
+
+      {/* ======================================================== */}
       {/* 1. HERO 3-KOLOM (SLIDER + FOKUS + TERPOPULER)            */}
       {/* ======================================================== */}
       {heroArticles.length > 0 && (
-        <section className="w-full bg-white py-6 sm:py-8 border-b border-zinc-200 shadow-xs">
+        <section className="w-full bg-[#fbfaf8] py-6 sm:py-8 border-b border-zinc-200">
           <div className="w-full px-4 sm:px-6 lg:px-8 max-w-[1600px] mx-auto">
             <HeroArticle
               headlineArticles={heroArticles}

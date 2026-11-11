@@ -1,19 +1,58 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Search, Menu, X, PenSquare, UserCircle, HeartHandshake } from "lucide-react";
+import { Search, Menu, X, PenSquare, UserCircle, LogOut } from "lucide-react";
 import { MOCK_RUBRIKS } from "@/lib/data/mock-articles";
+import { logoutAction } from "@/actions/auth.actions";
+
+interface SessionUserSummary {
+  name: string;
+  role: string;
+}
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [authUser, setAuthUser] = useState<SessionUserSummary | null>(null);
   const pathname = usePathname();
+
+  const checkSession = useCallback(async () => {
+    try {
+      const res = await fetch("/api/auth/session", { cache: "no-store" });
+      if (!res.ok) return;
+      const data = (await res.json()) as {
+        authenticated?: boolean;
+        user?: SessionUserSummary | null;
+      };
+      setAuthUser(data.authenticated && data.user ? data.user : null);
+    } catch {
+      // Keep current header auth state if network check fails transiently
+    }
+  }, []);
+
+  useEffect(() => {
+    checkSession();
+
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") {
+        checkSession();
+      }
+    };
+
+    window.addEventListener("focus", checkSession);
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    return () => {
+      window.removeEventListener("focus", checkSession);
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [checkSession, pathname]);
 
   return (
     <>
-      <header className="sticky top-0 z-40 shadow-sm bg-[#4c13ff] border-b border-[#3d0dd9]">
+      <header className="sticky top-0 z-40 shadow-sm bg-[#4c13ff]">
         {/* 1. Main Masthead Bar (Logo, Search, Kirim Tulisan) */}
         <div>
           <div className="max-w-6xl mx-auto px-3 sm:px-6 py-3 sm:py-4.5 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
@@ -65,31 +104,29 @@ export default function Header() {
               </Link>
             </div>
 
-            {/* Right: Actions */}
+            {/* Right: Avatar (Logged Out) or Logout (Logged In) */}
             <div className="flex items-center justify-end gap-1 sm:gap-2.5">
-              <Link
-                href="/donasi"
-                className="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white hover:bg-zinc-100 text-[#1f1f1f] text-xs font-black uppercase tracking-wider shadow-sm transition-all transform active:scale-95 focus-visible:outline-3 focus-visible:outline-[#ffc22f] focus-visible:outline-offset-2 forced-colors:border forced-colors:border-[LinkText]"
-              >
-                <HeartHandshake className="w-3.5 h-3.5 text-[#4c13ff] shrink-0" aria-hidden="true" />
-                <span>Patungan Warga</span>
-              </Link>
-
-              <Link
-                href="/kirim-tulisan"
-                className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#ffc22f] hover:bg-amber-300 text-[#1f1f1f] text-xs font-black uppercase tracking-wider shadow-sm transition-all transform active:scale-95"
-              >
-                <PenSquare className="w-4 h-4 text-[#1f1f1f]" />
-                <span>Kirim Tulisan</span>
-              </Link>
-
-              <Link
-                href="/login"
-                className="p-2 rounded-xl text-white hover:bg-white/15 sm:hidden transition-colors"
-                aria-label="Masuk Akun"
-              >
-                <UserCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-              </Link>
+              {authUser ? (
+                <form action={logoutAction}>
+                  <button
+                    type="submit"
+                    aria-label={`Keluar dari akun ${authUser.name}`}
+                    title={`Keluar (${authUser.name})`}
+                    className="inline-flex items-center justify-center p-2 rounded-xl text-white hover:bg-white/15 transition-all transform active:scale-95 cursor-pointer focus-visible:outline-3 focus-visible:outline-[#ffc22f] focus-visible:outline-offset-2"
+                  >
+                    <LogOut className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
+                  </button>
+                </form>
+              ) : (
+                <Link
+                  href="/login"
+                  aria-label="Masuk Akun"
+                  title="Masuk / Daftar Akun"
+                  className="inline-flex items-center justify-center p-2 rounded-xl text-white hover:bg-white/15 transition-all transform active:scale-95 focus-visible:outline-3 focus-visible:outline-[#ffc22f] focus-visible:outline-offset-2"
+                >
+                  <UserCircle className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -104,10 +141,10 @@ export default function Header() {
               <Link
                 href="/berita"
                 aria-current={pathname === "/berita" ? "page" : undefined}
-                className={`py-2 px-2.5 sm:px-3 border-b-[3px] transition-all shrink-0 rounded-t-sm ${
+                className={`py-2 px-2.5 sm:px-3 rounded-lg transition-all shrink-0 ${
                   pathname === "/berita"
-                    ? "border-[#4c13ff] text-[#4c13ff] bg-[#f3efff] font-black"
-                    : "border-transparent text-[#1f1f1f] hover:text-[#4c13ff] hover:bg-[#f3efff]/60"
+                    ? "text-[#4c13ff] bg-[#f3efff] font-black"
+                    : "text-[#1f1f1f] hover:text-[#4c13ff] hover:bg-[#f3efff]/60"
                 }`}
               >
                 ⚡ TERKINI
@@ -119,10 +156,10 @@ export default function Header() {
                     key={rubrik.slug}
                     href={`/kategori/${rubrik.slug}`}
                     aria-current={isActive ? "page" : undefined}
-                    className={`py-2 px-2.5 sm:px-3 border-b-[3px] transition-all shrink-0 rounded-t-sm ${
+                    className={`py-2 px-2.5 sm:px-3 rounded-lg transition-all shrink-0 ${
                       isActive
-                        ? "border-[#4c13ff] text-[#4c13ff] bg-[#f3efff] font-black"
-                        : "border-transparent text-[#1f1f1f] hover:text-[#4c13ff] hover:bg-[#f3efff]/60"
+                        ? "text-[#4c13ff] bg-[#f3efff] font-black"
+                        : "text-[#1f1f1f] hover:text-[#4c13ff] hover:bg-[#f3efff]/60"
                     }`}
                   >
                     {rubrik.name}

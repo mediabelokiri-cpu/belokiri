@@ -11,7 +11,7 @@ export default async function Footer() {
   const social = settings.social || defaultSiteSettings.social;
 
   return (
-    <footer className="border-t-4 border-[#4c13ff] bg-[#1f1f1f] text-white">
+    <footer className="hidden md:block border-t-4 border-[#4c13ff] bg-[#1f1f1f] text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
           {/* Brand Col */}
