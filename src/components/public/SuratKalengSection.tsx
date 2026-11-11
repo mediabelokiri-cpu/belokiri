@@ -340,7 +340,7 @@ export default function SuratKalengSection({
 
           {/* Right Column: Real-Time Message Wall */}
           <div className="lg:col-span-7 p-6 sm:p-8 bg-zinc-50 flex flex-col">
-            <div className="flex items-center justify-between gap-3 mb-4 pb-3 border-b border-zinc-200/70">
+            <div className="shrink-0 flex items-center justify-between gap-3 mb-4 pb-3 border-b border-zinc-200/70">
               <h3 className="text-sm font-black uppercase tracking-wider text-[#1f1f1f]">
                 Dinding Suara Warga
               </h3>
@@ -350,7 +350,7 @@ export default function SuratKalengSection({
             </div>
 
             {messages.length === 0 ? (
-              <div className="flex-1 flex flex-col items-center justify-center text-center rounded-2xl bg-white p-8 sm:p-10 min-h-[300px] shadow-xs forced-colors:border forced-colors:border-[CanvasText]">
+              <div className="flex-1 flex flex-col items-center justify-center text-center rounded-2xl bg-white p-8 sm:p-10 shadow-xs forced-colors:border forced-colors:border-[CanvasText]">
                 <div className="w-12 h-12 rounded-2xl bg-[#f3efff] text-[#4c13ff] flex items-center justify-center mb-3">
                   <MailOpen className="w-6 h-6" aria-hidden="true" />
                 </div>
@@ -362,8 +362,14 @@ export default function SuratKalengSection({
                 </p>
               </div>
             ) : (
-              <div className="max-h-[460px] lg:max-h-[520px] overflow-y-auto overscroll-contain [scrollbar-gutter:stable] pr-1.5">
-                <ul className="space-y-3">
+              <div className="relative lg:flex-1 lg:min-h-0">
+                <div
+                  tabIndex={0}
+                  role="region"
+                  aria-label="Daftar surat kaleng warga"
+                  className="max-h-[380px] sm:max-h-[420px] lg:max-h-none lg:absolute lg:inset-0 overflow-y-auto overscroll-contain [scrollbar-gutter:stable] pr-1.5 rounded-2xl focus-visible:outline-2 focus-visible:outline-[#4c13ff] focus-visible:outline-offset-2"
+                >
+                  <ul className="space-y-3 pb-4">
                   {messages.map((msg) => {
                     const isNew = recentSet.has(msg.id);
                     return (
@@ -433,7 +439,14 @@ export default function SuratKalengSection({
                       </li>
                     );
                   })}
-                </ul>
+                  </ul>
+                </div>
+                {messages.length > 2 && (
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-zinc-50 via-zinc-50/75 to-transparent"
+                  />
+                )}
               </div>
             )}
           </div>
