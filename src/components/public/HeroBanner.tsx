@@ -8,14 +8,14 @@ export default function HeroBanner() {
       aria-labelledby="hero-banner-heading"
       className="w-full bg-white border-b border-zinc-200"
     >
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 pt-3 sm:pt-6 lg:pt-6 pb-0 flex flex-col lg:grid lg:grid-cols-12 lg:items-center lg:gap-8">
-        {/* Editorial Copy & Actions */}
-        <div className="lg:col-span-6 max-w-xl mx-auto lg:mx-0 text-center lg:text-left lg:py-8 space-y-2 sm:space-y-4">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 pt-4 pb-1 sm:pt-6 sm:pb-0 flex flex-col items-center lg:grid lg:grid-cols-12 lg:items-center lg:gap-8">
+        {/* Editorial Copy & Actions: inline pair (title left + CTA right) on mobile, stacked on sm+, left column on lg+ */}
+        <div className="lg:col-span-6 w-full max-w-xl mx-auto lg:mx-0 lg:py-8 flex flex-row sm:flex-col items-center lg:items-start justify-center sm:justify-start gap-3 min-[375px]:gap-4 sm:gap-4 text-left sm:text-center lg:text-left">
           <h1
             id="hero-banner-heading"
-            className="text-balance text-[clamp(1.875rem,1.25rem+2.4vw,3rem)] font-black text-[#1f1f1f] tracking-tight leading-[1.08]"
+            className="text-balance text-[clamp(1.25rem,4.8vw,1.625rem)] sm:text-[clamp(2rem,1.4rem+2.2vw,3rem)] font-black text-[#1f1f1f] tracking-tight leading-[1.08]"
           >
-            Setiap Pikiran{" "}
+            <span className="block sm:inline">Setiap Pikiran</span>{" "}
             <span className="whitespace-nowrap">Punya Ruang.</span>
           </h1>
 
@@ -26,10 +26,10 @@ export default function HeroBanner() {
           </p>
 
           {/* Primary & Secondary CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2 sm:gap-3 pt-0.5 sm:pt-1">
+          <div className="shrink-0 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2 sm:gap-3 sm:pt-1">
             <Link
               href="/kirim-tulisan"
-              className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-3 rounded-lg sm:rounded-xl bg-[#4c13ff] hover:bg-[#3d0dd9] text-white text-[11px] sm:text-sm font-black uppercase tracking-wider shadow-sm transition-all transform active:scale-95 focus-visible:outline-3 focus-visible:outline-[#1f1f1f] focus-visible:outline-offset-2"
+              className="whitespace-nowrap inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-3 rounded-lg sm:rounded-xl bg-[#4c13ff] hover:bg-[#3d0dd9] text-white text-[11px] sm:text-sm font-black uppercase tracking-wider shadow-sm transition-all transform active:scale-95 focus-visible:outline-3 focus-visible:outline-[#1f1f1f] focus-visible:outline-offset-2"
             >
               <PenSquare className="w-3.5 h-3.5 sm:w-4 sm:h-4" aria-hidden="true" />
               <span>Kirim Tulisan</span>
@@ -46,7 +46,7 @@ export default function HeroBanner() {
         </div>
 
         {/* Hero Illustration aligned to bottom border */}
-        <div className="lg:col-span-6 lg:self-end w-full max-w-sm sm:max-w-md lg:max-w-none mx-auto mt-3 sm:mt-5 lg:mt-0 pointer-events-none">
+        <div className="lg:col-span-6 lg:self-end w-full max-w-[380px] sm:max-w-md lg:max-w-none mx-auto mt-3 sm:mt-5 lg:mt-0 pointer-events-none">
           <Image
             src="/images/newbannerherosection.png"
             alt="Ilustrasi warga membawa poster Saya Akan Lawan, bersepeda, berorasi dengan megafon, membaca buku, dan berdiskusi bersama di Bakubaca"
